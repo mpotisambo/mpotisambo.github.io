@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Linux文件与目录管理 | Stuxnet8&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="Linux">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="Linux">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux文件与目录管理">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/5187/index.html">
+<meta property="og:site_name" content="Stuxnet8&#39;s blog">
+<meta property="og:description" content="Linux">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-14T12:00:06.872Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux文件与目录管理">
+<meta name="twitter:description" content="Linux">
+    
+        <link rel="alternate" type="application/atom+xml" title="Stuxnet8&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Stuxnet8</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Linux文件与目录管理</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一-目录与路径"><span class="post-toc-number">1.</span> <span class="post-toc-text">一.目录与路径</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-相对路径与绝对路径"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">1.相对路径与绝对路径</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-目录的相关操作"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">2.目录的相关操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#（1）切换目录：cd命令"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">（1）切换目录：cd命令</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#（2）显示当前所在目录：pwd命令"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">（2）显示当前所在目录：pwd命令</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#（3）建立新目录：mkdir命令"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">（3）建立新目录：mkdir命令</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#（4）删除目录：rmdir命令"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">（4）删除目录：rmdir命令</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二-文件与目录管理"><span class="post-toc-number">2.</span> <span class="post-toc-text">二.文件与目录管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-文件与目录的查看：ls命令"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">1.文件与目录的查看：ls命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-文件或目录的复制命令：cp命令"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">2.文件或目录的复制命令：cp命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-文件或目录的删除命令：rm命令"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">3.文件或目录的删除命令：rm命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-移动文件或目录命令或重命名：mv命令"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">4.移动文件或目录命令或重命名：mv命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-获取路径的文件名与目录名称：basename命令和dirname命令"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">5.获取路径的文件名与目录名称：basename命令和dirname命令</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三-文件内容查看"><span class="post-toc-number">3.</span> <span class="post-toc-text">三.文件内容查看</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-直接查看文件内容：cat，tac，nl命令"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">1.直接查看文件内容：cat，tac，nl命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-可翻页查看：more，less命令"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">2.可翻页查看：more，less命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-数据截取：head，tail命令"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">3.数据截取：head，tail命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-非纯文本文件读取：od命令"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">4.非纯文本文件读取：od命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-创建文件：touch命令"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">5.创建文件：touch命令</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#四-文件默认权限：umask"><span class="post-toc-number">4.</span> <span class="post-toc-text">四.文件默认权限：umask</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#五-文件隐藏属性"><span class="post-toc-number">5.</span> <span class="post-toc-text">五.文件隐藏属性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-设置文件隐藏属性：chattr命令"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">1.设置文件隐藏属性：chattr命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-显示文件隐藏属性：lsattr命令"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">2.显示文件隐藏属性：lsattr命令</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#六-观察文件类型：file命令"><span class="post-toc-number">6.</span> <span class="post-toc-text">六.观察文件类型：file命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#七-命令与文件的查找"><span class="post-toc-number">7.</span> <span class="post-toc-text">七.命令与文件的查找</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-脚本文件的查找：which命令"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">1.脚本文件的查找：which命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-文件的查找：whereis，locate-updatedb，find命令"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">2.文件的查找：whereis，locate/updatedb，find命令</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-Linux文件与目录管理"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Linux文件与目录管理</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2019-03-07 21:22:00" datetime="2019-03-07T13:22:00.000Z"  itemprop="datePublished">2019-03-07</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Linux/">Linux</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">14</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>包括在不同的目录间切换，建立与删除目录，建立与删除文件，查看文件内容等<a id="more"></a></p>
+<h2 id="一-目录与路径"><a href="#一-目录与路径" class="headerlink" title="一.目录与路径"></a>一.目录与路径</h2><h3 id="1-相对路径与绝对路径"><a href="#1-相对路径与绝对路径" class="headerlink" title="1.相对路径与绝对路径"></a>1.相对路径与绝对路径</h3><p>绝对路径：路径写法一定由<strong>根目录/</strong>写起，例如：/usr/share/doc这个目录</p>
+<p>相对路径：路径写法不是由根目录写起，指相对于当前工作目录的路径，例如：cd ../usr</p>
+<h3 id="2-目录的相关操作"><a href="#2-目录的相关操作" class="headerlink" title="2.目录的相关操作"></a>2.目录的相关操作</h3><h4 id="（1）切换目录：cd命令"><a href="#（1）切换目录：cd命令" class="headerlink" title="（1）切换目录：cd命令"></a>（1）切换目录：cd命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd [相对路径或绝对路径]</span><br><span class="line">cd . #代表此层目录</span><br><span class="line">cd .. #代表上一层目录</span><br><span class="line">cd ~ #代表目前使用者身份所在的家目录</span><br><span class="line">cd - #代表前一个工作目录</span><br><span class="line">cd ~account #代表account这个使用者的家目录</span><br></pre></td></tr></table></figure>
+<h4 id="（2）显示当前所在目录：pwd命令"><a href="#（2）显示当前所在目录：pwd命令" class="headerlink" title="（2）显示当前所在目录：pwd命令"></a>（2）显示当前所在目录：pwd命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:/var/www# pwd</span><br><span class="line">/var/www</span><br></pre></td></tr></table></figure>
+<h4 id="（3）建立新目录：mkdir命令"><a href="#（3）建立新目录：mkdir命令" class="headerlink" title="（3）建立新目录：mkdir命令"></a>（3）建立新目录：mkdir命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:/tmp# mkdir test</span><br><span class="line">root@ubuntu:/tmp# ls -dl test</span><br><span class="line">drwxr-xr-x 2 root root 4096 Mar  7 05:37 test</span><br><span class="line"></span><br><span class="line">root@ubuntu:/tmp# mkdir -p test1/test2/test3/test4 #-p代表递归建立目录</span><br><span class="line">root@ubuntu:/tmp# ls -dl test*</span><br><span class="line">drwxr-xr-x 2 root root 4096 Mar  7 05:37 test</span><br><span class="line">drwxr-xr-x 3 root root 4096 Mar  7 05:42 test1</span><br><span class="line"></span><br><span class="line">root@ubuntu:/tmp# mkdir -m 711 test2 #-m代表指定目录权限</span><br><span class="line">root@ubuntu:/tmp# ls -dl test*</span><br><span class="line">drwxr-xr-x 2 root root 4096 Mar  7 05:37 test</span><br><span class="line">drwxr-xr-x 3 root root 4096 Mar  7 05:42 test1</span><br><span class="line">drwx--x--x 2 root root 4096 Mar  7 05:43 test2</span><br></pre></td></tr></table></figure>
+<h4 id="（4）删除目录：rmdir命令"><a href="#（4）删除目录：rmdir命令" class="headerlink" title="（4）删除目录：rmdir命令"></a>（4）删除目录：rmdir命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:/tmp# rmdir test</span><br><span class="line">root@ubuntu:/tmp# ls -dl test*</span><br><span class="line">drwxr-xr-x 3 root root 4096 Mar  7 05:42 test1</span><br><span class="line">drwx--x--x 2 root root 4096 Mar  7 05:43 test2</span><br><span class="line"></span><br><span class="line">root@ubuntu:/tmp# rmdir test1</span><br><span class="line">rmdir: failed to remove `test1&apos;: Directory not empty #test1目录尚有内容，无法删除</span><br><span class="line"></span><br><span class="line">root@ubuntu:/tmp# rmdir -p test1/test2/test3/test4 #-p连通上层目录一起删除</span><br><span class="line">root@ubuntu:/tmp# ls -dl test*</span><br><span class="line">drwx--x--x 2 root root 4096 Mar  7 05:43 test2</span><br></pre></td></tr></table></figure>
+<h2 id="二-文件与目录管理"><a href="#二-文件与目录管理" class="headerlink" title="二.文件与目录管理"></a>二.文件与目录管理</h2><h3 id="1-文件与目录的查看：ls命令"><a href="#1-文件与目录的查看：ls命令" class="headerlink" title="1.文件与目录的查看：ls命令"></a>1.文件与目录的查看：ls命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls -a 显示全部文件，包括隐藏文件</span><br><span class="line">ls -d 仅列出目录本身，而不是列出目录内的文件数据</span><br><span class="line">ls -l 详细信息显示，包括文件的属性与权限等数据</span><br></pre></td></tr></table></figure>
+<h3 id="2-文件或目录的复制命令：cp命令"><a href="#2-文件或目录的复制命令：cp命令" class="headerlink" title="2.文件或目录的复制命令：cp命令"></a>2.文件或目录的复制命令：cp命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# cp .bashrc /tmp/test/bashrc</span><br><span class="line">root@ubuntu:~# ls /tmp/test</span><br><span class="line">bashrc</span><br><span class="line">root@ubuntu:~# cp -i .bashrc /tmp/test/bashrc #-i：若目标文件以及存在时，在覆盖时会先询问操作的进行</span><br><span class="line">cp: overwrite `/tmp/test/bashrc&apos;? y</span><br><span class="line"></span><br><span class="line">root@ubuntu:~# cp -a .bashrc /tmp/test/bashrc2 #-a：连同文件属性也一起复制过去</span><br><span class="line">root@ubuntu:~# ls -l /tmp/test/bashrc2 .bashrc</span><br><span class="line">-rw-r--r-- 1 root root 3106 Apr 19  2012 .bashrc</span><br><span class="line">-rw-r--r-- 1 root root 3106 Apr 19  2012 /tmp/test/bashrc2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:/tmp# ls -dl test*</span><br><span class="line">drwxr-xr-x 2 root root 4096 Mar  7 06:07 test</span><br><span class="line">drwxr-xr-x 2 root root 4096 Mar  7 18:11 test1</span><br><span class="line">root@ubuntu:/tmp# ls test1</span><br><span class="line">root@ubuntu:/tmp# cp test test1</span><br><span class="line">cp: omitting directory `test&apos;</span><br><span class="line">root@ubuntu:/tmp# cp -r test test1 #-r：如果是目录的复制需要加上-r的选项</span><br><span class="line">root@ubuntu:/tmp# ls test1</span><br><span class="line">test</span><br><span class="line">root@ubuntu:/tmp# ls test1/test</span><br><span class="line">bashrc  bashrc1  bashrc2</span><br></pre></td></tr></table></figure>
+<h3 id="3-文件或目录的删除命令：rm命令"><a href="#3-文件或目录的删除命令：rm命令" class="headerlink" title="3.文件或目录的删除命令：rm命令"></a>3.文件或目录的删除命令：rm命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:/tmp# rm test2</span><br><span class="line">rm: cannot remove `test2&apos;: Is a directory</span><br><span class="line">root@ubuntu:/tmp# rm -r test2 #当删除目录时，需要加上-r选项</span><br><span class="line">root@ubuntu:/tmp# ls -dl test*</span><br><span class="line">drwxr-xr-x 2 root root 4096 Mar  7 06:07 test</span><br><span class="line">drwxr-xr-x 3 root root 4096 Mar  7 18:12 test1</span><br><span class="line"></span><br><span class="line">root@ubuntu:/tmp# rm -ir test #加入-i选项，删除前会询问操作者是否操作，避免误删除</span><br><span class="line">rm: descend into directory `test&apos;? ^C #按下[ctrl]+c中断删除操作</span><br></pre></td></tr></table></figure>
+<h3 id="4-移动文件或目录命令或重命名：mv命令"><a href="#4-移动文件或目录命令或重命名：mv命令" class="headerlink" title="4.移动文件或目录命令或重命名：mv命令"></a>4.移动文件或目录命令或重命名：mv命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~/tmp# mkdir mvtest</span><br><span class="line">root@ubuntu:~/tmp# cp ~/.bashrc bashrc</span><br><span class="line">root@ubuntu:~/tmp# ls</span><br><span class="line">bashrc  mvtest</span><br><span class="line">root@ubuntu:~/tmp# mv bashrc mvtest #将bashrc文件移动到mvtest目录下</span><br><span class="line">root@ubuntu:~/tmp# ls</span><br><span class="line">mvtest</span><br><span class="line">root@ubuntu:~/tmp# ls mvtest</span><br><span class="line">bashrc</span><br><span class="line"></span><br><span class="line">root@ubuntu:~/tmp# ls</span><br><span class="line">mvtest  mvtest2</span><br><span class="line">root@ubuntu:~/tmp# mv mvtest mvtest2 #将mvtest目录移动到mvtest2目录下</span><br><span class="line">root@ubuntu:~/tmp# ls</span><br><span class="line">mvtest2</span><br><span class="line">root@ubuntu:~/tmp# ls mvtest2</span><br><span class="line">mvtest</span><br><span class="line"></span><br><span class="line">root@ubuntu:~/tmp# mv mvtest2 mvtest1 #将mvtest2目录重命名为mvtest1目录</span><br><span class="line">root@ubuntu:~/tmp# ls</span><br><span class="line">mvtest1</span><br><span class="line">root@ubuntu:~/tmp# ls mvtest1/</span><br><span class="line">mvtest</span><br><span class="line">root@ubuntu:~/tmp# ls mvtest1/mvtest/</span><br><span class="line">bashrc</span><br></pre></td></tr></table></figure>
+<h3 id="5-获取路径的文件名与目录名称：basename命令和dirname命令"><a href="#5-获取路径的文件名与目录名称：basename命令和dirname命令" class="headerlink" title="5.获取路径的文件名与目录名称：basename命令和dirname命令"></a>5.获取路径的文件名与目录名称：basename命令和dirname命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# basename /etc/sysconfig/network</span><br><span class="line">network #获取最后的文件名</span><br><span class="line">root@ubuntu:~# dirname /etc/sysconfig/network</span><br><span class="line">/etc/sysconfig #获取目录名</span><br></pre></td></tr></table></figure>
+<h2 id="三-文件内容查看"><a href="#三-文件内容查看" class="headerlink" title="三.文件内容查看"></a>三.文件内容查看</h2><h3 id="1-直接查看文件内容：cat，tac，nl命令"><a href="#1-直接查看文件内容：cat，tac，nl命令" class="headerlink" title="1.直接查看文件内容：cat，tac，nl命令"></a>1.直接查看文件内容：cat，tac，nl命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# cat /etc/passwd #从第一行开始显示文件内容</span><br><span class="line">root@ubuntu:~# tac /etc/passwd #从最后一行开始显示文件内容</span><br><span class="line">root@ubuntu:~# nl /etc/passwd  #在文件内容前加上行号</span><br></pre></td></tr></table></figure>
+<h3 id="2-可翻页查看：more，less命令"><a href="#2-可翻页查看：more，less命令" class="headerlink" title="2.可翻页查看：more，less命令"></a>2.可翻页查看：more，less命令</h3><p>cat命令是将文件内容一次性显示出来，没有一页一页翻动的功能，而<strong>more</strong>和<strong>less</strong>命令具有一页一页翻动的功能</p>
+<p>在more命令按以下键的功能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">空格键（space）：代表向下翻一页</span><br><span class="line">Enter：代表向下翻一行</span><br><span class="line">b或[ctrl]-b：代表往回翻页</span><br><span class="line">q：代表立刻离开more，不再显示该文件内容</span><br></pre></td></tr></table></figure>
+<p>在less命令按以下键的功能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">空格键：向下翻动一页</span><br><span class="line">[pagedown]：向下翻动一行</span><br><span class="line">[pageup]：向上翻动一行</span><br><span class="line">q：离开less程序</span><br></pre></td></tr></table></figure>
+<h3 id="3-数据截取：head，tail命令"><a href="#3-数据截取：head，tail命令" class="headerlink" title="3.数据截取：head，tail命令"></a>3.数据截取：head，tail命令</h3><p><strong>head</strong>命令能取出一个文件的前几行，<strong>tail</strong>则是取出文件的后几行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">head [-n number] 文件</span><br><span class="line">root@ubuntu:~# head /etc/manpath.config #默认显示前十行</span><br><span class="line">root@ubuntu:~# head -n 20 /etc/manpath.config #显示前二十行</span><br><span class="line">root@ubuntu:~# head -n -100 /etc/manpath.config #后一百行不会显示出来</span><br><span class="line"></span><br><span class="line">tail [-n number]文件</span><br><span class="line">root@ubuntu:~# tail /etc/manpath.config #默认显示最后十行</span><br><span class="line">root@ubuntu:~# tail -n 20 /etc/manpath.config #显示最后二十行</span><br><span class="line">root@ubuntu:~# tail -n +100 /etc/manpath.config #后一百行显示出来</span><br></pre></td></tr></table></figure>
+<h3 id="4-非纯文本文件读取：od命令"><a href="#4-非纯文本文件读取：od命令" class="headerlink" title="4.非纯文本文件读取：od命令"></a>4.非纯文本文件读取：od命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">od [-t TYPE] 文件</span><br><span class="line">可读取二进制等文件</span><br></pre></td></tr></table></figure>
+<h3 id="5-创建文件：touch命令"><a href="#5-创建文件：touch命令" class="headerlink" title="5.创建文件：touch命令"></a>5.创建文件：touch命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch 文件名</span><br></pre></td></tr></table></figure>
+<h2 id="四-文件默认权限：umask"><a href="#四-文件默认权限：umask" class="headerlink" title="四.文件默认权限：umask"></a>四.文件默认权限：umask</h2><p>当我们建立一个新的文件或目录时，它的默认权限与<code>umask</code>有关，它指定了目前用户在建立文件或目录时候的权限默认值，得知<code>umask</code>的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~/tmp# umask</span><br><span class="line">0022</span><br><span class="line">root@ubuntu:~/tmp# umask -S</span><br><span class="line">u=rwx,g=rx,o=rx</span><br></pre></td></tr></table></figure>
+<p>查看的方式有两种，一种可以直接输入<code>umask</code>，就可以看到数字类型的权限设置值，另一种则是加入<code>-S</code>这个选项，就会以符号类型的方式来显示出权限了</p>
+<p>但是要注意的是，这里umask的值并不直接是文件或目录的默认权限值，它规定的是是默认值需要减掉的权限，文件的默认权限值为：<code>-rw-rw-rw-</code>，即<code>666</code>；目录的默认权限值为<code>drwxrwxrwx</code>，即<code>777</code>，再减去umask指定的值，那么</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">建立文件时：(-rw-rw-rw-) - (-----w--w-) ==&gt; -rw-r--r--</span><br><span class="line">建立目录时：(drwxrwxrwx) - (d----w--w-) ==&gt; drwxr-xr-x</span><br></pre></td></tr></table></figure>
+<p>测试一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~/tmp# touch test1</span><br><span class="line">root@ubuntu:~/tmp# mkdir test2</span><br><span class="line">root@ubuntu:~/tmp# ls -dl test*</span><br><span class="line">-rw-r--r-- 1 root root    0 Mar 10 06:05 test1</span><br><span class="line">drwxr-xr-x 2 root root 4096 Mar 10 06:05 test2</span><br></pre></td></tr></table></figure>
+<p>修改umask值的方式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~/tmp# umask 002</span><br><span class="line">root@ubuntu:~/tmp# touch test3</span><br><span class="line">root@ubuntu:~/tmp# mkdir test4</span><br><span class="line">root@ubuntu:~/tmp# ls -dl test[34]</span><br><span class="line">-rw-rw-r-- 1 root root    0 Mar 10 06:16 test3</span><br><span class="line">drwxrwxr-x 2 root root 4096 Mar 10 06:16 test4</span><br></pre></td></tr></table></figure>
+<h2 id="五-文件隐藏属性"><a href="#五-文件隐藏属性" class="headerlink" title="五.文件隐藏属性"></a>五.文件隐藏属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">A  ：当设定了 A 这个属性时，若你有存取此档案(或目录)时，他的访问时间 atime</span><br><span class="line">     将不会被修改，可避免I/O较慢的机器过度的存取磁盘。这对速度较慢的计算机有帮助</span><br><span class="line">S  ：一般档案是异步写入磁盘的(原理请参考第五章sync的说明)，如果加上 S 这个</span><br><span class="line">     属性时，当你进行任何档案的修改，该更动会『同步』写入磁盘中。</span><br><span class="line">a  ：当设定 a 之后，这个档案将只能增加数据，而不能删除也不能修改数据，只有root </span><br><span class="line">     才能设定这个属性。 </span><br><span class="line">c  ：这个属性设定之后，将会自动的将此档案『压缩』，在读取的时候将会自动解压缩，</span><br><span class="line">     但是在储存的时候，将会先进行压缩后再储存(看来对于大档案似乎蛮有用的！)</span><br><span class="line">d  ：当 dump 程序被执行的时候，设定 d 属性将可使该档案(或目录)不会被 dump 备份</span><br><span class="line">i  ：这个 i 可就很厉害了！他可以让一个档案『不能被删除、改名、设定连结也无法</span><br><span class="line">     写入或新增资料！』对于系统安全性有相当大的帮助！只有 root 能设定此属性</span><br><span class="line">s  ：当档案设定了 s 属性时，如果这个档案被删除，他将会被完全的移除出这个硬盘</span><br><span class="line">     空间，所以如果误删了，完全无法救回来了喔！</span><br><span class="line">u  ：与 s 相反的，当使用 u 来配置文件案时，如果该档案被删除了，则数据内容其实还</span><br><span class="line">     存在磁盘中，可以使用来救援该档案喔！</span><br></pre></td></tr></table></figure>
+<h3 id="1-设置文件隐藏属性：chattr命令"><a href="#1-设置文件隐藏属性：chattr命令" class="headerlink" title="1.设置文件隐藏属性：chattr命令"></a>1.设置文件隐藏属性：chattr命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">chattr [+-=][ASacdistu] 档案或目录名称</span><br><span class="line">选项与参数：</span><br><span class="line">+   ：增加某一个特殊参数，其他原本存在参数则不动。</span><br><span class="line">-   ：移除某一个特殊参数，其他原本存在参数则不动。</span><br><span class="line">=   ：设定一定，且仅有后面接的参数</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~/tmp# chattr +i test3</span><br><span class="line">root@ubuntu:~/tmp# rm test3</span><br><span class="line">rm: cannot remove `test3&apos;: Operation not permitted</span><br></pre></td></tr></table></figure>
+<p>由于对文件test3附加了<code>i</code>的隐藏属性，所以无法删除</p>
+<h3 id="2-显示文件隐藏属性：lsattr命令"><a href="#2-显示文件隐藏属性：lsattr命令" class="headerlink" title="2.显示文件隐藏属性：lsattr命令"></a>2.显示文件隐藏属性：lsattr命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">lsattr [-adR] 档案或目录</span><br><span class="line">选项与参数：</span><br><span class="line">-a ：将隐藏文件的属性也秀出来；</span><br><span class="line">-d ：如果接的是目录，仅列出目录本身的属性而非目录内的文件名；</span><br><span class="line">-R ：连同子目录的数据也一并列出来！</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~/tmp# lsattr test3</span><br><span class="line">----i--------e- test3</span><br></pre></td></tr></table></figure>
+<h2 id="六-观察文件类型：file命令"><a href="#六-观察文件类型：file命令" class="headerlink" title="六.观察文件类型：file命令"></a>六.观察文件类型：file命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~/tmp# file ~/.bashrc </span><br><span class="line">/root/.bashrc: ASCII English text</span><br><span class="line">root@ubuntu:~/tmp# file /usr/bin/passwd</span><br><span class="line">/usr/bin/passwd: setuid ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=0xc101d30ff4513f2dbad17fcc483dcda4a38e1df0, stripped</span><br></pre></td></tr></table></figure>
+<h2 id="七-命令与文件的查找"><a href="#七-命令与文件的查找" class="headerlink" title="七.命令与文件的查找"></a>七.命令与文件的查找</h2><h3 id="1-脚本文件的查找：which命令"><a href="#1-脚本文件的查找：which命令" class="headerlink" title="1.脚本文件的查找：which命令"></a>1.脚本文件的查找：which命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">which [-a] command</span><br><span class="line">选项与参数：</span><br><span class="line">-a：将所有由PATH目录中科院找到的命令均列出，而不止第一个被找到的命令名称</span><br><span class="line"></span><br><span class="line">root@ubuntu:~/tmp# which passwd</span><br><span class="line">/usr/bin/passwd</span><br><span class="line">root@ubuntu:~/tmp# which ls</span><br><span class="line">/bin/ls</span><br><span class="line">root@ubuntu:~/tmp# which cd</span><br></pre></td></tr></table></figure>
+<p>可以发现有的命令是找不到的，因为which是默认找<strong>PATH内所规范的路径，去查找执行文件的文件名</strong></p>
+<h3 id="2-文件的查找：whereis，locate-updatedb，find命令"><a href="#2-文件的查找：whereis，locate-updatedb，find命令" class="headerlink" title="2.文件的查找：whereis，locate/updatedb，find命令"></a>2.文件的查找：whereis，locate/updatedb，find命令</h3><p><code>whereis</code>由一些特定的目录查找文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">whereis [-bmsu] 文件或目录名</span><br><span class="line"> </span><br><span class="line">-b 　只查找二进制文件。</span><br><span class="line">-B&lt;目录&gt; 　只在设置的目录下查找二进制文件。</span><br><span class="line">-f 　不显示文件名前的路径名称。</span><br><span class="line">-m 　只查找说明文件。</span><br><span class="line">-M&lt;目录&gt; 　只在设置的目录下查找说明文件。</span><br><span class="line">-s 　只查找原始代码文件。</span><br><span class="line">-S&lt;目录&gt; 　只在设置的目录下查找原始代码文件。</span><br><span class="line">-u 　查找不包含指定类型的文件。</span><br></pre></td></tr></table></figure>
+<p><code>locate</code>是在已建立的数据库<strong>/var/lib/mlocate</strong>里面的数据所查找到的，不用再去硬盘当中读取数据，所以较为快速，数据库默认一天更新一次，如果要手动更新数据库，需要输入<code>updatedb</code>命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">locate [-ir] keyword</span><br><span class="line"></span><br><span class="line">-i：忽略大小写的差异</span><br><span class="line">-l：仅输出几行的意思</span><br></pre></td></tr></table></figure>
+<p><code>find</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~/tmp# find /var -mtime +4 #+4代表大于等于5天前的文件</span><br><span class="line">root@ubuntu:~/tmp# find /var -mtime -4 #-4代表小于等于4天内的文件</span><br><span class="line">root@ubuntu:~/tmp# find /var -mtime 4  #4-5那一天的文件</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-03-14T12:00:06.872Z" itemprop="dateUpdated">2019-03-14 20:00:06</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/5187/" target="_blank" rel="external">https://Foxgrin.github.io/posts/5187/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Stuxnet8">
+            <a>Stuxnet8</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/5187/&title=《Linux文件与目录管理》 — Stuxnet8's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/5187/&title=《Linux文件与目录管理》 — Stuxnet8's blog&source=包括在不同的目录间切换，建立与删除目录，建立与删除文件，查看文件内容等" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/5187/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux文件与目录管理》 — Stuxnet8's blog&url=https://Foxgrin.github.io/posts/5187/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/5187/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/52227/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：代码审计--bluecms1.6
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/26833/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：Linux的文件权限与目录配置">下一篇：Linux的文件权限与目录配置</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Stuxnet8</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/5187/&title=《Linux文件与目录管理》 — Stuxnet8's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/5187/&title=《Linux文件与目录管理》 — Stuxnet8's blog&source=包括在不同的目录间切换，建立与删除目录，建立与删除文件，查看文件内容等" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/5187/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux文件与目录管理》 — Stuxnet8's blog&url=https://Foxgrin.github.io/posts/5187/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/5187/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxklEQVR42u3aQY6DMAwF0N7/0swBOsC3TdJWellVFcSPjeXYeb3idbyt9/+vnzzb7bVi4eLijrnH5boOkAfO97/5YFxc3I3cswDXz1yns7N3r5+/seHi4n4lt5fUkkSGi4v7u9z8OJSkP1xc3G/m5onmjD4pfZac1XBxcQfcvEu57veS/i4uLm6LexRX3iKZN0n/eQsXF3cLN08o1aHppEl6ExcXF3cxNw8zqTeSlJc0XHBxcfdzJ2Gql7GazRFcXNwt3HwoUg08b4Oe7oyLi7uF+1QJUqUkn1EYqODi4j7ETUqZeUHTG9uU+ze4uLgPcXtHlN6INElY5c/GxcVdwD0Ga940KY91cXFxv4CbI3oFU3k0i4uLu4Wbb5ckmkn6K7dKcXFxF3OvR569YmW+f3SPDBcXdzE32TRvlCQXLJpNGVxc3I3cvBmaUKpHo0IrFhcXdzF30iTtDVnzwggXF/dT3N6ItBcsL4keuMaBi4s75hbGnK1rW/mTSamEi4u7k1sdacyHrPnhChcX91e4k2sWSTord01wcXE/yk3C5zuXW6i4uLgbub2rV0+NTvNBLy4u7h7ufE6blCm9Y9Kov4uLi9vh/gG6F+IxFr/NkgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Stuxnet8");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

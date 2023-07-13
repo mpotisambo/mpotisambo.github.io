@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Python正则表达式 | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="Python">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="Python学习笔记">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python正则表达式">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/26030/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="Python学习笔记">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/Python正则/1.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Python正则/2.png">
+<meta property="og:updated_time" content="2018-07-21T14:22:28.172Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python正则表达式">
+<meta name="twitter:description" content="Python学习笔记">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/Python正则/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Python正则表达式</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#什么是正则"><span class="post-toc-number">1.</span> <span class="post-toc-text">什么是正则</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Python-正则表达式"><span class="post-toc-number">2.</span> <span class="post-toc-text">Python 正则表达式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实例"><span class="post-toc-number">3.</span> <span class="post-toc-text">实例</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#特殊字符"><span class="post-toc-number">4.</span> <span class="post-toc-text">特殊字符</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#字符集"><span class="post-toc-number">5.</span> <span class="post-toc-text">字符集</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数量词"><span class="post-toc-number">6.</span> <span class="post-toc-text">数量词</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#逻辑，分组"><span class="post-toc-number">7.</span> <span class="post-toc-text">逻辑，分组</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#贪婪模式和非贪婪模式"><span class="post-toc-number">8.</span> <span class="post-toc-text">贪婪模式和非贪婪模式</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-Python正则表达式"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Python正则表达式</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2018-07-21 14:53:00" datetime="2018-07-21T06:53:00.000Z"  itemprop="datePublished">2018-07-21</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Python学习笔记/">Python学习笔记</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">6</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>好久没复习Python了，感觉很多东西都快忘了，趁着假期赶紧补一补基础<a id="more"></a></p>
+<h2 id="什么是正则"><a href="#什么是正则" class="headerlink" title="什么是正则"></a>什么是正则</h2><p>正则表达式使用单个字符串来描述，匹配一系列符合某个句法规则的字符串，简单理解，就是对字符串的检索匹配和处理</p>
+<h2 id="Python-正则表达式"><a href="#Python-正则表达式" class="headerlink" title="Python 正则表达式"></a>Python 正则表达式</h2><p>Python通过re模块提供对正则表达式的支持</p>
+<p>1.先将正则表达式的字符串形式编译为Pattern实例；</p>
+<p>2.使用Pattern实例处理文本并获得匹配结果；</p>
+<p>3.使用实例获得信息，进行其他的操作。</p>
+<p>先熟知几个re模块常用的函数：</p>
+<p>(1)re.compile(pattern,flags=0)</p>
+<p>​    re.match(pattern,string,flags=0)</p>
+<p>来看下面一个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> re</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pattern = re.compile(<span class="string">'hello'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>match = pattern.match(<span class="string">'hello world'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(match.group())</span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
+<p>这个例子使用了re模块的compile函数生成一个正则表达式的pattern对象，该对象拥有一系列方法用于正则表达式的匹配和替换,简单而言就是规定了匹配的模式，而match函数则用来匹配，匹配成功则返回一个match对象，match对象通过group()返回被RE匹配的字符串</p>
+<p>(2)re.findall(pattern,string,flags=0)</p>
+<p>来看下面一个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> re</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.findall(<span class="string">'hello'</span>,<span class="string">'hello world'</span>)</span><br><span class="line">[<span class="string">'hello'</span>]</span><br></pre></td></tr></table></figure>
+<p>这个例子使用了re模块的findall函数遍历匹配，可以获取字符串中所有匹配的字符串，返回一个列表，跟compile函数不同在于，findall函数能搜素出所有符合的字符串组成一个列表</p>
+<p>(3)re.search(pattern,string,flags=0)</p>
+<p>来看下面一个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> re</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>match = re.search(<span class="string">'hello'</span>,<span class="string">'hello world'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>match.group()</span><br><span class="line"><span class="string">'hello'</span></span><br></pre></td></tr></table></figure>
+<p>这个例子使用了re模块的search函数，跟match函数一样，只找到第一个匹配的字符串然后返回一个match对象</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>抓取i春秋网页的课程信息</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Python正则/1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">url=<span class="string">"https://www.ichunqiu.com/courses/webaq"</span></span><br><span class="line">header=&#123;</span><br><span class="line">	<span class="string">'Host'</span>: <span class="string">'www.ichunqiu.com'</span>,</span><br><span class="line">	<span class="string">'Connection'</span>: <span class="string">'close'</span>,</span><br><span class="line">	<span class="string">'Cache-Control'</span>: <span class="string">'max-age=0'</span>,</span><br><span class="line">	<span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36'</span>,</span><br><span class="line">	<span class="string">'Upgrade-Insecure-Requests'</span>: <span class="string">'1'</span>,</span><br><span class="line">	<span class="string">'Accept'</span>: <span class="string">'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'</span>,</span><br><span class="line">	<span class="string">'Accept-Encoding'</span>: <span class="string">'gzip, deflate'</span>,</span><br><span class="line">	<span class="string">'Accept-Language'</span>: <span class="string">'zh-CN,zh;q=0.9'</span></span><br><span class="line">	&#125;</span><br><span class="line">r=requests.get(url,headers=header)</span><br><span class="line">r.encoding=r.apparent_encoding</span><br><span class="line">soup=BeautifulSoup(r.text,<span class="string">'html.parser'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#获取课程名称</span></span><br><span class="line">classname=[]</span><br><span class="line">l=soup.find_all(<span class="string">'div'</span>,class_=<span class="string">'coursename'</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> l:</span><br><span class="line">    classname.append(i[<span class="string">'title'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#获取课程价格</span></span><br><span class="line">cost=re.findall(<span class="string">r'\d*元|免费'</span>,str(soup))</span><br><span class="line"></span><br><span class="line"><span class="comment">#获取课程课时和总时间</span></span><br><span class="line">time=re.findall(<span class="string">r'\d*课时\d*分钟'</span>,str(soup))</span><br><span class="line"></span><br><span class="line"><span class="comment">#获取课程学习人数</span></span><br><span class="line">people=re.findall(<span class="string">r'\d*人学习'</span>,str(soup))</span><br><span class="line"></span><br><span class="line"><span class="comment">#整理课程所有信息</span></span><br><span class="line">classMessage=[]</span><br><span class="line">message=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">20</span>):</span><br><span class="line">    message.append(classname[i])</span><br><span class="line">    message.append(cost[i])</span><br><span class="line">    message.append(time[i])</span><br><span class="line">    message.append(people[i])</span><br><span class="line">    classMessage.append(message)</span><br><span class="line">    message=[]</span><br><span class="line">print(<span class="string">'&#123;0:30s&#125;\t&#123;1:8s&#125;\t&#123;2:15s&#125;\t&#123;3:15s&#125;'</span>.format(<span class="string">'课程名称'</span>,<span class="string">'价格'</span>,<span class="string">'课时及总时间'</span>,<span class="string">'学习人数'</span>,chr(<span class="number">12288</span>)))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> classMessage:</span><br><span class="line">    print(<span class="string">'&#123;0:30s&#125;\t&#123;1:8s&#125;\t&#123;2:15s&#125;\t&#123;3:15s&#125;'</span>.format(i[<span class="number">0</span>],i[<span class="number">1</span>],i[<span class="number">2</span>],i[<span class="number">3</span>],chr(<span class="number">12288</span>)))</span><br><span class="line">    print()</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Python正则/2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>最后这里因为中文英文字符所占字节不同，所以死活对不齐…也利用了chr(12288)填充的办法还是行不通，希望有大神能告知如何解决，感激不尽</p>
+<h2 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h2><table>
+<thead>
+<tr>
+<th>一般字符</th>
+<th>匹配自身</th>
+<th>abc</th>
+<th>abc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.</td>
+<td>匹配任意换行符”\n”以外的字符</td>
+<td>a.c</td>
+<td>abc</td>
+</tr>
+<tr>
+<td>\</td>
+<td>转义字符，是最后一个字符改变原来的意思。用于在正则表达式中转义一些特殊字符</td>
+<td><code>a\.c</code> <code>a\\c</code></td>
+<td>a.c       a\c</td>
+</tr>
+<tr>
+<td>[…]</td>
+<td>字符集。对应的位置可以是字符串集中任意1个字符。字符集中的字符可以逐个列出，也可以给出范围，如[abc]或[a-c]，第一个字符如果是^则表示取反，如<code>[^abc]</code>表示不是abc的其他字符。所有的特殊字符在字符集中都失去原来的特殊含义，在字符集中如果要使用]，-或^，可以在前面加上反斜杠</td>
+<td>a[bcd]e</td>
+<td>abe ace ade</td>
+</tr>
+</tbody>
+</table>
+<h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><table>
+<thead>
+<tr>
+<th>预定义字符（可以写在[…]中）</th>
+<th>含义</th>
+<th>例子</th>
+<th>符合匹配的例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\d</td>
+<td>数字：[0-9]</td>
+<td>a\dc</td>
+<td>a1c,a9c</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>非数字：<code>[^\d]</code></td>
+<td>a\Dc</td>
+<td>abc,a c</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>空白字符：[&lt;空格&gt;\t\r\f\v]</td>
+<td>a\sc</td>
+<td>a c</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>非空白字符：<code>[^\s]</code></td>
+<td>a\Sc</td>
+<td>abc,a1c</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>单词字符：[A-Za-z0-9]</td>
+<td>a\wc</td>
+<td>abc,a1c,aBc</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>非单词字符：<code>[^\w]</code></td>
+<td>a\Wc</td>
+<td>a c,a.c</td>
+</tr>
+</tbody>
+</table>
+<h2 id="数量词"><a href="#数量词" class="headerlink" title="数量词"></a>数量词</h2><table>
+<thead>
+<tr>
+<th>数量词</th>
+<th>含义</th>
+<th>例子</th>
+<th>符合匹配的例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td>匹配前一次字符0次或无限次</td>
+<td>abc*</td>
+<td>ab,abccc</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前一个字符1次或无限次</td>
+<td>abc+</td>
+<td>abc,abccc</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前一个字符0次或1次</td>
+<td>abc?</td>
+<td>ab,abc</td>
+</tr>
+<tr>
+<td>{m}</td>
+<td>匹配前一个字符m次</td>
+<td>ab{2}c</td>
+<td>abbc</td>
+</tr>
+<tr>
+<td>{m,n}</td>
+<td>匹配前一个字符m到n次</td>
+<td>ab{1,2}c</td>
+<td>abc,abbc</td>
+</tr>
+</tbody>
+</table>
+<h2 id="逻辑，分组"><a href="#逻辑，分组" class="headerlink" title="逻辑，分组"></a>逻辑，分组</h2><table>
+<thead>
+<tr>
+<th>字符</th>
+<th>含义</th>
+<th>例子</th>
+<th>符合匹配的例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>或运算符</td>
+<td>代表左右表达式任意匹配一个，它总是先尝试匹配左边的表达式，一旦成功匹配则跳过右边的表达式，如果或运算符没有包括在()中，则它的范围是整个正则表达式</td>
+<td>abc或def</td>
+<td>abc          def</td>
+</tr>
+<tr>
+<td>(…)</td>
+<td>被括起来的表达式将作为分组，从表达式左边开始每遇到一个分组的左括号，编号+1分组表达式作为一个整体，可以后接数量词，表达式中或运算符仅在该组中有效</td>
+<td>(abc){2}  a(123或456)c</td>
+<td>abcabc a123c,a456c</td>
+</tr>
+</tbody>
+</table>
+<h2 id="贪婪模式和非贪婪模式"><a href="#贪婪模式和非贪婪模式" class="headerlink" title="贪婪模式和非贪婪模式"></a>贪婪模式和非贪婪模式</h2><p>正则表达式通常用于在文本中查找匹配的字符串。Python里的数量词默认是贪婪的，意思是总是尝试匹配尽可能多的字符；非贪婪的则相反，总是尝试匹配尽可能少的字符。</p>
+<p>例如：正则表达式”ab*“如果用于查找”abbbc”，将匹配到”abbb”。而如果使用非贪婪方法(在数量词后面加上?，则使用非贪婪方法匹配)，如”ab*?”，将找到”a”</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-07-21T14:22:28.172Z" itemprop="dateUpdated">2018-07-21 22:22:28</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/26030/" target="_blank" rel="external">https://Foxgrin.github.io/posts/26030/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/26030/&title=《Python正则表达式》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/26030/&title=《Python正则表达式》 — Somnus's blog&source=好久没复习Python了，感觉很多东西都快忘了，趁着假期赶紧补一补基础" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/26030/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Python正则表达式》 — Somnus's blog&url=https://Foxgrin.github.io/posts/26030/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/26030/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/41404/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：Python网络编程(一)
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/51335/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：dvwa-Insecure CAPTCHA">下一篇：dvwa-Insecure CAPTCHA</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/26030/&title=《Python正则表达式》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/26030/&title=《Python正则表达式》 — Somnus's blog&source=好久没复习Python了，感觉很多东西都快忘了，趁着假期赶紧补一补基础" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/26030/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Python正则表达式》 — Somnus's blog&url=https://Foxgrin.github.io/posts/26030/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/26030/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABx0lEQVR42u3aQW7DMAwEwPz/0+61RWtnSVpyCoxPBepEo4sg7ub1ip/j8vn+zu/3r7/tteLBxcUdc3PK2TLX/71eJTfg4uLu554tcPZOvtj19nIDLi7uJ3PzbVQPMlxc3P/LTY6kZLzBxcX9fG418qgeXsmBePOshouLO+DmKeW6v5fku7i4uC3uUXySWOSukPSPT+Hi4m7h5gfKqPwohqRv6lhcXNyN3MkRM49FCpUtLi7uYm6yZDXgyIvYcjiCi4u7hTu5yuSDUC8GjS5DuLi4W7i9saRae1TDF1xc3J3cpDqdI3q1zZv8BhcXdxm3V43k28vjkjxmxcXFXc2tFqXVsGNesv5YERcXdwv3rh9mTUrWe69ZuLi4d3F7ZUaO6w1Rp0cYLi7uRm4ykCRXouohWD3scHFx93N7g01vWMqjUlxc3Ke4vaqj+iOM6hWn2QDj4uIOuEfxybvO6paizeDi4m7hrj68qqNUoRPGxcVdzJ3XnHmBmo86zYsOLi7urdxe0DkpWfOANYpFcHFxH+VWLzS9kLScmuDi4j7K7Y0384gWFxd3PzcZfpICtVedFr4ZFxd3C7dXfE6OuTxkGeW7uLi4He4XNpIp+PdyorYAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

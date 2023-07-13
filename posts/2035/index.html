@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Threat Intelligence| Stuxnet8&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="ctf">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="ctf">
+<meta name="keywords" content="ctf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="不含数字和字母的">
+<meta property="og:url" content="https://mpotisambo.github.io/posts/20456/index.html">
+<meta property="og:site_name" content="Stuxnet8&#39;s blog">
+<meta property="og:description" content="ctf">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://mpotisambo.github.io/img/Memory1/1.png">
+<meta property="og:image" content="https://mpotisambo.github.io/img/Memory1/2.png">
+<meta property="og:image" content="https://mpotisambo.github.io/img/Memory1/3.png">
+<meta property="og:image" content="https://mpotisambo.github.io/img/Memory1/4.png">
+<meta property="og:image" content="https://mpotisambo.github.io/img/Memory1/5.png">
+<meta property="og:image" content="https://mpotisambo.github.io/img/Memory1/7.png">
+<meta property="og:image" content="https://mpotisambo.github.io/img/Memory1/6.png">
+<meta property="og:image" content="https://mpotisambo.github.io/img/Memory1/8.png">
+<meta property="og:image" content="https://mpotisambo.github.io/img/Memory1/9.png">
+<meta property="og:image" content="https://mpotisambo.github.io/img/Memory1/10.png">
+<meta property="og:image" content="https://mpotisambo.github.io/img/Memory1/11.png">
+<meta property="og:image" content="https://mpotisambo.github.io/img/Memory1/12.png">
+<meta property="og:image" content="https://mpotisambo.github.io/img/Memory1/13.png">
+<meta property="og:image" content="https://mpotisambo.github.io/img/Memory1/14.png">
+<meta property="og:updated_time" content="2023-02-06T18:58:44.590Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="不含数字和字母的">
+<meta name="twitter:description" content="ctf">
+<meta name="twitter:image" content="https://mpotisambo.github.io/img/Memory1/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Stuxnet8&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/logo.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Stuxnet8</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>Home</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="#"  > <!--archives-->
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>Archive</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="#"  > <!--categories-->
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>Classification</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="#"  > <!--tags-->
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>Lable</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="#"  > <!--about-->
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>About</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:mpotisambo8@gmail.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://mpotisambo.github.io" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Stuxnet8</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+<article id="post-Bank-Trouble"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Title: Unleashing the Power of PowerShell Built-In Scripts: A Red Teamer's Perspective </h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            Date:
+            <time class="post-time" title="2023-05-29 14:31:00" datetime="2023-02-06T15:31:00.000Z"  itemprop="datePublished">2023-05-29</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	Type：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="#">ctf</a></li></ul>  <!--/categories/ctf/-->
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>views
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            Reading this article may take you&nbsp;<span class="post-count">6</span>Mins&nbsp;
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>AD-Enumeration<a id="more"></a></p>
+            <p><strong>
+
+ <p><strong>Greetings, fellow cybersecurity enthusiasts and red teamers! I am Stuxnet8, and today I invite you to dive into the captivating world of PowerShell built-in scripts. In this blog post, we will explore why these native capabilities are my preferred choice for conducting successful red teaming operations. So grab your digital notepads and let's embark on this thrilling journey together!</strong> </p>
+ <p><strong>In the realm of red teaming, efficiency, stealth, and adaptability are crucial elements to achieve our objectives. We constantly seek tools that provide us with the utmost control over our environment while remaining undetected by vigilant defenders. While there is a vast array of external scripts and frameworks available at our disposal, I firmly believe that harnessing the power of PowerShell's built-in scripts holds unmatched advantages.</strong></p>
+<p><strong>Why, you might ask? Well, let me shed light on three compelling reasons:</strong></p>
+<p><strong>1. Native Integration and Accessibility:</strong>
+  PowerShell, an incredibly versatile scripting language developed by Microsoft, is natively integrated into modern Windows operating systems. This integration means that PowerShell scripts can seamlessly interact with the underlying system components, granting red teamers unparalleled access to a vast range of functionalities. By relying on built-in scripts, we eliminate dependencies on external tools, mitigating the risk of detection and raising our chances of success during engagements.</p>
+  <p><strong> 2. Evasion and Covert Operations:</strong> The PowerShell scripting environment offers an extensive arsenal of techniques that enable us to blend into the system's natural operations. Built-in scripts empower red teamers to execute operations with minimal footprint and evade traditional security measures. By exploiting PowerShell's inherent capabilities, we can effectively bypass security solutions that focus on detecting specific external tools or known patterns, giving us a significant advantage when it comes to stealthy maneuvers.</p>
+  <p><strong>3. Flexibility and Adaptability:</strong>One of the most valuable aspects of PowerShell built-in scripts is their unparalleled flexibility. As red teamers, we often face ever-evolving challenges and scenarios. With PowerShell's extensibility, we can rapidly adapt our scripts to meet changing requirements without the need to depend on external software updates or third-party libraries. This adaptability allows us to respond swiftly and effectively to shifting target environments, enabling us to maintain the upper hand during engagements </p>
+  <p> In conclusion, embracing PowerShell built-in scripts provides red teamers with a formidable toolkit that amplifies our capabilities, bolsters our stealth, and enhances our chances of success. By leveraging native integration, evasive techniques, and flexibility, we can unleash the true potential of PowerShell and navigate the intricate landscape of red teaming with finesse.
+
+    Throughout this blog series, we will delve deeper into the inner workings of PowerShell built-in scripts, exploring their various applications, sharing invaluable tips and tricks, and demonstrating real-world scenarios where they shine brightest.</p>
+    <p>So fasten your seatbelts, dear readers, for we are about to embark on an enlightening journey that will equip you with the skills to outwit and outmaneuver even the most vigilant defenders. Together, let's harness the power of PowerShell to become the masters of our digital domain!
+
+      Stay tuned for the upcoming posts, where we will dive headfirst into the world of PowerShell's built-in scripts and uncover their hidden gems. Until then, happy scripting, and may your red teaming adventures be ever triumphant!
+      
+      <strong>Yours digitally,</strong> <code>Stuxnet8</code>
+      
+     </p>
+
+     <p><strong>Domain Enumeration
+      The below code will show the current domain name:
+      PS C:> [System.Net.Dns]::GetHostByName(($env:computerName))</strong></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\AD1\1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure> 
+            
+            <p>PS C:> [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()</p>
+    
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\AD1\2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+              
+            </figure>
+  <p><strong>Domain Forest Trusts</strong></p>
+  <p><code>PS C:> ([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()).GetAllTrustRelationships()</code></p>
+
+<p>Screenshot:</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\AD1\3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+  <p><code> PS C:> ([System.DirectoryServices.ActiveDirectory.Forest]::GetCurrentForest())</code></p>
+
+
+<p>Screenshot:</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\AD1\4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+            
+<p><code>PS C:> ([ADSISearcher]"(objectClass=trustedDomain)").FindAll()</code></p>
+
+
+
+<p>Screenshot:</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\AD1\5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p><code>PS C:> ([ADSISearcher]"(objectClass=trustedDomain)").FindAll() | %{$a=$_.Properties["trustattributes"]; $d=$_.Properties["trustdirection"]; $t=$_.Properties["trusttype"] ; write-Host $_.Properties["distinguishedname"] $a $d $t}</code></p>
+<p>Screenshot:</p>
+<figure class="image-bubble">
+    <div class="img-lightbox">
+        <div class="overlay"></div>
+<img src="\img\AD1\6.png" alt="">
+    </div>
+<div class="image-caption"></div>
+</figure>
+<p><strong>Get Password Policy</strong></p>
+<p><code>PS C:> Get-ADDefaultDomainPasswordPolicy -Current LoggedOnUser</code></p>
+<p>Screenshot:</p>
+<figure class="image-bubble">
+    <div class="img-lightbox">
+        <div class="overlay"></div>
+<img src="\img\AD1\7.png" alt="">
+    </div>
+<div class="image-caption"></div>
+</figure>
+
+<p><strong>Get a Domain Computer</strong></p>
+<p><code>PS C:> ([ADSISearcher]"(&(objectClass=computer)(name=udom*))").FindAll()</code></p>
+
+<p>Screenshot:</p>
+<figure class="image-bubble">
+    <div class="img-lightbox">
+        <div class="overlay"></div>
+<img src="\img\AD1\8.png" alt="">
+    </div>
+<div class="image-caption"></div>
+</figure>
+<p><strong>In the above one liner we searched for a computer name starting with “udom”. Similarly we can enumerate a specific computer if we we know the whole name.</strong></p>
+<p>Other alternative cmd command</p>
+<p><code>C:\> net group "Domain Computers" /domain</code></p>
+
+<p>Screenshot:</p>
+<figure class="image-bubble">
+    <div class="img-lightbox">
+        <div class="overlay"></div>
+<img src="\img\AD1\9.png" alt="">
+    </div>
+<div class="image-caption"></div>
+</figure>
+
+<p><code>PS C:> ([ADSISearcher]"(&(objectClass=computer)(name=vex-Computer))").FindAll()</code></p>
+<p>Screenshot:</p>
+<figure class="image-bubble">
+    <div class="img-lightbox">
+        <div class="overlay"></div>
+<img src="\img\AD1\10.png" alt="">
+    </div>
+<div class="image-caption"></div>
+</figure>
+<p>Here, we fetched computer “vex-computer” ‘s details.’</p>
+<p><strong>Get All Domain Computers</strong></p>
+<p><code>PS C:> ([ADSISearcher]"ObjectClass=computer").FindAll()</code></p>
+<p>Screenshot:</p>
+<figure class="image-bubble">
+    <div class="img-lightbox">
+        <div class="overlay"></div>
+<img src="\img\AD1\11.png" alt="">
+    </div>
+<div class="image-caption"></div>
+</figure>
+<p><strong>Enumerate Single User</strong></p>
+<p>If we want to enumerate single user, we can use below code:</p>
+<p><code>PS C:> ([ADSISearcher]"(&(objectClass=user)(samAccountType=805306368)(samaccountname=zamea))").FindAll().Properties</code></p>
+<p>Screenshot:</p>
+<figure class="image-bubble">
+    <div class="img-lightbox">
+        <div class="overlay"></div>
+<img src="\img\AD1\12.png" alt="">
+    </div>
+<div class="image-caption"></div>
+</figure>
+<p>This will fetch user “zamea” details</p>
+<p><strong>Enumerate All Domain Controllers</strong></p>
+<p><code>PS C:> ([ADSISearcher]"(&(objectCategory=computer)(userAccountControl:1.2.840.113556.1.4.803:=8192))").FindAll()</code></p>
+<p>Screenshot:</p>
+<figure class="image-bubble">
+    <div class="img-lightbox">
+        <div class="overlay"></div>
+<img src="\img\AD1\13.png" alt="">
+    </div>
+<div class="image-caption"></div>
+</figure>
+<p>other commands are </p>
+<p><code>C:\> nltest /dclist:mpoti.local</code></p>
+<p><code>C:\> net group "domain controllers" /domain</code></p>
+<p>Screenshot:</p>
+<figure class="image-bubble">
+    <div class="img-lightbox">
+        <div class="overlay"></div>
+<img src="\img\AD1\14.png" alt="">
+    </div>
+<div class="image-caption"></div>
+</figure>
+<p><strong>Enumerating All Users</strong></p>
+<p><code>PS C:> ([ADSISearcher]"(&(objectClass=user (samAccountType=805306368))").FindAll()|ft</code></p>
+<p><strong>Enumerating targer user using powershell</strong></p>
+<p><code>PS C:\> ([ADSISearcher]"(&(objectClass=user)(samAccountType=805306368)(samaccountname=zamea))").FindAll().Properties:</code></p>
+<p>Screenshot:</p>
+<figure class="image-bubble">
+    <div class="img-lightbox">
+        <div class="overlay"></div>
+<img src="\img\AD1\15.png" alt="">
+    </div>
+<div class="image-caption"></div>
+</figure>
+
+<p>Using cmd </p>
+<p><code>net user zamea /domain</code></p>
+<p>Screenshot:</p>
+<figure class="image-bubble">
+    <div class="img-lightbox">
+        <div class="overlay"></div>
+<img src="\img\AD1\16.png" alt="">
+    </div>
+<div class="image-caption"></div>
+</figure>
+ <p><strong>Enumerate All Users With Specific Properties</strong></p>
+ <p>There could be many properties that a user could have. If we want to filter out some properties in all users, we can use below code:</p>
+ <p><code>PS C:> ([ADSISearcher]"(&(objectClass=user)(samAccountType=805306368))").FindAll() | %{ $_.Properties["samaccountname"] }</code></p>
+ <p>This code will just display “samaccountname” as a result for all users.</p>
+ <p><strong>Enumerate all users with a SPN</strong></p>
+ <p>A service instance’s service principal name (SPN) is a unique identifier. Kerberos authentication uses SPNs to link a service instance to a service login account. This enables a client application to ask the service to authenticate an account even if it doesn’t know the account name.
+  If we want to display all users with SPN then we can use below code:</p>
+  <p>Service principal names (SPNs) are attached to user and computer Active Directory (AD) objects; you can add, remove, or modify them at will. One way to manage SPNs is to use the ActiveDirectory PowerShell module. This module contains the Get-Ad* and Set-Ad* cmdlets capable of reading and writing SPNs on user and computer objects. For now I have one default user krbtgt with SPN so I will give another user also permission of SPN.</p>
+  <p>Here I will use some powershell-ad scripts to simplify my work and proceed with the enumeartion</p>
+  <p><code>get-aduser -identity zamea -properties serviceprincipalnames | select serviceprincipalnames</code></p>
+  <p>Screenshot:</p>
+<figure class="image-bubble">
+    <div class="img-lightbox">
+        <div class="overlay"></div>
+<img src="\img\AD1\17.png" alt="">
+    </div>
+<div class="image-caption"></div>
+</figure>
+<p>example setting SPN to AD user zamea</p>
+<p><code>Set-ADUser -Identity zamea -ServicePrincipalNames @{Add='HTTP/webserver'}</code></p>
+<p>Now we  need to check again for any SPN'S on the user</p>
+<p><code>get-aduser -identity zamea -properties * | select serviceprincipalnames</code></p>
+<p>Screenshot:</p>
+<figure class="image-bubble">
+    <div class="img-lightbox">
+        <div class="overlay"></div>
+<img src="\img\AD1\18.png" alt="">
+    </div>
+<div class="image-caption"></div>
+</figure>
+<p>When we run the same command without external scripts we get all users with SPN set using powershell</p>
+<p><code>PS C:> ([ADSISearcher]"(&(objectClass=user)(servicePrincipalName=*)(samAccountType=805306368))").FindAll()</code></p>
+<p>Screenshot:</p>
+<figure class="image-bubble">
+    <div class="img-lightbox">
+        <div class="overlay"></div>
+<img src="\img\AD1\19.png" alt="">
+    </div>
+<div class="image-caption"></div>
+</figure>
+<p><strong>Enumerate a Domain Group</strong></p>
+<p><code>PS C:> ([ADSISearcher]"(&(ObjectClass=group)(samaccountname=Domain Admins))").FindOne()</code></p>
+<p>Screenshot:</p>
+<figure class="image-bubble">
+    <div class="img-lightbox">
+        <div class="overlay"></div>
+<img src="\img\AD1\20.png" alt="">
+    </div>
+<div class="image-caption"></div>
+</figure>
+<p><strong>Enumerate All Domain Groups</strong></p>
+<p><code>PS C:> ([ADSISearcher]"ObjectClass=group").FindAll()</code></p>
+<p>Screenshot:</p>
+<figure class="image-bubble">
+    <div class="img-lightbox">
+        <div class="overlay"></div>
+<img src="\img\AD1\21.png" alt="">
+    </div>
+<div class="image-caption"></div>
+</figure>
+<p>other commands</p>
+<p><code>PS C:\> ([ADSISearcher]"ObjectClass=group").FindAll() | %{ $_.Properties["samaccountname"] }</code></p>
+
+<p><strong>Enumerate Specific domain group</strong></p>
+<p><code>PS C:\> ([ADSISearcher]"(&(ObjectClass=group)(samaccountname=Domain Admins))").FindOne()</code></p>
+<p>Screenshot:</p>
+<figure class="image-bubble">
+    <div class="img-lightbox">
+        <div class="overlay"></div>
+<img src="\img\AD1\22.png" alt="">
+    </div>
+<div class="image-caption"></div>
+</figure>
+<p><strong>Enumerating Domain Members</strong></p>
+<p><code>PS C:> ([ADSISearcher]"(distinguishedname=CN=AB ACCESS,CN=Users,DC=mpoti,DC=mpoti,DC=local)").FindOne().Properties.member</code></p>
+
+<p><Strong><strong>With that being said we can pretty much do anything that powerview script can do with built in powershell commands and cmd</strong></Strong></p>
+
+<p><Strong><code>Done on 29th May 2023 13:39 </code></Strong></p>
+
+<p>The End:<code>Uhuru na Umoja</code></p>
+
+
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-02-06T18:58:44.590Z" itemprop="dateUpdated">2023-02-24 02:58:44</time>
+</span>
+
+
+        
+        Related：<a href="/posts/2024/" target="_blank" rel="external">https://mpotisambo.github.io/posts/2024/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://mpotisambo.github.io'">
+            <img src="/img/touxiang/logo.jpg" alt="Stuxnet8">
+            <a>Stuxnet8</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbspAsanteni</span><span>Uhuru Na Umoja</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<!-- <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li></ul> -->
+
+
+            
+<div class="page-share-wrap">
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://mpotisambo.github.io/posts/20456/&title=《不含数字和字母的Bank-Trouble》 — Stuxnet8's blog&pic=https://mpotisambo.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://mpotisambo.github.io/posts/20456/&title=《不含数字和字母的Bank-Trouble》 — Stuxnet8's blog&source=通过中南大学院赛的一道Web题学习一下如何在过滤数字和字母的情况下编写出Bank-Trouble" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://mpotisambo.github.io/posts/20456/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《不含数字和字母的Bank-Trouble》 — Stuxnet8's blog&url=https://mpotisambo.github.io/posts/20456/&via=https://mpotisambo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://mpotisambo.github.io/posts/20456/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/2024/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="2023">2023</h4>
+      </a>
+    </div>
+  
+</nav>
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://mpotisambo.github.io">Stuxnet8</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+    ：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+     ：<span id="busuanzi_value_site_pv"></span>
+    </span>
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>Thank you for your encouragement and support!</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <!-- <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span> -->
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://mpotisambo.github.io/posts/20456/&title=《不含数字和字母的Bank-Trouble》 — Stuxnet8's blog&pic=https://mpotisambo.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://mpotisambo.github.io/posts/20456/&title=《不含数字和字母的Bank-Trouble》 — Stuxnet8's blog&source=通过中南大学院赛的一道Web题学习一下如何在过滤数字和字母的情况下编写出Bank-Trouble" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://mpotisambo.github.io/posts/20456/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《不含数字和字母的Bank-Trouble》 — Stuxnet8's blog&url=https://mpotisambo.github.io/posts/20456/&via=https://mpotisambo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://mpotisambo.github.io/posts/20456/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">we chat</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAB1klEQVR42u3aS44DIQxFUfa/6co0UkT1fXZMqqXLqNVK4JCBhT9r4XV9rPf/f36G77kmlly5ctvc63bttubQ3Xd3O+wMcuXKPc+9PyYNYX8cudkBBTu5cuU+nktCDw9kcuXK/Y/cWpJzn7/IlSv3yVyS/PB0iDxixnM1uXLlNrhpcXPi75H6rly5ckvcq706v1N8lly5co9w06BTK5hyHHpOyZUrd5ib3qyGqI1ubEOYXLlyh7m8wJGOatXaJ6gUIleu3GEuDzG8aVprkKCQJ1eu3CNcEnrSGFJrhASlFrly5Q5zyabkKVMrfxAuCmFy5cod4N4fTy5WS2zIiSuNrHLlyv0St/Zw6VyP/wTFXE2uXLkNbi0+8IEtHraCsS25cuUOc2uPEj7WyZs06PNy5co9wuXRDg1G4KYIf06tWnCWK1dug5vi0iJp+j5BuZpcuXKHucH0VngZMnLBmzdy5co9yb3C1TnsPrkq1m/kypU7wOWrM4QRP2L6aLly5ba5aXpTK7bWBj7kypX7Wy4vpHauR6JpUN+VK1fuA7h8DIsXR+K3mFy5ch/G7VwpDVhfaLXKlSu3zU2fLJ1mCfkJUJNVrly5Y9zO1jyc1UonrfquXLlyK9wX4QhN1GndXQYAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Stuxnet8");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

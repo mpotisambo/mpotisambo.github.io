@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>sql-labs46-49 | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="sql">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="sql-labs46-49">
+<meta name="keywords" content="sql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql-labs46-49">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/15069/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="sql-labs46-49">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/1.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/2.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/3.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/4.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/5.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/6.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/7.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/8.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/9.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/10.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/11.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/12.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/13.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/14.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/15.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/16.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/17.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/18.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/19.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/20.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/21.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/22.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/23.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/24.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/25.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/26.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/27.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/28.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/29.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/30.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/31.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/32.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/33.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/34.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/35.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/36.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/37.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/38.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/39.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/sql-labs46-49/40.png">
+<meta property="og:updated_time" content="2018-07-09T13:33:44.951Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sql-labs46-49">
+<meta name="twitter:description" content="sql-labs46-49">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/sql-labs46-49/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">sql-labs46-49</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Less46-49"><span class="post-toc-number">1.</span> <span class="post-toc-text">Less46-49</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Less46"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Less46</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Less-47"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Less-47</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Less-48"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Less-48</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Less-49"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Less-49</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-sql-labs46-49"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">sql-labs46-49</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2018-07-09 16:38:00" datetime="2018-07-09T08:38:00.000Z"  itemprop="datePublished">2018-07-09</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/sql-labs/">sql-labs</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">6</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>总结了sql-labs中关于order by后面的注入的一些关卡<a id="more"></a></p>
+<h2 id="Less46-49"><a href="#Less46-49" class="headerlink" title="Less46-49"></a>Less46-49</h2><h3 id="Less46"><a href="#Less46" class="headerlink" title="Less46"></a>Less46</h3><p>首先页面呈现 </p>
+<p><img src="/img/sql-labs46-49/1.png" alt=""></p>
+<p>要我们get方式输入一个名为sort的参数</p>
+<p>那我们输入/?sort=1</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>发现输出了users表里面的信息 </p>
+<p><img src="/img/sql-labs46-49/3.png" alt=""></p>
+<p>输入sort=2时，发现排序变化了，按照第二列username的值进行了排序，于是猜测sql语句为select * from users order by get[‘sort’]，</p>
+<p>但是，又有个问题，之前的关卡都是将查询的结果利用mysql_fetch_array($result)=$row，这样都是输出一行结果，为什么这关输出了所有的结果</p>
+<p>看一下源代码</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>Sql语句与猜想的一样 </p>
+<p><img src="/img/sql-labs46-49/5.png" alt=""></p>
+<p>如果查询的结果不为空，那么</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>建立一个表格</p>
+<p>Th标签能使里面的文件加粗并居中，td标签里的文本是默认向左对齐，不加粗</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这是最关键的代码，和之前关卡不一样，这里用到了新的一个函数，mysql_fetch_assoc()</p>
+<p>经过查询，这个函数与mysql_fetch_array区别只在于前者返回的是关联数组，而后者既能返回关联数组又能返回索引数组</p>
+<p>而要返回多个结果，就需要while循环，如果不用while循环，那么只能返回一个查询结果</p>
+<p>源代码搞懂了，那么怎么进行注入呢</p>
+<p>输入sort=1 desc，变成降序排列，默认是asc，也就是升序排列</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>我们通过sql语句观察出这题注入点应该是order by 后面的数字</p>
+<p>先认识一个随机查询，select * from users order by rand()</p>
+<p>Rand()函数是随机产生一个0到1之间的数字</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/9.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以看出两次产生的是不同的随机数</p>
+<p>而如果在括号内指定参数即rand(0)和rand(1)，则会产生固定的随机数种子</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/10.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>随机查询就是利用rand()函数产生不同的随机数种子，这些产生的随机数进行order by 排序，order by后面的参数如果是产生固定的随机数种子，随机排序的表就是固定的 </p>
+<p><img src="/img/sql-labs46-49/11.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/12.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>于是我们利用在rand()函数的参数中构造逻辑表达式，根据返回的表判断逻辑表达式的真假，从而进行注入，比如/?sort=rand(ascii(substr(database(),1,1))=115) </p>
+<p><img src="/img/sql-labs46-49/13.png" alt=""></p>
+<p>发现返回是rand(false)也就是rand(0)的随机排序表，说明上述逻辑表达式为假 </p>
+<p>我们再先试试union查询可不可以 </p>
+<p><img src="/img/sql-labs46-49/14.png" alt=""></p>
+<p>报错了，是不是union 和order by不能一起使用了，我们在mysql命令行中测试一下，发现以下两种是不会报错的，一种是在联合两边的select 语句分别加括号，一种是将order by放入后面的select语句 </p>
+<p><img src="/img/sql-labs46-49/15.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/16.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>为什么呢，经过查询发现union查询并不是只是简简单单的将两个子查询结果进行拼接，而是将两个查询结果统一查询，所以order by 应该放在最后一个子查询中</p>
+<p>然而这关我们是在order by后进行注入，所以不能使用union注入</p>
+<p>那能不能使用延时注入呢，也就是通过order by 1 and if(,1,sleep())</p>
+<p>我们先在mysql命令行中测试一下</p>
+<p>发现sleep了18秒，猜测是因为有18秒的原因，至于为什么是排序成这样，请教学长，学长也无法解释，暂时将这个问题搁在一边，但是抛开这个问题，利用这个方法进行延时注入是可行的，经过测试只要保证order by后面的参数不会报错，就能执行and后面的语句，经过测试带小数的数字，任何字符和字符串，列名，1,2,3都不会报错，但只有列名和1,2,3当做参数，才会对表排序，其他都会得到原来的表</p>
+<p>下面试试延时注入</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/17.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>成功延时9秒</p>
+<p>再试试能不能通过and 进行报错注入</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/18.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>非常完美，那么就可以进行熟悉爆表爆列了 </p>
+<p><a href="http://127.0.0.1/sqli/sqli-labs/Less-46/?sort=1%20and%20extractvalue(1,concat(0x3a,(select%20group_concat(table_name)%20from%20information_schema.tables%20where%20table_schema=database()),0x3a))" target="_blank" rel="noopener">http://127.0.0.1/sqli/sqli-labs/Less-46/?sort=1%20and%20extractvalue(1,concat(0x3a,(select%20group_concat(table_name)%20from%20information_schema.tables%20where%20table_schema=database()),0x3a))</a> </p>
+<p><img src="/img/sql-labs46-49/19.png" alt=""></p>
+<p><a href="http://127.0.0.1/sqli/sqli-labs/Less-46/?sort=1%20and%20extractvalue(1,concat(0x3a,(select%20group_concat(column_name)%20from%20information_schema.columns%20where%20table_name=%27users%27),0x3a))" target="_blank" rel="noopener">http://127.0.0.1/sqli/sqli-labs/Less-46/?sort=1%20and%20extractvalue(1,concat(0x3a,(select%20group_concat(column_name)%20from%20information_schema.columns%20where%20table_name=%27users%27),0x3a))</a> </p>
+<p><img src="/img/sql-labs46-49/20.png" alt=""></p>
+<p>那么count(<em>),group by,floor(rand(0)</em>2)的报错注入能不能在这里运用呢 </p>
+<p><a href="http://127.0.0.1/sqli/sqli-labs/Less-46/?sort=1%20and%201=(select%20count(*)%20from%20information_schema.columns%20group%20by%20concat(0x3a,database(),0x3a,floor(rand(0)*2)))" target="_blank" rel="noopener">http://127.0.0.1/sqli/sqli-labs/Less-46/?sort=1%20and%201=(select%20count(*)%20from%20information_schema.columns%20group%20by%20concat(0x3a,database(),0x3a,floor(rand(0)*2)))</a> </p>
+<p><img src="/img/sql-labs46-49/21.png" alt=""></p>
+<p>没问题，但除此之外还有一种方法进行这种报错注入，就是利用sort=(select …)进行报错注入 </p>
+<p><img src="/img/sql-labs46-49/22.png" alt=""></p>
+<p>还有一种方法，可以在order by后面的procedure analyse参数进行报错注入 </p>
+<p><img src="/img/sql-labs46-49/23.png" alt=""></p>
+<p>但是这里又碰到一个问题，procedure analyse后面的报错注入，加入子查询语句会报错，原因未知，可能是语法错误，暂时来看这个方法只能注出库名，用户名和版本 </p>
+<p><img src="/img/sql-labs46-49/24.png" alt=""></p>
+<p>Into outfile 注入 </p>
+<p><img src="/img/sql-labs46-49/25.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/26.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="Less-47"><a href="#Less-47" class="headerlink" title="Less-47"></a>Less-47</h3><p>输入sort=1,2,3发现都得到原来的表，猜测sort可能被引号包裹，成为字符，所以排序后仍为原来的表，加个单引号 </p>
+<p><img src="/img/sql-labs46-49/27.png" alt=""></p>
+<p>发现报错了，果然被单引号包裹了</p>
+<p>先试试随机查询rand()</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/28.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>还是原来的表，说明这里用rand()是不行的</p>
+<p>那么用and +报错注入</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/29.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/30.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/31.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>延时注入 </p>
+<p><img src="/img/sql-labs46-49/32.png" alt=""></p>
+<p>另外一种报错注入，经过测试必须通过and 后面才能执行，之前关卡的sort=(select …)方法测试不会报错</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/33.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>Procedure analyse 报错注入 </p>
+<p><img src="/img/sql-labs46-49/34.png" alt=""></p>
+<h3 id="Less-48"><a href="#Less-48" class="headerlink" title="Less-48"></a>Less-48</h3><p>输入sort=1,2,3，发现正常排序，说明sort没有被引号包裹，输入1’</p>
+<p>发现没有报错，说明不返回报错信息，所以这关不能用报错注入</p>
+<p>排除sort=(select count(*))注入和and +报错和procedure analyse 报错注入</p>
+<p>那么试试sort=rand()注入</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/35.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这是rand(true)排序的表 </p>
+<p><img src="/img/sql-labs46-49/36.png" alt=""></p>
+<p>这是rand(false)排序的表</p>
+<p>再试试 and +延时注入</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/37.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>导出文件 </p>
+<p><img src="/img/sql-labs46-49/38.png" alt=""></p>
+<h3 id="Less-49"><a href="#Less-49" class="headerlink" title="Less-49"></a>Less-49</h3><p>输入sort=1,2,3发现都得到原来的表，说明有引号包裹，在输入sort=1’，没有输出表，没有报错，说明被单引号包裹，并且没有返回报错信息</p>
+<p>那么排除了报错注入，rand()，那只能延时注入和导出文件了</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/sql-labs46-49/39.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>文件导出 </p>
+<p><img src="/img/sql-labs46-49/40.png" alt=""></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-07-09T13:33:44.951Z" itemprop="dateUpdated">2018-07-09 21:33:44</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/15069/" target="_blank" rel="external">https://Foxgrin.github.io/posts/15069/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/15069/&title=《sql-labs46-49》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/15069/&title=《sql-labs46-49》 — Somnus's blog&source=总结了sql-labs中关于order by后面的注入的一些关卡" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/15069/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《sql-labs46-49》 — Somnus's blog&url=https://Foxgrin.github.io/posts/15069/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/15069/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/58721/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：sql-labs50-53
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/5994/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：sql-labs38-45">下一篇：sql-labs38-45</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/15069/&title=《sql-labs46-49》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/15069/&title=《sql-labs46-49》 — Somnus's blog&source=总结了sql-labs中关于order by后面的注入的一些关卡" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/15069/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《sql-labs46-49》 — Somnus's blog&url=https://Foxgrin.github.io/posts/15069/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/15069/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABx0lEQVR42u3aQZLCMAwEwPz/0+x1DySMpNiEqvYpBSE0HFTWyMcRr9fJ+v/u2f3XTztWLFxc3DH3dbly7vXP6D3/zU/CxcXdyD2rGHmpSq6Tz36w4eLiPp6b3NnbJOHi4v4u9/r16/YGFxf3+dxeockTjKT83dyr4eLiDrj5F6+7XpLv4uLitriv4qpuRyYh6ZtP4eLibuHmBaX56FZI+qHFwsXFXczttR9JeFqNRaJgBRcXdwv33uMX1VLY/MtwcXEXc89u7YWevRaoEMTg4uJu4faGrPNxS3U7hYuLu5ObQycblMlotvm/4uLi3sSthh2TwDTZGEWBKS4u7gJu3t58a8h62vzg4uIu41YLSo7Lh6xJMcXFxd3JXXcqctIIFaIWXFzcZdzqAYv8IEUSvFaLHS4u7k5utTnpbVx60QkuLu53uZOxaC9MqZZFXFzc1dy7BiR5w5Mc47i5M8PFxZ2efDjmhawXuRaGrLi4uFu4ve1Lr3HKW53mRgcXF/dWbnWkMR+y5gHrh3wXFxf3Adw8RpmEpOXUBBcX9wHc6hMKCe71/bi4uBu5eeRRPXQ1H73g4uLu51ZLST4sqcajeaSCi4u7jPsH9scBL7+0zqAAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

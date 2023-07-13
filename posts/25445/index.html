@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>网鼎杯第三场Web | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="ctf">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="ctf-Web">
+<meta name="keywords" content="ctf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网鼎杯第三场Web">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/25445/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="ctf-Web">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/2.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/1.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/3.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/4.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/5.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/6.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/7.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/9.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/8.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/10.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/11.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/12.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/13.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/14.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/15.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/16.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/17.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/18.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/19.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/20.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/21.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/22.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/23.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/24.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/25.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/26.png">
+<meta property="og:updated_time" content="2018-09-04T13:24:41.598Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网鼎杯第三场Web">
+<meta name="twitter:description" content="ctf-Web">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/网鼎杯第三场Web/2.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">网鼎杯第三场Web</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#comein"><span class="post-toc-number">1.</span> <span class="post-toc-text">comein</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#gold"><span class="post-toc-number">2.</span> <span class="post-toc-text">gold</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#i-am-admin"><span class="post-toc-number">3.</span> <span class="post-toc-text">i_am_admin</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#phone"><span class="post-toc-number">4.</span> <span class="post-toc-text">phone</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-网鼎杯第三场Web"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">网鼎杯第三场Web</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2018-09-04 18:45:00" datetime="2018-09-04T10:45:00.000Z"  itemprop="datePublished">2018-09-04</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ctf-Web/">ctf-Web</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">5</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>2018年网鼎杯第三场Web题解<a id="more"></a></p>
+<h3 id="comein"><a href="#comein" class="headerlink" title="comein"></a>comein</h3><p>题目：由于运维人员失误，内网认证页面部署至了外网，不过还好，开发加了域名验证。 </p>
+<p>做的时候服务器已经关闭了，获取源代码本地测试(PS:文件名为index.php，文件放在根目录下，浏览器输入localhost访问)</p>
+<p>源代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">ini_set(<span class="string">"display_errors"</span>,<span class="number">0</span>);</span><br><span class="line">$uri = $_SERVER[<span class="string">'REQUEST_URI'</span>];</span><br><span class="line"><span class="keyword">if</span>(stripos($uri,<span class="string">"."</span>))&#123;</span><br><span class="line">	<span class="keyword">die</span>(<span class="string">"Unknow URI."</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(!parse_url($uri,PHP_URL_HOST))&#123;</span><br><span class="line">	$uri = <span class="string">"http://"</span>.$_SERVER[<span class="string">'REMOTE_ADDR'</span>].$_SERVER[<span class="string">'REQUEST_URI'</span>];</span><br><span class="line">&#125;</span><br><span class="line">$host = parse_url($uri,PHP_URL_HOST);</span><br><span class="line"><span class="keyword">if</span>($host === <span class="string">"c7f.zhuque.com"</span>)&#123;</span><br><span class="line">	setcookie(<span class="string">"AuthFlag"</span>,<span class="string">"flag&#123;***&#125;"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>源代码看出，要绕过stripos函数的检测，首先我们要弄清楚全局变量$_SERVER[‘REQUEST_URI’]</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> $_SERVER[<span class="string">'REQUEST_URI'</span>];</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可见返回的是url中/后面的内容</p>
+<p>parse_url函数作用是截取url中的指定部分，PHP_URL_HOST是截取url中的主机信息部分</p>
+<p>示例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$url = <span class="string">'http://username:password@hostname:9090/path?arg=value#anchor'</span>;</span><br><span class="line"></span><br><span class="line">var_dump(parse_url($url, PHP_URL_SCHEME));</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br&gt;'</span>;</span><br><span class="line">var_dump(parse_url($url, PHP_URL_USER));</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br&gt;'</span>;</span><br><span class="line">var_dump(parse_url($url, PHP_URL_PASS));</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br&gt;'</span>;</span><br><span class="line">var_dump(parse_url($url, PHP_URL_HOST));</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br&gt;'</span>;</span><br><span class="line">var_dump(parse_url($url, PHP_URL_PORT));</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br&gt;'</span>;</span><br><span class="line">var_dump(parse_url($url, PHP_URL_PATH));</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br&gt;'</span>;</span><br><span class="line">var_dump(parse_url($url, PHP_URL_QUERY));</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br&gt;'</span>;</span><br><span class="line">var_dump(parse_url($url, PHP_URL_FRAGMENT));</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;br&gt;'</span>;</span><br><span class="line">var_dump($_SERVER[<span class="string">'REMOTE_ADDR'</span>]);</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以看出parse_url($url, PHP_URL_HOST)截取的是@后面的hostname</p>
+<p>最后要获取flag条件是截取的hostname等于c7f.zhuque.com，所以构造payload:<a href="mailto:.@c7f.zhuque.com" target="_blank" rel="noopener">.@c7f.zhuque.com</a>/..//</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>最前面的.是为了绕过stripos函数，位置为0就不会执行die函数</p>
+<p>本地测试代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">ini_set(<span class="string">"display_errors"</span>,<span class="number">0</span>);</span><br><span class="line">$uri = $_SERVER[<span class="string">'REQUEST_URI'</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'$uri = '</span>.$uri.<span class="string">"&lt;br&gt;"</span>;</span><br><span class="line"><span class="keyword">if</span>(stripos($uri,<span class="string">"."</span>))&#123;</span><br><span class="line">	<span class="keyword">die</span>(<span class="string">"Unknow URI."</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'stripos($uri,".") = '</span>.stripos($uri,<span class="string">"."</span>).<span class="string">"&lt;br&gt;"</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"parse_url($uri,PHP_URL_HOST) = "</span>.parse_url($uri,PHP_URL_HOST).<span class="string">"&lt;br&gt;"</span>;</span><br><span class="line"><span class="keyword">if</span>(!parse_url($uri,PHP_URL_HOST))&#123;</span><br><span class="line">	$uri = <span class="string">"http://"</span>.$_SERVER[<span class="string">'REMOTE_ADDR'</span>].$_SERVER[<span class="string">'REQUEST_URI'</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'$uri = '</span>.$uri.<span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">$host = parse_url($uri,PHP_URL_HOST);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'$host = '</span>.$host.<span class="string">"&lt;br&gt;"</span>;</span><br><span class="line"><span class="keyword">if</span>($host === <span class="string">"c7f.zhuque.com"</span>)&#123;</span><br><span class="line">	setcookie(<span class="string">"AuthFlag"</span>,<span class="string">"flag&#123;***&#125;"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>最后加上../是为了回到根目录，再加个/就等于回到localhost/</p>
+<h3 id="gold"><a href="#gold" class="headerlink" title="gold"></a>gold</h3><p>题目：还在上小学的小明同学开发了一款游戏，你能通关吗？ </p>
+<p><img src="/img/网鼎杯第三场Web/4.png" alt=""></p>
+<p>抓包发现不断POST参数getGod，值从0开始叠加，图片显示收集1000金币就可以通关，就猜测可能POST参数getGod从0到1001就可以得到flag</p>
+<p>利用burp的intruder模块发送参数getGod，值从0到1001</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>发现getGod=1001的响应包中显示了flag</p>
+<p>PS：这关有防作弊机制，必须单线程的POST参数getGod从0到1001，否则就弹出防作弊的提示框</p>
+<h3 id="i-am-admin"><a href="#i-am-admin" class="headerlink" title="i_am_admin"></a>i_am_admin</h3><p>题目：你能登录进去吗？ </p>
+<p>一个登录界面，貌似要以admin身份才能获得flag</p>
+<p>给出了提示We have prepare a test account for you to login; Username:Passwd = test:test  </p>
+<p>以test身份登录</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/9.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>抓取登录数据包，发现登录时在cookie字段设置了auth字段</p>
+<p>获得信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Welcome back test user, although i can&apos;t give u flag, but i will give u my SECRET:uy8qz-!kru%*2h7$q&amp;veq=y_r1abu-xd_219y%phex!@4hv62+</span><br></pre></td></tr></table></figure>
+<p>查询得知是JWT，JWT具体介绍参考下面链接</p>
+<p><a href="https://blog.csdn.net/qq_40081976/article/details/79046825" target="_blank" rel="noopener">https://blog.csdn.net/qq_40081976/article/details/79046825</a></p>
+<p>到<a href="https://jwt.io/解码" target="_blank" rel="noopener">https://jwt.io/解码</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>登录test身份设置了auth字段，值就是JWT加密后的值，那么我们可以抓包在cookie添加auth字段，值为admin的JWT值，即eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIn0.NYSsNZ1gR8EUYebNTmXPBhdoh-mA5OjHkeWjM4gPxqY</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/10.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/11.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>获得flag</p>
+<h3 id="phone"><a href="#phone" class="headerlink" title="phone"></a>phone</h3><p>题目：find the flag</p>
+<p>有登录和注册的页面，试着注册账号test1,密码123,电话123</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/12.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>返回index.php页面</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/13.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>点击查询得到：有1人和你电话相似哦~ </p>
+<p>猜测存在二次注入，根据我们注册用户的电话号码执行sql语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">count</span>(*) <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> telephone=<span class="string">'123'</span>;</span><br></pre></td></tr></table></figure>
+<p>我们再注册账号，密码123，电话123’#</p>
+<p>这里电话号码必须是数字，我们可以将字符串转化为十六进制</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/14.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/15.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在本地数据库测试一下</p>
+<p>先创建表tel</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> tel</span><br><span class="line">(</span><br><span class="line">username <span class="built_in">varchar</span>(<span class="number">20</span>),</span><br><span class="line"><span class="keyword">password</span> <span class="built_in">varchar</span>(<span class="number">20</span>),</span><br><span class="line">telphone <span class="built_in">varchar</span>(<span class="number">100</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>插入数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tel <span class="keyword">values</span>(<span class="string">'test1'</span>,<span class="string">'123'</span>,<span class="string">'123'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tel <span class="keyword">values</span>(<span class="string">'test2'</span>,<span class="string">'123'</span>,<span class="string">"123#'"</span>);</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/16.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>那么我们的注入点就在注册POST的phone参数，也就是电话号码</p>
+<p>首先爆库，payload:123’ union select database() order by 1 desc#</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/17.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/18.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>库名为test</p>
+<p>这里末尾加上order by 1 desc是为了将结果倒序</p>
+<p>直接在数据库测试简单明了</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/19.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>如果不加order by，那么就只会显示查询的第一行结果1，如果我们将结果倒序处理</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/20.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>那么就显示了我们注入的结果</p>
+<p>继续爆表，payload:123’ union select group_concat(table_name) from information_schema.tables where table_schema=database() order by 1 desc#</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/21.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/22.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>表名为flag,user</p>
+<p>爆flag表下的列名，payload:123’ union select group_concat(column_name) from information_schema.columns where table_name=’flag’ order by 1 desc#</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/23.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/24.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>列名为f14g</p>
+<p>爆f14g列下数据，payload:123’ union select group_concat(f14g) from flag order by 1 desc#</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/25.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/网鼎杯第三场Web/26.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>获得flag</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-09-04T13:24:41.598Z" itemprop="dateUpdated">2018-09-04 21:24:41</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/25445/" target="_blank" rel="external">https://Foxgrin.github.io/posts/25445/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/25445/&title=《网鼎杯第三场Web》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/25445/&title=《网鼎杯第三场Web》 — Somnus's blog&source=2018年网鼎杯第三场Web题解" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/25445/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《网鼎杯第三场Web》 — Somnus's blog&url=https://Foxgrin.github.io/posts/25445/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/25445/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/11047/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：Python-flask
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/47793/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：网鼎杯第二场Web">下一篇：网鼎杯第二场Web</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/25445/&title=《网鼎杯第三场Web》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/25445/&title=《网鼎杯第三场Web》 — Somnus's blog&source=2018年网鼎杯第三场Web题解" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/25445/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《网鼎杯第三场Web》 — Somnus's blog&url=https://Foxgrin.github.io/posts/25445/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/25445/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxUlEQVR42u3ay26DQAwFUP7/p6nUXaVmuLZhmqhnVkhBcMjC8us44nN+n1fX61+T59x8cHFxx9xzeZJ71nfm9PWTcXFx93OT4PXqletfq+HvwoaLi/tm3HW+kbNwcXH/AzdJYnBxcT+Rm5Q0VUqSGD1Yq+Hi4g6484bp/HprfxcXF3cwlUhaoknTpNck/eXtuLi4W7h3FSQ9aB61jnvrJ1xc3CW32uy4t0Aa5Vm4uLhbuL31i2owysexF4EMFxf3Ye5kDas3XGmOXXFxcTdy80WKJFlZf1JvAPOji4OLi/swdx5c5rhmCYSLi/swt9fWrC5bTMIlLi7uTm51NWodsKpjmPxpuLi4O7k9aN4q7a12FYofXFzcx7jV0DMfwFQbr6P5MC4ubpFbbXpGo9DBp14ETVxc3D/l9sJWdXBbXdHAxcXdw81bEnkISwqb3oAHFxd3D/csnknhlHQ+L/4OXFzcLdzJnkMvfemNVXBxcfdz81FKtYDJk5jC03BxcTdy80DTS3qqERQXF/dTuPkKRZ6TlIsuXFzct+QW1qfiTy2PT3Bxcbdwq8VPOTUppkov34KLi7uFe2/DNEl0qqAyHRcXt8/9Ao4FuWgGlrFhAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

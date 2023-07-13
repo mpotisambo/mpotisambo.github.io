@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Python网络编程(一) | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="Python">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="Python学习笔记">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python网络编程(一)">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/41404/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="Python学习笔记">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-23T03:56:44.075Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python网络编程(一)">
+<meta name="twitter:description" content="Python学习笔记">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Python网络编程(一)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Socket库基本用法"><span class="post-toc-number">1.</span> <span class="post-toc-text">Socket库基本用法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#os库基本用法"><span class="post-toc-number">2.</span> <span class="post-toc-text">os库基本用法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#利用threading库实现多线程连接"><span class="post-toc-number">3.</span> <span class="post-toc-text">利用threading库实现多线程连接</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#模拟TCP代理"><span class="post-toc-number">4.</span> <span class="post-toc-text">模拟TCP代理</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-Python网络编程(一)"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Python网络编程(一)</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2018-07-22 16:00:00" datetime="2018-07-22T08:00:00.000Z"  itemprop="datePublished">2018-07-22</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Python学习笔记/">Python学习笔记</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">12</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Socket是网络编程的一个非常重要的基础，而Python的Socket标准库也提供了非常完善且易用的语法，这篇文章简单介绍一下Socket库的基本用法，以及结合os标准库，threading多线程库实现远程SSH通信，最后模拟TCP代理交互的过程<a id="more"></a></p>
+<h2 id="Socket库基本用法"><a href="#Socket库基本用法" class="headerlink" title="Socket库基本用法"></a>Socket库基本用法</h2><p>Socket是任何一种计算机网络通讯最基础的内容，例如当你在浏览器地址栏中输入一个网址时，你就会打开一个套接字，任何连接到指定的网址并读取响应的页面然后显示出来，在Python中使用Socket库进行通信的对象无非就是两个，一个是服务器端，一个是客户端</p>
+<p>服务器端的主要流程：</p>
+<p>(1)初始化socket()，创建套接字</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line">s = socket.socket(AF_INET,SOCK_STREAM)</span><br></pre></td></tr></table></figure>
+<p>这里socket函数是初始化socket，里面的参数默认是AF_INET和SOCK_STREAM</p>
+<p>(2)使用bind()绑定服务器端的ip和端口</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.bind((<span class="string">'127.0.0.1'</span>,<span class="number">6666</span>))</span><br></pre></td></tr></table></figure>
+<p>这里注意传入的参数是一个元组，包含了ip地址和端口号</p>
+<p>(3)使用listen()监听消息</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.listen(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<p>这里的参数最大值为5</p>
+<p>(4)使用accept()获取客户端的套接字地址</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sock,addr = s.accept()</span><br></pre></td></tr></table></figure>
+<p>这个函数有点类似input函数，input函数是等待用户输入才会执行下一步，而accept函数则等待用户的连接才执行下一步，返回也是一个元组(conn,address)，其中conn是新的套接字对象，可以用来接收和发送数据，address是连接的客户端地址</p>
+<p>(5)使用recv()接收数据，send()发送数据与客户端进行交互</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">text = sock.recv(<span class="number">1024</span>)</span><br><span class="line">sock.send(data)</span><br></pre></td></tr></table></figure>
+<p>这里要注意的是在Python 3中send()中的参数必须是字节类型</p>
+<p>客户端的主要流程：</p>
+<p>(1)初始化socket()，创建套接字</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c = socket.socket(AF_INET,SOCK_STREAM)</span><br></pre></td></tr></table></figure>
+<p>(2)使用connect()指定连接的ip和端口号连接至指定服务器端</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c.connect((<span class="string">'127.0.0.1'</span>,<span class="number">6666</span>))</span><br></pre></td></tr></table></figure>
+<p>同样的，参数必须是元组，包括要连接的服务器的ip地址和端口号</p>
+<p>(3)使用recv()接收数据，send()发送数据与服务器端进行交互</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">text = c.recv(<span class="number">1024</span>)</span><br><span class="line">c.send(data)</span><br></pre></td></tr></table></figure>
+<p>其实使用socket库其实就只需要注意send()与recv()需要对应起来，不然可能导致客户端或者服务器端处于挂起的状态</p>
+<p>下面我们就来看一个简单的服务器端和客户端的一个例子</p>
+<p>Server(服务器端)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">s=socket(AF_INET,SOCK_STREAM) <span class="comment">#初始化socket，创建套接字</span></span><br><span class="line">s.bind((<span class="string">'localhost'</span>,<span class="number">6666</span>)) <span class="comment">#绑定服务器ip地址和端口</span></span><br><span class="line">s.listen(<span class="number">5</span>) <span class="comment">#开始监听</span></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    sock,addr=s.accept() <span class="comment">#等待客户端连接，获取客户端套接字地址</span></span><br><span class="line">    print(<span class="string">'Connected By'</span>,addr)</span><br><span class="line">    sock.send(str.encode(<span class="string">'Welcome to Server!'</span>)) <span class="comment">#向客户端发送数据</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        data=sock.recv(<span class="number">1024</span>) <span class="comment">#接收客户端发送的数据</span></span><br><span class="line">        print(bytes.decode(data))</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> data:</span><br><span class="line">            print(<span class="string">'Client has lost'</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>Client(客户端)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">c=socket(AF_INET,SOCK_STREAM) <span class="comment">#初始化套接字</span></span><br><span class="line">c.connect((<span class="string">'127.0.0.1'</span>,<span class="number">6666</span>)) <span class="comment">#连接服务器</span></span><br><span class="line">text=c.recv(<span class="number">1024</span>)</span><br><span class="line">print(bytes.decode(text))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    data=input()</span><br><span class="line">    c.send(str.encode(data))</span><br><span class="line">c.close()</span><br></pre></td></tr></table></figure>
+<p>服务器端使用了死循环以保持一直处于监听状态，客户端发送10次信息与服务器端断开连接，之后服务器继续等待客户端连接，这个程序缺点是服务器端只能支持一个客户端连入，不能支持多个客户端同时连入</p>
+<h2 id="os库基本用法"><a href="#os库基本用法" class="headerlink" title="os库基本用法"></a>os库基本用法</h2><p>Python的os库提供了各种操作系统功能的接口，通过例子简单说明一下几种常用的函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">cmd = input(<span class="string">'Please input a command: '</span>)</span><br><span class="line">a = os.system(cmd) <span class="comment">#执行shell命令</span></span><br><span class="line">print(a) <span class="comment">#返回值为0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cmd = input(<span class="string">'Please input a command: '</span>)</span><br><span class="line">a = os.popen(cmd) <span class="comment">#返回一个对象</span></span><br><span class="line">print(a.read())</span><br><span class="line"></span><br><span class="line">print(os.getcwd()) <span class="comment">#获取当前目录</span></span><br><span class="line">print(os.listdir(os.getcwd())) <span class="comment">#返回指定文件夹下包含的文件或文件夹的名字的列表</span></span><br><span class="line">os.chdir(os.getcwd()+<span class="string">'/test'</span>) <span class="comment">#到达指定目录下</span></span><br><span class="line">os.system(<span class="string">'test.py'</span>)</span><br></pre></td></tr></table></figure>
+<p>下面通过os库与socket库结合模拟SSH通信</p>
+<p>服务器端：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">s = socket(AF_INET,SOCK_STREAM)</span><br><span class="line">s.bind((<span class="string">'localhost'</span>,<span class="number">6666</span>))</span><br><span class="line">s.listen(<span class="number">5</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    sock,addr = s.accept()</span><br><span class="line">    print(<span class="string">'Connected By'</span>,addr)</span><br><span class="line">    sock.send(str.encode(<span class="string">'Welcome to the SSHServer!'</span>))</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        cmd = sock.recv(<span class="number">1024</span>)</span><br><span class="line">        cmd = bytes.decode(cmd)</span><br><span class="line">        <span class="keyword">if</span> cmd == <span class="string">'exit'</span>:</span><br><span class="line">            print(<span class="string">'Client has lost'</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        result = os.popen(cmd).read()</span><br><span class="line">        sock.send(str.encode(result))</span><br></pre></td></tr></table></figure>
+<p>客户端：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">c = socket(AF_INET,SOCK_STREAM)</span><br><span class="line">c.connect((<span class="string">'127.0.0.1'</span>,<span class="number">6666</span>))</span><br><span class="line">text = c.recv(<span class="number">1024</span>)</span><br><span class="line">print(bytes.decode(text))</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    cmd = input(<span class="string">'Please input a command: '</span>)</span><br><span class="line">    c.send(str.encode(cmd))</span><br><span class="line">    <span class="keyword">if</span> cmd == <span class="string">'exit'</span>:</span><br><span class="line">        c.close()</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    result = c.recv(<span class="number">1024</span>)</span><br><span class="line">    print(bytes.decode(result))</span><br></pre></td></tr></table></figure>
+<p>当客户端输入exit时，断开与服务器的连接。同样的，这里的服务器端还是只能与一个客户端连接</p>
+<h2 id="利用threading库实现多线程连接"><a href="#利用threading库实现多线程连接" class="headerlink" title="利用threading库实现多线程连接"></a>利用threading库实现多线程连接</h2><p>服务器端：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ThreadHandle</span><span class="params">(sock,addr)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        cmd = sock.recv(<span class="number">1024</span>)</span><br><span class="line">        cmd = bytes.decode(cmd)</span><br><span class="line">        <span class="keyword">if</span> cmd == <span class="string">'exit'</span>:</span><br><span class="line">            print(addr,<span class="string">'has lost'</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        result = os.popen(cmd).read()</span><br><span class="line">        sock.send(str.encode(result))</span><br><span class="line"></span><br><span class="line">s = socket(AF_INET,SOCK_STREAM)</span><br><span class="line">s.bind((<span class="string">'localhost'</span>,<span class="number">6666</span>))</span><br><span class="line">s.listen(<span class="number">5</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    sock,addr = s.accept()</span><br><span class="line">    print(<span class="string">'Connected By'</span>,addr)</span><br><span class="line">    sock.send(str.encode(<span class="string">'Welcome to SSHServer!'</span>))</span><br><span class="line">    t = Thread(target=ThreadHandle,args=(sock,addr))</span><br><span class="line">    sleep(<span class="number">0.1</span>)</span><br><span class="line">    t.start()</span><br></pre></td></tr></table></figure>
+<p>客户端：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">c = socket(AF_INET,SOCK_STREAM)</span><br><span class="line">c.connect((<span class="string">'127.0.0.1'</span>,<span class="number">6666</span>))</span><br><span class="line">text = c.recv(<span class="number">1024</span>)</span><br><span class="line">print(bytes.decode(text))</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    cmd = input(<span class="string">'Please input a command: '</span>)</span><br><span class="line">    c.send(str.encode(cmd))</span><br><span class="line">    <span class="keyword">if</span> cmd == <span class="string">'exit'</span>:</span><br><span class="line">        c.close()</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    result = c.recv(<span class="number">1024</span>)</span><br><span class="line">    print(bytes.decode(result))</span><br></pre></td></tr></table></figure>
+<p>服务器端使用了threading标准库的Thread函数开启了多线程，即每个连接都是一个单独的进程</p>
+<h2 id="模拟TCP代理"><a href="#模拟TCP代理" class="headerlink" title="模拟TCP代理"></a>模拟TCP代理</h2><p>我们假设服务器与客户端因为某种原因不能直接通信，这时候就需要一个中间的代理将客户端的信息转发到服务器，再接收服务器返回的数据再转发给客户端，这就是代理的原理</p>
+<p>如果我们把Python中一个socket代表一个连接，那么代理既要与客户端连接又要与服务器连接，就需要两个socket</p>
+<p>我们先来编写服务器端和客户端，跟前面的例子一样，不说明了</p>
+<p>服务器端：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">s = socket(AF_INET,SOCK_STREAM)</span><br><span class="line">s.bind((<span class="string">'localhost'</span>,<span class="number">6666</span>))</span><br><span class="line">s.listen(<span class="number">5</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    sock,addr = s.accept()</span><br><span class="line">    print(<span class="string">'Connected By'</span>,addr)</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        cmd = sock.recv(<span class="number">1024</span>)</span><br><span class="line">        cmd = bytes.decode(cmd)</span><br><span class="line">        <span class="keyword">if</span> cmd == <span class="string">'exit'</span>:</span><br><span class="line">            print(<span class="string">'TCPClient has lost'</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        result = os.popen(cmd).read()</span><br><span class="line">        sock.send(str.encode(result))</span><br></pre></td></tr></table></figure>
+<p>客户端：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">HOST = <span class="string">'127.0.0.1'</span></span><br><span class="line">PORT = input(<span class="string">'Please input a PORT to connect: '</span>)</span><br><span class="line">PORT = int(PORT)</span><br><span class="line"></span><br><span class="line">c = socket(AF_INET,SOCK_STREAM)</span><br><span class="line">c.connect((HOST,PORT))</span><br><span class="line">text = c.recv(<span class="number">1024</span>)</span><br><span class="line">print(bytes.decode(text))</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    cmd = input(<span class="string">'Please input a command: '</span>)</span><br><span class="line">    c.send(str.encode(cmd))</span><br><span class="line">    <span class="keyword">if</span> cmd == <span class="string">'exit'</span>:</span><br><span class="line">        c.close()</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    result = c.recv(<span class="number">1024</span>)</span><br><span class="line">    result = bytes.decode(result)</span><br><span class="line">    print(result)</span><br></pre></td></tr></table></figure>
+<p>接下来开始编写代理，首先我们先定义建立与客户端连接的socket的函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Server</span><span class="params">(LPORT,CHOST,CPORT)</span>:</span></span><br><span class="line">    c = Client(CHOST,CPORT)</span><br><span class="line">    s = socket(AF_INET,SOCK_STREAM)</span><br><span class="line">    s.bind((<span class="string">'localhost'</span>,LPORT))</span><br><span class="line">    s.listen(<span class="number">5</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        sock,addr = s.accept()</span><br><span class="line">        print(<span class="string">'Connected By'</span>,addr)</span><br><span class="line">        sock.send(str.encode(<span class="string">'Welcome to TCPProxy!'</span>))</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            cmd = sock.recv(<span class="number">1024</span>)</span><br><span class="line">            <span class="keyword">if</span> bytes.decode(cmd) == <span class="string">'exit'</span>:</span><br><span class="line">                print(<span class="string">'TCPClient '</span>+addr+<span class="string">' has lost'</span>)</span><br><span class="line">                Forward(c,cmd)</span><br><span class="line">                c.close()</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            print(<span class="string">'The command from TCPClient is: '</span>+bytes.decode(cmd))</span><br><span class="line">            result = Forward(c,cmd)</span><br><span class="line">            print(<span class="string">'The result from TCPServer is: '</span>+bytes.decode(result))</span><br><span class="line">            sock.send(result)</span><br></pre></td></tr></table></figure>
+<p>因为代理是接收客户端的数据再将数据转发至服务器，再把服务器返回的结果转发到客户端。所以我们不妨把代理看成是客户端的服务器，因此定义函数名为Server，等待客户端的连接，虽然它不然处理客户端发来的数据，但是它可以将数据转发服务器端让服务器端代为处理，这里的参数LPORT是代理绑定的端口号，CHOST和CPORT是传入Client函数的参数，也就是后面讲代理看作是客户端与服务器端连接。</p>
+<p>与客户端建立连接后，接收客户端的数据打印出来后，将数据通过Forward函数转发至服务器端，当客户端输入exit命令时，代理将断开与服务器端的连接和客户端的连接并继续等待客户端的接入</p>
+<p>接下来编写与服务器端连接的函数Client和转发数据的函数Forward</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Client</span><span class="params">(CHOST,CPORT)</span>:</span></span><br><span class="line">    c = socket(AF_INET,SOCK_STREAM)</span><br><span class="line">    c.connect((CHOST,CPORT))</span><br><span class="line">    <span class="keyword">return</span> c</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Forward</span><span class="params">(c,cmd)</span>:</span></span><br><span class="line">    c.send(cmd)</span><br><span class="line">    result = c.recv(<span class="number">1024</span>)</span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+<p>参数CHOST和CPORT是服务器端的IP和端口</p>
+<p>再编写主函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        LPORT = int(sys.argv[<span class="number">1</span>])</span><br><span class="line">        CHOST = sys.argv[<span class="number">2</span>]</span><br><span class="line">        CPORT = int(sys.argv[<span class="number">3</span>])</span><br><span class="line">        Server(LPORT,CHOST,CPORT)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        usage()</span><br></pre></td></tr></table></figure>
+<p>这里用到了sys标准库的sys.argv[]，简单地说就是我们在cmd中输入执行python程序时获取的参数，假如我们在cmd命令行中输入test.py aaa bbb，那么sys.argv[0]就代表了字符串’test.py’，sys.argv[1]代表了字符串’aaa’，同理sys.argv[2]代表了字符串’bbb’，所以我们要执行这个代理的程序，不仅要输入python程序的文件名，还要同时输入三个参数，否则就出错而执行usage函数，我们就定义usage函数为这个程序的用法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">usage</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'TCPProxy.py [ListenedPORT] [ConnectedHOST] [ConnectedPORT]'</span>)</span><br></pre></td></tr></table></figure>
+<p>说明了执行这个代理程序应当输入的格式</p>
+<p>下面附上代理端完整的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">usage</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'TCPProxy.py [ListenedPORT] [ConnectedHOST] [ConnectedPORT]'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Server</span><span class="params">(LPORT,CHOST,CPORT)</span>:</span></span><br><span class="line">    c = Client(CHOST,CPORT)</span><br><span class="line">    s = socket(AF_INET,SOCK_STREAM)</span><br><span class="line">    s.bind((<span class="string">'localhost'</span>,LPORT))</span><br><span class="line">    s.listen(<span class="number">5</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        sock,addr = s.accept()</span><br><span class="line">        print(<span class="string">'Connected By'</span>,addr)</span><br><span class="line">        sock.send(str.encode(<span class="string">'Welcome to TCPProxy!'</span>))</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            cmd = sock.recv(<span class="number">1024</span>)</span><br><span class="line">            <span class="keyword">if</span> bytes.decode(cmd) == <span class="string">'exit'</span>:</span><br><span class="line">                print(<span class="string">'TCPClient '</span>+addr+<span class="string">' has lost'</span>)</span><br><span class="line">                Forward(c,cmd)</span><br><span class="line">                c.close()</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            print(<span class="string">'The command from TCPClient is: '</span>+bytes.decode(cmd))</span><br><span class="line">            result = Forward(c,cmd)</span><br><span class="line">            print(<span class="string">'The result from TCPServer is: '</span>+bytes.decode(result))</span><br><span class="line">            sock.send(result)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Client</span><span class="params">(CHOST,CPORT)</span>:</span></span><br><span class="line">    c = socket(AF_INET,SOCK_STREAM)</span><br><span class="line">    c.connect((CHOST,CPORT))</span><br><span class="line">    <span class="keyword">return</span> c</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Forward</span><span class="params">(c,cmd)</span>:</span></span><br><span class="line">    c.send(cmd)</span><br><span class="line">    result = c.recv(<span class="number">1024</span>)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        LPORT = int(sys.argv[<span class="number">1</span>])</span><br><span class="line">        CHOST = sys.argv[<span class="number">2</span>]</span><br><span class="line">        CPORT = int(sys.argv[<span class="number">3</span>])</span><br><span class="line">        Server(LPORT,CHOST,CPORT)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        usage()</span><br><span class="line"></span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-07-23T03:56:44.075Z" itemprop="dateUpdated">2018-07-23 11:56:44</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/41404/" target="_blank" rel="external">https://Foxgrin.github.io/posts/41404/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/41404/&title=《Python网络编程(一)》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/41404/&title=《Python网络编程(一)》 — Somnus's blog&source=Socket是网络编程的一个非常重要的基础，而Python的Socket标准库也提供了非常完善且易用的语法，这篇文章简单介绍一下Socket库的基本用法，..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/41404/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Python网络编程(一)》 — Somnus's blog&url=https://Foxgrin.github.io/posts/41404/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/41404/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/24856/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：Python网络编程(二)
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/26030/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：Python正则表达式">下一篇：Python正则表达式</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/41404/&title=《Python网络编程(一)》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/41404/&title=《Python网络编程(一)》 — Somnus's blog&source=Socket是网络编程的一个非常重要的基础，而Python的Socket标准库也提供了非常完善且易用的语法，这篇文章简单介绍一下Socket库的基本用法，..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/41404/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Python网络编程(一)》 — Somnus's blog&url=https://Foxgrin.github.io/posts/41404/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/41404/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByElEQVR42u3aO27DMBAFQN//0g6QKkFi5b2lRNvBsHIhkSMXi/3wdovX/XN9/f1zPXryeJ/bFQsXF3eZez9cP585Pjj5jPwv+OWTcHFxN3Lb4HX8wfluuQEXF/c1uUlqkrBwcXH/H/e4HjneGRcX9724682OvIBJAtwJtRouLu4Cd9YwPff35f1dXFzck6YSebOjTXGGp+Pi4m7hzgqSs6B51IoOxsXFPYmbj0JnhUqy2zDFwcXFvZibhJ7Zkck1jmKgi4uL+1Rucumq/cgTxq64uLjbubPg1SYx7Rjm21u4uLhP4uYJR57i5M2UW7sdLi7uRu7KkDUvbOoCDBcXdwu3TUpmF7DagcofYQ4XF/di7izEJAlKDi3SKVxc3C3cWdnTHtNe9irSL1xc3Au47RZtayMJlEU5hIuLu507S3RWglp7RQMXF3cPd2XlbZQZ4mQ0Li5uzL2Xqz04v6RVXNnExcW9mLsSttaTlXysgouLu5/bBq+2HFoJZEUvBxcX9wLuLNAkI9VZBMXFxX0X7nGi0z7TFl24uLivz20vaszeXerU4uLiLnPb4qcuWsrhykM6Li7uFu5SKRK0OfKPmY1kcHFxT+V+APEie4qDk6a2AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

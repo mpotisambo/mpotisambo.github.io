@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Linux的文件权限与目录配置 | Somnus&#39;s blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="Linux">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="Linux">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux的文件权限与目录配置">
+<meta property="og:url" content="https://Foxgrin.github.io/posts/26833/index.html">
+<meta property="og:site_name" content="Somnus&#39;s blog">
+<meta property="og:description" content="Linux">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-14T12:00:06.873Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux的文件权限与目录配置">
+<meta name="twitter:description" content="Linux">
+    
+        <link rel="alternate" type="application/atom+xml" title="Somnus&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang/1.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">Somnus</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:823263808@qq.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Foxgrin" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="微博" href="https://weibo.com/u/6018528806" target="_blank"title="微博" >
+                <i class="icon icon-lg icon-weibo weibo"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Linux的文件权限与目录配置</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#用户与用户组"><span class="post-toc-number">1.</span> <span class="post-toc-text">用户与用户组</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-文件拥有者"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">1.文件拥有者</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-用户组"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">2.用户组</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-其他人"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">3.其他人</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Linux文件权限概念"><span class="post-toc-number">2.</span> <span class="post-toc-text">Linux文件权限概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-Linux文件属性"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">1.Linux文件属性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#第一栏：文件类型权限"><span class="post-toc-number">2.1.1.</span> <span class="post-toc-text">第一栏：文件类型权限</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#第二栏：链接数"><span class="post-toc-number">2.1.2.</span> <span class="post-toc-text">第二栏：链接数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#第三栏：文件的拥有者"><span class="post-toc-number">2.1.3.</span> <span class="post-toc-text">第三栏：文件的拥有者</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#第四栏：文件所属的用户组"><span class="post-toc-number">2.1.4.</span> <span class="post-toc-text">第四栏：文件所属的用户组</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#第五栏：文件大小"><span class="post-toc-number">2.1.5.</span> <span class="post-toc-text">第五栏：文件大小</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#第六栏：文件创建日期或最后被修改的日期"><span class="post-toc-number">2.1.6.</span> <span class="post-toc-text">第六栏：文件创建日期或最后被修改的日期</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#第七栏：文件名"><span class="post-toc-number">2.1.7.</span> <span class="post-toc-text">第七栏：文件名</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-修改文件属性与权限"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">2.修改文件属性与权限</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#修改所属用户组"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">修改所属用户组</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#修改文件拥有者"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">修改文件拥有者</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#修改文件权限"><span class="post-toc-number">2.2.3.</span> <span class="post-toc-text">修改文件权限</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#数字类型修改文件权限"><span class="post-toc-number">2.2.3.1.</span> <span class="post-toc-text">数字类型修改文件权限</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#符号类型修改文件权限"><span class="post-toc-number">2.2.3.2.</span> <span class="post-toc-text">符号类型修改文件权限</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-目录与文件的权限意义"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">3.目录与文件的权限意义</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#权限对文件的意义"><span class="post-toc-number">2.3.1.</span> <span class="post-toc-text">权限对文件的意义</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#权限对目录的意义"><span class="post-toc-number">2.3.2.</span> <span class="post-toc-text">权限对目录的意义</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-Linux的文件权限与目录配置"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Linux的文件权限与目录配置</h1>
+        <div class="post-meta">
+            <i class="icon icon-lg icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2019-03-06 18:16:00" datetime="2019-03-06T10:16:00.000Z"  itemprop="datePublished">2019-03-06</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Linux/">Linux</a></li></ul>
+
+
+            <i>·</i>
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            阅读本文可能花费您&nbsp;<span class="post-count">6</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Linux一般将文件可读写的身份分为3个类别，分别是拥有者（owner），所属群组（group），其他人（others），且三种身份各有读（read），写（write），执行（execute）等权限。<a id="more"></a></p>
+<h2 id="用户与用户组"><a href="#用户与用户组" class="headerlink" title="用户与用户组"></a>用户与用户组</h2><h3 id="1-文件拥有者"><a href="#1-文件拥有者" class="headerlink" title="1.文件拥有者"></a>1.文件拥有者</h3><p>即用户，通常分为<strong>root</strong>和一般身份的用户，所有用户的相关信息都记录在<strong>/etc/passwd</strong>这个文件内，用户的密码则是记录在<strong>etc/shadow</strong>文件中</p>
+<h3 id="2-用户组"><a href="#2-用户组" class="headerlink" title="2.用户组"></a>2.用户组</h3><p>用户组中有若干用户，组名记录在<strong>/etc/group</strong>文件中</p>
+<h3 id="3-其他人"><a href="#3-其他人" class="headerlink" title="3.其他人"></a>3.其他人</h3><h2 id="Linux文件权限概念"><a href="#Linux文件权限概念" class="headerlink" title="Linux文件权限概念"></a>Linux文件权限概念</h2><h3 id="1-Linux文件属性"><a href="#1-Linux文件属性" class="headerlink" title="1.Linux文件属性"></a>1.Linux文件属性</h3><p>使用<code>ls -al</code>命令查看当前目录下的所有文件（包括以<code>.</code>开头的隐藏文件）和目录及其相关属性与权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# ls -al</span><br><span class="line">total 64</span><br><span class="line">drwx------ 11 root root 4096 Mar  5 19:43 .</span><br><span class="line">drwxr-xr-x 24 root root 4096 Apr  8  2018 ..</span><br><span class="line">-rw-------  1 root root  391 Mar  5 22:59 .bash_history</span><br><span class="line">-rw-r--r--  1 root root 3106 Apr 19  2012 .bashrc</span><br><span class="line">drwx------  3 root root 4096 Apr  8  2018 .cache</span><br><span class="line">drwx------  6 root root 4096 Apr  8  2018 .config</span><br><span class="line">drwx------  3 root root 4096 Dec 30 00:28 .dbus</span><br><span class="line">drwx------  2 root root 4096 Apr 23  2018 .gconf</span><br><span class="line">drwx------  2 root root 4096 Apr  8  2018 .gvfs</span><br><span class="line">drwxr-xr-x  3 root root 4096 Apr  8  2018 .local</span><br><span class="line">drwxr-xr-x  2 root root 4096 May 15  2018 .oracle_jre_usage</span><br><span class="line">-rw-r--r--  1 root root  140 Apr 19  2012 .profile</span><br><span class="line">drwx------  2 root root 4096 Dec 29 22:32 .pulse</span><br><span class="line">-rw-------  1 root root  256 Apr  8  2018 .pulse-cookie</span><br><span class="line">drwxr-xr-x  3 root root 4096 May 15  2018 .swt</span><br><span class="line">-rw-------  1 root root  858 Mar  5 19:43 .viminfo</span><br></pre></td></tr></table></figure>
+<p>以<strong>.config</strong>文件为例说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">drwx------    6    root  root  4096  Apr  8  2018 .config</span><br><span class="line">[    1    ]  [2]   [3]   [4]   [5]   [    6    ]   [  7  ]</span><br></pre></td></tr></table></figure>
+<p>信息分为7栏，每栏的意义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[1]：文件类型权限</span><br><span class="line">[2]：链接数</span><br><span class="line">[3]：文件拥有者</span><br><span class="line">[4]：文件所属用户组</span><br><span class="line">[5]：文件大小</span><br><span class="line">[6]：文件最后被修改的时间</span><br><span class="line">[7]：文件名</span><br></pre></td></tr></table></figure>
+<h4 id="第一栏：文件类型权限"><a href="#第一栏：文件类型权限" class="headerlink" title="第一栏：文件类型权限"></a>第一栏：文件类型权限</h4><p>共有<strong>十个</strong>字符</p>
+<p><strong>第一个</strong>字符代表这个文件是<strong>目录，文件或链接文件</strong>等</p>
+<p><code>[d]</code>代表目录，<code>[-]</code>代表文件，<code>[l]</code>表示链接文件</p>
+<p>接下来的字符，以<strong>三个</strong>为<strong>一组</strong>，且均为<code>[rwx]</code>的三个参数的组合，其中<code>[r]</code>代表<strong>可读</strong>（read），<code>[w]</code>代表<strong>可写</strong>（write），<code>[x]</code>代表<strong>可执行</strong>（execute），如果没有权限则会出现减号<code>[-]</code>。第一组代表<strong>文件拥有者可具备的权限</strong>，第二组代表<strong>加入此用户组之账号的权限</strong>，第三组代表<strong>非本人且没有加入本用户组的其他账号的权限</strong></p>
+<p>十个字符整理如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-rwxr-xr--</span><br></pre></td></tr></table></figure>
+<p>意义是这是一个文件，文件拥有者具有可读，可写和可执行的权限。同用户组的用户具有可读和可执行的权限，其他用户具有只读的权限</p>
+<h4 id="第二栏：链接数"><a href="#第二栏：链接数" class="headerlink" title="第二栏：链接数"></a>第二栏：链接数</h4><p>每个文件都会讲它的权限与属性记录到文件系统的<strong>inode</strong>中，这个属性记录的就是有多少不同的文件名链接到同一个inode中</p>
+<h4 id="第三栏：文件的拥有者"><a href="#第三栏：文件的拥有者" class="headerlink" title="第三栏：文件的拥有者"></a>第三栏：文件的拥有者</h4><h4 id="第四栏：文件所属的用户组"><a href="#第四栏：文件所属的用户组" class="headerlink" title="第四栏：文件所属的用户组"></a>第四栏：文件所属的用户组</h4><p>在Linux系统中，你的账号会加入一个或多个用户组中，假如用户组具有可读可写权限，则该用户组中的每个用户都具有可读可写权限</p>
+<h4 id="第五栏：文件大小"><a href="#第五栏：文件大小" class="headerlink" title="第五栏：文件大小"></a>第五栏：文件大小</h4><p>默认单位为<strong>Bytes</strong></p>
+<h4 id="第六栏：文件创建日期或最后被修改的日期"><a href="#第六栏：文件创建日期或最后被修改的日期" class="headerlink" title="第六栏：文件创建日期或最后被修改的日期"></a>第六栏：文件创建日期或最后被修改的日期</h4><h4 id="第七栏：文件名"><a href="#第七栏：文件名" class="headerlink" title="第七栏：文件名"></a>第七栏：文件名</h4><h3 id="2-修改文件属性与权限"><a href="#2-修改文件属性与权限" class="headerlink" title="2.修改文件属性与权限"></a>2.修改文件属性与权限</h3><p><code>chgrp</code>：修改文件所属用户组</p>
+<p><code>chown</code>：修改文件拥有者</p>
+<p><code>chmod</code>：修改文件权限</p>
+<h4 id="修改所属用户组"><a href="#修改所属用户组" class="headerlink" title="修改所属用户组"></a>修改所属用户组</h4><p>使用<code>chgrp</code>命令，前提是修改的用户组必须在<strong>/etc/group</strong>文件中存在才行，命令格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# chgrp groupname dirname/filename</span><br><span class="line">root@ubuntu:~# chgrp test .config</span><br></pre></td></tr></table></figure>
+<h4 id="修改文件拥有者"><a href="#修改文件拥有者" class="headerlink" title="修改文件拥有者"></a>修改文件拥有者</h4><p>使用<code>chown</code>命令，前提修改的用户必须在<strong>/etc/passwd</strong>文件中存在才行，命令格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# chown 账号名称 文件或目录</span><br><span class="line">root@ubuntu:~# chown 账号名称：用户组名称 文件或目录</span><br><span class="line">root@ubuntu:~# chown test01 .config</span><br><span class="line">root@ubuntu:~# chown test01:test .config</span><br></pre></td></tr></table></figure>
+<h4 id="修改文件权限"><a href="#修改文件权限" class="headerlink" title="修改文件权限"></a>修改文件权限</h4><p>使用<code>chmod</code>命令，设置方法有两种，分别可以用数字或是符号来进行权限的修改</p>
+<h5 id="数字类型修改文件权限"><a href="#数字类型修改文件权限" class="headerlink" title="数字类型修改文件权限"></a>数字类型修改文件权限</h5><p>各权限的数字对照表如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">r：4</span><br><span class="line">w：2</span><br><span class="line">x：1</span><br></pre></td></tr></table></figure>
+<p>每种身份（owner，group，others）各自的三个权限（r，m，x）数字是需要<strong>累加</strong>的，例如当权限为：<code>[-rwxrwx---]</code>数字则是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">owner = rwx = 4+2+1 = 7</span><br><span class="line">group = rwx = 4+2+1 = 7</span><br><span class="line">others = --- = 0+0+0 = 0</span><br></pre></td></tr></table></figure>
+<p>所以我们设置权限时，该文件的权限数字就是<strong>770</strong>，chmod语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# chmod xyz 文件或目录</span><br><span class="line">root@ubuntu:~# chmod 777 .config</span><br></pre></td></tr></table></figure>
+<h5 id="符号类型修改文件权限"><a href="#符号类型修改文件权限" class="headerlink" title="符号类型修改文件权限"></a>符号类型修改文件权限</h5><p>格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# chmod 身份 权限操作 权限 文件或目录</span><br></pre></td></tr></table></figure>
+<p>参数具体为：</p>
+<p>（1）身份：<code>u</code>即user，<code>g</code>即用户组，<code>o</code>即其他人，<code>a</code>代表全部身份</p>
+<p>（2）权限操作：<code>+</code>即加入，<code>-</code>即移除，<code>=</code>即设置</p>
+<p>（3）权限：<code>rmx</code></p>
+<p>例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# chmod u=rwx,go=rx .config</span><br></pre></td></tr></table></figure>
+<h3 id="3-目录与文件的权限意义"><a href="#3-目录与文件的权限意义" class="headerlink" title="3.目录与文件的权限意义"></a>3.目录与文件的权限意义</h3><h4 id="权限对文件的意义"><a href="#权限对文件的意义" class="headerlink" title="权限对文件的意义"></a>权限对文件的意义</h4><p>r（read）：可读取此文件的实际内容</p>
+<p>w（write）：可以编辑，新增或是修改该文件的内容（但不含删除该文件）</p>
+<p>x（execute）：该文件具有可以被系统执行的权限</p>
+<h4 id="权限对目录的意义"><a href="#权限对目录的意义" class="headerlink" title="权限对目录的意义"></a>权限对目录的意义</h4><p>r（read）：表示具有读取目录结构列表的权限，如使用ls命令将该目录的内容列表显示出来</p>
+<p>w（write）：具有改动该目录结构列表的权限</p>
+<p>x（execute）：用户具有进入该目录的权限，如使用cd命令进入某个目录列表</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-03-14T12:00:06.873Z" itemprop="dateUpdated">2019-03-14 20:00:06</time>
+</span>
+
+
+        
+        原文链接：<a href="/posts/26833/" target="_blank" rel="external">https://Foxgrin.github.io/posts/26833/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='https://Foxgrin.github.io'">
+            <img src="/img/touxiang/1.jpg" alt="Somnus">
+            <a>Somnus</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/26833/&title=《Linux的文件权限与目录配置》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/26833/&title=《Linux的文件权限与目录配置》 — Somnus's blog&source=Linux一般将文件可读写的身份分为3个类别，分别是拥有者（owner），所属群组（group），其他人（others），且三种身份各有读（read），写..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/26833/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux的文件权限与目录配置》 — Somnus's blog&url=https://Foxgrin.github.io/posts/26833/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/26833/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/5187/" id="post-prev" class="post-nav-link">
+        <h4 class="title" >
+          上一篇：Linux文件与目录管理
+        </h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/49857/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：文件上传漏洞--upload-labs">下一篇：文件上传漏洞--upload-labs</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2018
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="https://Foxgrin.github.io">Somnus</a>
+            <br/>
+            Power by
+            <a href="https://hexo.io/" target="_blank" rel="external nofollow">Hexo</a>&nbsp;·&nbsp;
+            Theme
+            <a class="tomotoeslink" href="https://github.com/tomotoes/hexo-theme-tomotoes/" target="_blank" rel="external nofollow">tomotoes</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+<span id="busuanzi_container_site_uv" style='display:none'>
+       访问用户：<span id="busuanzi_value_site_uv"></span>
+    </span>人</i>
+    ·
+    <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+      访问次数：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+    </i>
+
+
+        </span>
+        <br/>
+
+        <span class="license">This blog is licensed under a <a rel="license" rel="external nofollow" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weixin.png" data-alipay="/img/zhifubao.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://Foxgrin.github.io/posts/26833/&title=《Linux的文件权限与目录配置》 — Somnus's blog&pic=https://Foxgrin.github.io/img/touxiang/1.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Foxgrin.github.io/posts/26833/&title=《Linux的文件权限与目录配置》 — Somnus's blog&source=Linux一般将文件可读写的身份分为3个类别，分别是拥有者（owner），所属群组（group），其他人（others），且三种身份各有读（read），写..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://Foxgrin.github.io/posts/26833/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux的文件权限与目录配置》 — Somnus's blog&url=https://Foxgrin.github.io/posts/26833/&via=https://Foxgrin.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://Foxgrin.github.io/posts/26833/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxklEQVR42u3aMXLDMAwEQP//00qbIpbvCImxZpaVC0nccYEhDny94nX8WufPJM8nXxstXFzcMfc4Xe0GCfH8+++ewcXF3c9NCtP5W+fbnxeyxICLi/tE7ryQ4eLiPpebNzZts4SLi/tt3LzQTOKP5DuX9Wq4uLgDbp5S3vf7lnwXFxd3iXuUqy06k+/88RYuLu4Wbl5QJqw2JP0wjsXFxd3IzTdIwo42Fim+gIuLu517bWyRjF3rXXBxcbdw10ah+RWutRg0Ogzh4uLexl27SJEcktaSz8VeDRcX91Ju0gK1zdJkRFofbnBxcS/ltpFHG24mR6I8IsHFxd3DTaBJM7MWcLRjXVxc3P/itg1M/oU8QCkKGS4u7s3cpL9Ifs8boQ/JLi4u7nZue2Vqsv3ihQ9cXNyN3HwsunaUad8tejVcXNybuXnksXYJoy18ixNaXFzcAfco19qlikmYgouLu587H6C2x5ci/piMfnFxccfcesxZhq35Ra7oH8XFxd3InVPauKQd3+Li4j6LW28ZlLM6NcHFxf0CbjtEWRvQvh2l4OLibuFOBqtJ/NEOXy8YsuLi4g64bSlZG6bm268NcnBxcS/i/gCTTAsJIqFgYgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2018/7/9");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "Somnus");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 一个坏掉的番茄 %c  © Simon Ma  http://tomotoes.com \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+</body>
+</html>
